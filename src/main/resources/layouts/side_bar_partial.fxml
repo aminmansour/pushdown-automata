@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.FlowPane?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" id="side-bar" xmlns="http://javafx.com/javafx/8.0.121" fx:controller="view.partials.ToolBarPartial" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+       <Button mnemonicParsing="false" text="Home"  styleClass="side-tool-buttons" onAction="#switchToHome">
+           <graphic>
+               <FontIcon iconLiteral="icm-home" iconSize="32" iconColor="#ffffff"/>
+           </graphic>
+       </Button>
+       <Button mnemonicParsing="false" text="Library"  styleClass="side-tool-buttons" >
+          <graphic>
+              <FontIcon iconLiteral="icm-upload3" iconSize="30" iconColor="#ffffff"/>
+          </graphic>
+      </Button>
+       <Button mnemonicParsing="false" text="Help"  styleClass="side-tool-buttons" >
+           <graphic>
+               <FontIcon iconLiteral="icm-question" iconSize="32" iconColor="#ffffff"/>
+           </graphic>
+       </Button>
+       <Button mnemonicParsing="false" text="About"  styleClass="side-tool-buttons" >
+           <graphic>
+               <FontIcon iconLiteral="icm-user" iconSize="32" iconColor="#ffffff"/>
+           </graphic>
+       </Button>
+
+
+   </children>
+</FlowPane>

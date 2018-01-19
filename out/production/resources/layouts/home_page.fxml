@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import org.kordamp.ikonli.javafx.StackedFontIcon?>
+
+<BorderPane fx:controller="view.pages.Home" fx:id="home" xmlns:fx="http://javafx.com/fxml">
+        <center>
+            <VBox spacing="30" id="home-grid">
+                <HBox maxWidth="Infinity" spacing="30" VBox.vgrow="ALWAYS" alignment="CENTER">
+                    <HBox maxWidth="Infinity" maxHeight="Infinity" HBox.hgrow="ALWAYS" alignment="CENTER" styleClass="home-boxes">
+                        <VBox styleClass="home-boxes-content" alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                            <Label text="CREATE BY DESIGN" textFill="#23aa76" styleClass="home-button-title"/>
+                            <TextArea  maxHeight="1" editable="false"/>
+                            <Label text="define your PDA using design!" textFill="#23aa76" />
+                            <Label mnemonicParsing="false" styleClass="home-button-icon">
+                                <graphic>
+                                    <FontIcon iconLiteral="fa-codepen" iconSize="114" iconColor="#23aa76"/>
+                                </graphic>
+                            </Label>
+                            <Button styleClass="green-button-theme" text="Enter" onAction="#switchToCodeRunner"/>
+                        </VBox>
+                    </HBox>
+
+                    <HBox maxWidth="Infinity" maxHeight="Infinity" HBox.hgrow="ALWAYS" alignment="CENTER" styleClass="home-boxes">
+                        <VBox styleClass="home-boxes-content" alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                            <Label text="CREATE BY CODE" textFill="#23aa76" styleClass="home-button-title"/>
+                            <TextArea  maxHeight="1" editable="false"/>
+                            <Label text="define your PDA using code!" textFill="#23aa76" />
+                            <Label mnemonicParsing="false" styleClass="home-button-icon">
+                                <graphic>
+                                    <FontIcon iconLiteral="fa-code" iconSize="114" iconColor="#23aa76"/>
+                                </graphic>
+                            </Label>
+                            <Button styleClass="green-button-theme" text="Enter"/>
+                        </VBox>
+                    </HBox>
+
+                    <HBox maxWidth="Infinity" maxHeight="Infinity" HBox.hgrow="ALWAYS" alignment="CENTER" styleClass="home-boxes">
+                        <VBox styleClass="home-boxes-content" alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                            <Label text="LOAD FROM LIBRARY" textFill="#23aa76" styleClass="home-button-title"/>
+                            <TextArea  maxHeight="1" editable="false"/>
+                            <Label text="load PDA from your library!" textFill="#23aa76" />
+                            <Label mnemonicParsing="false" styleClass="home-button-icon">
+                                <graphic>
+                                    <FontIcon iconLiteral="icm-upload3" iconSize="114" iconColor="#23aa76"/>
+                                </graphic>
+                            </Label>
+                            <Button styleClass="green-button-theme" text="Enter"/>
+                        </VBox>
+                    </HBox>
+                </HBox>
+            </VBox>
+        </center>
+    </BorderPane>
