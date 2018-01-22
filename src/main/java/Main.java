@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import view.pages.ViewFactory;
+import controller.ViewFactory;
 
 public class Main extends Application {
 
@@ -21,7 +21,8 @@ public class Main extends Application {
     private void setGlobalVariables(Stage primaryStage) throws java.io.IOException {
         ViewFactory.globalPane = (BorderPane) primaryStage.getScene().getRoot();
         ViewFactory.homePage = FXMLLoader.load(getClass().getResource("layouts/home_page.fxml"));
-        ViewFactory.codeRunnerPage = FXMLLoader.load(getClass().getResource("layouts/code_runner_page.fxml"));
+        ViewFactory.codeDefinition = FXMLLoader.load(getClass().getResource("layouts/code_definition_page.fxml"));
+        ViewFactory.pdaRunner = FXMLLoader.load(getClass().getResource("layouts/pda_runner_page.fxml"));
         ViewFactory.stage = primaryStage;
     }
 

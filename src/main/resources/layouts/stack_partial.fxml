@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <HBox maxHeight="Infinity" maxWidth="300" minWidth="200" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="BOTTOM_CENTER" maxWidth="Infinity">
+                    <children>
+                        <GridPane id="gpTopLocation" alignment="BOTTOM_RIGHT" maxWidth="Infinity">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                     <children>
+                        <Label id="lTopPointer" text="Top &gt;" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+                           <font>
+                              <Font name="Nirmala UI Bold" size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                        </GridPane>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+                <VBox alignment="BOTTOM_CENTER" maxWidth="Infinity" HBox.hgrow="ALWAYS">
+                    <children>
+                        <GridPane id="gpStack" alignment="BOTTOM_RIGHT" gridLinesVisible="true">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="5" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                     <children>
+                        <Label text="A" GridPane.halignment="CENTER" />
+                     </children>
+                        </GridPane>
+                    </children>
+                    <padding>
+                        <Insets bottom="10.0" right="10.0" top="10.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+   <!--<bottom>-->
+      <!--<FlowPane alignment="TOP_CENTER" maxWidth="Infinity" style="-fx-background-color: #AAA;" BorderPane.alignment="CENTER">-->
+         <!--<children>-->
+            <!--<Label text="Stack" textFill="WHITE">-->
+               <!--<font>-->
+                  <!--<Font name="Nirmala UI Bold" size="18.0" />-->
+               <!--</font>-->
+               <!--<padding>-->
+                  <!--<Insets left="20.0" top="5.0" />-->
+               <!--</padding>-->
+            <!--</Label>-->
+         <!--</children>-->
+         <!--<opaqueInsets>-->
+            <!--<Insets bottom="5.0" />-->
+         <!--</opaqueInsets>-->
+         <!--<BorderPane.margin>-->
+            <!--<Insets />-->
+         <!--</BorderPane.margin>-->
+         <!--<padding>-->
+            <!--<Insets bottom="3.0" />-->
+         <!--</padding>-->
+      <!--</FlowPane>-->
+   <!--</bottom>-->
+</BorderPane>

@@ -9,7 +9,7 @@
 <?import org.kordamp.ikonli.javafx.StackedFontIcon?>
 
 <?import javafx.scene.layout.FlowPane?>
-<HBox id="tool-bar" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.partials.ToolBarPartial">
+<HBox id="tool-bar" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ToolBarPartialController">
    <FlowPane orientation="HORIZONTAL" alignment="TOP_LEFT">
     <TextFlow>
         <Text styleClass="logo-text" text="Pushdown ">

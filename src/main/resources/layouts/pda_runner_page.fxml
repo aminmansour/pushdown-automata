@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane id="pda-runner-page" maxHeight="Infinity" maxWidth="Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PDARunnerController">
+
+
+    <!--<right>-->
+        <!--<fx:include source="stack_partial.fxml"></fx:include>-->
+    <!--</right>-->
+
+    <left>
+        <fx:include source="user_input_partial.fxml" />
+    </left>
+
+    <bottom>
+        <fx:include source="tape_display_partial.fxml" />
+    </bottom>
+
+    <center>
+        <fx:include source="pda_display_partial.fxml" />
+    </center>
+
+</BorderPane>

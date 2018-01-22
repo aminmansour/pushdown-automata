@@ -12,7 +12,7 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import org.kordamp.ikonli.javafx.StackedFontIcon?>
 
-<BorderPane fx:controller="view.pages.Home" fx:id="home" xmlns:fx="http://javafx.com/fxml">
+<BorderPane fx:controller="controller.HomeController" fx:id="home" xmlns:fx="http://javafx.com/fxml">
         <center>
             <VBox spacing="30" id="home-grid">
                 <HBox maxWidth="Infinity" spacing="30" VBox.vgrow="ALWAYS" alignment="CENTER">
@@ -26,7 +26,7 @@
                                     <FontIcon iconLiteral="fa-codepen" iconSize="114" iconColor="#23aa76"/>
                                 </graphic>
                             </Label>
-                            <Button styleClass="green-button-theme" text="Enter" onAction="#switchToCodeRunner"/>
+                            <Button styleClass="green-button-theme" text="Enter" onAction="#switchToCodeDefinition"/>
                         </VBox>
                     </HBox>
 
@@ -40,7 +40,7 @@
                                     <FontIcon iconLiteral="fa-code" iconSize="114" iconColor="#23aa76"/>
                                 </graphic>
                             </Label>
-                            <Button styleClass="green-button-theme" text="Enter"/>
+                            <Button styleClass="green-button-theme" text="Enter" onAction="#switchToPDARunner"/>
                         </VBox>
                     </HBox>
 

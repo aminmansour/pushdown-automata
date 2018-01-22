@@ -166,7 +166,7 @@
 }
 
 
---code-runner
+/*--code-definition*/
 
 #taTransitions{
     -fx-background-insets: 0;
@@ -230,4 +230,69 @@
 
 #lClearTransitions:hover{
     -fx-underline: true;
+}
+
+
+/*--pda-runner*/
+
+#bpTape {
+    -fx-background-color: #fdfdfd;
+}
+
+#userInputPartial *{
+    -fx-font-size: 12px;
+}
+
+
+
+#pda-display-partial{
+    -fx-background-color: white;
+}
+
+#pda-runner-page,#userInputPartial{
+    -fx-background-color: #d1d1d1;
+}
+
+#taInput{
+    -fx-focus-color: #249c6d;
+    -fx-faint-focus-color: rgba(22, 105, 72, 0.13);
+}
+
+
+.table-view .column-header {
+
+}
+
+.table-view .filler{
+    -fx-background-color: white;
+
+}
+
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler {
+    -fx-background-color: white;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #a7a7a7;
+}
+
+.table-view .column-header-background .label{
+    -fx-text-fill: #868686;
+}
+
+#transitionBox,#userInputBox{
+    -fx-background-color: white;
+}
+
+.pTapeCell{
+    -fx-border-width: 1px;
+    -fx-border-color: #ffffff;
+}
+
+.pTapeCell Label{
+    -fx-text-fill: white;
+}
+
+#gpTape{
+    -fx-background-color: #2ab27b;
 }
