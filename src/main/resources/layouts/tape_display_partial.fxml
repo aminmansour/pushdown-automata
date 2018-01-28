@@ -9,20 +9,23 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="bpTape" maxHeight="300" maxWidth="Infinity" minHeight="200" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="bpTape" maxHeight="191" maxWidth="Infinity" minHeight="191" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <BorderPane.margin>
         <Insets bottom="5.0" left="5.0" right="5.0" />
     </BorderPane.margin>
+
     <bottom>
         <HBox alignment="CENTER" maxWidth="Infinity" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
-                <Label id="lCurrentState" text="Current state : a" />
-                <Label id="lStackTop" text="Top stack symbol : " />
-                <Label id="lHeadSymbol" text="Symbol at head: " />
-                <Label id="lCurrentConfiguration" text="Current configuration : " />
+                <Label id="lCurrentState" text="Current state : none" textFill="#4a4848" />
+                <Label id="lStackTop" text="Top stack symbol : none" textFill="#4a4848" />
+                <Label id="lHeadSymbol" text="Symbol at head : none" textFill="#4a4848" />
+                <Label id="lCurrentConfiguration" text="Current configuration : none" textFill="#4a4848">
+               <font>
+                  <Font name="Nirmala UI" size="15.0" />
+               </font></Label>
             </children>
         </HBox>
     </bottom>
@@ -30,72 +33,92 @@
         <VBox maxWidth="Infinity">
             <GridPane id="gpStepLocation" VBox.vgrow="SOMETIMES">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+               <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+               <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+               <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+               <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+               <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints />
+                    <RowConstraints valignment="BOTTOM" vgrow="ALWAYS" />
                     <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
 
                 </rowConstraints>
                 <children>
-                    <Label id="lStep" text="Step 0" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM" />
+                    <Label id="lStep" alignment="BOTTOM_CENTER" text="Step 0" textFill="#4a4848" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                  <font>
+                     <Font name="Nirmala UI" size="15.0" />
+                  </font></Label>
                 </children>
             </GridPane>
 
 
-            <GridPane id="gpTape" VBox.vgrow="ALWAYS">
+            <GridPane id="gpTape" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                 <columnConstraints>
-                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.3" />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
+               <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
+               <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
+               <ColumnConstraints hgrow="ALWAYS"  percentWidth="8.3" />
+               <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
+               <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
+               <ColumnConstraints />
                 </columnConstraints>
                 <rowConstraints>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 </rowConstraints>
             <children>
-                <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="0" GridPane.halignment="CENTER">
-                    <Label text="A">
-                        <font>
-                            <Font size="44.0"/>
-                        </font>
-                    </Label>
+                <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" styleClass="pTapeCell" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS">
+
                 </StackPane>
-               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="1" />
-               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="2" />
-               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="3" />
-               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="4" />
-               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="5" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" styleClass="pTapeCell" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="3" GridPane.hgrow="ALWAYS" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="5" GridPane.hgrow="ALWAYS" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="6" GridPane.hgrow="ALWAYS" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="7" GridPane.hgrow="ALWAYS" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="8" GridPane.hgrow="ALWAYS" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="9" GridPane.hgrow="ALWAYS" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="pTapeCell" GridPane.columnIndex="10" GridPane.hgrow="ALWAYS" />
+               <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" styleClass="pTapeCell" GridPane.columnIndex="11" GridPane.hgrow="ALWAYS" />
 
             </children>
             </GridPane>
-            <GridPane id="gpPointerLocation" alignment="CENTER" maxHeight="55.0" maxWidth="Infinity" VBox.vgrow="ALWAYS">
+            <GridPane id="gpPointerLocation"   maxWidth="Infinity" VBox.vgrow="ALWAYS">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="5.0" prefHeight="5.0" valignment="TOP" vgrow="SOMETIMES" />
 
                 </rowConstraints>
-                <children>
-                    <SVGPath id="svgPointer" content="M 50,5 95,97.5 5,97.5 z" fill="#5e5757" scaleX="0.3" scaleY="0.3" GridPane.halignment="CENTER">
-                        <GridPane.margin>
-                            <Insets />
-                        </GridPane.margin>
-                    </SVGPath>
-                </children>
+            <children>
+               <StackPane  id="spTapePointer" alignment="TOP_LEFT" maxHeight="5.0" maxWidth="1.7976931348623157E308" prefHeight="5.0">
+
+               </StackPane>
+            </children>
             </GridPane>
             <padding>
                 <Insets left="10.0" right="10.0" top="10.0" />

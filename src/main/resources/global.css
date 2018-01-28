@@ -38,7 +38,7 @@
 }
 
 #side-bar {
-    -fx-background-color: #607D8B;
+    -fx-background-color: #115670;
 
 }
 
@@ -92,7 +92,7 @@
     -fx-background-color: white;
     -fx-border-color: #4CAF50;
     -fx-border-width: 0px 0px 5px 0px;
-    -fx-max-height: 300px;
+    -fx-max-height: 500px;
     -fx-min-height:300px;
 }
 
@@ -235,21 +235,13 @@
 
 /*--pda-runner*/
 
-#bpTape {
-    -fx-background-color: #fdfdfd;
-}
 
-#userInputPartial *{
+#vbLeftBar *{
     -fx-font-size: 12px;
 }
 
 
-
-#pda-display-partial{
-    -fx-background-color: white;
-}
-
-#pda-runner-page,#userInputPartial{
+#bpPDARunnerPage,#vbLeftBar{
     -fx-background-color: #d1d1d1;
 }
 
@@ -272,16 +264,14 @@
 .table-view .column-header .filler,
 .table-view .column-header-background .filler {
     -fx-background-color: white;
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: #a7a7a7;
 }
 
-.table-view .column-header-background .label{
-    -fx-text-fill: #868686;
-}
 
-#transitionBox,#userInputBox{
+#transitionBox,#userInputBox,#actionToolBar,#pda-display-partial,#bpTape {
     -fx-background-color: white;
+    -fx-border-color: #c9c9c9;
+    -fx-border-width: 2px 2px 2px 2px;
+
 }
 
 .pTapeCell{
@@ -295,4 +285,23 @@
 
 #gpTape{
     -fx-background-color: #2ab27b;
+}
+
+#spTapePointer{
+    -fx-background-color: #b2b2b2;
+}
+
+.pda-action-button{
+    -fx-background-color: #fafafa;
+    -fx-text-fill: #616161;
+    -fx-border-color: #e6e6e6;
+    -fx-border-width: 1px 1px 1px 1px;
+}
+
+.pda-action-button:pressed{
+    -fx-background-color: #d9d9d9;
+}
+
+#bInstantRun,#bStepRun{
+    -fx-font-size: 14px;
 }

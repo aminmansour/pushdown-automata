@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" id="side-bar" xmlns="http://javafx.com/javafx/8.0.121" fx:controller="view.partials.ToolBarPartial" xmlns:fx="http://javafx.com/fxml/1">
+<FlowPane alignment="TOP_CENTER" columnHalignment="CENTER" orientation="VERTICAL" id="side-bar" xmlns="http://javafx.com/javafx/8.0.121" fx:controller="controller.ToolBarPartialController" xmlns:fx="http://javafx.com/fxml/1">
    <children>
        <Button mnemonicParsing="false" text="Home"  styleClass="side-tool-buttons" onAction="#switchToHome">
            <graphic>

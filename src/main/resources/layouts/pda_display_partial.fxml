@@ -8,28 +8,15 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane id="pda-display-partial" maxHeight="Infinity" maxWidth="Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-   <BorderPane.margin>
-      <Insets bottom="5.0" right="5.0" top="5.0" />
-   </BorderPane.margin>
-   <top>
-      <Label alignment="TOP_LEFT" text="Display" BorderPane.alignment="TOP_LEFT">
-         <font>
-            <Font name="Nirmala UI Bold" size="15.0" />
-         </font>
-         <opaqueInsets>
-            <Insets left="10.0" top="5.0" />
-         </opaqueInsets>
-         <padding>
-            <Insets left="10.0" top="5.0" />
-         </padding>
-      </Label>
-   </top>
+
+
    <center>
       <AnchorPane maxHeight="Infinity" maxWidth="Infinity" BorderPane.alignment="CENTER">
          <children>
-            <Circle fill="#3b3b3b" layoutX="110.0" layoutY="98.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
-            <Circle fill="#3b3b3b" layoutX="210.0" layoutY="128.0" radius="30.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fill="#8c8c8c" layoutX="110.0" layoutY="98.0" radius="30.0" stroke="#1f8f66" strokeType="INSIDE" />
+            <Circle fill="#9c9c9c" layoutX="210.0" layoutY="128.0" radius="30.0" stroke="#1f8f66" strokeType="INSIDE" />
          </children>
       </AnchorPane>
    </center>
-</BorderPane>
+
+  </BorderPane>
