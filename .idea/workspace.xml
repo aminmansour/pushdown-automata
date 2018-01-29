@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70f5351c-4f55-452c-8381-47a411c0932b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/controller/StackController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/resources/global.css" afterPath="$PROJECT_DIR$/out/production/resources/global.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/PDARunnerController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/PDARunnerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/TapeDisplayController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/TapeDisplayController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/UserInputBoxController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/UserInputBoxController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/PushDownStack.java" afterPath="$PROJECT_DIR$/src/main/java/model/PushDownStack.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/global.css" afterPath="$PROJECT_DIR$/src/main/resources/global.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/layouts/pda_runner_page.fxml" afterPath="$PROJECT_DIR$/src/main/resources/layouts/pda_runner_page.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/layouts/stack_partial.fxml" afterPath="$PROJECT_DIR$/src/main/resources/layouts/stack_partial.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -115,7 +107,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/global.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="545">
-              <caret line="319" column="23" lean-forward="false" selection-start-line="319" selection-start-column="23" selection-end-line="319" selection-end-column="23" />
+              <caret line="317" column="23" lean-forward="false" selection-start-line="317" selection-start-column="23" selection-end-line="317" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -128,7 +120,7 @@
           </provider>
           <provider editor-type-id="text-editor">
             <state relative-caret-position="190">
-              <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+              <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -154,9 +146,9 @@
           </provider>
           <provider editor-type-id="text-editor">
             <state relative-caret-position="380">
-              <caret line="45" column="50" lean-forward="false" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="50" />
+              <caret line="41" column="46" lean-forward="false" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="46" />
               <folding>
-                <marker date="1517199818088" expanded="true" signature="2442:2538" ph="..." />
+                <marker date="1517200265333" expanded="true" signature="2188:2275" ph="..." />
               </folding>
             </state>
           </provider>
@@ -165,11 +157,11 @@
       <file leaf-file-name="StackController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/StackController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+            <state relative-caret-position="392">
+              <caret line="52" column="36" lean-forward="true" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
               <folding>
-                <element signature="e#1267#1268#0" expanded="true" />
-                <element signature="e#1299#1300#0" expanded="true" />
+                <element signature="e#1060#1061#0" expanded="true" />
+                <element signature="e#1092#1093#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -181,8 +173,8 @@
             <state relative-caret-position="525">
               <caret line="40" column="35" lean-forward="false" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
               <folding>
-                <element signature="e#791#792#0" expanded="true" />
-                <element signature="e#833#834#0" expanded="true" />
+                <element signature="e#792#793#0" expanded="true" />
+                <element signature="e#834#835#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -192,10 +184,10 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/TapeDisplayController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-2002">
-              <caret line="42" column="45" lean-forward="false" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
+              <caret line="38" column="45" lean-forward="false" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3820#3831#0" expanded="true" />
+                <element signature="e#3720#3731#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -205,10 +197,10 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/UserInputBoxController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="588">
-              <caret line="38" column="61" lean-forward="false" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="61" />
+              <caret line="37" column="61" lean-forward="false" selection-start-line="37" selection-start-column="61" selection-end-line="37" selection-end-column="61" />
               <folding>
-                <element signature="e#899#900#0" expanded="true" />
-                <element signature="e#968#969#0" expanded="true" />
+                <element signature="e#871#872#0" expanded="true" />
+                <element signature="e#940#941#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1009,7 +1001,7 @@
       <workItem from="1516587880725" duration="5397000" />
       <workItem from="1516593335883" duration="10425000" />
       <workItem from="1516655453364" duration="53988000" />
-      <workItem from="1517111534375" duration="10053000" />
+      <workItem from="1517111534375" duration="10115000" />
     </task>
     <task id="LOCAL-00001" summary="complete initial production of views">
       <created>1516593565159</created>
@@ -1025,7 +1017,14 @@
       <option name="project" value="LOCAL" />
       <updated>1517111584160</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add visual stack">
+      <created>1517200273743</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1517200273743</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1061,7 +1060,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="317476000" />
+    <option name="totallyTimeSpent" value="317538000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
@@ -1144,7 +1143,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="complete initial production of views" />
     <MESSAGE value="add functionality to input tape" />
-    <option name="LAST_COMMIT_MESSAGE" value="add functionality to input tape" />
+    <MESSAGE value="add visualstack" />
+    <MESSAGE value="add visual stack" />
+    <option name="LAST_COMMIT_MESSAGE" value="add visual stack" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1517,10 +1520,10 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/UserInputBoxController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="588">
-          <caret line="38" column="61" lean-forward="false" selection-start-line="38" selection-start-column="61" selection-end-line="38" selection-end-column="61" />
+          <caret line="37" column="61" lean-forward="false" selection-start-line="37" selection-start-column="61" selection-end-line="37" selection-end-column="61" />
           <folding>
-            <element signature="e#899#900#0" expanded="true" />
-            <element signature="e#968#969#0" expanded="true" />
+            <element signature="e#871#872#0" expanded="true" />
+            <element signature="e#940#941#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1528,10 +1531,10 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/TapeDisplayController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2002">
-          <caret line="42" column="45" lean-forward="false" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
+          <caret line="38" column="45" lean-forward="false" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3820#3831#0" expanded="true" />
+            <element signature="e#3720#3731#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1550,7 +1553,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/global.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="545">
-          <caret line="319" column="23" lean-forward="false" selection-start-line="319" selection-start-column="23" selection-end-line="319" selection-end-column="23" />
+          <caret line="317" column="23" lean-forward="false" selection-start-line="317" selection-start-column="23" selection-end-line="317" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -1560,8 +1563,8 @@
         <state relative-caret-position="525">
           <caret line="40" column="35" lean-forward="false" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
           <folding>
-            <element signature="e#791#792#0" expanded="true" />
-            <element signature="e#833#834#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+            <element signature="e#834#835#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1585,9 +1588,9 @@
       </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="380">
-          <caret line="45" column="50" lean-forward="false" selection-start-line="45" selection-start-column="47" selection-end-line="45" selection-end-column="50" />
+          <caret line="41" column="46" lean-forward="false" selection-start-line="41" selection-start-column="43" selection-end-line="41" selection-end-column="46" />
           <folding>
-            <marker date="1517199818088" expanded="true" signature="2442:2538" ph="..." />
+            <marker date="1517200265333" expanded="true" signature="2188:2275" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1598,7 +1601,7 @@
       </provider>
       <provider editor-type-id="text-editor">
         <state relative-caret-position="190">
-          <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
+          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1615,11 +1618,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/StackController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="55" column="9" lean-forward="true" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
+        <state relative-caret-position="392">
+          <caret line="52" column="36" lean-forward="true" selection-start-line="52" selection-start-column="36" selection-end-line="52" selection-end-column="36" />
           <folding>
-            <element signature="e#1267#1268#0" expanded="true" />
-            <element signature="e#1299#1300#0" expanded="true" />
+            <element signature="e#1060#1061#0" expanded="true" />
+            <element signature="e#1092#1093#0" expanded="true" />
           </folding>
         </state>
       </provider>
