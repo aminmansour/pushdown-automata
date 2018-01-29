@@ -1,21 +1,15 @@
 package controller;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import model.InputTape;
-
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 public class TapeDisplayController {
 
@@ -41,6 +35,8 @@ public class TapeDisplayController {
         }
 
         gpTape = (GridPane) tapeView.lookup("#gpTape");
+        gpTape.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(gpTape, Priority.ALWAYS);
         gpPointerLocation = (GridPane) tapeView.lookup("#gpPointerLocation");
         gpStepLocation = (GridPane) tapeView.lookup("#gpPointerLocation");
         lCurrentState =  (Label) tapeView.lookup("#lCurrentState");
@@ -67,6 +63,7 @@ public class TapeDisplayController {
         t.add('c');
         t.add('d');
         tape.setInput(t);
+        System.out.println(t.size());
         setTapeCells(t);
 
     }

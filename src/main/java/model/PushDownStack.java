@@ -37,4 +37,8 @@ public class PushDownStack {
         return 0;
     }
 
+    public int size() {
+        return stackContent.size();
+    }
+
 }

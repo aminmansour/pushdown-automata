@@ -3,6 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -17,9 +18,12 @@ public class PDARunnerController implements Initializable{
     @FXML
     private VBox vbLeftBar;
     @FXML
+    private HBox hbCentre;
+    @FXML
     private TapeDisplayController tape;
     private UserActionController actionBar;
     private UserInputBoxController inputBox;
+    private StackController stackController;
 
     public PDARunnerController(){
 
@@ -46,6 +50,9 @@ public class PDARunnerController implements Initializable{
             tape.setTapeInput(inputBox.getInput());
 
         });
+
+        stackController = new StackController();
+        hbCentre.getChildren().add(stackController.getStackGenerated());
     }
 
 

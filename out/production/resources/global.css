@@ -267,7 +267,7 @@
 }
 
 
-#transitionBox,#userInputBox,#actionToolBar,#pda-display-partial,#bpTape {
+#transitionBox,#userInputBox,#actionToolBar,#pda-display-partial,#bpTape,#bpStack{
     -fx-background-color: white;
     -fx-border-color: #c9c9c9;
     -fx-border-width: 2px 2px 2px 2px;
@@ -304,4 +304,18 @@
 
 #bInstantRun,#bStepRun{
     -fx-font-size: 14px;
+}
+
+
+#gpStack {
+    -fx-grid-lines-visible: true;
+    -fx-background-color: #ededed;
+}
+
+#gpStack *{
+    -fx-text-fill: #5b5b5b;
+}
+
+#gpStack Line{
+    -fx-stroke: #5b5b5b;
 }

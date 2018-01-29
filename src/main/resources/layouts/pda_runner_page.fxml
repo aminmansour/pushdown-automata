@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <BorderPane fx:controller="controller.PDARunnerController" maxHeight="Infinity" maxWidth="Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:id="bpPDARunnerPage" >
 
 
-    <!--<right>-->
-        <!--<fx:include source="stack_partial.fxml"></fx:include>-->
-    <!--</right>-->
 
     <left>
         <VBox fx:id="vbLeftBar" maxHeight="Infinity" maxWidth="530" minWidth="100"
@@ -49,14 +42,19 @@
     </left>
 
     <center>
-        <VBox fx:id="vbPDAInteraction" spacing="5.0">
-            <fx:include source="pda_display_partial.fxml" VBox.vgrow="ALWAYS" />
 
+        <VBox fx:id="vbPDAInteraction" spacing="5.0" HBox.hgrow="ALWAYS">
+
+            <HBox spacing="5" fx:id="hbCentre" VBox.vgrow="ALWAYS" maxHeight="Infinity">
+
+                <fx:include source="pda_display_partial.fxml" HBox.hgrow="ALWAYS"/>
+
+
+            </HBox>
             <BorderPane.margin>
                 <Insets bottom="5.0" right="5.0" top="5.0" />
             </BorderPane.margin>
         </VBox>
-
 
 
 

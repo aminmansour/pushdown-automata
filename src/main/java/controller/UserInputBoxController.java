@@ -8,14 +8,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class UserInputBoxController {
 
     private HBox userInputBox;
 
     private final Button bStepRun;
-    private final TextArea taUserInput;
+    private final TextArea taInput;
 
     public UserInputBoxController(){
         try {
@@ -25,7 +24,7 @@ public class UserInputBoxController {
         }
 
         bStepRun = (Button) userInputBox.lookup("#bStepRun");
-        taUserInput = (TextArea) userInputBox.lookup("#taUserInput");
+        taInput = (TextArea) userInputBox.lookup("#taInput");
 
 
     }
@@ -36,7 +35,7 @@ public class UserInputBoxController {
     }
 
     public String getInput() {
-        return taUserInput.getText();
+        return taInput.getText().trim().replaceAll("\\s", "");
     }
 
 
