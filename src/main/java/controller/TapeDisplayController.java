@@ -81,7 +81,6 @@ public class TapeDisplayController {
     }
 
     private StackPane getNodeFromGridPane(GridPane gridPane, int col, int row) {
-        System.out.println(gridPane.getChildren().size());
         for (Node node : gridPane.getChildren()) {
             if (GridPane.getColumnIndex(node) == col) {
                 return (StackPane)node;

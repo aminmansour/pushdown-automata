@@ -23,7 +23,9 @@ public class PDARunnerController implements Initializable{
     private TapeDisplayController tape;
     private UserActionController actionBar;
     private UserInputBoxController inputBox;
-    private StackController stackController;
+    private StackController stack;
+    private TransitionTableController transitionTable;
+
 
     public PDARunnerController(){
 
@@ -32,6 +34,8 @@ public class PDARunnerController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
         tape = new TapeDisplayController();
         vbPDAInteraction.getChildren().add(tape.getTapeViewGenerated());
 
@@ -51,8 +55,11 @@ public class PDARunnerController implements Initializable{
 
         });
 
-        stackController = new StackController();
-        hbCentre.getChildren().add(stackController.getStackGenerated());
+        stack = new StackController();
+        hbCentre.getChildren().add(stack.getStackGenerated());
+
+        transitionTable = new TransitionTableController();
+        vbLeftBar.getChildren().add(0, transitionTable.getTransitionTableGenerated());
     }
 
 
@@ -66,6 +73,7 @@ public class PDARunnerController implements Initializable{
 
     public void startAgain(){
         tape.redo();
+        stack.setUpStackContentAFresh();
     }
 
     public void stop(){

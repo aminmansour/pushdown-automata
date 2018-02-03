@@ -8,7 +8,6 @@ public class PushDownStack {
 
     public PushDownStack() {
         this.stackContent = new ArrayList<>();
-        stackContent.add(null);
     }
 
     public char pop(){
@@ -23,7 +22,7 @@ public class PushDownStack {
     }
 
     public boolean isEmpty() {
-        return stackContent.size()==1;
+        return stackContent.size() == 0;
     }
 
     public void clear(){
@@ -41,4 +40,11 @@ public class PushDownStack {
         return stackContent.size();
     }
 
+    public void loadState(ArrayList<Character> elements) {
+        stackContent = elements;
+    }
+
+    public ArrayList<Character> getStackContent() {
+        return stackContent;
+    }
 }
