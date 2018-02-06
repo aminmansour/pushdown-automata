@@ -25,6 +25,7 @@ public class PDARunnerController implements Initializable{
     private UserInputBoxController inputBox;
     private StackController stack;
     private TransitionTableController transitionTable;
+    private MachineDisplayController machineDisplay;
 
 
     public PDARunnerController(){
@@ -55,11 +56,16 @@ public class PDARunnerController implements Initializable{
 
         });
 
+        machineDisplay = new MachineDisplayController();
+        hbCentre.getChildren().add(machineDisplay.getCanvas());
+
         stack = new StackController();
         hbCentre.getChildren().add(stack.getStackGenerated());
 
         transitionTable = new TransitionTableController();
         vbLeftBar.getChildren().add(0, transitionTable.getTransitionTableGenerated());
+        transitionTable.highlightRow(0);
+
     }
 
 
