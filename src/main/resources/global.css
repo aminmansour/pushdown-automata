@@ -329,7 +329,23 @@
 
 .stack-cell {
     -fx-border-width: 1px;
-    -fx-border-color: #5b5b5b;
+    -fx-border-color: #949494;
+}
+
+#lTopPointer {
+    -fx-text-fill: #6a6a6a;
+}
+
+.transition-labels {
+    -fx-background-color: white;
+    -fx-background-radius: 3%;
+    -fx-max-height: 1px;
+    -fx-max-width: 1px;
+    -fx-padding: 4px 5px 2px 5px;
+}
+
+.transition-labels * {
+    -fx-fill: #232323;
 }
 
 .table-view .column-header, .table-view .filler {

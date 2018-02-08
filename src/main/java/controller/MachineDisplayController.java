@@ -2,12 +2,8 @@ package controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextBoundsType;
+import view.VisualControlState;
+import view.VisualTransition;
 
 import java.io.IOException;
 import java.util.Map;
@@ -15,12 +11,14 @@ import java.util.TreeMap;
 
 public class MachineDisplayController {
 
-    private final TreeMap<String, StackPane> controlStates;
+    private final TreeMap<String, VisualControlState> controlStates;
     private BorderPane pdaDisplay;
 
-    private final AnchorPane apCanvas;
+    private final Pane pCanvas;
     private double width;
     private double height;
+
+    private boolean displayUpdateLock;
 
     boolean isInFullScreenMode;
 
@@ -34,9 +32,10 @@ public class MachineDisplayController {
 
 
         HBox.setHgrow(pdaDisplay, Priority.ALWAYS);
-        apCanvas = (AnchorPane) pdaDisplay.lookup("#apCanvas");
+        VBox.setVgrow(pdaDisplay, Priority.ALWAYS);
+        pCanvas = (Pane) pdaDisplay.lookup("#pCanvas");
 
-        controlStates = new TreeMap<String, StackPane>();
+        controlStates = new TreeMap<String, VisualControlState>();
 
         pdaDisplay.widthProperty().addListener(observable -> updateDisplayToNewRatio());
         pdaDisplay.heightProperty().addListener(observable -> updateDisplayToNewRatio());
@@ -62,53 +61,51 @@ public class MachineDisplayController {
     }
 
     private void updateDisplayToNewRatio() {
+//       if(!displayUpdateLock) {
+        displayUpdateLock = true;
+        resetStates();
         width = pdaDisplay.getWidth();
         height = pdaDisplay.getHeight();
-        System.out.println("Helloe ");
-        reorderToFitAspectRatio();
+
+        orderStatesInScreen();
+//       }else{
+//           displayUpdateLock = false;
+//       }
     }
 
     public void addVisualControlState(String stateLabel) {
-        Circle c = new Circle();
-        c.setStroke(Color.valueOf("388E3C"));
-        c.setStrokeWidth(1);
-        c.setRadius(26.0);
-        c.setFill(Color.valueOf("455A64"));
-        c.setCache(true);
-
-        Text text = new Text(stateLabel);
-        text.setFill(Color.WHITE);
-        text.setFont(Font.font(null, FontWeight.BOLD, 16));
-        text.setBoundsType(TextBoundsType.VISUAL);
-
-        StackPane controlState = new StackPane();
-
-        controlState.getChildren().addAll(c, text);
-        controlStates.put(stateLabel, controlState);
-        apCanvas.getChildren().add(controlState);
-    }
-
-    public void clear() {
-        controlStates.clear();
+        controlStates.put(stateLabel, new VisualControlState(stateLabel));
     }
 
 
-    public void reorderToFitAspectRatio() {
-        int startX = 50;
-        int startY = 50;
+    public void resetStates() {
+
+        pCanvas.getChildren().clear();
+    }
+
+    public void addStates() {
+        for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
+            pCanvas.getChildren().add(entry.getValue().getView());
+
+        }
+    }
+
+
+    public void orderStatesInScreen() {
+
 
         int statePerRow = (int) Math.floor(controlStates.size() / 3);
         int columnIndex = 0;
-        double yIndex = startY;
         double toIncreaseYBy = (height) / statePerRow;
-        System.out.println("toY " + height);
-        double xIndex = startX;
         double toIncreaseXBy = (width) / 3;
-        System.out.println("xbt " + width);
-        for (Map.Entry<String, StackPane> entry : controlStates.entrySet()) {
-            StackPane value = entry.getValue();
-            value.setLayoutX(xIndex);
-            value.setLayoutY(yIndex);
+        double startX = (toIncreaseXBy - 52) / 2;
+        double startY = (toIncreaseYBy - 52) / 2;
+        double yIndex = startY;
+        double xIndex = startX;
+        for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
+            VisualControlState state = entry.getValue();
+            state.setXPos(xIndex);
+            state.setYPos(yIndex);
             xIndex += toIncreaseXBy;
             if (columnIndex == 2) {
                 columnIndex = 0;
@@ -118,6 +115,16 @@ public class MachineDisplayController {
                 columnIndex++;
             }
 
+        }
+
+        VisualTransition vt = new VisualTransition("A,A->B", controlStates.get("Q1"), controlStates.get("Q2"));
+        VisualTransition svt = new VisualTransition("A,A->B", controlStates.get("Q1"), controlStates.get("Q3"));
+        pCanvas.getChildren().add(vt.getView());
+        pCanvas.getChildren().add(svt.getView());
+
+        for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
+            VisualControlState state = entry.getValue();
+            pCanvas.getChildren().add(state.getView());
         }
     }
 

@@ -250,7 +250,7 @@
     -fx-faint-focus-color: rgba(22, 105, 72, 0.13);
 }
 
-.table-view *{
+.table-view * {
     -fx-border-width: 0px;
 }
 .table-view {
@@ -274,21 +274,19 @@
 
 }
 
-
 .table-column {
     -fx-alignment: CENTER;
     -fx-border-width: 1px;
 }
 
-
-#tcConfiguration,#tcAction{
+#tcConfiguration, #tcAction {
     -fx-border-width: 0px 0px 0px 0px;
     -fx-border-color: transparent;
 }
-.table-row-cell{
+
+.table-row-cell {
     -fx-alignment: center;
 }
-
 
 #transitionBox, #userInputBox, #actionToolBar, #pdaDisplay, #bpTape, #bpStack {
     -fx-background-color: white;
@@ -331,25 +329,37 @@
 
 .stack-cell {
     -fx-border-width: 1px;
-    -fx-border-color: #5b5b5b;
+    -fx-border-color: #949494;
+}
+
+#lTopPointer{
+    -fx-text-fill: #6a6a6a;
+}
+
+.transition-labels{
+    -fx-background-color: white;
+    -fx-background-radius: 3%;
+    -fx-max-height: 1px;
+    -fx-max-width: 1px;
+    -fx-padding: 4px 5px 2px 5px;
+}
+
+.transition-labels *{
+    -fx-fill: #232323;
 }
 
 .table-view .column-header, .table-view .filler {
     -fx-border-width: 0, 0;
     -fx-background-color: white;
 
-
 }
 
-.table-view .column-header{
+.table-view .column-header {
     -fx-background-color: #ffffff;
     -fx-border-width: 0px 0px 0.2px 0px;
     -fx-border-color: #3e3e3e;
 
 }
-
-
-
 
 .table-view .column-header .label {
     -fx-text-fill: black;
