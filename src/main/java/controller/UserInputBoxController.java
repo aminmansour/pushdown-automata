@@ -22,11 +22,8 @@ public class UserInputBoxController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         bStepRun = (Button) userInputBox.lookup("#bStepRun");
         taInput = (TextArea) userInputBox.lookup("#taInput");
-
-
     }
 
 

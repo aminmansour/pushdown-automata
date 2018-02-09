@@ -21,6 +21,8 @@ public class VisualTransition {
     private StackPane view;
     private FlowPane flTransitionLabel;
     private boolean isFocused;
+    private VisualControlState resultingState;
+    private VisualControlState sourceState;
 
     final double ARROW_LENGTH = 10;
     final double ARROW_ANGLE = 45;
@@ -28,6 +30,8 @@ public class VisualTransition {
 
     public VisualTransition(String transitionLabel, VisualControlState q1, VisualControlState q2) {
         this.label = transitionLabel;
+        sourceState = q1;
+        resultingState = q2;
         isFocused = false;
         generateArrowView(transitionLabel, q1, q2);
     }
@@ -50,9 +54,6 @@ public class VisualTransition {
         Point2D tan = new Point2D(-arrow.getStartX(), -arrow.getStartY()).normalize().multiply(ARROW_LENGTH);
 
 
-        // move to start point of curve
-        MoveTo move = new MoveTo(arrow.getStartX(), arrow.getStartY());
-
         // transform tangent by rotating with +angle
         Point2D p = rotation.transform(tan);
 
@@ -72,7 +73,7 @@ public class VisualTransition {
                 -arrow.getEndX(),
                 -arrow.getEndY()
         ).normalize().multiply(ARROW_LENGTH);
-        move = new MoveTo(arrow.getEndX(), arrow.getEndY());
+        MoveTo move = new MoveTo(arrow.getEndX(), arrow.getEndY());
         p = rotation.transform(tan);
         a1 = new LineTo(p.getX(), p.getY());
         a1.setAbsolute(false);
@@ -127,6 +128,14 @@ public class VisualTransition {
 
     public FlowPane getTransitionLabel() {
         return flTransitionLabel;
+    }
+
+    public VisualControlState getSourceState() {
+        return sourceState;
+    }
+
+    public VisualControlState getResultingState() {
+        return resultingState;
     }
 
 

@@ -12,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import view.TransitionTextField;
 
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -178,17 +177,22 @@ public class CodeDefinitionController implements Initializable{
 
     public void generate(ActionEvent actionEvent) {
         currentErrorList.clear();
+        Object[] definitionBuffer = new Object[4];
         //definition assumed true
         boolean definitionValid;
         String[] controlStatesInput = taControlStates.getText().trim().replaceAll("\\s", "").split(",");
-        definitionValid = isControlStatesValid();
+        definitionValid = isControlStatesValid(definitionBuffer);
         boolean initialStateValid = isInitialStateValid(controlStatesInput);
         definitionValid = initialStateValid;
         definitionValid = isFurtherInfoFieldValid(controlStatesInput);
         definitionValid = isTransitionsValid(initialStateValid);
         if (definitionValid) {
-
+            loadDefinition(controlStatesInput, rbAcceptingState.isSelected(), transitionsInputed);
         } else { showErrorDialog(); }
+    }
+
+    private void loadDefinition(String[] controlStatesInput, boolean isAcceptByFinalState, ArrayList<char[]> transitionsInputed) {
+//        Definition definition = new Definition(System.currentTimeMillis()+"",transitionsInputeds)
     }
 
     private boolean isTransitionsValid(boolean initialStateValid) {
@@ -203,9 +207,7 @@ public class CodeDefinitionController implements Initializable{
                 }
             }
         }
-
         return evaluateFieldValidity(transitionError, lAddTransitionInstruction, "Transition field : ");
-
     }
 
     private boolean isFurtherInfoFieldValid(String[] controlStatesInput) {
@@ -231,11 +233,7 @@ public class CodeDefinitionController implements Initializable{
         } else if (tfFurtherInfo.getText().isEmpty()) {
                 furtherInfoError = "*No empty stack symbol is defined!";
         }
-
-
         return evaluateFieldValidity(furtherInfoError, lFurtherInfoInstruction,(rbEmptyStack.isSelected()?"Empty stack symbol ":"Accepting states ")+"field : ");
-
-
     }
 
     private boolean isInitialStateValid(String[] controlStatesInput) {
@@ -303,7 +301,7 @@ public class CodeDefinitionController implements Initializable{
 
     }
 
-    public boolean isControlStatesValid() {
+    public boolean isControlStatesValid(Object[] definitionBuffer) {
         if (taControlStates.getText().isEmpty()) {
             String controlStateError = "*No states are defined!";
             currentErrorList.add("Control states field : "+controlStateError.substring(1,controlStateError.length()).toLowerCase());
@@ -311,6 +309,7 @@ public class CodeDefinitionController implements Initializable{
             return false;
         }
             lControlStateInstruction.setVisible(false);
+        definitionBuffer[1]
             return true;
     }
 

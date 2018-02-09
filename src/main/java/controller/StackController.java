@@ -20,7 +20,7 @@ public class StackController {
     private final GridPane gpStack;
     private final GridPane gpTopLocation;
 
-    private final PushDownStack pushDownStack;
+    private PushDownStack pushDownStack;
     private StackPane spFirstStackCell;
     private HBox stackView;
 
@@ -30,7 +30,6 @@ public class StackController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        pushDownStack = new PushDownStack();
         lTopPointer = (Label) stackView.lookup("#lTopPointer");
         gpStack = (GridPane) stackView.lookup("#gpStack");
         gpTopLocation = (GridPane) stackView.lookup("#gpTopLocation");
@@ -147,4 +146,11 @@ public class StackController {
     }
 
 
+    public void clear() {
+        setUpStackContentAFresh();
+    }
+
+    public void setStackModel(PushDownStack stackModel) {
+        this.pushDownStack = stackModel;
+    }
 }

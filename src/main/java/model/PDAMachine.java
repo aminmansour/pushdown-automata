@@ -1,10 +1,8 @@
 package model;
 
-import model.*;
-
 import java.util.List;
 
-public class PDAController {
+public class PDAMachine {
     private boolean gameOver;
     private Definition loadedDefinition;
     private InputTape tape;
@@ -12,7 +10,7 @@ public class PDAController {
     private ControlState currentState;
     private ComputationalTree history;
 
-    public PDAController(Definition defToLoad){
+    public PDAMachine(Definition defToLoad) {
         loadDefinition(defToLoad);
     }
 
@@ -53,6 +51,14 @@ public class PDAController {
         }
     }
 
+
+    public InputTape getTape() {
+        return tape;
+    }
+
+    public PushDownStack getStack() {
+        return stack;
+    }
 
 
 }

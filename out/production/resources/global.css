@@ -332,11 +332,11 @@
     -fx-border-color: #949494;
 }
 
-#lTopPointer{
+#lTopPointer {
     -fx-text-fill: #6a6a6a;
 }
 
-.transition-labels{
+.transition-labels {
     -fx-background-color: white;
     -fx-background-radius: 3%;
     -fx-max-height: 1px;
@@ -344,7 +344,7 @@
     -fx-padding: 4px 5px 2px 5px;
 }
 
-.transition-labels *{
+.transition-labels * {
     -fx-fill: #232323;
 }
 

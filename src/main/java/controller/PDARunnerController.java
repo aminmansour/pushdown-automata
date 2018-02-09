@@ -5,12 +5,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.PDAMachine;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PDARunnerController implements Initializable{
 
+    //containers
     @FXML
     private BorderPane bpPDARunnerPage;
     @FXML
@@ -19,13 +21,17 @@ public class PDARunnerController implements Initializable{
     private VBox vbLeftBar;
     @FXML
     private HBox hbCentre;
-    @FXML
+
+    //sub-controllers
     private TapeDisplayController tape;
     private UserActionController actionBar;
     private UserInputBoxController inputBox;
     private StackController stack;
     private TransitionTableController transitionTable;
     private MachineDisplayController machineDisplay;
+
+    //model
+    private PDAMachine model;
 
 
     public PDARunnerController(){
@@ -40,20 +46,13 @@ public class PDARunnerController implements Initializable{
         tape = new TapeDisplayController();
         vbPDAInteraction.getChildren().add(tape.getTapeViewGenerated());
 
-        actionBar = new UserActionController();
-        vbLeftBar.getChildren().add(actionBar.getActionBar());
-        actionBar.setButtonNextAction(event -> next());
-        actionBar.setButtonPreviousAction(event -> previous());
-        actionBar.setButtonStartAgain(event -> startAgain());
-        actionBar.setButtonNextBranchAction(event -> next());
-        actionBar.setButtonPreviousBranchAction(event -> next());
-        actionBar.setButtonStopAction(event -> stop());
+        initializeUserActionBarAndSetUpActionListeners();
+
         inputBox = new UserInputBoxController();
         vbLeftBar.getChildren().add(inputBox.getInputBox());
         inputBox.setButtonStepRunAction(event -> {
             stop();
             tape.setTapeInput(inputBox.getInput());
-
         });
 
         machineDisplay = new MachineDisplayController();
@@ -66,6 +65,17 @@ public class PDARunnerController implements Initializable{
         vbLeftBar.getChildren().add(0, transitionTable.getTransitionTableGenerated());
         transitionTable.highlightRow(0);
 
+    }
+
+    private void initializeUserActionBarAndSetUpActionListeners() {
+        actionBar = new UserActionController();
+        vbLeftBar.getChildren().add(actionBar.getActionBar());
+        actionBar.setButtonNextAction(event -> next());
+        actionBar.setButtonPreviousAction(event -> previous());
+        actionBar.setButtonStartAgain(event -> startAgain());
+        actionBar.setButtonNextBranchAction(event -> next());
+        actionBar.setButtonPreviousBranchAction(event -> next());
+        actionBar.setButtonStopAction(event -> stop());
     }
 
 
@@ -84,5 +94,11 @@ public class PDARunnerController implements Initializable{
 
     public void stop(){
         tape.clear();
+    }
+
+    public void setModel(PDAMachine model) {
+        this.model = model;
+        tape.setTapeInputModel(model.getTape());
+        stack.setStackModel(model.getStack());
     }
 }

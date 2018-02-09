@@ -63,7 +63,6 @@ public class TapeDisplayController {
         t.add('c');
         t.add('d');
         tape.setInput(t);
-        System.out.println(t.size());
         setTapeCells(t);
 
     }
@@ -163,5 +162,9 @@ public class TapeDisplayController {
         setTapeCells(tape.getRemainingInput());
         setHeadSymbolLabel(tape.getSymbolAtHead()+"");
         setStep(0);
+    }
+
+    public void setTapeInputModel(InputTape tapeInputModel) {
+        this.tape = tapeInputModel;
     }
 }
