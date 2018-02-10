@@ -27,9 +27,10 @@ public class TapeDisplayController {
 
     private InputTape tape;
 
-    public TapeDisplayController(){
+    public TapeDisplayController() {
+
         try {
-          tapeView = FXMLLoader.load(getClass().getResource("../layouts/tape_display_partial.fxml"));
+            tapeView = FXMLLoader.load(getClass().getResource("../layouts/tape_display_partial.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,36 +40,33 @@ public class TapeDisplayController {
         HBox.setHgrow(gpTape, Priority.ALWAYS);
         gpPointerLocation = (GridPane) tapeView.lookup("#gpPointerLocation");
         gpStepLocation = (GridPane) tapeView.lookup("#gpPointerLocation");
-        lCurrentState =  (Label) tapeView.lookup("#lCurrentState");
-        lStackTop =  (Label) tapeView.lookup("#lStackTop");
-        lHeadSymbol =  (Label) tapeView.lookup("#lHeadSymbol");
+        lCurrentState = (Label) tapeView.lookup("#lCurrentState");
+        lStackTop = (Label) tapeView.lookup("#lStackTop");
+        lHeadSymbol = (Label) tapeView.lookup("#lHeadSymbol");
         lCurrentConfiguration = (Label) tapeView.lookup("#lCurrentConfiguration");
         lStep = (Label) tapeView.lookup("#lStep");
 
-        tape = new InputTape();
 
-        ArrayList<Character> t  = new ArrayList<>();
-        t.add('1');
-        t.add('2');
-        t.add('3');
-        t.add('4');
-        t.add('5');
-        t.add('6');
-        t.add('7');
-        t.add('8');
-        t.add('9');
-        t.add('0');
-        t.add('a');
-        t.add('b');
-        t.add('c');
-        t.add('d');
-        tape.setInput(t);
-        setTapeCells(t);
-
+//        ArrayList<Character> t  = new ArrayList<>();
+//        t.add('1');
+//        t.add('2');
+//        t.add('3');
+//        t.add('4');
+//        t.add('5');
+//        t.add('6');
+//        t.add('7');
+//        t.add('8');
+//        t.add('9');
+//        t.add('0');
+//        t.add('a');
+//        t.add('b');
+//        t.add('c');
+//        t.add('d');
+//        tape.setInput(t);
+//        setTapeCells(t);
     }
 
     private void setTapeCells(List<Character> content) {
-
         for (Node node : gpTape.getChildren()) {
             String elementLabel = (content.size() > GridPane.getColumnIndex(node)) ? content.get( GridPane.getColumnIndex(node)) + "" : "";
             StackPane tapeCell = (StackPane) node;
@@ -150,6 +148,7 @@ public class TapeDisplayController {
     public void clear(){
         lStep.setText("Step 0");
         setTapeCells(new ArrayList<>());
+        tape.clear();
         lHeadSymbol.setText("Symbol at head : none");
         lCurrentConfiguration.setText("Current configuration : none");
         lStackTop.setText("Top stack symbol : none");
@@ -166,5 +165,6 @@ public class TapeDisplayController {
 
     public void setTapeInputModel(InputTape tapeInputModel) {
         this.tape = tapeInputModel;
+        clear();
     }
 }

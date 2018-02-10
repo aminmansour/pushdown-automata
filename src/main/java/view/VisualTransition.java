@@ -17,6 +17,7 @@ import javafx.scene.text.TextBoundsType;
 import javafx.scene.transform.Rotate;
 
 public class VisualTransition {
+    private final String transitionLabel;
     private String label;
     private StackPane view;
     private FlowPane flTransitionLabel;
@@ -26,6 +27,10 @@ public class VisualTransition {
 
     final double ARROW_LENGTH = 10;
     final double ARROW_ANGLE = 45;
+    private Line arrow;
+    private Point2D tan;
+    private MoveTo move;
+    private double LENGTH_FROM_CORNER;
 
 
     public VisualTransition(String transitionLabel, VisualControlState q1, VisualControlState q2) {
@@ -33,17 +38,18 @@ public class VisualTransition {
         sourceState = q1;
         resultingState = q2;
         isFocused = false;
-        generateArrowView(transitionLabel, q1, q2);
+        generateArrowView(q1, q2);
+        this.transitionLabel = transitionLabel;
     }
 
-    private void generateArrowView(String transitionLabel, VisualControlState q1, VisualControlState q2) {
-        Line arrow = new Line();
-        double length = Math.sqrt(Math.pow(26.5, 2) + Math.pow(26.5, 2)) - 30;
+    private void generateArrowView(VisualControlState q1, VisualControlState q2) {
+        arrow = new Line();
+        LENGTH_FROM_CORNER = Math.sqrt(Math.pow(26.5, 2) + Math.pow(26.5, 2)) - 30;
 
         arrow.setStartX(q1.getXPos() + (q1.getWidth() / 2) + 5);
         arrow.setStartY(q1.getYPos() + (q1.getHeight() / 2) + 5);
-        arrow.setEndX(q2.getXPos() + length);
-        arrow.setEndY(q2.getYPos() + length);
+        arrow.setEndX(q2.getXPos() + LENGTH_FROM_CORNER);
+        arrow.setEndY(q2.getYPos() + LENGTH_FROM_CORNER);
         arrow.setStroke(Color.valueOf("607D8B"));
         arrow.setStrokeWidth(1);
 
@@ -51,7 +57,7 @@ public class VisualTransition {
         Rotate rotation = new Rotate(ARROW_ANGLE);
 
         // direction = inwards from the start point
-        Point2D tan = new Point2D(-arrow.getStartX(), -arrow.getStartY()).normalize().multiply(ARROW_LENGTH);
+        tan = new Point2D(-arrow.getStartX(), -arrow.getStartY()).normalize().multiply(ARROW_LENGTH);
 
 
         // transform tangent by rotating with +angle
@@ -73,7 +79,7 @@ public class VisualTransition {
                 -arrow.getEndX(),
                 -arrow.getEndY()
         ).normalize().multiply(ARROW_LENGTH);
-        MoveTo move = new MoveTo(arrow.getEndX(), arrow.getEndY());
+        move = new MoveTo(arrow.getEndX(), arrow.getEndY());
         p = rotation.transform(tan);
         a1 = new LineTo(p.getX(), p.getY());
         a1.setAbsolute(false);
@@ -123,7 +129,12 @@ public class VisualTransition {
     }
 
     public StackPane getView() {
+        generateArrowView(sourceState, resultingState);
         return view;
+    }
+
+    private void reallign() {
+
     }
 
     public FlowPane getTransitionLabel() {

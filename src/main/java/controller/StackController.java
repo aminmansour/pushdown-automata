@@ -34,7 +34,6 @@ public class StackController {
         gpStack = (GridPane) stackView.lookup("#gpStack");
         gpTopLocation = (GridPane) stackView.lookup("#gpTopLocation");
 
-        setUpStackContentAFresh();
     }
 
     public void setUpStackContentAFresh() {
@@ -152,5 +151,6 @@ public class StackController {
 
     public void setStackModel(PushDownStack stackModel) {
         this.pushDownStack = stackModel;
+        setUpStackContentAFresh();
     }
 }

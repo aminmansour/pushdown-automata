@@ -5,16 +5,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import model.*;
 import view.TransitionTextField;
+import view.ViewFactory;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.TreeMap;
 
 public class CodeDefinitionController implements Initializable{
 
@@ -192,17 +197,74 @@ public class CodeDefinitionController implements Initializable{
     }
 
     private void loadDefinition(String[] controlStatesInput, boolean isAcceptByFinalState, ArrayList<char[]> transitionsInputed) {
-//        Definition definition = new Definition(System.currentTimeMillis()+"",transitionsInputeds)
+        TreeMap<String, ControlState> controlStates = new TreeMap<>();
+        ArrayList<ControlState> states = new ArrayList<>(controlStatesInput.length);
+        boolean isTerminateByAccepting = rbAcceptingState.isSelected();
+        System.out.println(isAcceptByFinalState + "is terminatng");
+        String[] acceptingStates = isTerminateByAccepting ? tfFurtherInfo.getText().trim().replaceAll("\\s", "").split(",") : new String[0];
+        System.out.println(isAcceptByFinalState + "is terminatng");
+        System.out.println("accept states : " + acceptingStates.length);
+        char initialStateLabel = tfInitialState.getText().charAt(0);
+        for (int i = 0; i < controlStatesInput.length; i++) {
+            ControlState state = new ControlState(controlStatesInput[i]);
+            if (isAcceptingState(state, acceptingStates)) {
+                state.markAsAccepting();
+            }
+
+            if (initialStateLabel == state.getLabel().charAt(0)) {
+                state.markAsInitial();
+                System.out.println("hello");
+            }
+
+            controlStates.put(controlStatesInput[i], state);
+            states.add(state);
+        }
+
+        ArrayList<Transition> transitions = new ArrayList<>();
+        for (char[] transitionItems : transitionsInputed) {
+            char state = transitionItems[0];
+            char userInputSym = transitionItems[1];
+            char topStackSym = transitionItems[2];
+            char resultingState = transitionItems[3];
+            char resultingTopStackSym = transitionItems[4];
+
+            Configuration config = new Configuration(controlStates.get(Character.toString(state)), userInputSym, topStackSym);
+            Action action = new Action(controlStates.get(Character.toString(resultingState)), resultingTopStackSym);
+            Transition transition = new Transition(config, action);
+            transitions.add(transition);
+        }
+
+
+        Definition definition = new Definition(System.currentTimeMillis() + "", states, controlStates.get(tfInitialState.getText().trim()), transitions, isTerminateByAccepting);
+        ControllerFactory.pdaRunnerController.setModel(new PDAMachine(definition));
+        switchToPDARunner();
+
     }
+
+    private void switchToPDARunner() {
+        ViewFactory.globalPane.setCenter(ViewFactory.pdaRunner);
+        BorderPane.setAlignment(ViewFactory.pdaRunner, Pos.CENTER);
+    }
+
+    private boolean isAcceptingState(ControlState state, String[] acceptingStates) {
+        for (String acceptingState : acceptingStates) {
+            if (acceptingState.equals(state.getLabel())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     private boolean isTransitionsValid(boolean initialStateValid) {
         String transitionError = null;
         if (taTransitions.getText().isEmpty()) {
             transitionError = "*No transitions defined!";
         } else {
+            transitionError = "*No transition from initial state is defined!";
             for (char[] transition : transitionsInputed) {
                 if (!initialStateValid || transition[0] == tfInitialState.getText().charAt(0)) {
-                    transitionError = "*No transition from initial state is defined!";
+                    transitionError = null;
                     break;
                 }
             }
@@ -309,7 +371,6 @@ public class CodeDefinitionController implements Initializable{
             return false;
         }
             lControlStateInstruction.setVisible(false);
-        definitionBuffer[1]
             return true;
     }
 

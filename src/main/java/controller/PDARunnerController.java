@@ -5,7 +5,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.ControlState;
 import model.PDAMachine;
+import model.Transition;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,14 +36,11 @@ public class PDARunnerController implements Initializable{
     private PDAMachine model;
 
 
-    public PDARunnerController(){
-
-
+    public PDARunnerController() {
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
 
         tape = new TapeDisplayController();
         vbPDAInteraction.getChildren().add(tape.getTapeViewGenerated());
@@ -100,5 +99,18 @@ public class PDARunnerController implements Initializable{
         this.model = model;
         tape.setTapeInputModel(model.getTape());
         stack.setStackModel(model.getStack());
+        transitionTable.clearRow();
+
+        for (ControlState controlState : model.getDefinition().getStates()) {
+            System.out.println(controlState.isInitial());
+            machineDisplay.addVisualControlState(controlState);
+        }
+
+        for (Transition transition : model.getDefinition().getTransitions()) {
+            machineDisplay.addVisualTransition(transition.toString(), transition.getSourceState(), transition.getTargetState());
+            transitionTable.addColumn(transition);
+        }
+
+        machineDisplay.orderStatesInScreen();
     }
 }

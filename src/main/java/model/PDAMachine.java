@@ -18,14 +18,14 @@ public class PDAMachine {
         gameOver = false;
         loadedDefinition = definition;
         currentState = loadedDefinition.getInitialState();
+        tape = new InputTape();
+        stack = new PushDownStack();
         tape.clear();
         stack.clear();
         history = new ComputationalTree();
     }
 
     private void executeTransition(Transition transition,int totalChildren) {
-
-
         tape.readSymbol();
         if(transition.getConfiguration().getTopElement()!=null){
             stack.pop();
@@ -51,7 +51,6 @@ public class PDAMachine {
         }
     }
 
-
     public InputTape getTape() {
         return tape;
     }
@@ -59,6 +58,12 @@ public class PDAMachine {
     public PushDownStack getStack() {
         return stack;
     }
+
+    public Definition getDefinition() {
+        return loadedDefinition;
+    }
+
+
 
 
 }

@@ -1,7 +1,7 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import controller.ViewFactory;
+import view.ViewFactory;
 
 public class ToolBarPartialController {
     public void switchToHome(ActionEvent actionEvent) {

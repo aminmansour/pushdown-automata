@@ -8,6 +8,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import model.ComputationalTree;
+import model.Transition;
 import model.TransitionEntry;
 
 import java.io.IOException;
@@ -17,15 +18,7 @@ public class TransitionTableController {
     private HBox transitionTableView;
     private TableView tvTransitionTable;
     private ComputationalTree computationalTree;
-    //    private TableColumn tcCurrentState;
-//    private TableColumn tcElementAtHead;
-//    private TableColumn tcTopOfStack;
-//    private TableColumn tcResultingState;
-//    private TableColumn tcResultingTopOfStack;
     private ObservableList<TableColumn> columns;
-
-
-
     private final ObservableList<TransitionEntry> data =
             FXCollections.observableArrayList(
                     new TransitionEntry("A", "b", "c", "d", "e"),
@@ -47,7 +40,6 @@ public class TransitionTableController {
         setUpColumns();
         tvTransitionTable.setItems(data);
         computationalTree = new ComputationalTree();
-
     }
 
     private void setUpColumns() {
@@ -58,12 +50,23 @@ public class TransitionTableController {
         ((TableColumn) columns.get(1).getColumns().get(1)).setCellValueFactory(new PropertyValueFactory<TransitionEntry, String>("resultingTopOfStack"));
     }
 
+    public void addColumn(Transition transition) {
+        data.add(new TransitionEntry(transition.getConfiguration().getState().getLabel() + "",
+                transition.getConfiguration().getInputSymbol() + "",
+                transition.getConfiguration().getTopElement() + "",
+                transition.getAction().getNewState().getLabel() + "",
+                transition.getAction().getElementToPush() + ""));
+    }
+
     public HBox getTransitionTableGenerated() {
         return transitionTableView;
     }
 
     public void highlightRow(int row) {
-        tvTransitionTable.getSelectionModel().select(0);
+        tvTransitionTable.getSelectionModel().select(row);
     }
 
+    public void clearRow() {
+        data.clear();
+    }
 }

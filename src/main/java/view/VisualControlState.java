@@ -22,13 +22,13 @@ public class VisualControlState {
     private HBox view;
     private boolean isFocused;
 
-    public VisualControlState(String label, boolean isAccepting, boolean isTerminating) {
+    public VisualControlState(String label, boolean isInitial, boolean isAccepting) {
         this.label = label;
         isFocused = false;
-        generateControlStateView(label, isAccepting, isTerminating);
+        generateControlStateView(label, isInitial, isAccepting);
     }
 
-    private void generateControlStateView(String label, boolean isAccepting, boolean isTerminating) {
+    private void generateControlStateView(String label, boolean isInitial, boolean isAccepting) {
         view = new HBox();
         StackPane controlStateView = new StackPane();
         view.getChildren().add(controlStateView);
@@ -42,11 +42,12 @@ public class VisualControlState {
         controlStateView.getChildren().add(state);
 
 
-        if (isTerminating) {
+        if (isAccepting) {
             generateNestedAcceptingCircle(controlStateView);
         }
-        if (isAccepting) {
+        if (isInitial) {
             generateInitialStateArrow();
+            System.out.println("helloa");
         }
 
         Text stateLabel = new Text(label);

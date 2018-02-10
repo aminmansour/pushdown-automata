@@ -18,4 +18,16 @@ public class Transition {
         return action;
     }
 
+    public ControlState getSourceState() {
+        return configuration.getState();
+    }
+
+    public ControlState getTargetState() {
+        return action.getNewState();
+    }
+
+    @Override
+    public String toString() {
+        return configuration.getState().getLabel() + "," + configuration.getTopElement() + " -> " + action.getElementToPush();
+    }
 }

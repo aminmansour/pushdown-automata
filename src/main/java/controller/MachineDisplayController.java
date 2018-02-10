@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
+import model.ControlState;
 import view.VisualControlState;
 import view.VisualTransition;
 
@@ -42,21 +43,7 @@ public class MachineDisplayController {
         pdaDisplay.heightProperty().addListener(observable -> updateDisplayToNewRatio());
 
 
-        addVisualControlState("Q1");
-        addVisualControlState("Q2");
-        addVisualControlState("Q3");
-        addVisualControlState("Q4");
-        addVisualControlState("Q5");
-        addVisualControlState("Q6");
-        addVisualControlState("Q7");
-        addVisualControlState("Q8");
-        addVisualControlState("Q9");
-        addVisualControlState("Q10");
-        addVisualControlState("Q11");
-        addVisualControlState("Q12");
-        addVisualControlState("Q13");
-        addVisualControlState("Q14");
-        addVisualControlState("Q15");
+
 
 
     }
@@ -68,8 +55,9 @@ public class MachineDisplayController {
         orderStatesInScreen();
     }
 
-    public void addVisualControlState(String stateLabel) {
-        controlStates.put(stateLabel, new VisualControlState(stateLabel, true, true));
+    public void addVisualControlState(ControlState state) {
+        VisualControlState stateVisual = new VisualControlState(state.getLabel(), state.isInitial(), state.isAccepting());
+        controlStates.put(state.getLabel(), stateVisual);
     }
 
 
@@ -85,6 +73,7 @@ public class MachineDisplayController {
 
 
     public void orderStatesInScreen() {
+        pCanvas.getChildren().clear();
         int statePerRow = (int) Math.floor(controlStates.size() / 3);
         int columnIndex = 0;
         double toIncreaseYBy = (height) / statePerRow;
@@ -109,26 +98,21 @@ public class MachineDisplayController {
 
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             VisualControlState state = entry.getValue();
-            for (VisualTransition transition : getTransitionEntryFromSource(state.getLabel())) {
+            for (VisualTransition transition : getTransitionsBySource(state.getLabel())) {
+
                 pCanvas.getChildren().add(transition.getView());
             }
             pCanvas.getChildren().add(state.getView());
         }
     }
 
-    public void addVisualTransition(VisualTransition transition) {
-        ArrayList<VisualTransition> transitions = getTransitionEntryFromSource(transition.getSourceState().getLabel());
-        if (!transitions.contains(transition)) {
-            transitions.add(transition);
-        }
+    public void addVisualTransition(String transitionLabel, ControlState source, ControlState destination) {
+        VisualTransition transition = new VisualTransition(transitionLabel, controlStates.get(source.getLabel()), controlStates.get(destination.getLabel()));
+        ArrayList<VisualTransition> transitions = getTransitionsBySource(transition.getSourceState().getLabel());
+        transitions.add(transition);
     }
 
-    public void addVisualControlState(VisualControlState state) {
-        controlStates.put(state.getLabel(), state);
-    }
-
-
-    private ArrayList<VisualTransition> getTransitionEntryFromSource(String sourceLabel) {
+    private ArrayList<VisualTransition> getTransitionsBySource(String sourceLabel) {
         for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
             if (entry.getKey().equals(sourceLabel)) {
                 return entry.getValue();
