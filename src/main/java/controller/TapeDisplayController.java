@@ -91,10 +91,11 @@ public class TapeDisplayController {
     }
 
     public void next(){
-        tape.readSymbol();
-        lStep.setText("Step "+tape.getStep());
-        setTapeCells(tape.getRemainingInput());
-        setHeadSymbolLabel(tape.getStringAtHead());
+        if (tape.getSize() > 0) {
+            lStep.setText("Step " + tape.getStep());
+            setTapeCells(tape.getRemainingInput());
+            setHeadSymbolLabel(tape.getStringAtHead());
+        }
     }
 
     public void previous(){

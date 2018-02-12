@@ -12,7 +12,7 @@ public class InputTape {
     public InputTape() { clear(); }
 
     public char readSymbol() {
-        if (headIndex < input.size()) {
+        if (input.size() > 0 && headIndex < input.size()) {
             char toReturn = input.get(headIndex);
             headIndex++;
             step++;
@@ -29,10 +29,7 @@ public class InputTape {
     }
 
     public boolean allSymbolsRead(){
-        if(headIndex==(input.size()-1)){
-            return true;
-        }
-        return false;
+        return headIndex == (input.size() - 1);
     }
 
     public String getStringAtHead(){
@@ -40,7 +37,7 @@ public class InputTape {
     }
 
     public char getSymbolAtHead(){
-        return input.get(headIndex);
+        return (headIndex >= input.size()) ? '-' : input.get(headIndex);
     }
 
     public void setInput(ArrayList<Character> input) {
@@ -73,5 +70,9 @@ public class InputTape {
 
     public List<Character> getRemainingInput() {
         return input.subList(headIndex,input.size());
+    }
+
+    public int getSize() {
+        return input.size();
     }
 }

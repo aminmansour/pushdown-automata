@@ -13,6 +13,7 @@ public class UserInputBoxController {
 
     private HBox userInputBox;
 
+    private final Button bInstantRun;
     private final Button bStepRun;
     private final TextArea taInput;
 
@@ -23,6 +24,7 @@ public class UserInputBoxController {
             e.printStackTrace();
         }
         bStepRun = (Button) userInputBox.lookup("#bStepRun");
+        bInstantRun = (Button) userInputBox.lookup("#bInstantRun");
         taInput = (TextArea) userInputBox.lookup("#taInput");
     }
 
@@ -36,8 +38,14 @@ public class UserInputBoxController {
     }
 
 
-    public void setButtonStepRunAction(EventHandler<MouseEvent> action){
+    public void setButtonStepRunAction(EventHandler<MouseEvent> action) {
         bStepRun.setOnMouseClicked(action);
+    }
+
+
+    public void setDisable(boolean toDisable) {
+        bStepRun.setDisable(toDisable);
+        bInstantRun.setDisable(toDisable);
     }
 
 }

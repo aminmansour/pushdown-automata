@@ -1,19 +1,12 @@
 package controller;
 
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import model.InputTape;
+import javafx.scene.layout.HBox;
 
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserActionController {
 
@@ -72,5 +65,14 @@ public class UserActionController {
 
     public void setButtonStopAction(EventHandler<MouseEvent> action){
         lStop.setOnMouseClicked(action);
+    }
+
+    public void setDisable(boolean toDisable) {
+        lStartAgain.setDisable(toDisable);
+        lStop.setDisable(toDisable);
+        lNext.setDisable(toDisable);
+        lPrevious.setDisable(toDisable);
+        lPreviousBranch.setDisable(toDisable);
+        lNextBranch.setDisable(toDisable);
     }
 }

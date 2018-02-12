@@ -11,7 +11,6 @@ import javafx.scene.text.Font;
 import model.PushDownStack;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class StackController {
 
@@ -42,7 +41,6 @@ public class StackController {
         spFirstStackCell = getStackCell(100, 30, "stack-cell");
         gpStack.addRow(0, spFirstStackCell);
         createTopPointerLabel();
-        pushDownStack.clear();
     }
 
     private void createTopPointerLabel() {
@@ -61,11 +59,11 @@ public class StackController {
     }
 
 
-    public void push(char element) {
+    private void push(char element) {
         Label elementLabel = new Label(element + "");
         elementLabel.setFont(new Font(15));
 
-        if (pushDownStack.isEmpty()) {
+        if (pushDownStack.size() == 1) {
             spFirstStackCell.getChildren().add(elementLabel);
         } else {
             StackPane stStackCell = getStackCell(100, 30, "stack-cell");
@@ -78,12 +76,11 @@ public class StackController {
             stStackPointer.getChildren().add(lTopPointer);
             gpTopLocation.addRow(0, stStackPointer);
         }
-        pushDownStack.push(element);
     }
 
-    public void loadState(ArrayList<Character> elements) {
+    public void loadState() {
         setUpStackContentAFresh();
-        for (Character element : elements) {
+        for (Character element : pushDownStack.getStackContent()) {
             push(element);
         }
     }

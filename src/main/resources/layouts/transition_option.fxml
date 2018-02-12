@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane prefHeight="100.0" prefWidth="570.0" styleClass="transition-choice" xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="lRead" text="Read : A"/>
+                <Label fx:id="lPop" text="Pop : B"/>
+                <Label fx:id="lPush" text="Push : A"/>
+                <Label fx:id="lResultingState" text="Resulting State : A"/>
+            </children>
+        </HBox>
+    </center>
+    <top>
+        <FlowPane alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
+            <children>
+                <Label style="-fx-background-color: #2ab27b; -fx-text-fill: white" text="Transition choice ">
+                    <padding>
+                        <Insets left="20.0"/>
+                    </padding>
+                </Label>
+                <Label fx:id="lTransitionOption" style="-fx-background-color: #2ab27b; -fx-text-fill: white" text="1">
+                    <padding>
+                        <Insets right="5.0"/>
+                    </padding>
+                </Label>
+            </children>
+            <BorderPane.margin>
+                <Insets top="5.0"/>
+            </BorderPane.margin>
+        </FlowPane>
+    </top>
+</BorderPane>

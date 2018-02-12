@@ -66,7 +66,8 @@ public class TransitionTableController {
         tvTransitionTable.getSelectionModel().select(row);
     }
 
-    public void clearRow() {
+    public void clear() {
         data.clear();
     }
+
 }

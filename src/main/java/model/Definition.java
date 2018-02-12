@@ -117,13 +117,15 @@ public class Definition {
 
     public List<Transition> getPossibleTransitions(ControlState state,Character input,Character stackSymbol){
         List<Transition> possibleTransitions = new ArrayList<>();
+
         for(Transition transition : getTransitionsByState(state)){
+            System.out.println(transition);
             Character inputSym = transition.getConfiguration().getInputSymbol();
             Character stackSym = transition.getConfiguration().getTopElement();
             if(
-                    (inputSym == null && stackSym == null)||
-                    (inputSym == null && stackSym == stackSymbol)||
-                    (inputSym == input && stackSym == null)||
+                    (inputSym == '/' && stackSym == '/') ||
+                            (inputSym == '/' && stackSym == stackSymbol) ||
+                            (inputSym == input && stackSym == '/') ||
                     (inputSym == input && stackSym == stackSymbol))
             {
                 possibleTransitions.add(transition);

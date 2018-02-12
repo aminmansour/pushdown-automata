@@ -367,3 +367,39 @@
     -fx-font-weight: bold;
 
 }
+
+
+/*transition selection page*/
+
+#bpTransitionSelector {
+    -fx-background-color: white;
+    -fx-border-color: #cecece;
+    -fx-border-width: 1px;
+}
+
+.transition-choice{
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #2ab27b;
+    -fx-border-width: 1px;
+}
+
+.transition-choice:pressed{
+    -fx-background-color: #e5e5e5;
+
+}
+
+.transition-choice *{
+    -fx-text-fill: #494949;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+#bRandomSelect,#bTerminate{
+    -fx-font-size: 14px;
+}

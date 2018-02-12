@@ -21,6 +21,8 @@ public class VisualControlState {
     private double yPos;
     private HBox view;
     private boolean isFocused;
+    private boolean isInitial;
+    private final int RADIUS = 26;
 
     public VisualControlState(String label, boolean isInitial, boolean isAccepting) {
         this.label = label;
@@ -36,7 +38,7 @@ public class VisualControlState {
         Circle state = new Circle();
         state.setStroke(Color.valueOf("388E3C"));
         state.setStrokeWidth(1);
-        state.setRadius(26.0);
+        state.setRadius(RADIUS);
         state.setFill(Color.valueOf("455A64"));
         state.setCache(true);
         controlStateView.getChildren().add(state);
@@ -47,7 +49,6 @@ public class VisualControlState {
         }
         if (isInitial) {
             generateInitialStateArrow();
-            System.out.println("helloa");
         }
 
         Text stateLabel = new Text(label);
@@ -55,6 +56,8 @@ public class VisualControlState {
         stateLabel.setFont(Font.font(null, FontWeight.BOLD, 16));
         stateLabel.setBoundsType(TextBoundsType.VISUAL);
         controlStateView.getChildren().add(stateLabel);
+
+        this.isInitial = isInitial;
     }
 
     private void generateNestedAcceptingCircle(StackPane controlStateView) {
@@ -146,11 +149,20 @@ public class VisualControlState {
     }
 
     public double getWidth() {
-        return 56 / 2;
+        return 26.5;
     }
 
 
     public double getHeight() {
-        return 56 / 2;
+        return 26.5;
     }
+
+    public boolean isInitial() {
+        return isInitial;
+    }
+
+    public int getRadius() {
+        return RADIUS;
+    }
+
 }

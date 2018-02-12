@@ -79,6 +79,13 @@ public class CodeDefinitionController implements Initializable{
         restrictTextFieldInput(tfInitialState,"[a-zA-Z0-9]");
         tgAcceptingConditions.selectedToggleProperty().addListener((observable, oldValue, newValue) -> acceptanceSelectionAction());
         setUpHelpRequestFeatureForEachField();
+        taControlStates.setText("a,b,c");
+        tfFurtherInfo.setText("a,b");
+        tfInitialState.setText("a");
+        taTransitions.appendText(" df");
+        transitionsInputed.add(new char[]{'a', 'g', '/', 'b', 't'});
+        transitionsInputed.add(new char[]{'a', 'g', '/', 'c', 't'});
+        transitionsInputed.add(new char[]{'c', 'd', 'r', 'a', 't'});
     }
 
     private ToggleGroup addAcceptingConditionsToggleGroup() {
@@ -355,7 +362,7 @@ public class CodeDefinitionController implements Initializable{
                         textField.setText(newValue);
                     }else{
                         textField.clear();
-                    };
+                    }
                 }
             };
         textField.textProperty().addListener(changeListener);

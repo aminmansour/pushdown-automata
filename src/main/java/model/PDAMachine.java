@@ -41,14 +41,8 @@ public class PDAMachine {
     }
 
 
-    private void stepForward(){
-        List<Transition> transitions = loadedDefinition.getPossibleTransitions(currentState, tape.getSymbolAtHead(), stack.top());
-        for (int i = 0; i < transitions.size(); i++) {
-//            if(checkIfReadyExplored(transitions.get(i).getConfiguration())) {
-//                executeTransition(transitions.get(0), transitions.size());
-//            }
-
-        }
+    public List<Transition> getPossibleTransitionsFromCurrent() {
+        return loadedDefinition.getPossibleTransitions(currentState, tape.getSymbolAtHead(), stack.top());
     }
 
     public InputTape getTape() {
@@ -64,6 +58,20 @@ public class PDAMachine {
     }
 
 
+    public void executeTransition(Transition transition) {
+        tape.readSymbol();
+        if (transition.getConfiguration().getTopElement() != '/') {
+            stack.pop();
+        }
+        if (transition.getAction().getElementToPush() != '/') {
+            stack.push(transition.getAction().getElementToPush());
+        }
+        currentState = transition.getAction().getNewState();
+    }
+
+    public ControlState getCurrentState() {
+        return currentState;
+    }
 
 
 }
