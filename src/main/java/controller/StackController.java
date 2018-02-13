@@ -11,6 +11,7 @@ import javafx.scene.text.Font;
 import model.PushDownStack;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class StackController {
 
@@ -78,8 +79,10 @@ public class StackController {
         }
     }
 
-    public void loadState() {
+    public void loadState(ArrayList<Character> stackState) {
+        pushDownStack.clear();
         setUpStackContentAFresh();
+        pushDownStack.loadState(stackState);
         for (Character element : pushDownStack.getStackContent()) {
             push(element);
         }
@@ -149,5 +152,17 @@ public class StackController {
     public void setStackModel(PushDownStack stackModel) {
         this.pushDownStack = stackModel;
         setUpStackContentAFresh();
+    }
+
+    public void clean() {
+        pushDownStack.clear();
+    }
+
+
+    public void update() {
+        setUpStackContentAFresh();
+        for (Character element : pushDownStack.getStackContent()) {
+            push(element);
+        }
     }
 }

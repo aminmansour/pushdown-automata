@@ -85,7 +85,7 @@ public class CodeDefinitionController implements Initializable{
         taTransitions.appendText(" df");
         transitionsInputed.add(new char[]{'a', 'g', '/', 'b', 't'});
         transitionsInputed.add(new char[]{'a', 'g', '/', 'c', 't'});
-        transitionsInputed.add(new char[]{'c', 'd', 'r', 'a', 't'});
+        transitionsInputed.add(new char[]{'a', 'd', '/', 'a', 't'});
     }
 
     private ToggleGroup addAcceptingConditionsToggleGroup() {
@@ -250,6 +250,7 @@ public class CodeDefinitionController implements Initializable{
 
     private void switchToPDARunner() {
         ViewFactory.globalPane.setCenter(ViewFactory.pdaRunner);
+        ControllerFactory.pdaRunnerController.stop();
         BorderPane.setAlignment(ViewFactory.pdaRunner, Pos.CENTER);
     }
 

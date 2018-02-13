@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class InputTape {
     private int headIndex;
@@ -68,11 +67,35 @@ public class InputTape {
         return headIndex==input.size()-1;
     }
 
-    public List<Character> getRemainingInput() {
-        return input.subList(headIndex,input.size());
+    public ArrayList<Character> getRemainingInput() {
+        ArrayList<Character> remainingInput = new ArrayList<>(input.size() - headIndex);
+        for (int i = headIndex; i < input.size(); i++) {
+            remainingInput.add(input.get(i));
+        }
+        return remainingInput;
+    }
+
+
+    public String getRemainingInputAsString() {
+        if ((headIndex >= input.size())) {
+            return "-";
+        }
+        String output = "";
+        for (Character sym : input.subList(headIndex, input.size())) {
+            output += sym;
+        }
+        return output;
     }
 
     public int getSize() {
         return input.size();
+    }
+
+    public String getOriginalWord() {
+        String originalWord = "";
+        for (Character symbol : input) {
+            originalWord += symbol;
+        }
+        return originalWord;
     }
 }

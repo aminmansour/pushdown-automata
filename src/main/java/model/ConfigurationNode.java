@@ -4,22 +4,30 @@ import java.util.ArrayList;
 
 public class ConfigurationNode {
 
+
     //stadard fields
-    private Configuration element;
+    private ArrayList<Character> stackState;
+    private int headPosition;
+
+
     private ConfigurationNode parent;
     private ArrayList<ConfigurationNode> children;
 
     //flag fields
+    private boolean moreChildren;
     private boolean isVisited;
-    private int totalChildren;
+    private boolean isInPath;
+    private ControlState controlState;
 
 
-    public ConfigurationNode(Configuration element,ConfigurationNode parent) {
-        this.element = element;
+    public ConfigurationNode(ControlState controlState, ConfigurationNode parent, ArrayList<Character> stackState, int headPosition, boolean moreChildren) {
         this.parent = parent;
         this.children = new ArrayList<>();
-
+        this.stackState = stackState;
+        this.headPosition = headPosition;
         this.isVisited = true;
+        this.moreChildren = moreChildren;
+        this.controlState = controlState;
     }
 
     public boolean isVisited() {
@@ -30,13 +38,7 @@ public class ConfigurationNode {
         isVisited = visited;
     }
 
-    public Configuration getElement() {
-        return element;
-    }
 
-    public void setElement(Configuration element) {
-        this.element = element;
-    }
 
     public ConfigurationNode getParent() {
         return parent;
@@ -50,13 +52,22 @@ public class ConfigurationNode {
         children = childrenConfigurations;
     }
 
-    public ConfigurationNode addChild(Configuration configuration){
-        ConfigurationNode configNode = new ConfigurationNode(configuration, this);
-        children.add(configNode);
-        return configNode;
+
+    public void addChild(ConfigurationNode child) {
+        children.add(child);
     }
 
-    public void setTotalChildren(int totalChildren) {
-        this.totalChildren = totalChildren;
+    public ControlState getState() {
+        return controlState;
     }
+
+    public ArrayList<Character> getStackState() {
+        return stackState;
+    }
+
+
+    public int getHeadPosition() {
+        return headPosition;
+    }
+
 }

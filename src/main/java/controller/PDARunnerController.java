@@ -11,12 +11,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import model.ControlState;
-import model.PDAMachine;
-import model.Transition;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -42,9 +41,11 @@ public class PDARunnerController implements Initializable{
 
     //model
     private PDAMachine model;
+    private ComputationalTree history;
 
     //fields
     private BorderPane currentChoiceWindow;
+    private VBox currentOutputWindow;
 
 
     public PDARunnerController() {
@@ -83,8 +84,14 @@ public class PDARunnerController implements Initializable{
             stop();
             actionBar.setDisable(false);
             tape.setTapeInput(inputBox.getInput());
+            tape.setCurrentConfigurationLabel("( " + model.getCurrentState().getLabel() + " , " + model.getTape().getRemainingInputAsString() + " , " + model.getStack().getStackContentAsString() + " )");
+            model.getStack().clear();
+            stack.setUpStackContentAFresh();
+            ArrayList<Transition> transitions = model.getPossibleTransitionsFromCurrent();
+            if (transitions.size() != 0) {
+                model.createComputationHistoryStore(model.getDefinition().getInitialState(), new ArrayList<Character>(), 0, transitions.size() > 1);
+            }
         }
-
     }
 
     private void initializeUserActionBarAndSetUpActionListeners() {
@@ -93,36 +100,71 @@ public class PDARunnerController implements Initializable{
         actionBar.setButtonNextAction(event -> next());
         actionBar.setButtonPreviousAction(event -> previous());
         actionBar.setButtonStartAgain(event -> startAgain());
-        actionBar.setButtonNextBranchAction(event -> next());
+        actionBar.setButtonNextBranchAction(event -> nextBranching());
         actionBar.setButtonPreviousBranchAction(event -> next());
         actionBar.setButtonStopAction(event -> stop());
+    }
+
+    public void nextBranching() {
+        while (true) {
+            ArrayList<Transition> transitions = model.getPossibleTransitionsFromCurrent();
+            if (model.hasAccepted()) {
+                openResultsOutputDialog(true);
+                break;
+            } else if (transitions.size() == 0) {
+                openResultsOutputDialog(false);
+                break;
+            } else if (transitions.size() == 1) {
+                executeTransition(transitions.get(0), false);
+            } else {
+                openTransitionOptionDialog(transitions);
+                break;
+            }
+        }
     }
 
 
     public void next(){
         List<Transition> transitions = model.getPossibleTransitionsFromCurrent();
-        if (transitions.size() == 0) {
-            System.out.println("finished");
+        if (model.hasAccepted()) {
+            openResultsOutputDialog(true);
+        } else if (transitions.size() == 0) {
+            openResultsOutputDialog(false);
         } else if (transitions.size() == 1) {
-            exectuteTransition(transitions.get(0));
+            executeTransition(transitions.get(0), false);
         } else {
             openTransitionOptionDialog(transitions);
         }
     }
 
     public void previous(){
-        tape.previous();
+        ConfigurationNode previous = model.getHistory().getCurrent();
+        model.getHistory().setCurrent(previous.getParent());
+        ConfigurationNode current = model.getHistory().getCurrent();
+        model.setCurrentState(current.getState());
+        tape.setHeadPosition(current.getHeadPosition());
+        stack.loadState(current.getStackState());
+        updateCurrentStateAndConfigurationField();
+        tape.setStackTopLabel(model.getStack().isEmpty() ? "-" : model.getStack().top() + "");
     }
 
     public void startAgain(){
         tape.redo();
-        stack.clear();
+        model.setCurrentStateToInitial();
         stack.setUpStackContentAFresh();
+        stack.clean();
+        updateCurrentStateAndConfigurationField();
+        tape.setStackTopLabel("-");
+        model.createComputationHistoryStore(model.getDefinition().getInitialState(), new ArrayList<>(), 0, false);
+
     }
 
     public void stop(){
         closeOptionDialogIfPresent();
+        actionBar.setDisable(true);
+        model.setCurrentStateToInitial();
         tape.clear();
+        tape.setCurrentStateLabel(model.getCurrentState().getLabel());
         stack.clear();
 
     }
@@ -132,6 +174,14 @@ public class PDARunnerController implements Initializable{
             bpPDARunnerPage.getChildren().remove(currentChoiceWindow);
             removeUserInteractionWithPDA(false);
             currentChoiceWindow = null;
+        }
+    }
+
+    private void closeOutputDialogIfPresent() {
+        if (currentOutputWindow != null) {
+            bpPDARunnerPage.getChildren().remove(currentOutputWindow);
+            removeUserInteractionWithPDA(false);
+            currentOutputWindow = null;
         }
     }
 
@@ -176,7 +226,7 @@ public class PDARunnerController implements Initializable{
                 vbOptions.getChildren().add(option);
                 int finalI = i;
                 option.setOnMouseClicked(event -> {
-                    exectuteTransition(transitions.get(finalI));
+                    executeTransition(transitions.get(finalI), true);
                 });
             }
             ((Button) currentChoiceWindow.lookup("#bRandomSelect")).setOnAction(event -> {
@@ -191,13 +241,32 @@ public class PDARunnerController implements Initializable{
         }
     }
 
-    private void exectuteTransition(Transition transition) {
-        System.out.println("transition clicked" + transition);
-        model.executeTransition(transition);
+    public void openResultsOutputDialog(boolean isAccepted) {
+        try {
+            removeUserInteractionWithPDA(true);
+            currentOutputWindow = FXMLLoader.load(getClass().getResource("../layouts/output_page.fxml"));
+            ((Label) currentOutputWindow.lookup("#lInput")).setText("Input word \"" + model.getTape().getOriginalWord() + "\"  : ");
+            ((Label) currentOutputWindow.lookup("#lOutcome")).setText(isAccepted ? " Accepted!" : " Rejected!");
+            ((Button) currentOutputWindow.lookup("#bAnotherInput")).setOnAction(event -> {
+                closeOutputDialogIfPresent();
+                stop();
+                inputBox.clearAndFocus();
+            });
+            ((Button) currentOutputWindow.lookup("#bContinue")).setOnAction(event -> {
+                closeOutputDialogIfPresent();
+            });
+            bpPDARunnerPage.getChildren().add(currentOutputWindow);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void executeTransition(Transition transition, boolean isBranchingTransition) {
+        model.executeTransition(transition, isBranchingTransition);
         tape.next();
-        tape.setCurrentStateLabel(model.getCurrentState().getLabel());
-        tape.setCurrentConfigurationLabel("( " + model.getCurrentState().getLabel() + " , " + model.getTape().getSymbolAtHead() + " , " + model.getStack().top() + " )");
-        stack.loadState();
+        stack.update();
+        updateCurrentStateAndConfigurationField();
 
         if (transition.getAction().getElementToPush() != '/') {
             tape.setStackTopLabel(transition.getAction().getElementToPush() + "");
@@ -205,6 +274,11 @@ public class PDARunnerController implements Initializable{
             tape.setStackTopLabel(model.getStack().top() + "");
         }
         closeOptionDialogIfPresent();
+    }
+
+    private void updateCurrentStateAndConfigurationField() {
+        tape.setCurrentStateLabel(model.getCurrentState().getLabel());
+        tape.setCurrentConfigurationLabel("( " + model.getCurrentState().getLabel() + " , " + model.getTape().getRemainingInputAsString() + " , " + model.getStack().getStackContentAsString() + " )");
     }
 
 

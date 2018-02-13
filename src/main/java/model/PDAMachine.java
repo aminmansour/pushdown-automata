@@ -1,6 +1,6 @@
 package model;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class PDAMachine {
     private boolean gameOver;
@@ -22,7 +22,6 @@ public class PDAMachine {
         stack = new PushDownStack();
         tape.clear();
         stack.clear();
-        history = new ComputationalTree();
     }
 
     private void executeTransition(Transition transition,int totalChildren) {
@@ -36,12 +35,11 @@ public class PDAMachine {
         }
         currentState = transition.getAction().getNewState();
         Configuration config = new Configuration(currentState, tape.getSymbolAtHead(), stack.top());
-        ConfigurationNode configNode = new ConfigurationNode(config,history.getCurrent());
-        history.addChildToCurrent(config,totalChildren);
+
     }
 
 
-    public List<Transition> getPossibleTransitionsFromCurrent() {
+    public ArrayList<Transition> getPossibleTransitionsFromCurrent() {
         return loadedDefinition.getPossibleTransitions(currentState, tape.getSymbolAtHead(), stack.top());
     }
 
@@ -58,7 +56,7 @@ public class PDAMachine {
     }
 
 
-    public void executeTransition(Transition transition) {
+    public void executeTransition(Transition transition, boolean isBranchingTransition) {
         tape.readSymbol();
         if (transition.getConfiguration().getTopElement() != '/') {
             stack.pop();
@@ -67,6 +65,9 @@ public class PDAMachine {
             stack.push(transition.getAction().getElementToPush());
         }
         currentState = transition.getAction().getNewState();
+        ConfigurationNode child = new ConfigurationNode(transition.getAction().getNewState(), history.getCurrent(), stack.getStackContent(), tape.getStep(), isBranchingTransition);
+        history.getCurrent().addChild(child);
+        history.setCurrent(child);
     }
 
     public ControlState getCurrentState() {
@@ -74,4 +75,36 @@ public class PDAMachine {
     }
 
 
+    public void setCurrentStateToInitial() {
+        currentState = loadedDefinition.getInitialState();
+    }
+
+    public boolean hasAccepted() {
+        if (tape.hasFinished()) {
+            if (loadedDefinition.isAcceptByFinalState()) {
+                if (currentState.isAccepting()) {
+                    return true;
+                }
+            } else {
+                if (stack.isEmpty()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void setCurrentState(ControlState current) {
+        this.currentState = current;
+    }
+
+
+    public void createComputationHistoryStore(ControlState controlState, ArrayList<Character> stackState, int headPosition, boolean moreChildren) {
+        ConfigurationNode root = new ConfigurationNode(controlState, null, stackState, headPosition, moreChildren);
+        history = new ComputationalTree(root);
+    }
+
+    public ComputationalTree getHistory() {
+        return history;
+    }
 }

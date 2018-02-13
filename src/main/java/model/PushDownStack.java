@@ -42,9 +42,21 @@ public class PushDownStack {
 
     public void loadState(ArrayList<Character> elements) {
         stackContent = elements;
+
     }
 
     public ArrayList<Character> getStackContent() {
         return stackContent;
+    }
+
+    public String getStackContentAsString() {
+        if (stackContent.size() == 0) {
+            return "-";
+        }
+        String output = "";
+        for (int i = stackContent.size() - 1; i >= 0; i--) {
+            output += stackContent.get(i);
+        }
+        return output;
     }
 }

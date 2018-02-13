@@ -145,4 +145,6 @@ public class MachineDisplayController {
     public BorderPane getCanvas() {
         return pdaDisplay;
     }
+
+
 }

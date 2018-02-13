@@ -8,8 +8,10 @@ public class ComputationalTree {
     private ConfigurationNode root;
     private ConfigurationNode current;
 
-    public ComputationalTree() {
-        this.size = 0;
+    public ComputationalTree(ConfigurationNode root) {
+        this.root = root;
+        current = root;
+        this.size = 1;
     }
 
 
@@ -59,17 +61,11 @@ public class ComputationalTree {
         }
     }
 
-    public void addChildToCurrent(Configuration newChild,int totalChildren){
-        current = current.addChild(newChild);
-        current.setTotalChildren(totalChildren);
-        current.setVisited(true);
-        size++;
-    }
 
-    private void setRoot(Configuration root){
-        this.root = new ConfigurationNode(root,null);
-        this.current = this.root;
-    }
+//    private void setRoot(Configuration root){
+//        this.root = new ConfigurationNode(root,null);
+//        this.current = this.root;
+//    }
 
 
     private boolean checkIfReadyExplored(Transition transition) {
@@ -84,9 +80,7 @@ public class ComputationalTree {
     }
 
 
-
-
-
-
-
+    public void setCurrent(ConfigurationNode current) {
+        this.current = current;
+    }
 }

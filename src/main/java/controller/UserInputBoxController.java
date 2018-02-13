@@ -48,4 +48,10 @@ public class UserInputBoxController {
         bInstantRun.setDisable(toDisable);
     }
 
+
+    public void clearAndFocus() {
+        taInput.clear();
+        taInput.requestFocus();
+    }
+
 }

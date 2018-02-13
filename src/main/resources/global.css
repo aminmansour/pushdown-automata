@@ -378,7 +378,7 @@
 
 .transition-choice {
     -fx-background-color: #f9f9f9;
-    -fx-border-color: #2ab27b;
+    -fx-border-color: #249567;
     -fx-border-width: 1px;
 }
 
@@ -400,5 +400,17 @@
 }
 
 #bRandomSelect, #bTerminate {
+    -fx-font-size: 14px;
+}
+
+/*output page*/
+
+#vbOutput, #spOutput {
+    -fx-background-color: white;
+    -fx-border-color: #cecece;
+    -fx-border-width: 1px;
+}
+
+#vbOutput .button {
     -fx-font-size: 14px;
 }

@@ -9,7 +9,6 @@ import model.InputTape;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TapeDisplayController {
 
@@ -66,7 +65,7 @@ public class TapeDisplayController {
 //        setTapeCells(t);
     }
 
-    private void setTapeCells(List<Character> content) {
+    public void setTapeCells(ArrayList<Character> content) {
         for (Node node : gpTape.getChildren()) {
             String elementLabel = (content.size() > GridPane.getColumnIndex(node)) ? content.get( GridPane.getColumnIndex(node)) + "" : "";
             StackPane tapeCell = (StackPane) node;
@@ -123,9 +122,12 @@ public class TapeDisplayController {
         for (char c : input.toCharArray()) { inputSymbols.add(c); }
         tape.clear();
         tape.setInput(inputSymbols);
-        tape.setHeadIndex(0);
-        setStep(0);
+        setHeadPosition(0);
+    }
 
+    public void setHeadPosition(int position) {
+        tape.setHeadIndex(position);
+        setStep(position);
         setTapeCells(tape.getRemainingInput());
         setHeadSymbolLabel(tape.getSymbolAtHead()+"");
     }
@@ -150,10 +152,9 @@ public class TapeDisplayController {
         lStep.setText("Step 0");
         setTapeCells(new ArrayList<>());
         tape.clear();
-        lHeadSymbol.setText("Symbol at head : none");
-        lCurrentConfiguration.setText("Current configuration : none");
-        lStackTop.setText("Top stack symbol : none");
-        lHeadSymbol.setText("Current state : none");
+        lHeadSymbol.setText("Symbol at head : -");
+        lCurrentConfiguration.setText("Current configuration : -");
+        lStackTop.setText("Top stack symbol : -");
     }
 
     public void redo() {
@@ -168,4 +169,6 @@ public class TapeDisplayController {
         this.tape = tapeInputModel;
         clear();
     }
+
+
 }

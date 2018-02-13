@@ -39,7 +39,6 @@ public class TransitionTableController {
         columns = tvTransitionTable.getColumns();
         setUpColumns();
         tvTransitionTable.setItems(data);
-        computationalTree = new ComputationalTree();
     }
 
     private void setUpColumns() {

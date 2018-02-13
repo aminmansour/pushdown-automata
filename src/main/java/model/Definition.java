@@ -9,7 +9,8 @@ public class Definition {
     private String identifier;
     private ArrayList<Character> inputAlphabet;
     private ArrayList<ControlState> states;
-    private boolean isAcceptByFinalState; //false signifies accept-by-empty-stack
+
+    private boolean isAcceptByFinalState;
 
     public ArrayList<ControlState> getStates() {
         return states;
@@ -115,8 +116,8 @@ public class Definition {
         return stateToTransitionMap.get(state.getLabel());
     }
 
-    public List<Transition> getPossibleTransitions(ControlState state,Character input,Character stackSymbol){
-        List<Transition> possibleTransitions = new ArrayList<>();
+    public ArrayList<Transition> getPossibleTransitions(ControlState state, Character input, Character stackSymbol) {
+        ArrayList<Transition> possibleTransitions = new ArrayList<>();
 
         for(Transition transition : getTransitionsByState(state)){
             System.out.println(transition);
@@ -132,5 +133,9 @@ public class Definition {
             }
         }
         return possibleTransitions;
+    }
+
+    public boolean isAcceptByFinalState() {
+        return isAcceptByFinalState;
     }
 }
