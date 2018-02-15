@@ -405,12 +405,12 @@
 
 /*output page*/
 
-#vbOutput, #spOutput{
+#vbOutput, #spOutput {
     -fx-background-color: white;
     -fx-border-color: #cecece;
     -fx-border-width: 1px;
 }
 
-#vbOutput .button{
+#vbOutput .button {
     -fx-font-size: 14px;
 }

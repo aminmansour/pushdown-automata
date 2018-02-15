@@ -42,6 +42,10 @@ public class UserInputBoxController {
         bStepRun.setOnMouseClicked(action);
     }
 
+    public void setButtonInstantRunAction(EventHandler<MouseEvent> action) {
+        bInstantRun.setOnMouseClicked(action);
+    }
+
 
     public void setDisable(boolean toDisable) {
         bStepRun.setDisable(toDisable);
@@ -53,5 +57,6 @@ public class UserInputBoxController {
         taInput.clear();
         taInput.requestFocus();
     }
+
 
 }

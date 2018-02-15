@@ -120,7 +120,6 @@ public class Definition {
         ArrayList<Transition> possibleTransitions = new ArrayList<>();
 
         for(Transition transition : getTransitionsByState(state)){
-            System.out.println(transition);
             Character inputSym = transition.getConfiguration().getInputSymbol();
             Character stackSym = transition.getConfiguration().getTopElement();
             if(

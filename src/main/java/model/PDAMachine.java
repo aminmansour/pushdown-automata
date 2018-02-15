@@ -24,19 +24,6 @@ public class PDAMachine {
         stack.clear();
     }
 
-    private void executeTransition(Transition transition,int totalChildren) {
-        tape.readSymbol();
-        if(transition.getConfiguration().getTopElement()!=null){
-            stack.pop();
-        }
-        Character elementToPush = transition.getAction().getElementToPush();
-        if(elementToPush !=null){
-            stack.push(elementToPush);
-        }
-        currentState = transition.getAction().getNewState();
-        Configuration config = new Configuration(currentState, tape.getSymbolAtHead(), stack.top());
-
-    }
 
 
     public ArrayList<Transition> getPossibleTransitionsFromCurrent() {
@@ -56,7 +43,8 @@ public class PDAMachine {
     }
 
 
-    public void executeTransition(Transition transition, boolean isBranchingTransition) {
+    public void executeTransition(Transition transition, int totalChildren) {
+        stack.loadState(new ArrayList<>(stack.getStackContent()));
         tape.readSymbol();
         if (transition.getConfiguration().getTopElement() != '/') {
             stack.pop();
@@ -65,9 +53,15 @@ public class PDAMachine {
             stack.push(transition.getAction().getElementToPush());
         }
         currentState = transition.getAction().getNewState();
-        ConfigurationNode child = new ConfigurationNode(transition.getAction().getNewState(), history.getCurrent(), stack.getStackContent(), tape.getStep(), isBranchingTransition);
+        addConfigurationStateToHistory(transition, totalChildren);
+    }
+
+    private void addConfigurationStateToHistory(Transition transition, int totalChildren) {
+        ConfigurationNode child = new ConfigurationNode(transition.getAction().getNewState(),
+                history.getCurrent(), new ArrayList<>(stack.getStackContent()), tape.getStep(), totalChildren);
         history.getCurrent().addChild(child);
         history.setCurrent(child);
+        child.markInPath(true);
     }
 
     public ControlState getCurrentState() {
@@ -99,12 +93,29 @@ public class PDAMachine {
     }
 
 
-    public void createComputationHistoryStore(ControlState controlState, ArrayList<Character> stackState, int headPosition, boolean moreChildren) {
-        ConfigurationNode root = new ConfigurationNode(controlState, null, stackState, headPosition, moreChildren);
+    public void createComputationHistoryStore(ControlState controlState, ArrayList<Character> stackState, int headPosition, int totalChildren) {
+        ConfigurationNode root = new ConfigurationNode(controlState, null, stackState, headPosition, totalChildren);
+        root.markInPath(true);
         history = new ComputationalTree(root);
     }
 
     public ComputationalTree getHistory() {
         return history;
+    }
+
+
+    public String getCurrentSequence(boolean isAccepted) {
+        ConfigurationNode pointer = history.getRoot();
+        String output = getConfigurationStringFromPreviousState(pointer);
+        while ((pointer = pointer.getNextChildInPath()) != null) {
+            output += " > " + getConfigurationStringFromPreviousState(pointer);
+        }
+        output += isAccepted ? " - Accepted" : " - Stuck ";
+        return output;
+    }
+
+    private String getConfigurationStringFromPreviousState(ConfigurationNode pointer) {
+        String remainingInputString = tape.getOriginalWord().substring(pointer.getHeadPosition());
+        return "( " + pointer.getState().getLabel() + " , " + (remainingInputString.isEmpty() ? " - " : remainingInputString) + " , " + pointer.getStackStateInStringFormat() + " ) ";
     }
 }

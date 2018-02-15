@@ -102,7 +102,7 @@ public class VisualTransition {
 //        Path arrowEnd = new Path();
 //        arrowEnd.getElements().addAll(move, a1, move, a2);
 //        Group g = new Group();
-//        g.getChildren().addAll(arrow, arrowEnd);
+//        g.getExploredChildren().addAll(arrow, arrowEnd);
 
         Text text = new Text(label);
         text.setFill(Color.BLACK);

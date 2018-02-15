@@ -64,7 +64,7 @@ public class InputTape {
     }
 
     public boolean hasFinished(){
-        return headIndex==input.size()-1;
+        return headIndex == input.size();
     }
 
     public ArrayList<Character> getRemainingInput() {

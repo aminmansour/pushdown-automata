@@ -83,8 +83,8 @@ public class CodeDefinitionController implements Initializable{
         tfFurtherInfo.setText("a,b");
         tfInitialState.setText("a");
         taTransitions.appendText(" df");
-        transitionsInputed.add(new char[]{'a', 'g', '/', 'b', 't'});
         transitionsInputed.add(new char[]{'a', 'g', '/', 'c', 't'});
+        transitionsInputed.add(new char[]{'a', 'g', '/', 'b', 't'});
         transitionsInputed.add(new char[]{'a', 'd', '/', 'a', 't'});
     }
 
@@ -207,10 +207,7 @@ public class CodeDefinitionController implements Initializable{
         TreeMap<String, ControlState> controlStates = new TreeMap<>();
         ArrayList<ControlState> states = new ArrayList<>(controlStatesInput.length);
         boolean isTerminateByAccepting = rbAcceptingState.isSelected();
-        System.out.println(isAcceptByFinalState + "is terminatng");
         String[] acceptingStates = isTerminateByAccepting ? tfFurtherInfo.getText().trim().replaceAll("\\s", "").split(",") : new String[0];
-        System.out.println(isAcceptByFinalState + "is terminatng");
-        System.out.println("accept states : " + acceptingStates.length);
         char initialStateLabel = tfInitialState.getText().charAt(0);
         for (int i = 0; i < controlStatesInput.length; i++) {
             ControlState state = new ControlState(controlStatesInput[i]);
@@ -220,7 +217,6 @@ public class CodeDefinitionController implements Initializable{
 
             if (initialStateLabel == state.getLabel().charAt(0)) {
                 state.markAsInitial();
-                System.out.println("hello");
             }
 
             controlStates.put(controlStatesInput[i], state);

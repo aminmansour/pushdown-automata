@@ -59,12 +59,18 @@ public class StackController {
         return stackView;
     }
 
+    private void pushToBottomOfStack(char element) {
+        Label elementLabel = new Label(element + "");
+        elementLabel.setFont(new Font(15));
+        spFirstStackCell.getChildren().add(elementLabel);
+
+    }
 
     private void push(char element) {
         Label elementLabel = new Label(element + "");
         elementLabel.setFont(new Font(15));
 
-        if (pushDownStack.size() == 1) {
+        if (spFirstStackCell.getChildren().isEmpty()) {
             spFirstStackCell.getChildren().add(elementLabel);
         } else {
             StackPane stStackCell = getStackCell(100, 30, "stack-cell");
@@ -80,7 +86,6 @@ public class StackController {
     }
 
     public void loadState(ArrayList<Character> stackState) {
-        pushDownStack.clear();
         setUpStackContentAFresh();
         pushDownStack.loadState(stackState);
         for (Character element : pushDownStack.getStackContent()) {
@@ -161,6 +166,8 @@ public class StackController {
 
     public void update() {
         setUpStackContentAFresh();
+        System.out.println(pushDownStack.getStackContent().size() + "bye321");
+
         for (Character element : pushDownStack.getStackContent()) {
             push(element);
         }

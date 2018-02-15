@@ -132,7 +132,6 @@ public class TransitionTextField extends TextField {
                         currentPattern = PATTERN_CHAR_OR_NUM;
                         break;
                     default:
-                        System.out.println("Error of Default");
                         throw new IllegalArgumentException();
                 }
 

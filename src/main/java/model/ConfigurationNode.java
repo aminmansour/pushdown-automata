@@ -11,50 +11,35 @@ public class ConfigurationNode {
 
 
     private ConfigurationNode parent;
-    private ArrayList<ConfigurationNode> children;
+    private ArrayList<ConfigurationNode> exploredChildren;
 
     //flag fields
-    private boolean moreChildren;
-    private boolean isVisited;
+    private int totalSiblings;
     private boolean isInPath;
     private ControlState controlState;
 
 
-    public ConfigurationNode(ControlState controlState, ConfigurationNode parent, ArrayList<Character> stackState, int headPosition, boolean moreChildren) {
+    public ConfigurationNode(ControlState controlState, ConfigurationNode parent, ArrayList<Character> stackState, int headPosition, int totalSiblings) {
         this.parent = parent;
-        this.children = new ArrayList<>();
+        this.exploredChildren = new ArrayList<>();
         this.stackState = stackState;
         this.headPosition = headPosition;
-        this.isVisited = true;
-        this.moreChildren = moreChildren;
+        this.totalSiblings = totalSiblings;
         this.controlState = controlState;
     }
-
-    public boolean isVisited() {
-        return isVisited;
-    }
-
-    public void setVisited(boolean visited) {
-        isVisited = visited;
-    }
-
 
 
     public ConfigurationNode getParent() {
         return parent;
     }
 
-    public ArrayList<ConfigurationNode> getChildren() {
-        return children;
-    }
-
-    public void setChildren(ArrayList<ConfigurationNode> childrenConfigurations) {
-        children = childrenConfigurations;
+    public ArrayList<ConfigurationNode> getExploredChildren() {
+        return exploredChildren;
     }
 
 
     public void addChild(ConfigurationNode child) {
-        children.add(child);
+        exploredChildren.add(child);
     }
 
     public ControlState getState() {
@@ -70,4 +55,56 @@ public class ConfigurationNode {
         return headPosition;
     }
 
+    public void markInPath(boolean isInPath) {
+        this.isInPath = isInPath;
+    }
+
+    public ConfigurationNode getChildIfFound(ControlState newState, ArrayList<Character> stackContent, int step) {
+        for (ConfigurationNode configuration : exploredChildren) {
+            if (newState.equals(configuration.controlState) && step == configuration.headPosition && compareStackContent(configuration.stackState, stackContent)) {
+                return configuration;
+            }
+        }
+        return null;
+    }
+
+    private boolean compareStackContent(ArrayList<Character> stackState, ArrayList<Character> stackContent) {
+
+        if (stackState.size() != stackContent.size()) {
+            return false;
+        }
+
+        for (int i = 0; i < stackState.size(); i++) {
+            if (stackState.get(i) != stackContent.get(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public ConfigurationNode getNextChildInPath() {
+        for (ConfigurationNode configurationNode : exploredChildren) {
+            if (configurationNode.isInPath) {
+                return configurationNode;
+            }
+        }
+        return null;
+    }
+
+
+    public String getStackStateInStringFormat() {
+        if (stackState.isEmpty()) {
+            return " - ";
+        }
+        String output = "";
+        for (Character character : stackState) {
+            output += character;
+        }
+        return output;
+    }
+
+
+    public int getTotalSiblings() {
+        return totalSiblings;
+    }
 }
