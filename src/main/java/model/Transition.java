@@ -1,13 +1,16 @@
 package model;
 
 public class Transition {
-    private Action action;
-    private Configuration configuration;
 
+    private Configuration configuration;
+    private Action action;
 
     public Transition(Configuration configuration,Action action) {
         this.action = action;
         this.configuration = configuration;
+    }
+
+    public Transition() {
     }
 
     public Configuration getConfiguration() {
@@ -18,12 +21,20 @@ public class Transition {
         return action;
     }
 
-    public ControlState getSourceState() {
+    public ControlState retrieveSourceState() {
         return configuration.getState();
     }
 
-    public ControlState getTargetState() {
+    public ControlState retrieveTargetState() {
         return action.getNewState();
+    }
+
+    public void setAction(Action action) {
+        this.action = action;
+    }
+
+    public void setConfiguration(Configuration configuration) {
+        this.configuration = configuration;
     }
 
     @Override

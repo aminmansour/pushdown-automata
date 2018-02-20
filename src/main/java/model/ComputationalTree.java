@@ -46,9 +46,9 @@ public class ComputationalTree {
             return;
         }else{
             for (ConfigurationNode configNode : node.getExploredChildren()) {
-                if (configNode.isVisited()) {
+//                if (configNode.isVisited()) {
                     preOrderTraversal(configNode, preOrderCollection);
-                }
+//                }
             }
         }
     }

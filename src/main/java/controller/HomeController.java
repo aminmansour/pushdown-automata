@@ -25,4 +25,11 @@ public class HomeController {
         BorderPane.setMargin(ViewFactory.codeDefinition,new Insets(30,0,0,0));
     }
 
+
+    @FXML
+    private void switchToLibrary(ActionEvent actionEvent) {
+        ViewFactory.globalPane.setCenter(ViewFactory.libraryLoader);
+        ControllerFactory.libraryLoaderController.retrieveDefinitionStore();
+        BorderPane.setAlignment(ViewFactory.libraryLoader, Pos.CENTER);
+    }
 }

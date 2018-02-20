@@ -11,7 +11,7 @@
                <FontIcon iconLiteral="icm-home" iconSize="32" iconColor="#ffffff"/>
            </graphic>
        </Button>
-       <Button mnemonicParsing="false" text="Library"  styleClass="side-tool-buttons" >
+       <Button mnemonicParsing="false" text="Library"  styleClass="side-tool-buttons" onAction="#switchToLibrary">
           <graphic>
               <FontIcon iconLiteral="icm-upload3" iconSize="30" iconColor="#ffffff"/>
           </graphic>

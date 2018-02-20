@@ -16,6 +16,8 @@ public class Main extends Application {
         primaryStage.show();
         setGlobalVariables(primaryStage);
         root.setCenter(ViewFactory.homePage);
+
+
     }
 
     private void setGlobalVariables(Stage primaryStage) throws java.io.IOException {
@@ -33,6 +35,10 @@ public class Main extends Application {
         FXMLLoader pdaRunnerLoader = new FXMLLoader(getClass().getResource("layouts/pda_runner_page.fxml"));
         ViewFactory.pdaRunner = pdaRunnerLoader.load();
         ControllerFactory.pdaRunnerController = pdaRunnerLoader.getController();
+
+        FXMLLoader libraryLoader = new FXMLLoader(getClass().getResource("layouts/library_page.fxml"));
+        ViewFactory.libraryLoader = libraryLoader.load();
+        ControllerFactory.libraryLoaderController = libraryLoader.getController();
     }
 
 

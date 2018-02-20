@@ -1,28 +1,13 @@
 package model;
 
-import com.google.common.collect.ListMultimap;
-import com.google.common.collect.MultimapBuilder;
-
-import java.util.*;
+import java.util.ArrayList;
 
 public class Definition {
+
     private String identifier;
-    private ArrayList<Character> inputAlphabet;
     private ArrayList<ControlState> states;
-
     private boolean isAcceptByFinalState;
-
-    public ArrayList<ControlState> getStates() {
-        return states;
-    }
-
-    public ArrayList<Transition> getTransitions() {
-        return transitions;
-    }
-
     private ArrayList<Transition> transitions;
-    private ListMultimap<String, Transition> stateToTransitionMap;
-    private Set<Transition> deterministicTransitions;
     private ControlState initialState;
 
     public Definition(String identifier, ArrayList<ControlState> states, ControlState initialState, ArrayList<Transition> transitions, boolean isAcceptByFinalState) {
@@ -33,8 +18,13 @@ public class Definition {
         this.transitions = transitions;
         this.initialState = initialState;
         initialState.markAsInitial();
-        sortStateToTransitionMapping();
-        identifyDeterministicTransitions();
+    }
+
+    public Definition() {
+    }
+
+    public void setStates(ArrayList<ControlState> states) {
+        this.states = states;
     }
 
     public static void main(String[] args) {
@@ -54,57 +44,32 @@ public class Definition {
         Transition transition4 = new Transition(new Configuration(q1, null, 'A'), new Action(q1, 'A'));
         transitions.add(transition4);
         Definition def = new Definition("1", states, states.get(0), transitions, false);
-        Set<Transition> computatedSet = def.getDeterministicTransitions();
-        def.isDeterministic();
-        def.getDeterministicTransitions();
+
 
 
     }
 
-    public boolean isDeterministic(){
-        return !deterministicTransitions.isEmpty();
+
+
+
+    public boolean isAcceptByFinalState() {
+        return isAcceptByFinalState;
     }
 
-    public Set<Transition> getDeterministicTransitions(){
-        return deterministicTransitions;
+    public String getIdentifier() {
+        return identifier;
     }
 
-
-    private void identifyDeterministicTransitions() {
-        deterministicTransitions = new HashSet<>();
-            for(ControlState state : states) {
-                int indexI = 0;
-                Collection<Transition> stateTransitions = stateToTransitionMap.get(state.getLabel());
-                for (Transition transition : stateTransitions) {
-                    Character currentInput = transition.getConfiguration().getInputSymbol();
-                    Character currentStackSymbol = transition.getConfiguration().getTopElement();
-                    int indexJ = 0;
-                    for (Transition transitionToCompare : stateTransitions) {
-                        if (indexI != indexJ) {
-                            Character inputToCompare = transitionToCompare.getConfiguration().getInputSymbol();
-                            Character stackSymbolToCompare = transitionToCompare.getConfiguration().getTopElement();
-                            if (currentInput == inputToCompare && currentStackSymbol == stackSymbolToCompare) {
-                                deterministicTransitions.add(transition);
-                                deterministicTransitions.add(transitionToCompare);
-                            }
-
-                            if (currentInput == null && currentStackSymbol == stackSymbolToCompare) {
-                                deterministicTransitions.add(transition);
-                                deterministicTransitions.add(transitionToCompare);
-                            }
-                        }
-                        indexJ++;
-                    }
-                    indexI++;
-                }
-            }
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
-    private void sortStateToTransitionMapping(){
-        stateToTransitionMap = MultimapBuilder.hashKeys().arrayListValues().build();
-        for (Transition transition : transitions) {
-            stateToTransitionMap.put(transition.getConfiguration().getState().getLabel(), transition);
-        }
+    public ArrayList<ControlState> getStates() {
+        return states;
+    }
+
+    public ArrayList<Transition> getTransitions() {
+        return transitions;
     }
 
 
@@ -112,29 +77,39 @@ public class Definition {
         return initialState;
     }
 
-    public List<Transition> getTransitionsByState(ControlState state) {
-        return stateToTransitionMap.get(state.getLabel());
+    public void setInitialState(ControlState initialState) {
+        this.initialState = initialState;
     }
 
-    public ArrayList<Transition> getPossibleTransitions(ControlState state, Character input, Character stackSymbol) {
-        ArrayList<Transition> possibleTransitions = new ArrayList<>();
 
-        for(Transition transition : getTransitionsByState(state)){
-            Character inputSym = transition.getConfiguration().getInputSymbol();
-            Character stackSym = transition.getConfiguration().getTopElement();
-            if(
-                    (inputSym == '/' && stackSym == '/') ||
-                            (inputSym == '/' && stackSym == stackSymbol) ||
-                            (inputSym == input && stackSym == '/') ||
-                    (inputSym == input && stackSym == stackSymbol))
-            {
-                possibleTransitions.add(transition);
+    public void setAcceptByFinalState(boolean acceptByFinalState) {
+        isAcceptByFinalState = acceptByFinalState;
+    }
+
+    public void setTransitions(ArrayList<Transition> transitions) {
+        this.transitions = transitions;
+    }
+
+    public void prepareForLoad() {
+        for (Transition transition : transitions) {
+            transition.getConfiguration().setState(retrieveStateByLabel(transition.getConfiguration().getState().getLabel()));
+            transition.getAction().setNewState(retrieveStateByLabel(transition.getAction().getNewState().getLabel()));
+        }
+        initialState = retrieveStateByLabel(initialState.getLabel());
+        initialState.markAsInitial();
+    }
+
+    private ControlState retrieveStateByLabel(String label) {
+        for (ControlState controlState : states) {
+            if (controlState.getLabel().equals(label)) {
+                return controlState;
             }
         }
-        return possibleTransitions;
+        return null;
     }
 
-    public boolean isAcceptByFinalState() {
-        return isAcceptByFinalState;
+    @Override
+    public boolean equals(Object obj) {
+        return identifier.equals(((Definition) obj).identifier);
     }
 }

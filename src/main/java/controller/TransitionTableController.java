@@ -69,4 +69,15 @@ public class TransitionTableController {
         data.clear();
     }
 
+    public void clearSelection() {
+        tvTransitionTable.getSelectionModel().clearSelection();
+    }
+
+    public void select(Transition transition) {
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).sameAs(transition)) {
+                highlightRow(i);
+            }
+        }
+    }
 }

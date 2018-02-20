@@ -3,19 +3,18 @@ package controller;
 import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.*;
 import model.*;
 import view.TransitionTextField;
 import view.ViewFactory;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -199,11 +198,11 @@ public class CodeDefinitionController implements Initializable{
         definitionValid = isFurtherInfoFieldValid(controlStatesInput);
         definitionValid = isTransitionsValid(initialStateValid);
         if (definitionValid) {
-            loadDefinition(controlStatesInput, rbAcceptingState.isSelected(), transitionsInputed);
+            loadDefinition(System.currentTimeMillis() + "", controlStatesInput, transitionsInputed, false);
         } else { showErrorDialog(); }
     }
 
-    private void loadDefinition(String[] controlStatesInput, boolean isAcceptByFinalState, ArrayList<char[]> transitionsInputed) {
+    private boolean loadDefinition(String id, String[] controlStatesInput, ArrayList<char[]> transitionsInputed, boolean toSave) {
         TreeMap<String, ControlState> controlStates = new TreeMap<>();
         ArrayList<ControlState> states = new ArrayList<>(controlStatesInput.length);
         boolean isTerminateByAccepting = rbAcceptingState.isSelected();
@@ -236,12 +235,21 @@ public class CodeDefinitionController implements Initializable{
             Transition transition = new Transition(config, action);
             transitions.add(transition);
         }
+        Definition definition = new Definition(id, states, controlStates.get(tfInitialState.getText().trim()), transitions, isTerminateByAccepting);
 
+        if (toSave) {
+            Memory.load();
+            if (ModelFactory.checkForOccurence(definition)) {
+                return false;
+            }
+            Memory.save(definition);
+        }
 
-        Definition definition = new Definition(System.currentTimeMillis() + "", states, controlStates.get(tfInitialState.getText().trim()), transitions, isTerminateByAccepting);
         ControllerFactory.pdaRunnerController.setModel(new PDAMachine(definition));
         switchToPDARunner();
 
+
+        return true;
     }
 
     private void switchToPDARunner() {
@@ -403,4 +411,52 @@ public class CodeDefinitionController implements Initializable{
             showError(lAddTransitionInstruction,"*No transition defined!");
         }
     }
+
+    public void save(ActionEvent actionEvent) {
+        currentErrorList.clear();
+        Object[] definitionBuffer = new Object[4];
+        //definition assumed true
+        boolean definitionValid;
+        String[] controlStatesInput = taControlStates.getText().trim().replaceAll("\\s", "").split(",");
+        definitionValid = isControlStatesValid(definitionBuffer);
+        boolean initialStateValid = isInitialStateValid(controlStatesInput);
+        definitionValid = initialStateValid;
+        definitionValid = isFurtherInfoFieldValid(controlStatesInput);
+        definitionValid = isTransitionsValid(initialStateValid);
+        if (definitionValid) {
+            openSaveDialog(controlStatesInput);
+        } else {
+            showErrorDialog();
+        }
+    }
+
+    public void openSaveDialog(String[] controlStatesInput) {
+        try {
+            VBox currentsaveWindow = FXMLLoader.load(getClass().getResource("../layouts/save_confirmation_page.fxml"));
+            Button bSave = (Button) currentsaveWindow.lookup("#bSave");
+            Button bClose = (Button) currentsaveWindow.lookup("#bClose");
+            Label lError = (Label) currentsaveWindow.lookup("#lError");
+            TextField tfName = (TextField) currentsaveWindow.lookup("#tfName");
+            bClose.setOnAction(event -> {
+                ViewFactory.codeDefinition.getChildren().remove(currentsaveWindow);
+            });
+
+            bSave.setOnAction(event -> {
+                if (!tfName.getText().trim().isEmpty()) {
+                    boolean isSuccessful = loadDefinition(tfName.getText().trim(), controlStatesInput, transitionsInputed, true);
+                    if (!isSuccessful) {
+                        lError.setVisible(true);
+                    } else {
+                        ViewFactory.codeDefinition.getChildren().remove(currentsaveWindow);
+                    }
+                }
+            });
+
+            ViewFactory.codeDefinition.getChildren().add(currentsaveWindow);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

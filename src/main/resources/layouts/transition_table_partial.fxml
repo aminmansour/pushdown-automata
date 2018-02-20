@@ -6,24 +6,24 @@
 <?import javafx.scene.layout.VBox?>
 <HBox fx:id="transitionBox" alignment="TOP_CENTER" maxWidth="Infinity" style="-fx-background-color: white"
       VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
-    <TableView fx:id="tvTransitionTable" maxWidth="502" minWidth="500" HBox.hgrow="ALWAYS">
+    <TableView editable="true" fx:id="tvTransitionTable" maxWidth="502" minWidth="500" HBox.hgrow="ALWAYS">
         <columns>
             <TableColumn fx:id="tcConfiguration" maxWidth="Infinity" minWidth="300.0" prefWidth="300.0"
                          text="Configuration">
                 <columns>
-                    <TableColumn fx:id="currentState" editable="false" maxWidth="Infinity" minWidth="100"
+                    <TableColumn fx:id="currentState" maxWidth="Infinity" minWidth="100"
                                  resizable="false" styleClass="transition-table-column" text="Current state"/>
-                    <TableColumn fx:id="elementAtHead" editable="false" maxWidth="Infinity" minWidth="100"
+                    <TableColumn fx:id="elementAtHead" maxWidth="Infinity" minWidth="100"
                                  resizable="false" styleClass="transition-table-column" text="Element at head"/>
-                    <TableColumn fx:id="topOfStack" editable="false" maxWidth="Infinity" minWidth="100"
+                    <TableColumn fx:id="topOfStack" maxWidth="Infinity" minWidth="100"
                                  resizable="false" styleClass="transition-table-column" text="Top of stack"/>
                 </columns>
             </TableColumn>
             <TableColumn fx:id="tcAction" maxWidth="Infinity" minWidth="200" text="Action">
                 <columns>
-                    <TableColumn fx:id="resultingState" editable="false" maxWidth="Infinity" minWidth="100"
+                    <TableColumn fx:id="resultingState" maxWidth="Infinity" minWidth="100"
                                  resizable="false" styleClass="transition-table-column" text="Resulting state"/>
-                    <TableColumn fx:id="resultingTopOfStack" editable="false" maxWidth="Infinity" minWidth="100"
+                    <TableColumn fx:id="resultingTopOfStack" editable="true" maxWidth="Infinity" minWidth="100"
                                  resizable="false" styleClass="transition-table-column"
                                  text="Resulting top &#10;of stack"/>
                 </columns>

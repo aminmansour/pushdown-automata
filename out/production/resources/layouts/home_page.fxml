@@ -79,7 +79,7 @@
                                 <Insets bottom="5.0"/>
                             </padding>
                         </Label>
-                        <Button styleClass="green-button-theme" text="Enter"/>
+                        <Button styleClass="green-button-theme" onAction="#switchToLibrary" text="Enter"/>
                     </VBox>
                 </HBox>
             </HBox>

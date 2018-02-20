@@ -46,4 +46,12 @@ public class TransitionEntry {
                 resultingTopOfStack.equals(((TransitionEntry) obj).resultingTopOfStack);
 
     }
+
+    public boolean sameAs(Transition transition) {
+        return transition.getConfiguration().getState().getLabel().equals(currentState) &&
+                transition.getConfiguration().getInputSymbol().toString().equals(elementAtHead) &&
+                transition.getConfiguration().getTopElement().toString().equals(topOfStack) &&
+                transition.getAction().getNewState().getLabel().equals(resultingState) &&
+                transition.getAction().getElementToPush().toString().equals(resultingTopOfStack);
+    }
 }

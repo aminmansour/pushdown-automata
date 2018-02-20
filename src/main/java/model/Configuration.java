@@ -11,6 +11,9 @@ public class Configuration {
         this.topElement = topElement;
     }
 
+    public Configuration() {
+    }
+
     public ControlState getState() {
         return state;
     }
@@ -21,5 +24,17 @@ public class Configuration {
 
     public Character getTopElement() {
         return topElement;
+    }
+
+    public void setState(ControlState state) {
+        this.state = state;
+    }
+
+    public void setInputSymbol(Character inputSymbol) {
+        this.inputSymbol = inputSymbol;
+    }
+
+    public void setTopElement(Character topElement) {
+        this.topElement = topElement;
     }
 }

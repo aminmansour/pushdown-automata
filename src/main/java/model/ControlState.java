@@ -5,6 +5,8 @@ public class ControlState {
     private boolean isInitial;
     private String label;
 
+    public ControlState() {
+    }
 
     public ControlState(String label) {
         this.isAccepting = false;
@@ -35,5 +37,15 @@ public class ControlState {
     public void markAsInitial() {
         isInitial = true;
     }
+
+    public void setAccepting(boolean accepting) {
+        isAccepting = accepting;
+    }
+
+    public void setInitial(boolean initial) {
+        isInitial = initial;
+    }
+
+
 
 }

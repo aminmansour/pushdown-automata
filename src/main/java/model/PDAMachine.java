@@ -1,6 +1,9 @@
 package model;
 
-import java.util.ArrayList;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.MultimapBuilder;
+
+import java.util.*;
 
 public class PDAMachine {
     private boolean gameOver;
@@ -9,6 +12,9 @@ public class PDAMachine {
     private PushDownStack stack;
     private ControlState currentState;
     private ComputationalTree history;
+
+    private ListMultimap<String, Transition> stateToTransitionMap;
+    private Set<Transition> deterministicTransitions;
 
     public PDAMachine(Definition defToLoad) {
         loadDefinition(defToLoad);
@@ -22,12 +28,85 @@ public class PDAMachine {
         stack = new PushDownStack();
         tape.clear();
         stack.clear();
+        sortStateToTransitionMapping();
+        identifyDeterministicTransitions();
+
+    }
+
+    private void identifyDeterministicTransitions() {
+        deterministicTransitions = new HashSet<>();
+        for (ControlState state : loadedDefinition.getStates()) {
+            int indexI = 0;
+            Collection<Transition> stateTransitions = stateToTransitionMap.get(state.getLabel());
+            for (Transition transition : stateTransitions) {
+                Character currentInput = transition.getConfiguration().getInputSymbol();
+                Character currentStackSymbol = transition.getConfiguration().getTopElement();
+                int indexJ = 0;
+                for (Transition transitionToCompare : stateTransitions) {
+                    if (indexI != indexJ) {
+                        Character inputToCompare = transitionToCompare.getConfiguration().getInputSymbol();
+                        Character stackSymbolToCompare = transitionToCompare.getConfiguration().getTopElement();
+                        if (currentInput == inputToCompare && currentStackSymbol == stackSymbolToCompare) {
+                            deterministicTransitions.add(transition);
+                            deterministicTransitions.add(transitionToCompare);
+                        }
+
+                        if (currentInput == null && currentStackSymbol == stackSymbolToCompare) {
+                            deterministicTransitions.add(transition);
+                            deterministicTransitions.add(transitionToCompare);
+                        }
+                    }
+                    indexJ++;
+                }
+                indexI++;
+            }
+        }
+    }
+
+    public boolean isDeterministic() {
+        return !deterministicTransitions.isEmpty();
+    }
+
+    public Set<Transition> getDeterministicTransitions() {
+        return deterministicTransitions;
+    }
+
+
+    private void sortStateToTransitionMapping() {
+        stateToTransitionMap = MultimapBuilder.hashKeys().arrayListValues().build();
+        for (Transition transition : loadedDefinition.getTransitions()) {
+            stateToTransitionMap.put(transition.getConfiguration().getState().getLabel(), transition);
+        }
+    }
+
+
+    public List<Transition> retrieveTransitionsByState(ControlState state) {
+        return stateToTransitionMap.get(state.getLabel());
+    }
+
+    public ArrayList<Transition> getPossibleTransitions(ControlState state, Character input, Character stackSymbol) {
+        ArrayList<Transition> possibleTransitions = new ArrayList<>();
+
+        for (Transition transition : retrieveTransitionsByState(state)) {
+
+            Character inputSym = transition.getConfiguration().getInputSymbol();
+            Character stackSym = transition.getConfiguration().getTopElement();
+            if (
+                    (inputSym == '/' && stackSym == '/') ||
+                            (inputSym == '/' && stackSym == stackSymbol) ||
+                            (inputSym == input && stackSym == '/') ||
+                            (inputSym == input && stackSym == stackSymbol)) {
+                possibleTransitions.add(transition);
+            }
+        }
+        return possibleTransitions;
     }
 
 
 
+
     public ArrayList<Transition> getPossibleTransitionsFromCurrent() {
-        return loadedDefinition.getPossibleTransitions(currentState, tape.getSymbolAtHead(), stack.top());
+        return getPossibleTransitions(currentState, tape.getSymbolAtHead(), stack.top());
     }
 
     public InputTape getTape() {
