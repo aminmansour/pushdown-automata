@@ -11,5 +11,6 @@ public class ViewFactory {
     public static StackPane codeDefinition;
     public static StackPane pdaRunner;
     public static Stage stage;
+    public static StackPane quickDefinition;
 
 }

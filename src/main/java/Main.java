@@ -40,6 +40,10 @@ public class Main extends Application {
         ViewFactory.libraryLoader = libraryLoader.load();
         ControllerFactory.libraryLoaderController = libraryLoader.getController();
 
+        FXMLLoader quickDefinitionLoader = new FXMLLoader(getClass().getResource("layouts/quick_definition_page.fxml"));
+        ViewFactory.quickDefinition = quickDefinitionLoader.load();
+        ControllerFactory.quickDefinitionController = quickDefinitionLoader.getController();
+
         FXMLLoader toolbarLoader = new FXMLLoader();
         HBox toolbar = toolbarLoader.load(getClass().getResource("layouts/tool_bar_partial.fxml").openStream());
         ControllerFactory.toolBarPartialController = toolbarLoader.getController();

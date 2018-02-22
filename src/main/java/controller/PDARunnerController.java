@@ -279,6 +279,7 @@ public class PDARunnerController implements Initializable{
         transitionTable.clear();
         transitionTable.setStates(model.getDefinition().getStates());
         ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
+        ControllerFactory.homeController.showContinueButton();
 
         for (ControlState controlState : model.getDefinition().getStates()) {
             machineDisplay.addVisualControlState(controlState);
@@ -498,5 +499,9 @@ public class PDARunnerController implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean isLoaded() {
+        return model != null;
     }
 }
