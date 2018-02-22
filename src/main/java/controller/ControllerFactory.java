@@ -5,4 +5,5 @@ public class ControllerFactory {
     public static CodeDefinitionController codeDefinitionController;
     public static HomeController homeController;
     public static LibraryController libraryLoaderController;
+    public static ToolBarPartialController toolBarPartialController;
 }

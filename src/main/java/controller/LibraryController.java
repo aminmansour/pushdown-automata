@@ -55,8 +55,9 @@ public class LibraryController implements Initializable {
 
     public void load(ActionEvent actionEvent) {
         Definition definition = retrieveDefinitionInstance((String) items.get(lvLibrary.getSelectionModel().getSelectedIndex()));
-//        definition.prepareForLoad();
-        ControllerFactory.pdaRunnerController.setModel(new PDAMachine(definition));
+        PDAMachine model = new PDAMachine(definition);
+        model.markAsSavedInMemory();
+        ControllerFactory.pdaRunnerController.setModel(model);
         ViewFactory.globalPane.setCenter(ViewFactory.pdaRunner);
         ControllerFactory.pdaRunnerController.stop();
         BorderPane.setAlignment(ViewFactory.pdaRunner, Pos.CENTER);
@@ -64,10 +65,7 @@ public class LibraryController implements Initializable {
 
     private Definition retrieveDefinitionInstance(String id) {
         for (Definition definition : ModelFactory.definitions) {
-            System.out.print("primary " + definition.getIdentifier());
-            System.out.println("other " + id);
             if (definition.getIdentifier().equals(id)) {
-                System.out.println("Hello123");
                 return definition;
             }
         }

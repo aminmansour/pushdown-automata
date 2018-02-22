@@ -46,6 +46,8 @@ public class ControlState {
         isInitial = initial;
     }
 
-
-
+    @Override
+    public boolean equals(Object obj) {
+        return label.equals(((ControlState) obj).label);
+    }
 }

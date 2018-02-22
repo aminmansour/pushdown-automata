@@ -9,15 +9,13 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import model.ConfigurationNode;
-import model.ControlState;
-import model.PDAMachine;
-import model.Transition;
+import model.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -87,7 +85,7 @@ public class PDARunnerController implements Initializable{
         stack = new StackController();
         hbCentre.getChildren().add(stack.getStackGenerated());
 
-        transitionTable = new TransitionTableController();
+        transitionTable = new TransitionTableController(new ArrayList<>());
         vbLeftBar.getChildren().add(0, transitionTable.getTransitionTableGenerated());
         actionBar.setDisable(true);
 
@@ -158,7 +156,6 @@ public class PDARunnerController implements Initializable{
         if (!inputBox.getInput().isEmpty()) {
             loadPDAWithInput();
             actionBar.setDisable(false);
-            System.out.println("hello");
         }
     }
 
@@ -205,7 +202,6 @@ public class PDARunnerController implements Initializable{
                 Timeline timeline = new Timeline(new KeyFrame(
                         Duration.millis(1000),
                         ae -> next()));
-
                 timeline.play();
                 break;
             } else if (model.getTape().getStep() == 0) {
@@ -281,6 +277,8 @@ public class PDARunnerController implements Initializable{
         tape.setTapeInputModel(model.getTape());
         stack.setStackModel(model.getStack());
         transitionTable.clear();
+        transitionTable.setStates(model.getDefinition().getStates());
+        ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
 
         for (ControlState controlState : model.getDefinition().getStates()) {
             machineDisplay.addVisualControlState(controlState);
@@ -460,5 +458,45 @@ public class PDARunnerController implements Initializable{
     private void removeUserInteractionWithPDA(boolean toRemove) {
         actionBar.setDisable(toRemove);
         inputBox.setDisable(toRemove);
+    }
+
+    public boolean isCurrentSavedInMemory() {
+        return model != null && model.isSavedInMemory();
+    }
+
+
+    public void markCurrentAsSavedInMemory() {
+        model.markAsSavedInMemory();
+    }
+
+    public void openSaveDialog() {
+        try {
+            VBox currentsaveWindow = FXMLLoader.load(getClass().getResource("../layouts/save_confirmation_page.fxml"));
+            Button bSave = (Button) currentsaveWindow.lookup("#bSave");
+            Button bClose = (Button) currentsaveWindow.lookup("#bClose");
+            Label lError = (Label) currentsaveWindow.lookup("#lError");
+            TextField tfName = (TextField) currentsaveWindow.lookup("#tfName");
+            bClose.setOnAction(event -> {
+                bpPDARunnerPage.getChildren().remove(currentsaveWindow);
+            });
+
+            bSave.setOnAction(event -> {
+                if (!tfName.getText().trim().isEmpty()) {
+                    Memory.load();
+                    Definition definition = model.getDefinition();
+                    definition.setIdentifier(tfName.getText().trim());
+                    if (!ModelFactory.checkForOccurence(definition)) {
+                        model.markAsSavedInMemory();
+                        Memory.save(definition);
+                        bpPDARunnerPage.getChildren().remove(currentsaveWindow);
+                    }
+                }
+            });
+
+            bpPDARunnerPage.getChildren().add(currentsaveWindow);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

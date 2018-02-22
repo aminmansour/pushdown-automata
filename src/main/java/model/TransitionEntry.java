@@ -27,6 +27,7 @@ public class TransitionEntry {
     private String topOfStack;
     private String resultingState;
     private String resultingTopOfStack;
+    private Transition transition;
 
     public TransitionEntry(String currentState, String elementAtHead, String topOfStack, String resultingState, String resultingTopOfStack) {
         this.currentState = currentState;
@@ -34,6 +35,7 @@ public class TransitionEntry {
         this.topOfStack = topOfStack;
         this.resultingState = resultingState;
         this.resultingTopOfStack = resultingTopOfStack;
+
     }
 
     @Override
@@ -53,5 +55,21 @@ public class TransitionEntry {
                 transition.getConfiguration().getTopElement().toString().equals(topOfStack) &&
                 transition.getAction().getNewState().getLabel().equals(resultingState) &&
                 transition.getAction().getElementToPush().toString().equals(resultingTopOfStack);
+    }
+
+    public void setTransition(Transition transition) {
+        this.transition = transition;
+    }
+
+    public Transition getTransition() {
+        return transition;
+    }
+
+    public void update() {
+        this.currentState = transition.getConfiguration().getState().getLabel();
+        this.elementAtHead = transition.getConfiguration().getInputSymbol().toString();
+        this.topOfStack = transition.getConfiguration().getTopElement().toString();
+        this.resultingState = transition.getAction().getNewState().getLabel();
+        this.resultingTopOfStack = transition.getAction().getElementToPush().toString();
     }
 }

@@ -25,10 +25,9 @@
 
     <HBox id="button-row" alignment="BOTTOM_RIGHT" maxWidth="Infinity" HBox.hgrow="ALWAYS">
 
-        <Button id="first" maxHeight="Infinity" maxWidth="Infinity" styleClass="tool-buttons" text="Home" HBox.hgrow="ALWAYS" />
-        <Button maxHeight="Infinity" maxWidth="Infinity" styleClass="tool-buttons" text="Search" HBox.hgrow="ALWAYS" />
-        <Button maxHeight="Infinity" maxWidth="Infinity" styleClass="tool-buttons" text="Access" HBox.hgrow="ALWAYS" />
-        <Button maxHeight="Infinity" maxWidth="Infinity" styleClass="tool-buttons" text="Login" HBox.hgrow="ALWAYS" />
+        <Button maxHeight="Infinity" maxWidth="Infinity" fx:id="bToolbarSave" styleClass="tool-buttons" text="Save" disable="true" minWidth="90" onAction="#save" />
+        <Button maxHeight="Infinity" maxWidth="Infinity" fx:id="bToolbarDeterministic" styleClass="tool-buttons" disable="true" text="Deterministic states" minWidth="90" />
+        <Button maxHeight="Infinity" maxWidth="Infinity" fx:id="bToolbarStartAgain" disable="true" styleClass="tool-buttons" text="New" minWidth="90" />
 
     </HBox>
 </HBox>

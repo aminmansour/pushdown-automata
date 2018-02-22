@@ -236,16 +236,18 @@ public class CodeDefinitionController implements Initializable{
             transitions.add(transition);
         }
         Definition definition = new Definition(id, states, controlStates.get(tfInitialState.getText().trim()), transitions, isTerminateByAccepting);
+        PDAMachine model = new PDAMachine(definition);
+        ControllerFactory.pdaRunnerController.setModel(model);
 
         if (toSave) {
             Memory.load();
             if (ModelFactory.checkForOccurence(definition)) {
                 return false;
             }
+            model.markAsSavedInMemory();
             Memory.save(definition);
         }
 
-        ControllerFactory.pdaRunnerController.setModel(new PDAMachine(definition));
         switchToPDARunner();
 
 

@@ -3,6 +3,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import view.ViewFactory;
 
@@ -16,7 +17,6 @@ public class Main extends Application {
         primaryStage.show();
         setGlobalVariables(primaryStage);
         root.setCenter(ViewFactory.homePage);
-
 
     }
 
@@ -39,11 +39,17 @@ public class Main extends Application {
         FXMLLoader libraryLoader = new FXMLLoader(getClass().getResource("layouts/library_page.fxml"));
         ViewFactory.libraryLoader = libraryLoader.load();
         ControllerFactory.libraryLoaderController = libraryLoader.getController();
+
+        FXMLLoader toolbarLoader = new FXMLLoader();
+        HBox toolbar = toolbarLoader.load(getClass().getResource("layouts/tool_bar_partial.fxml").openStream());
+        ControllerFactory.toolBarPartialController = toolbarLoader.getController();
+        ((BorderPane) primaryStage.getScene().getRoot()).setTop(toolbar);
     }
 
 
     public static void main(String[] args) {
         launch(args);
+
     }
 
 

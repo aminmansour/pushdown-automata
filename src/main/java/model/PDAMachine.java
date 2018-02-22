@@ -12,6 +12,7 @@ public class PDAMachine {
     private PushDownStack stack;
     private ControlState currentState;
     private ComputationalTree history;
+    private boolean isSavedInMemory;
 
     private ListMultimap<String, Transition> stateToTransitionMap;
     private Set<Transition> deterministicTransitions;
@@ -196,5 +197,15 @@ public class PDAMachine {
     private String getConfigurationStringFromPreviousState(ConfigurationNode pointer) {
         String remainingInputString = tape.getOriginalWord().substring(pointer.getHeadPosition());
         return "( " + pointer.getState().getLabel() + " , " + (remainingInputString.isEmpty() ? " - " : remainingInputString) + " , " + pointer.getStackStateInStringFormat() + " ) ";
+    }
+
+
+    public boolean isSavedInMemory() {
+        return isSavedInMemory;
+    }
+
+
+    public void markAsSavedInMemory() {
+        isSavedInMemory = true;
     }
 }
