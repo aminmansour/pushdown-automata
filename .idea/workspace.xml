@@ -6,24 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="70f5351c-4f55-452c-8381-47a411c0932b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/resources/global.css" afterPath="$PROJECT_DIR$/out/production/resources/global.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/resources/layouts/home_page.fxml" afterPath="$PROJECT_DIR$/out/production/resources/layouts/home_page.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/resources/layouts/side_bar_partial.fxml" afterPath="$PROJECT_DIR$/out/production/resources/layouts/side_bar_partial.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/resources/layouts/tool_bar_partial.fxml" afterPath="$PROJECT_DIR$/out/production/resources/layouts/tool_bar_partial.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/Main.java" afterPath="$PROJECT_DIR$/src/main/java/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/CodeDefinitionController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/CodeDefinitionController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/ControllerFactory.java" afterPath="$PROJECT_DIR$/src/main/java/controller/ControllerFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/LibraryController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/LibraryController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/PDARunnerController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/PDARunnerController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/resources/layouts/main.fxml" afterPath="$PROJECT_DIR$/out/production/resources/layouts/main.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/ToolBarPartialController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/ToolBarPartialController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/TransitionTableController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/TransitionTableController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/ControlState.java" afterPath="$PROJECT_DIR$/src/main/java/model/ControlState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/PDAMachine.java" afterPath="$PROJECT_DIR$/src/main/java/model/PDAMachine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/model/TransitionEntry.java" afterPath="$PROJECT_DIR$/src/main/java/model/TransitionEntry.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/global.css" afterPath="$PROJECT_DIR$/src/main/resources/global.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/layouts/main.fxml" afterPath="$PROJECT_DIR$/src/main/resources/layouts/main.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/layouts/tool_bar_partial.fxml" afterPath="$PROJECT_DIR$/src/main/resources/layouts/tool_bar_partial.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/layouts/transition_table_partial.fxml" afterPath="$PROJECT_DIR$/src/main/resources/layouts/transition_table_partial.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -100,12 +84,12 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/PDARunnerController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="382">
-              <caret line="492" column="20" lean-forward="false" selection-start-line="492" selection-start-column="20" selection-end-line="492" selection-end-column="20" />
+              <caret line="491" column="20" lean-forward="false" selection-start-line="491" selection-start-column="20" selection-end-line="491" selection-end-column="20" />
               <folding>
-                <element signature="e#19346#19347#0" expanded="true" />
-                <element signature="e#19405#19406#0" expanded="true" />
-                <element signature="e#19454#19455#0" expanded="true" />
-                <element signature="e#19497#19498#0" expanded="true" />
+                <element signature="e#19321#19322#0" expanded="true" />
+                <element signature="e#19384#19385#0" expanded="true" />
+                <element signature="e#19433#19434#0" expanded="true" />
+                <element signature="e#19476#19477#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -115,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/TransitionTableController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="131">
-              <caret line="113" column="21" lean-forward="true" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
+              <caret line="115" column="21" lean-forward="true" selection-start-line="115" selection-start-column="21" selection-end-line="115" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -143,7 +127,7 @@
           </provider>
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="420">
-              <caret line="29" column="157" lean-forward="false" selection-start-line="29" selection-start-column="157" selection-end-line="29" selection-end-column="157" />
+              <caret line="28" column="74" lean-forward="false" selection-start-line="28" selection-start-column="74" selection-end-line="28" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -196,7 +180,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/ToolBarPartialController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="471">
-              <caret line="59" column="8" lean-forward="false" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
+              <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1036,7 +1020,7 @@
       <workItem from="1518396731060" duration="3834000" />
       <workItem from="1518401031332" duration="26798000" />
       <workItem from="1518481989444" duration="111426000" />
-      <workItem from="1519090370427" duration="33607000" />
+      <workItem from="1519090370427" duration="34041000" />
     </task>
     <task id="LOCAL-00001" summary="complete initial production of views">
       <created>1516593565159</created>
@@ -1129,7 +1113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1519092952639</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="sync save feature with front end">
+      <created>1519265943388</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1519265943388</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1165,7 +1156,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="663601000" />
+    <option name="totallyTimeSpent" value="664035000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1178,7 +1169,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32900432" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1186,7 +1176,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23484848" sideWeight="0.5598958" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23484848" sideWeight="0.5598958" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23484848" sideWeight="0.44010416" order="2" side_tool="false" content_ui="tabs" />
@@ -1269,7 +1259,8 @@
     <MESSAGE value="add previous functionality" />
     <MESSAGE value="finish logic of pda" />
     <MESSAGE value="add save feature" />
-    <option name="LAST_COMMIT_MESSAGE" value="add save feature" />
+    <MESSAGE value="sync save feature with front end" />
+    <option name="LAST_COMMIT_MESSAGE" value="sync save feature with front end" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1497,7 +1488,7 @@
           <caret line="50" column="55" lean-forward="false" selection-start-line="50" selection-start-column="55" selection-end-line="50" selection-end-column="55" />
           <folding>
             <element signature="e#945#946#0" expanded="true" />
-            <element signature="e#1007#1008#0" expanded="true" />
+            <element signature="e#1008#1009#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1552,10 +1543,10 @@
         <state relative-caret-position="478">
           <caret line="72" column="87" lean-forward="false" selection-start-line="72" selection-start-column="87" selection-end-line="72" selection-end-column="87" />
           <folding>
-            <element signature="e#2063#2064#0" expanded="false" />
-            <element signature="e#2107#2108#0" expanded="false" />
-            <element signature="e#2148#2149#0" expanded="false" />
-            <element signature="e#2181#2182#0" expanded="false" />
+            <element signature="e#2064#2065#0" expanded="false" />
+            <element signature="e#2108#2109#0" expanded="false" />
+            <element signature="e#2149#2150#0" expanded="false" />
+            <element signature="e#2182#2183#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1644,7 +1635,7 @@
         <state relative-caret-position="148">
           <caret line="1657" column="0" lean-forward="false" selection-start-line="1657" selection-start-column="0" selection-end-line="1657" selection-end-column="0" />
           <folding>
-            <element signature="e#66921#66922#0" expanded="true" />
+            <element signature="e#66921#66922#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1695,7 +1686,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/TransitionTableController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
-          <caret line="113" column="21" lean-forward="true" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
+          <caret line="115" column="21" lean-forward="true" selection-start-line="115" selection-start-column="21" selection-end-line="115" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1705,12 +1696,12 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/PDARunnerController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="382">
-          <caret line="492" column="20" lean-forward="false" selection-start-line="492" selection-start-column="20" selection-end-line="492" selection-end-column="20" />
+          <caret line="491" column="20" lean-forward="false" selection-start-line="491" selection-start-column="20" selection-end-line="491" selection-end-column="20" />
           <folding>
-            <element signature="e#19346#19347#0" expanded="true" />
-            <element signature="e#19405#19406#0" expanded="true" />
-            <element signature="e#19454#19455#0" expanded="true" />
-            <element signature="e#19497#19498#0" expanded="true" />
+            <element signature="e#19321#19322#0" expanded="true" />
+            <element signature="e#19384#19385#0" expanded="true" />
+            <element signature="e#19433#19434#0" expanded="true" />
+            <element signature="e#19476#19477#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1740,7 +1731,7 @@
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
-          <caret line="29" column="157" lean-forward="false" selection-start-line="29" selection-start-column="157" selection-end-line="29" selection-end-column="157" />
+          <caret line="28" column="74" lean-forward="false" selection-start-line="28" selection-start-column="74" selection-end-line="28" selection-end-column="74" />
           <folding />
         </state>
       </provider>
@@ -1748,7 +1739,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/ToolBarPartialController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="471">
-          <caret line="59" column="8" lean-forward="false" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="8" />
+          <caret line="55" column="0" lean-forward="false" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

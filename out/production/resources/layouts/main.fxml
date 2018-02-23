@@ -9,9 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.Group?>
 <BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" stylesheets="global.css" >
-   <top>
-      <fx:include source="tool_bar_partial.fxml"></fx:include>
-   </top>
+
     <left>
         <fx:include source="side_bar_partial.fxml"></fx:include>
     </left>
