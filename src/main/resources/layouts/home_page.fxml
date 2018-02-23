@@ -7,7 +7,7 @@
 <BorderPane fx:id="home" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.HomeController">
     <center>
-        <VBox id="home-grid" spacing="200.0">
+        <VBox id="home-grid" BorderPane.alignment="CENTER">
             <HBox alignment="CENTER" maxWidth="Infinity" spacing="30" VBox.vgrow="ALWAYS">
                 <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
                       HBox.hgrow="ALWAYS">
@@ -36,7 +36,7 @@
                       HBox.hgrow="ALWAYS">
                     <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
                           HBox.hgrow="ALWAYS">
-                        <Label styleClass="home-button-title" text="CREATE BY CODE" textFill="#23aa76"/>
+                        <Label styleClass="home-button-title" text="QUICK GENERATE" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
                         <Label text="define your PDA using code!" textFill="#23aa76">
                             <padding>
@@ -51,7 +51,7 @@
                                 <Insets bottom="5.0"/>
                             </padding>
                         </Label>
-                        <Button onAction="#switchToPDARunner" styleClass="green-button-theme" text="Enter"/>
+                        <Button onAction="#switchToQuickDefinition" styleClass="green-button-theme" text="Enter"/>
                     </VBox>
                 </HBox>
 
@@ -74,10 +74,15 @@
                                 <Insets bottom="5.0"/>
                             </padding>
                         </Label>
-                        <Button styleClass="green-button-theme" onAction="#switchToLibrary" text="Enter"/>
+                        <Button onAction="#switchToLibrary" styleClass="green-button-theme" text="Enter"/>
                     </VBox>
                 </HBox>
             </HBox>
+            <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
+                <children>
+                    <Label fx:id="lContinue" onMouseClicked="#restore" text="Continue" visible="false"/>
+                </children>
+            </FlowPane>
         </VBox>
     </center>
 </BorderPane>

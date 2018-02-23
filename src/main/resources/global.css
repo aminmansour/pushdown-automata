@@ -130,7 +130,7 @@
 .green-button-theme{
     -fx-text-fill: white;
     -fx-background-color: #2ab27b;
-    -fx-font-size: 18px;
+    -fx-font-size: 14px;
     -fx-effect: dropshadow(three-pass-box, #228e62, 0, 0, 0, 3);
     -fx-font-family: sans-serif;
     -fx-min-width: 100px;
@@ -174,7 +174,13 @@
     -fx-font-weight: bolder;
 }
 
+#lContinue {
+    -fx-text-fill: #21966a;
+}
 
+#lContinue:hover {
+    -fx-underline: true;
+}
 /*--code-definition*/
 
 #taTransitions{
@@ -470,5 +476,10 @@
 
 .table-row-cell:selected .text {
     -fx-fill: white;
+}
 
+/*quick-definition*/
+
+.spAccordionDefinition {
+    -fx-background-color: white;
 }

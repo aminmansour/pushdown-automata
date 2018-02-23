@@ -9,7 +9,10 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import model.*;
 import view.TransitionTextField;
 import view.ViewFactory;
@@ -334,29 +337,29 @@ public class CodeDefinitionController implements Initializable{
     }
 
     private void showErrorDialog() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("Could not generate PDA!");
-        alert.setContentText("Fix the errors specified before generating!");
-        Label label = new Label("The errors found:");
-        String output= "";
-        for(String error : currentErrorList){
-            output+=error+" \n";
-        }
-        TextArea textArea = new TextArea(output);
-        textArea.setEditable(false);
-        textArea.setWrapText(true);
-        textArea.setMaxWidth(Double.MAX_VALUE);
-        textArea.setMaxHeight(Double.MAX_VALUE);
-        GridPane.setVgrow(textArea, Priority.ALWAYS);
-        GridPane.setHgrow(textArea, Priority.ALWAYS);
-        GridPane expContent = new GridPane();
-        expContent.setMaxWidth(Double.MAX_VALUE);
-        expContent.add(label, 0, 0);
-        expContent.add(textArea, 0, 1);
-        alert.getDialogPane().setExpandableContent(expContent);
-        alert.getDialogPane().setExpanded(true);
-        alert.showAndWait();
+//        Alert alert = new Alert(Alert.AlertType.ERROR);
+//        alert.setTitle("Error");
+//        alert.setHeaderText("Could not generate PDA!");
+//        alert.setContentText("Fix the errors specified before generating!");
+//        Label label = new Label("The errors found:");
+//        String output= "";
+//        for(String error : currentErrorList){
+//            output+=error+" \n";
+//        }
+//        TextArea textArea = new TextArea(output);
+//        textArea.setEditable(false);
+//        textArea.setWrapText(true);
+//        textArea.setMaxWidth(Double.MAX_VALUE);
+//        textArea.setMaxHeight(Double.MAX_VALUE);
+//        GridPane.setVgrow(textArea, Priority.ALWAYS);
+//        GridPane.setHgrow(textArea, Priority.ALWAYS);
+//        GridPane expContent = new GridPane();
+//        expContent.setMaxWidth(Double.MAX_VALUE);
+//        expContent.add(label, 0, 0);
+//        expContent.add(textArea, 0, 1);
+//        alert.getDialogPane().setExpandableContent(expContent);
+//        alert.getDialogPane().setExpanded(true);
+//        alert.showAndWait();
     }
 
 
