@@ -3,87 +3,77 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.CheckComboBox?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<StackPane fx:id="quickDefinition" alignment="TOP_CENTER" xmlns="http://javafx.com/javafx/8.0.121"
+<StackPane fx:id="quickDefinition" alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.121"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.QuickDefinitionController">
     <children>
         <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" minHeight="400.0" prefWidth="700.0" spacing="20"
               StackPane.alignment="TOP_CENTER">
             <children>
-                <Accordion VBox.vgrow="ALWAYS">
+                <Accordion fx:id="aDefinition" VBox.vgrow="ALWAYS">
                     <panes>
-                        <TitledPane animated="false" text="Control states">
+                        <TitledPane fx:id="tpStates" animated="false" text="Control states">
                             <content>
                                 <StackPane alignment="CENTER" prefHeight="150.0" prefWidth="200.0"
                                            styleClass="spAccordionDefinition">
                                     <children>
-                                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30">
+                                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                                             <children>
-                                                <HBox prefWidth="200.0" spacing="10.0">
+                                                <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
                                                     <children>
-                                                        <ComboBox prefWidth="150.0"/>
-                                                        <Button mnemonicParsing="false" text="Button"/>
+                                                        <Label text="Amount to generate">
+                                                            <HBox.margin>
+                                                                <Insets bottom="5.0"/>
+                                                            </HBox.margin>
+                                                        </Label>
                                                     </children>
                                                 </HBox>
-                                                <TextArea prefHeight="200.0" prefWidth="200.0"/>
+                                                <HBox prefWidth="200.0" spacing="10.0">
+                                                    <children>
+                                                        <ComboBox fx:id="cbNumberOfStates" prefWidth="150.0"/>
+                                                        <Button fx:id="bGenerateStates" mnemonicParsing="false"
+                                                                styleClass="green-button-theme" text="Generate"/>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="10.0"/>
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <TextArea fx:id="taControlStates" editable="false" wrapText="true"
+                                                          minHeight="200" minWidth="400.0"/>
                                                 <HBox maxWidth="Infinity" spacing="10" HBox.hgrow="ALWAYS">
                                                     <VBox maxWidth="Infinity" spacing="5" HBox.hgrow="ALWAYS">
                                                         <children>
                                                             <HBox spacing="5">
                                                                 <Label alignment="TOP_CENTER" text="Initial State"/>
-                                                                <Label fx:id="lInitialStateHelp"
-                                                                       alignment="BOTTOM_CENTER" mnemonicParsing="false"
-                                                                       styleClass="field-label">
-                                                                    <tooltip>
-                                                                        <Tooltip
-                                                                                text="Define the initial state which the PDA starts from i.e. q"/>
-                                                                    </tooltip>
-                                                                    <graphic>
-                                                                        <FontIcon iconColor="#5b5b5b"
-                                                                                  iconLiteral="fa-question-circle-o"
-                                                                                  iconSize="17"/>
-                                                                    </graphic>
-                                                                </Label>
-                                                                <Label fx:id="lInitialStateInstruction"
-                                                                       alignment="BOTTOM_CENTER" maxHeight="Infinity"
-                                                                       styleClass="instruction" visible="false">*There
-                                                                    are no control states
-                                                                </Label>
                                                             </HBox>
 
-                                                            <TextField fx:id="tfInitialState" maxWidth="Infinity"
-                                                                       prefHeight="50.0"/>
+                                                            <ComboBox fx:id="cbInitialState" disable="true"
+                                                                      maxWidth="Infinity" prefHeight="50.0"/>
                                                         </children>
                                                     </VBox>
 
-                                                    <VBox maxWidth="Infinity" spacing="5" HBox.hgrow="ALWAYS">
+                                                    <VBox fx:id="vbAcceptingStates" maxWidth="Infinity" spacing="5"
+                                                          HBox.hgrow="ALWAYS">
                                                         <children>
                                                             <HBox spacing="5">
-                                                                <Label fx:id="lFurtherInfo" alignment="TOP_CENTER"
+                                                                <Label fx:id="lAcceptingStates" alignment="TOP_CENTER"
                                                                        text="Accepting states"/>
-                                                                <Label fx:id="lFurtherInfoHelp"
-                                                                       alignment="BOTTOM_CENTER" mnemonicParsing="false"
-                                                                       styleClass="field-label">
-                                                                    <tooltip>
-                                                                        <Tooltip
-                                                                                text="Enter the accepting states seperated by commas i.e. q,r,s"/>
-                                                                    </tooltip>
-                                                                    <graphic>
-                                                                        <FontIcon iconColor="#5b5b5b"
-                                                                                  iconLiteral="fa-question-circle-o"
-                                                                                  iconSize="17"/>
-                                                                    </graphic>
-                                                                </Label>
-                                                                <Label fx:id="lFurtherInfoInstruction"
-                                                                       alignment="BOTTOM_CENTER" maxHeight="Infinity"
-                                                                       styleClass="instruction" visible="false">*There
-                                                                    are no control states
-                                                                </Label>
                                                             </HBox>
-                                                            <TextField fx:id="tfFurtherInfo" maxWidth="Infinity"
-                                                                       prefHeight="50.0"/>
+                                                            <CheckComboBox fx:id="cbAcceptingStates" disable="true"
+                                                                           maxWidth="Infinity" prefHeight="50.0"/>
                                                         </children>
                                                     </VBox>
+                                                    <padding>
+                                                        <Insets bottom="30.0"/>
+                                                    </padding>
+                                                </HBox>
+                                                <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                                                    <children>
+                                                        <Button fx:id="bAdvance" alignment="CENTER"
+                                                                contentDisplay="CENTER" mnemonicParsing="false"
+                                                                styleClass="green-button-theme" text="Advance"/>
+                                                    </children>
                                                 </HBox>
 
                                             </children>
@@ -92,36 +82,62 @@
                                 </StackPane>
                             </content>
                         </TitledPane>
-                        <TitledPane animated="false" text="Transition">
+                        <TitledPane fx:id="tpTransitions" animated="false" text="Transition">
                             <content>
                                 <StackPane prefHeight="150.0" prefWidth="200.0" styleClass="spAccordionDefinition">
                                     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
                                         <children>
-                                            <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="20">
+                                            <HBox prefHeight="100.0" prefWidth="200.0">
                                                 <children>
-                                                    <Label text="Configuration">
+                                                    <Label text="Add a transition!  ( An empty field represents the jumping symbol '/ ' )">
                                                         <padding>
                                                             <Insets left="10.0"/>
                                                         </padding>
                                                     </Label>
                                                 </children>
                                             </HBox>
-                                            <HBox alignment="CENTER" prefWidth="200.0" spacing="10.0">
+                                            <VBox styleClass="transition-box-definition">
                                                 <children>
-                                                    <Label text="Label"/>
-                                                    <ComboBox prefWidth="150.0"/>
-                                                    <Label layoutX="10.0" layoutY="14.0" text="Label"/>
-                                                    <TextField/>
-                                                    <Label layoutX="10.0" layoutY="14.0" text="Label"/>
-                                                    <TextField layoutX="246.0" layoutY="10.0"/>
+                                                    <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="20">
+                                                        <children>
+                                                            <Label text="Configuration">
+                                                                <padding>
+                                                                    <Insets left="10.0"/>
+                                                                </padding>
+                                                                <HBox.margin>
+                                                                    <Insets bottom="3.0"/>
+                                                                </HBox.margin>
+                                                            </Label>
+                                                        </children>
+                                                    </HBox>
+                                                    <HBox alignment="CENTER" prefWidth="200.0" spacing="20.0">
+                                                        <children>
+                                                            <Label text="State"/>
+                                                            <ComboBox fx:id="cbStates" prefWidth="150.0"/>
+                                                            <Label layoutX="10.0" layoutY="14.0" text="Input element"/>
+                                                            <TextField fx:id="tfInputElement"/>
+                                                            <Label layoutX="10.0" layoutY="14.0"
+                                                                   text="Stack symbol to pop"/>
+                                                            <TextField fx:id="tfElementToPop" layoutX="246.0"
+                                                                       layoutY="10.0"/>
+                                                        </children>
+                                                    </HBox>
                                                 </children>
-                                            </HBox>
-                                            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0"
-                                                  maxWidth="Infinity" spacing="20">
+                                                <VBox.margin>
+                                                    <Insets left="10.0" right="10.0"/>
+                                                </VBox.margin>
+                                                <padding>
+                                                    <Insets bottom="15.0" top="10.0"/>
+                                                </padding>
+                                            </VBox>
+                                            <VBox styleClass="transition-box-definition">
+                                                <children>
+                                                    <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0"
+                                                          maxWidth="Infinity" spacing="20">
                                                 <children>
                                                     <Label text="Action">
                                                         <HBox.margin>
-                                                            <Insets top="20.0"/>
+                                                            <Insets/>
                                                         </HBox.margin>
                                                     </Label>
                                                 </children>
@@ -129,29 +145,60 @@
                                                     <Insets left="10.0"/>
                                                 </padding>
                                             </HBox>
-                                            <HBox alignment="CENTER" layoutX="10.0" layoutY="105.0" prefWidth="200.0"
-                                                  spacing="10.0">
+                                                    <HBox alignment="CENTER" layoutX="10.0" layoutY="105.0"
+                                                          prefWidth="200.0" spacing="10.0">
                                                 <children>
-                                                    <Label text="Label"/>
-                                                    <ComboBox prefWidth="150.0"/>
-                                                    <Label layoutX="10.0" layoutY="14.0" text="Label"/>
-                                                    <TextField/>
+                                                    <Label text="Resulting Stack"/>
+                                                    <ComboBox fx:id="cbResultingStates" prefWidth="150.0"/>
+                                                    <Label layoutX="10.0" layoutY="14.0" text="Element to push"/>
+                                                    <TextField fx:id="tfElementToPush"/>
                                                 </children>
+                                                        <VBox.margin>
+                                                            <Insets bottom="10.0"/>
+                                                        </VBox.margin>
                                             </HBox>
+                                                </children>
+                                                <VBox.margin>
+                                                    <Insets left="10.0" right="10.0"/>
+                                                </VBox.margin>
+                                                <padding>
+                                                    <Insets bottom="15.0" top="10.0"/>
+                                                </padding>
+                                            </VBox>
                                             <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="113.0"
                                                   maxWidth="Infinity" spacing="20">
                                                 <padding>
                                                     <Insets left="10.0"/>
                                                 </padding>
                                                 <children>
-                                                    <Button alignment="CENTER_RIGHT" mnemonicParsing="false"
-                                                            text="Add Transition"/>
+                                                    <Button fx:id="bAddTransition" alignment="CENTER_RIGHT"
+                                                            mnemonicParsing="false" styleClass="green-button-theme"
+                                                            text="Add Transition">
+                                                        <HBox.margin>
+                                                            <Insets right="10.0"/>
+                                                        </HBox.margin>
+                                                    </Button>
                                                 </children>
                                                 <opaqueInsets>
                                                     <Insets right="10.0"/>
                                                 </opaqueInsets>
                                             </HBox>
-                                            <TextArea prefHeight="200.0" prefWidth="200.0"/>
+
+                                            <ListView fx:id="lvTransitions" prefHeight="600.0" prefWidth="200.0">
+                                                <VBox.margin>
+                                                    <Insets left="10.0" right="10.0"/>
+                                                </VBox.margin>
+                                            </ListView>
+                                            <HBox fx:id="hbTransitionAction" visible="false" alignment="CENTER"
+                                                  prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                                <children>
+                                                    <Button alignment="CENTER" fx:id="bEdit" mnemonicParsing="false"
+                                                            styleClass="green-button-theme" text="Edit"/>
+                                                    <Button alignment="CENTER" fx:id="bDelete" layoutX="10.0"
+                                                            layoutY="10.0" mnemonicParsing="false"
+                                                            styleClass="green-button-theme" text="Delete"/>
+                                                </children>
+                                            </HBox>
                                         </children>
                                     </VBox>
                                 </StackPane>
@@ -183,8 +230,8 @@
 
                 </HBox>
                 <HBox alignment="CENTER_RIGHT" spacing="10">
-                    <Button styleClass="green-button-theme" text="Save"/>
-                    <Button styleClass="green-button-theme" text="Generate"/>
+                    <Button fx:id="bSave" disable="true" styleClass="green-button-theme" text="Save"/>
+                    <Button fx:id="bGenerate" disable="true" styleClass="green-button-theme" text="Generate"/>
                     <VBox.margin>
                         <Insets bottom="10.0" right="10.0"/>
                     </VBox.margin>

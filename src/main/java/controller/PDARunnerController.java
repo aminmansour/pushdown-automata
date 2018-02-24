@@ -285,6 +285,7 @@ public class PDARunnerController implements Initializable{
             machineDisplay.addVisualControlState(controlState);
         }
 
+
         for (Transition transition : model.getDefinition().getTransitions()) {
             machineDisplay.addVisualTransition(transition.toString(), transition.retrieveSourceState(), transition.retrieveTargetState());
             transitionTable.addColumn(transition);
@@ -486,7 +487,7 @@ public class PDARunnerController implements Initializable{
                     Memory.load();
                     Definition definition = model.getDefinition();
                     definition.setIdentifier(tfName.getText().trim());
-                    if (!ModelFactory.checkForOccurence(definition)) {
+                    if (!ModelFactory.checkForDefinitionOccurrence(definition)) {
                         model.markAsSavedInMemory();
                         Memory.save(definition);
                         bpPDARunnerPage.getChildren().remove(currentsaveWindow);

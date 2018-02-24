@@ -41,7 +41,8 @@ public class TransitionEntry {
     @Override
     public boolean equals(Object obj) {
 
-        return currentState.equals(((TransitionEntry) obj).currentState) &&
+
+        return obj != null && currentState.equals(((TransitionEntry) obj).currentState) &&
                 elementAtHead.equals(((TransitionEntry) obj).elementAtHead) &&
                 topOfStack.equals(((TransitionEntry) obj).topOfStack) &&
                 resultingState.equals(((TransitionEntry) obj).resultingState) &&
@@ -71,5 +72,10 @@ public class TransitionEntry {
         this.topOfStack = transition.getConfiguration().getTopElement().toString();
         this.resultingState = transition.getAction().getNewState().getLabel();
         this.resultingTopOfStack = transition.getAction().getElementToPush().toString();
+    }
+
+    @Override
+    public String toString() {
+        return currentState + "  ,  " + elementAtHead + "  ,  " + topOfStack + "  ->  " + resultingState + "  ,  " + resultingTopOfStack;
     }
 }

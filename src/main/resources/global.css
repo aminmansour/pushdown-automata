@@ -419,7 +419,6 @@
 
 .transition-choice:pressed {
     -fx-background-color: #e5e5e5;
-
 }
 
 .transition-choice * {
@@ -440,13 +439,13 @@
 
 /*output page*/
 
-#vbOutput, #spOutput {
+#vbOutput, #spOutput, #vbStandardDialog {
     -fx-background-color: white;
     -fx-border-color: #cecece;
     -fx-border-width: 1px;
 }
 
-#vbOutput .button {
+#vbOutput .button, #vbStandardDialog .button {
     -fx-font-size: 14px;
 }
 
@@ -482,4 +481,50 @@
 
 .spAccordionDefinition {
     -fx-background-color: white;
+}
+
+.transition-box-definition {
+    -fx-border-color: #cecece;
+    -fx-border-width: 1px;
+}
+
+#taControlStates {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-box-border: none;
+    -fx-focus-color: -fx-control-inner-background;
+    -fx-faint-focus-color: -fx-control-inner-background;
+    -fx-text-box-border: -fx-control-inner-background;
+
+}
+
+#taControlStates .content, #taControlStates:focused .content {
+    -fx-background-color: #fff;
+    -fx-border-color: #cecece;
+    -fx-border-width: 1px;
+}
+
+#taControlStates {
+    -fx-background-color: #fff, #fff;
+}
+
+#taControlStates:focused {
+    -fx-highlight-fill: #7ecfff;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-focus-color: -fx-control-inner-background;
+    -fx-faint-focus-color: -fx-control-inner-background;
+    -fx-text-box-border: -fx-control-inner-background;
+    -fx-border-width: -1;
+}
+
+#taControlStates .content {
+    -fx-padding: 10px;
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
+}
+
+#lvTransitions .list-cell {
+    -fx-alignment: center;
 }
