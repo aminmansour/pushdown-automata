@@ -12,10 +12,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.util.Pair;
+import model.Transition;
 
 public class VisualTransition {
-    private final String transitionLabel;
-    private String label;
+    private final Transition transition;
     private StackPane view;
     private FlowPane flTransitionLabel;
     private boolean isFocused;
@@ -28,15 +28,15 @@ public class VisualTransition {
     private Point2D tan;
     private MoveTo move;
     private double LENGTH_FROM_CORNER;
+    private Text transitionLabel;
 
 
-    public VisualTransition(String transitionLabel, VisualControlState q1, VisualControlState q2) {
-        this.label = transitionLabel;
+    public VisualTransition(Transition transition, VisualControlState q1, VisualControlState q2) {
+        this.transition = transition;
         sourceState = q1;
         resultingState = q2;
         isFocused = false;
         generateArrowView(q1, q2);
-        this.transitionLabel = transitionLabel;
     }
 
     private void generateArrowView(VisualControlState q1, VisualControlState q2) {
@@ -104,13 +104,13 @@ public class VisualTransition {
 //        Group g = new Group();
 //        g.getExploredChildren().addAll(arrow, arrowEnd);
 
-        Text text = new Text(label);
-        text.setFill(Color.BLACK);
-        text.setFont(Font.font(null, FontWeight.NORMAL, 11));
-        text.setBoundsType(TextBoundsType.VISUAL);
+        transitionLabel = new Text(getLabel());
+        transitionLabel.setFill(Color.BLACK);
+        transitionLabel.setFont(Font.font(null, FontWeight.NORMAL, 11));
+        transitionLabel.setBoundsType(TextBoundsType.VISUAL);
 
         flTransitionLabel = new FlowPane(Orientation.HORIZONTAL);
-        flTransitionLabel.getChildren().add(text);
+        flTransitionLabel.getChildren().add(transitionLabel);
         flTransitionLabel.getStyleClass().add("transition-labels");
 
         StackPane view = new StackPane();
@@ -123,16 +123,29 @@ public class VisualTransition {
     }
 
     public String getLabel() {
-        return label;
+        return transition.getConfiguration().getInputSymbol() + "," +
+                transition.getConfiguration().getTopElement() + " -> " + transition.getAction().getElementToPush();
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void updateVisualTransition(VisualControlState newSource, VisualControlState newTarget) {
+        transitionLabel.setText(getLabel());
+        if (newSource != null) {
+            sourceState = newSource;
+        }
+
+        if (newTarget != null) {
+            resultingState = newTarget;
+        }
     }
+
+
 
     public void setFocus(boolean focus) {
         isFocused = focus;
-        flTransitionLabel.setStyle("-fx-background-color:" + (isFocused ? "#2ab27b" : "transparent"));
+        String background = isFocused ? "#2ab27b;" : "white;";
+        String textFill = isFocused ? "white;" : "black;";
+        flTransitionLabel.setStyle("-fx-background-color:" + background);
+
     }
 
     public boolean isFocused() {
@@ -164,5 +177,7 @@ public class VisualTransition {
         return resultingState;
     }
 
-
+    public Transition getTransition() {
+        return transition;
+    }
 }

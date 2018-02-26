@@ -77,27 +77,43 @@ public class QuickDefinitionController implements Initializable {
     private ObservableList<String> temporaryControlStateStore;
     private String temporaryInitialState;
     private ObservableList<TransitionEntry> temporaryTransitionStore;
-    private ObservableList<String> acceptingStates;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ToggleGroup tgAcceptingConditions = addAcceptingConditionsToggleGroup();
         tgAcceptingConditions.selectedToggleProperty().addListener((observable, oldValue, newValue) -> acceptanceSelectionAction());
-
-        aDefinition.setExpandedPane(tpStates);
-        tpTransitions.setCollapsible(false);
+        forceOpenControlStatePane();
 
         bAddTransition.setOnAction(event -> addTransition());
 
         populateNumberDropdown(cbNumberOfStates);
         bGenerateStates.setOnAction(event -> generateStateLabels());
         bAdvance.setOnAction(event -> validateControlStates());
-        bSave.setOnAction(event -> openUpSaveDialog());
+        bSave.setOnAction(event -> openSaveDialog());
+        bGenerate.setOnAction(event -> {
+            loadDefinition(System.currentTimeMillis() + "", false);
+            clearFields();
+        });
     }
 
-    private void openUpSaveDialog() {
-        openSaveDialog();
+    private void forceOpenControlStatePane() {
+        aDefinition.setExpandedPane(tpStates);
+        tpTransitions.setCollapsible(false);
+    }
+
+    private void clearFields() {
+        forceOpenControlStatePane();
+        taControlStates.clear();
+        cbNumberOfStates.getSelectionModel().clearSelection();
+        cbAcceptingStates.getCheckModel().clearChecks();
+        cbAcceptingStates.getItems().clear();
+        cbInitialState.getSelectionModel().clearSelection();
+
+        rbAcceptingState.setSelected(true);
+        clearTransitionFields();
+        temporaryTransitionStore.clear();
+        lockPDACreationFunctionality(true);
     }
 
     public void openSaveDialog() {
@@ -107,20 +123,9 @@ public class QuickDefinitionController implements Initializable {
             Button bClose = (Button) saveDialog.lookup("#bClose");
             Label lError = (Label) saveDialog.lookup("#lError");
             TextField tfName = (TextField) saveDialog.lookup("#tfName");
-            bClose.setOnAction(event -> {
-                quickDefinition.getChildren().remove(saveDialog);
-            });
-
-            bSave.setOnAction(event -> {
-                validatePDANameAndSave(saveDialog, lError, tfName);
-            });
-
-            bGenerate.setOnAction(event -> {
-                loadDefinition(System.currentTimeMillis() + "", false);
-            });
-
+            bClose.setOnAction(event -> quickDefinition.getChildren().remove(saveDialog));
+            bSave.setOnAction(event -> validatePDANameAndSave(saveDialog, lError, tfName));
             quickDefinition.getChildren().add(saveDialog);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -133,7 +138,8 @@ public class QuickDefinitionController implements Initializable {
             if (!isSuccessful) {
                 lError.setVisible(true);
             } else {
-                ViewFactory.codeDefinition.getChildren().remove(saveDialog);
+                clearFields();
+                quickDefinition.getChildren().remove(saveDialog);
             }
         }
     }
@@ -145,7 +151,7 @@ public class QuickDefinitionController implements Initializable {
         boolean isTerminateByAccepting = rbAcceptingState.isSelected();
         for (int i = 0; i < temporaryControlStateStore.size(); i++) {
             ControlState state = new ControlState(temporaryControlStateStore.get(i));
-            if (ModelFactory.checkIfAcceptingState(state, acceptingStates.toArray(new String[0]))) {
+            if (ModelFactory.checkIfAcceptingState(state, cbAcceptingStates.getCheckModel().getCheckedItems())) {
                 state.markAsAccepting();
             }
 
@@ -184,6 +190,7 @@ public class QuickDefinitionController implements Initializable {
             Memory.save(definition);
         }
 
+
         switchToPDARunner();
 
 
@@ -199,7 +206,7 @@ public class QuickDefinitionController implements Initializable {
 
     private void validateControlStates() {
         boolean initialSelected = cbInitialState.getSelectionModel().isEmpty();
-        acceptingStates = cbAcceptingStates.getCheckModel().getCheckedIndices();
+        ObservableList acceptingStates = cbAcceptingStates.getCheckModel().getCheckedIndices();
         boolean controlStatesCreated = temporaryControlStateStore != null;
 
         if (!controlStatesCreated) {
@@ -248,10 +255,13 @@ public class QuickDefinitionController implements Initializable {
         String resultingState = cbResultingStates.getSelectionModel().getSelectedItem();
         String elementToPush = tfElementToPush.getText().trim().isEmpty() ? "/" : tfElementToPush.getText();
         TransitionEntry transitionEntry = new TransitionEntry(initialState, inputElement, elementToPop, resultingState, elementToPush);
-        temporaryTransitionStore.add(transitionEntry);
-
-        clearTransitionFields();
-        lockPDACreationFunctionality(false);
+        if (temporaryTransitionStore.contains(transitionEntry)) {
+            showErrorDialog("No duplicate transitions allowed!");
+        } else {
+            temporaryTransitionStore.add(transitionEntry);
+            clearTransitionFields();
+            lockPDACreationFunctionality(false);
+        }
 
     }
 
@@ -297,7 +307,8 @@ public class QuickDefinitionController implements Initializable {
         tfInputElement.setText(!toDelete.getElementAtHead().equals("/") ? "" : toDelete.getElementAtHead());
         tfElementToPop.setText(!toDelete.getTopOfStack().equals("/") ? "" : toDelete.getTopOfStack());
         tfElementToPush.setText(!toDelete.getResultingTopOfStack().equals("/") ? "" : toDelete.getResultingTopOfStack());
-
+        lvTransitions.getSelectionModel().clearSelection();
+        hbTransitionAction.setVisible(false);
     }
 
     private ChangeListener<String> restrictTextFieldInput(TextField textField, String regex) {

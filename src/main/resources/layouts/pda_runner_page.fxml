@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.*?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PDARunnerController" fx:id="bpPDARunnerPage">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PDARunnerController" fx:id="spPDARunnerPage">
     <BorderPane maxHeight="Infinity" maxWidth="Infinity" xmlns="http://javafx.com/javafx/8.0.121">
 
     <left>

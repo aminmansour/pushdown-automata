@@ -6,7 +6,6 @@ import com.google.common.collect.MultimapBuilder;
 import java.util.*;
 
 public class PDAMachine {
-    private boolean gameOver;
     private Definition loadedDefinition;
     private InputTape tape;
     private PushDownStack stack;
@@ -15,14 +14,12 @@ public class PDAMachine {
     private boolean isSavedInMemory;
 
     private ListMultimap<String, Transition> stateToTransitionMap;
-    private Set<Transition> deterministicTransitions;
 
     public PDAMachine(Definition defToLoad) {
         loadDefinition(defToLoad);
     }
 
     private void loadDefinition(Definition definition){
-        gameOver = false;
         loadedDefinition = definition;
         currentState = loadedDefinition.getInitialState();
         tape = new InputTape();
@@ -30,12 +27,12 @@ public class PDAMachine {
         tape.clear();
         stack.clear();
         sortStateToTransitionMapping();
-        identifyDeterministicTransitions();
+        getDeterministicTransitions();
 
     }
 
-    private void identifyDeterministicTransitions() {
-        deterministicTransitions = new HashSet<>();
+    public Set<Transition> getDeterministicTransitions() {
+        Set<Transition> deterministicTransitions = new HashSet<>();
         for (ControlState state : loadedDefinition.getStates()) {
             int indexI = 0;
             Collection<Transition> stateTransitions = stateToTransitionMap.get(state.getLabel());
@@ -62,13 +59,6 @@ public class PDAMachine {
                 indexI++;
             }
         }
-    }
-
-    public boolean isDeterministic() {
-        return !deterministicTransitions.isEmpty();
-    }
-
-    public Set<Transition> getDeterministicTransitions() {
         return deterministicTransitions;
     }
 

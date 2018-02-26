@@ -9,8 +9,12 @@
 
         <HBox fx:id="hbError" alignment="BOTTOM_LEFT" prefWidth="400.0" spacing="2">
             <children>
-                <Label id="lName" text="Saving Name" textAlignment="JUSTIFY" wrapText="true"/>
-                <Label id="lError" visible="false" text="*PDA Definition with name ready exist" textAlignment="JUSTIFY"
+                <Label id="lName" text="Saving Name :" textAlignment="JUSTIFY" wrapText="true">
+                    <HBox.margin>
+                        <Insets bottom="10.0"/>
+                    </HBox.margin>
+                </Label>
+                <Label id="lError" text="*PDA Definition with name ready exist" textAlignment="JUSTIFY" visible="false"
                        wrapText="true"/>
             </children>
             <padding>

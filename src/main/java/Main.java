@@ -3,7 +3,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import view.ViewFactory;
 
@@ -45,7 +45,7 @@ public class Main extends Application {
         ControllerFactory.quickDefinitionController = quickDefinitionLoader.getController();
 
         FXMLLoader toolbarLoader = new FXMLLoader();
-        HBox toolbar = toolbarLoader.load(getClass().getResource("layouts/tool_bar_partial.fxml").openStream());
+        VBox toolbar = toolbarLoader.load(getClass().getResource("layouts/tool_bar_partial.fxml").openStream());
         ControllerFactory.toolBarPartialController = toolbarLoader.getController();
         ((BorderPane) primaryStage.getScene().getRoot()).setTop(toolbar);
     }

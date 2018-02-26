@@ -37,6 +37,8 @@ public class HomeController {
             ViewFactory.globalPane.setCenter(ViewFactory.pdaRunner);
             BorderPane.setAlignment(ViewFactory.pdaRunner, Pos.CENTER);
             BorderPane.setMargin(ViewFactory.codeDefinition, new Insets(30, 0, 0, 0));
+            ControllerFactory.pdaRunnerController.closeDeterministicModeIfPresent();
+            ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
         }
     }
 

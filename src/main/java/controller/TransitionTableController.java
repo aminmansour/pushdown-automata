@@ -3,6 +3,7 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,6 +18,7 @@ import model.TransitionEntry;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class TransitionTableController {
 
@@ -42,6 +44,7 @@ public class TransitionTableController {
         }
         this.states = states;
         tvTransitionTable = (TableView) transitionTableView.lookup("#tvTransitionTable");
+        tvTransitionTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         columns = tvTransitionTable.getColumns();
         setUpColumns();
         tvTransitionTable.setItems(data);
@@ -77,16 +80,24 @@ public class TransitionTableController {
                             transition.getAction().setNewState(newState);
                             break;
                     }
-                    data.get(getIndex()).update();
-                    ControllerFactory.toolBarPartialController.highlightSaveButton();
+                    updateVisuals(data.get(getIndex()), transition);
                     super.commitEdit(newValue);
                 } else {
                     cancelEdit();
                 }
             }
+
+
         };
     }
 
+    private void updateVisuals(TransitionEntry transitionEntry, Transition transition) {
+        transitionEntry.update();
+        ControllerFactory.pdaRunnerController.updateVisualLabel(transition);
+        ControllerFactory.pdaRunnerController.closeDeterministicModeIfPresent();
+        ControllerFactory.toolBarPartialController.highlightSaveButton();
+        ControllerFactory.pdaRunnerController.startAgain();
+    }
     private ControlState retrieveStateByLabel(String label) {
         for (ControlState controlState : states) {
             if (controlState.getLabel().equals(label)) {
@@ -114,7 +125,7 @@ public class TransitionTableController {
                             transition.getAction().setElementToPush(newValue.charAt(0));
                             break;
                     }
-                    ControllerFactory.toolBarPartialController.highlightSaveButton();
+                    updateVisuals(data.get(getIndex()), transition);
                     super.commitEdit(newValue);
                 } else {
                     cancelEdit();
@@ -143,7 +154,10 @@ public class TransitionTableController {
         return transitionTableView;
     }
 
-    public void highlightRow(int row) {
+    public void highlightRow(int row, boolean single) {
+        if (single) {
+            tvTransitionTable.getSelectionModel().clearSelection();
+        }
         tvTransitionTable.getSelectionModel().select(row);
     }
 
@@ -155,11 +169,17 @@ public class TransitionTableController {
         tvTransitionTable.getSelectionModel().clearSelection();
     }
 
-    public void select(Transition transition) {
+    public void select(Transition transition, boolean isSingle) {
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).sameAs(transition)) {
-                highlightRow(i);
+                highlightRow(i, isSingle);
             }
+        }
+    }
+
+    public void highlightTransitions(Set<Transition> transitions) {
+        for (Transition transition : transitions) {
+            select(transition, false);
         }
     }
 }

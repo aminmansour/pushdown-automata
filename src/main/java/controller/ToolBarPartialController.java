@@ -19,7 +19,6 @@ public class ToolBarPartialController {
     public void switchToHome(ActionEvent actionEvent) {
         ViewFactory.globalPane.setCenter(ViewFactory.homePage);
         ControllerFactory.toolBarPartialController.disableToolbarButtons(true);
-
     }
 
 
@@ -53,6 +52,19 @@ public class ToolBarPartialController {
     }
 
     public void startAgain(ActionEvent actionEvent) {
+        if (!ControllerFactory.pdaRunnerController.isCurrentSavedInMemory() || bToolbarSave.getStyleClass().contains("de-activated-save-button")) {
+            ControllerFactory.pdaRunnerController.showConfirmationDialog();
+        } else {
+            ControllerFactory.pdaRunnerController.switchToQuickDefinition();
+        }
+        disableToolbarButtons(true);
+    }
 
+    public void requestDeterministicTransitions(ActionEvent actionEvent) {
+        if (ControllerFactory.pdaRunnerController.isInDeterministicMode()) {
+            ControllerFactory.pdaRunnerController.closeDeterministicModeIfPresent();
+        } else {
+            ControllerFactory.pdaRunnerController.openDeterministicMode();
+        }
     }
 }

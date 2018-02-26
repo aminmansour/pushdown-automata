@@ -3,12 +3,14 @@ package controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
 import model.ControlState;
+import model.Transition;
 import view.VisualControlState;
 import view.VisualTransition;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class MachineDisplayController {
@@ -38,17 +40,20 @@ public class MachineDisplayController {
         transitions = new TreeMap<String, ArrayList<VisualTransition>>();
 
 
-        pdaDisplay.widthProperty().addListener(observable -> updateDisplayToNewRatio());
-        pdaDisplay.heightProperty().addListener(observable -> updateDisplayToNewRatio());
+        pdaDisplay.widthProperty().addListener(observable -> repaintDisplay());
+        pdaDisplay.heightProperty().addListener(observable -> repaintDisplay());
 
 
     }
 
-    private void updateDisplayToNewRatio() {
+    private void repaintDisplay() {
         pCanvas.getChildren().clear();
         width = pdaDisplay.getWidth();
         height = pdaDisplay.getHeight();
         orderStatesInScreen();
+        if (ControllerFactory.pdaRunnerController.isInDeterministicMode()) {
+            ControllerFactory.pdaRunnerController.openDeterministicMode();
+        }
     }
 
     public void addVisualControlState(ControlState state) {
@@ -74,14 +79,16 @@ public class MachineDisplayController {
         int columnIndex = 0;
         double toIncreaseYBy = (height) / statePerRow;
         double toIncreaseXBy = (width) / 2;
-        double startX = (toIncreaseXBy - 52) / 2;
-        double startY = (toIncreaseYBy - 52) / 2;
+        double startX = (toIncreaseXBy / 2) - (53 / 2);
+        double startY = (toIncreaseYBy / 2) - (53 / 2);
         double yIndex = startY;
         double xIndex = startX;
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             VisualControlState state = entry.getValue();
-            state.setXPos(xIndex);
+
+            state.setXPos(state.isInitial() ? xIndex - 10 : xIndex);
             state.setYPos(yIndex);
+            System.out.println(state.getLabel() + " is set to (" + xIndex + "," + yIndex + ")");
             xIndex += toIncreaseXBy;
             if (columnIndex == 1) {
                 columnIndex = 0;
@@ -117,17 +124,17 @@ public class MachineDisplayController {
         }
 
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
-            VisualControlState state = entry.getValue();
             pCanvas.getChildren().add(entry.getValue().getView());
         }
 
 
     }
 
-    public void addVisualTransition(String transitionLabel, ControlState source, ControlState destination) {
-        VisualTransition transition = new VisualTransition(transitionLabel, controlStates.get(source.getLabel()), controlStates.get(destination.getLabel()));
-        ArrayList<VisualTransition> transitions = getTransitionsBySource(transition.getSourceState().getLabel());
-        transitions.add(transition);
+    public void addVisualTransition(Transition transition) {
+        VisualTransition vTransition = new VisualTransition(transition, controlStates.get(transition.getConfiguration().getState().getLabel()),
+                controlStates.get(transition.getAction().getNewState().getLabel()));
+        ArrayList<VisualTransition> transitions = getTransitionsBySource(vTransition.getSourceState().getLabel());
+        transitions.add(vTransition);
     }
 
     private ArrayList<VisualTransition> getTransitionsBySource(String sourceLabel) {
@@ -146,5 +153,55 @@ public class MachineDisplayController {
         return pdaDisplay;
     }
 
+
+    public void updateLabel(Transition transition) {
+
+        outloop:
+        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
+            ArrayList<VisualTransition> transitionBatch = entry.getValue();
+            for (VisualTransition vTransition : transitionBatch) {
+                if (transition == vTransition.getTransition()) {
+                    String currentSourceState = transition.getConfiguration().getState().getLabel();
+                    String oldSourceState = vTransition.getSourceState().getLabel();
+                    if (!currentSourceState.equals(oldSourceState)) {
+                        vTransition.updateVisualTransition(controlStates.get(currentSourceState), null);
+                        break outloop;
+                    }
+                    String currentTargetState = transition.getAction().getNewState().getLabel();
+                    String oldTargetState = vTransition.getResultingState().getLabel();
+                    if (!currentTargetState.equals(oldTargetState)) {
+                        vTransition.updateVisualTransition(null, controlStates.get(currentTargetState));
+                        break outloop;
+                    }
+
+                    vTransition.updateVisualTransition(null, null);
+                    break outloop;
+                }
+            }
+        }
+        repaintDisplay();
+    }
+
+    public void highlightDeterministicTransitions(Set<Transition> deterministicTransitions) {
+        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
+            ArrayList<VisualTransition> transitionBatch = entry.getValue();
+            for (VisualTransition vTransitions : transitionBatch) {
+                if (deterministicTransitions.contains(vTransitions.getTransition())) {
+                    vTransitions.setFocus(true);
+                    vTransitions.getSourceState().setFocus(true);
+                }
+            }
+        }
+    }
+
+    public void unhighlightAllTransitions() {
+        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
+            ArrayList<VisualTransition> transitionBatch = entry.getValue();
+            for (VisualTransition vTransitions : transitionBatch) {
+                vTransitions.setFocus(false);
+                vTransitions.getSourceState().setFocus(false);
+            }
+        }
+    }
 
 }
