@@ -5,25 +5,23 @@
 #tool-bar{
     -fx-min-height: 80px;
     -fx-background-color: white;
-    -fx-padding: 10px 0px 1px 10px;
-    -fx-border-color: #229064;
+    -fx-border-color: #b2b2b2;
     -fx-border-width: 0px 0px 1px 0px;
 }
 
-#button-row{
-    -fx-padding: 0px 0px 0px 40px;
+#pdaTitle {
+    -fx-text-fill: white;
+}
 
+#button-row * {
+    -fx-text-fill: #6a6a6a;
 }
 
 .tool-buttons{
-    -fx-min-height: 40px;
-    -fx-max-height: 40px;
-    -fx-background-color: white;
-    -fx-border-width: 1px;
-
+    -fx-background-color: #f5f5f5;
+    -fx-border-width: 1px 1px 1px 1px;
     -fx-text-fill: #353535;
-    -fx-border-color: #229064;
-    -fx-border-width: 1px 0px 0px 0px;
+    -fx-border-color: #dfdfdf;
     -fx-border-radius: 0px;
 }
 
@@ -31,19 +29,14 @@
     -fx-background-color: #e3e3e3;
 }
 
-.tool-buttons#bToolbarSave {
-    -fx-border-width: 1px 0px 0px 1px;
-    -fx-border-color: #229064;
-}
-
 .de-activated-save-button {
-    -fx-background-color: rgb(210, 210, 210);
-    -fx-text-fill: #242424;
+    -fx-background-color: #e0e0e0;
+    -fx-text-fill: white;
 }
 
 
 .tool-buttons:hover{
-    -fx-background-color: #e9e9e9;
+    -fx-background-color: #ececec;
 }
 
 #side-bar {
@@ -58,7 +51,6 @@
     -fx-graphic-text-gap: 2px;
     -fx-content-display: top;
     -fx-background-color: none;
-    -fx-border-width: 1px;
     -fx-max-width: 90px;
     -fx-text-fill: #ffffff;
     -fx-border-color: #f6f6f6;
@@ -71,17 +63,16 @@
     -fx-background-color: #4e6772;
 }
 
-.logo-text{
+.logo-text {
     -fx-font-size: 30px;
-    -fx-fill: #404040;
-    -fx-font-family: arial;
+    -fx-fill: #676767;
     -fx-font-weight: bolder;
-    -fx-stroke: #ffffff;
+    -fx-font-family: arial;
     -fx-stroke-width: 1px;
 }
 
 
---home--
+/*--home--*/
 
 #home-label{
     -fx-font-size: 43px;
@@ -124,9 +115,7 @@
 
 }
 
-.scroll-pane .corner {
-    -fx-background-insets: 0;
-}
+
 .green-button-theme{
     -fx-text-fill: white;
     -fx-background-color: #2ab27b;
@@ -174,11 +163,11 @@
     -fx-font-weight: bolder;
 }
 
-#lContinue{
+#lContinue {
     -fx-text-fill: #21966a;
 }
 
-#lContinue:hover{
+#lContinue:hover {
     -fx-underline: true;
 }
 /*--code-definition*/
@@ -276,8 +265,7 @@
     -fx-font-size: 12px;
 }
 
-
-#bpPDARunnerPage,#vbLeftBar{
+#spPDARunnerPage, #vbLeftBar {
     -fx-background-color: #d1d1d1;
 }
 
@@ -289,6 +277,7 @@
 .table-view * {
     -fx-border-width: 0px;
 }
+
 .table-view {
     -fx-focus-color: transparent;
 
@@ -407,32 +396,25 @@
 
 #bpTransitionSelector {
     -fx-background-color: white;
-    -fx-border-color: #cecece;
+    -fx-border-color: #2ab27b;
     -fx-border-width: 1px;
 }
 
 .transition-choice {
     -fx-background-color: #f9f9f9;
-    -fx-border-color: #249567;
+    -fx-border-color: #b2b2b2;
+    -fx-effect: dropshadow(three-pass-box, #228e62, 0, 0, 0, 1);
     -fx-border-width: 1px;
 }
 
 .transition-choice:pressed {
     -fx-background-color: #e5e5e5;
-
 }
 
 .transition-choice * {
     -fx-text-fill: #494949;
 }
 
-.scroll-pane > .viewport {
-    -fx-background-color: transparent;
-}
-
-.scroll-pane {
-    -fx-background-color: transparent;
-}
 
 #bRandomSelect, #bTerminate {
     -fx-font-size: 14px;
@@ -440,13 +422,13 @@
 
 /*output page*/
 
-#vbOutput, #spOutput {
+#vbOutput, #spOutput, #vbStandardDialog {
     -fx-background-color: white;
     -fx-border-color: #cecece;
     -fx-border-width: 1px;
 }
 
-#vbOutput .button {
+#vbOutput .button, #vbStandardDialog .button {
     -fx-font-size: 14px;
 }
 
@@ -469,7 +451,8 @@
     -fx-border-width: 1px;
 }
 
-.list-cell:filled:selected:focused, .list-cell:filled:selected {
+#lvLibrary .list-cell:filled:selected:focused, #lvLibrary .list-cell:filled:selected,
+#lvTransitions .list-cell:filled:selected:focused, #lvTransitions .list-cell:filled:selected {
     -fx-background-color: #2ab27b;
     -fx-text-fill: white;
 }
@@ -480,6 +463,111 @@
 
 /*quick-definition*/
 
-.spAccordionDefinition{
+.spAccordionDefinition {
     -fx-background-color: white;
 }
+
+.transition-box-definition {
+    -fx-border-color: #cecece;
+    -fx-border-width: 1px;
+}
+
+#taControlStates {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-box-border: none;
+    -fx-focus-color: -fx-control-inner-background;
+    -fx-faint-focus-color: -fx-control-inner-background;
+    -fx-text-box-border: -fx-control-inner-background;
+
+}
+
+#taControlStates .content, #taControlStates:focused .content {
+    -fx-background-color: #fff;
+    -fx-border-color: #cecece;
+    -fx-border-width: 1px;
+}
+
+#taControlStates {
+    -fx-background-color: #fff, #fff;
+}
+
+#taControlStates:focused {
+    -fx-highlight-fill: #7ecfff;
+    -fx-background-insets: 0;
+    -fx-background-color: transparent, white, transparent, white;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-focus-color: -fx-control-inner-background;
+    -fx-faint-focus-color: -fx-control-inner-background;
+    -fx-text-box-border: -fx-control-inner-background;
+    -fx-border-width: -1;
+}
+
+#taControlStates .content {
+    -fx-padding: 10px;
+    -fx-text-fill: gray;
+    -fx-highlight-fill: #7ecfff;
+}
+
+#lvTransitions .list-cell {
+    -fx-alignment: center;
+}
+
+.lTransitionTitle {
+    -fx-background-color: #4e6772;
+    -fx-text-fill: white;
+}
+
+#quickDefinition .accordion .titled-pane .title {
+    -fx-background-color: transparent;
+    -fx-border-color: #cecece;
+    -fx-border-width: 1px;
+}
+
+#quickDefinition .accordion .titled-pane .title * {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0, 0, 0, 0;
+    -fx-focus-color: -fx-control-inner-background;
+    -fx-faint-focus-color: -fx-control-inner-background;
+    -fx-text-box-border: -fx-control-inner-background;
+    -fx-border-width: -1;
+}
+
+#quickDefinition * {
+    -fx-text-fill: #5b5b5b;
+}
+
+#quickDefinition .combo-box-base {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+}
+
+#quickDefinition .combo-box .combo-box-popup .list-cell:hover, #quickDefinition .combo-box-popup .list-cell:selected {
+    -fx-background-color: #2ab27b;
+}
+
+#quickDefinition .combo-box .combo-box-popup .list-cell:hover *, .combo-box-popup .list-cell:selected * {
+    -fx-fill: white;
+}
+
+#cbAcceptingStates * {
+    -fx-focus-color: transparent;
+}
+
+#quickDefinition .button, .lTransitionTitle {
+    -fx-text-fill: white;
+}
+
+.lTransitionTitle {
+    -fx-text-fill: white;
+}
+
+#lvTransitions {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: white;
+    -fx-border-color: #cecece;
+    -fx-border-width: 1px;
+}
+

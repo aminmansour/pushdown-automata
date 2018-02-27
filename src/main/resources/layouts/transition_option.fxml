@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane prefHeight="100.0" prefWidth="570.0" styleClass="transition-choice" xmlns="http://javafx.com/javafx/8.0.121"
-            xmlns:fx="http://javafx.com/fxml/1">
-    <center>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0" BorderPane.alignment="CENTER">
-            <children>
-                <Label fx:id="lRead" text="Read : A"/>
-                <Label fx:id="lPop" text="Pop : B"/>
-                <Label fx:id="lPush" text="Push : A"/>
-                <Label fx:id="lResultingState" text="Resulting State : A"/>
-            </children>
-        </HBox>
-    </center>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="100.0" prefWidth="570.0" styleClass="transition-choice"
+            xmlns="http://javafx.com/javafx/8.0.121">
     <top>
-        <FlowPane alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
+        <HBox alignment="CENTER_LEFT" prefHeight="20.0" prefWidth="200.0" BorderPane.alignment="TOP_LEFT">
             <children>
                 <Label style="-fx-background-color: #2ab27b; -fx-text-fill: white" text="Transition choice ">
                     <padding>
@@ -28,10 +20,49 @@
                         <Insets right="5.0"/>
                     </padding>
                 </Label>
+
+                <Label fx:id="lVisited" visible="false" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="3"
+                       maxWidth="Infinity" text="Explored" HBox.hgrow="ALWAYS">
+                    <graphic>
+                        <FontIcon iconColor="#12a14f" iconLiteral="fa-check" iconSize="15" translateX="3.0"
+                                  translateY="-2.0"/>
+                    </graphic>
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                    <padding>
+                        <Insets right="1.0"/>
+                    </padding>
+                </Label>
             </children>
             <BorderPane.margin>
-                <Insets top="5.0"/>
+                <Insets right="10.0" top="5.0"/>
             </BorderPane.margin>
-        </FlowPane>
+        </HBox>
     </top>
+    <center>
+        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <FlowPane alignment="TOP_RIGHT" columnHalignment="RIGHT" prefHeight="70.0">
+                    <children>
+
+                    </children>
+                    <VBox.margin>
+                        <Insets right="10.0"/>
+                    </VBox.margin>
+                </FlowPane>
+                <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                    <children>
+                        <Label fx:id="lRead" text="Read : A"/>
+                        <Label fx:id="lPop" text="Pop : B"/>
+                        <Label fx:id="lPush" text="Push : A"/>
+                        <Label fx:id="lResultingState" text="Resulting State : A"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </center>
 </BorderPane>

@@ -51,11 +51,7 @@ public class CodeDefinitionController implements Initializable{
     @FXML
     private Label lFurtherInfo;
     @FXML
-    private Button bAddTransition;
-    @FXML
     private HBox hbAddTransition;
-    @FXML
-    private Label lClearTransitions;
     @FXML
     private TextField tfInitialState;
     @FXML
@@ -63,7 +59,7 @@ public class CodeDefinitionController implements Initializable{
 
 
     private ArrayList<char[]> transitionsInputed;
-    private ChangeListener furtherInfoFieldListener;
+    private ChangeListener<String> furtherInfoFieldListener;
     private ArrayList<String> currentErrorList;
     private TransitionTextField tfAddTransition;
 
@@ -431,9 +427,7 @@ public class CodeDefinitionController implements Initializable{
             Button bClose = (Button) currentsaveWindow.lookup("#bClose");
             Label lError = (Label) currentsaveWindow.lookup("#lError");
             TextField tfName = (TextField) currentsaveWindow.lookup("#tfName");
-            bClose.setOnAction(event -> {
-                ViewFactory.codeDefinition.getChildren().remove(currentsaveWindow);
-            });
+            bClose.setOnAction(event -> ViewFactory.codeDefinition.getChildren().remove(currentsaveWindow));
 
             bSave.setOnAction(event -> {
                 if (!tfName.getText().trim().isEmpty()) {

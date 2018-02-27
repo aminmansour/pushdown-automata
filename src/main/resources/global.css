@@ -51,7 +51,6 @@
     -fx-graphic-text-gap: 2px;
     -fx-content-display: top;
     -fx-background-color: none;
-    -fx-border-width: 1px;
     -fx-max-width: 90px;
     -fx-text-fill: #ffffff;
     -fx-border-color: #f6f6f6;
@@ -72,8 +71,7 @@
     -fx-stroke-width: 1px;
 }
 
-
---home--
+/*--home--*/
 
 #home-label{
     -fx-font-size: 43px;
@@ -116,9 +114,7 @@
 
 }
 
-.scroll-pane .corner {
-    -fx-background-insets: 0;
-}
+
 .green-button-theme{
     -fx-text-fill: white;
     -fx-background-color: #2ab27b;
@@ -399,13 +395,14 @@
 
 #bpTransitionSelector {
     -fx-background-color: white;
-    -fx-border-color: #cecece;
+    -fx-border-color: #2ab27b;
     -fx-border-width: 1px;
 }
 
 .transition-choice {
     -fx-background-color: #f9f9f9;
-    -fx-border-color: #249567;
+    -fx-border-color: #b2b2b2;
+    -fx-effect: dropshadow(three-pass-box, #228e62, 0, 0, 0, 1);
     -fx-border-width: 1px;
 }
 
@@ -417,13 +414,6 @@
     -fx-text-fill: #494949;
 }
 
-.scroll-pane > .viewport {
-    -fx-background-color: transparent;
-}
-
-.scroll-pane {
-    -fx-background-color: transparent;
-}
 
 #bRandomSelect, #bTerminate {
     -fx-font-size: 14px;
@@ -579,5 +569,4 @@
     -fx-border-color: #cecece;
     -fx-border-width: 1px;
 }
-
 

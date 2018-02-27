@@ -88,7 +88,7 @@ public class InputTape {
     }
 
     public int getSize() {
-        return input.size();
+        return input == null ? 0 : input.size();
     }
 
     public String getOriginalWord() {

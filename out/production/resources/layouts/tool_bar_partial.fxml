@@ -1,32 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
-<HBox id="tool-bar" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ToolBarPartialController">
-   <FlowPane orientation="HORIZONTAL" alignment="TOP_LEFT">
-    <TextFlow>
-        <Text styleClass="logo-text" text="Pushdown ">
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<VBox id="tool-bar" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.ToolBarPartialController">
+    <FlowPane alignment="CENTER_LEFT" maxHeight="0.0" minHeight="80.0" orientation="HORIZONTAL">
+        <TextFlow fx:id="pdaTitle">
+            <Text styleClass="logo-text" text="PUSHDOWN ">
         </Text>
-        <Text styleClass="logo-text" text="Automata ">
+            <Text styleClass="logo-text" text="AUTOMATA ">
          </Text>
-        <Text  styleClass="logo-text" text="Simulator">
+            <Text styleClass="logo-text" text="SIMULATOR">
          </Text>
+            <padding>
+                <Insets bottom="5.0" left="40.0" right="10.0" top="5.0"/>
+            </padding>
+            <FlowPane.margin>
+                <Insets/>
+            </FlowPane.margin>
     </TextFlow>
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
    </FlowPane>
 
 
 
     <HBox id="button-row" alignment="BOTTOM_RIGHT" maxWidth="Infinity" HBox.hgrow="ALWAYS">
 
-        <Button maxHeight="Infinity" maxWidth="Infinity" fx:id="bToolbarSave" styleClass="tool-buttons" text="Save"
-                disable="true" minWidth="90" onAction="#save"/>
-        <Button maxHeight="Infinity" maxWidth="Infinity" fx:id="bToolbarDeterministic" styleClass="tool-buttons"
-                disable="true" text="Deterministic states" minWidth="90"/>
-        <Button maxHeight="Infinity" maxWidth="Infinity" fx:id="bToolbarStartAgain" disable="true"
-                styleClass="tool-buttons" text="New" onAction="#startAgain" minWidth="90"/>
+        <Button fx:id="bToolbarSave" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
+                minHeight="40.0" minWidth="0.0" onAction="#save" styleClass="tool-buttons" text="Save">
+            <graphic>
+                <FontIcon iconColor="#a1a1a1" iconLiteral="fa-save" iconSize="20" translateX="3.0"/>
+            </graphic>
+        </Button>
+        <Button fx:id="bToolbarDeterministic" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
+                minHeight="40.0" minWidth="90" onAction="#requestDeterministicTransitions" styleClass="tool-buttons"
+                text="Non-Deterministic states">
+            <graphic>
+                <FontIcon iconColor="#a1a1a1" iconLiteral="fa-circle-thin" iconSize="20" translateX="3.0"/>
+            </graphic>
+            <HBox.margin>
+                <Insets left="3.0"/>
+            </HBox.margin>
+        </Button>
+        <Button fx:id="bToolbarStartAgain" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
+                minWidth="90" onAction="#startAgain" styleClass="tool-buttons" text="New PDA">
+            <graphic>
+                <FontIcon iconColor="#a1a1a1" iconLiteral="fa-file-o" iconSize="20" translateX="3.0"/>
+            </graphic>
+            <HBox.margin>
+                <Insets left="3.0"/>
+            </HBox.margin>
+        </Button>
+        <VBox.margin>
+            <Insets bottom="5.0"/>
+        </VBox.margin>
+        <padding>
+            <Insets right="6.0"/>
+        </padding>
 
     </HBox>
-</HBox>
+</VBox>

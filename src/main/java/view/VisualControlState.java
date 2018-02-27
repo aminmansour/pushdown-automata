@@ -36,10 +36,10 @@ public class VisualControlState {
         view.getChildren().add(controlStateView);
 
         Circle state = new Circle();
-        state.setStroke(Color.valueOf("388E3C"));
+        state.setStroke(Color.web("#388E3C"));
         state.setStrokeWidth(1);
         state.setRadius(RADIUS);
-        state.setFill(Color.valueOf("455A64"));
+        state.setFill(Color.web("#455A64"));
         state.setCache(true);
         controlStateView.getChildren().add(state);
 

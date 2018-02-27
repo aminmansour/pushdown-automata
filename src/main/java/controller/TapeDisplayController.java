@@ -97,9 +97,9 @@ public class TapeDisplayController {
         }
     }
 
-    public void previous(){
+    public void previous() {
         tape.previous();
-        lStep.setText("Step "+tape.getStep());
+        lStep.setText("Step " + tape.getStep());
         setTapeCells(tape.getRemainingInput());
         setHeadSymbolLabel(tape.getStringAtHead());
     }
@@ -108,17 +108,19 @@ public class TapeDisplayController {
         return tape.getStringAtHead();
     }
 
-    public int getStep(){
-        return tape.getStep();
-    }
 
     public void setStep(int step){
         tape.setStep(step);
         lStep.setText("Step "+step);
     }
 
+    public boolean hasInputLoaded() {
+        return tape.getSize() > 0;
+    }
+
+
     public void setTapeInput(String input) {
-        ArrayList<Character> inputSymbols = new ArrayList<Character>(input.length());
+        ArrayList<Character> inputSymbols = new ArrayList<>(input.length());
         for (char c : input.toCharArray()) { inputSymbols.add(c); }
         tape.clear();
         tape.setInput(inputSymbols);
@@ -168,6 +170,10 @@ public class TapeDisplayController {
     public void setTapeInputModel(InputTape tapeInputModel) {
         this.tape = tapeInputModel;
         clear();
+    }
+
+    public boolean isLastStep() {
+        return tape.getStep() == tape.getOriginalWord().length();
     }
 
 

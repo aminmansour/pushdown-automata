@@ -34,6 +34,7 @@ public class ToolBarPartialController {
             Memory.saveState();
             bToolbarSave.getStyleClass().remove("de-activated-save-button");
         } else {
+            disableToolbarButtons(true);
             ControllerFactory.pdaRunnerController.openSaveDialog();
         }
     }

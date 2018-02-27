@@ -15,8 +15,8 @@ import java.util.TreeMap;
 
 public class MachineDisplayController {
 
-    private final TreeMap<String, VisualControlState> controlStates;
-    private final TreeMap<String, ArrayList<VisualTransition>> transitions;
+    private TreeMap<String, VisualControlState> controlStates;
+    private TreeMap<String, ArrayList<VisualTransition>> transitions;
     private BorderPane pdaDisplay;
 
     private final Pane pCanvas;
@@ -36,8 +36,8 @@ public class MachineDisplayController {
         VBox.setVgrow(pdaDisplay, Priority.ALWAYS);
         pCanvas = (Pane) pdaDisplay.lookup("#pCanvas");
 
-        controlStates = new TreeMap<String, VisualControlState>();
-        transitions = new TreeMap<String, ArrayList<VisualTransition>>();
+        controlStates = new TreeMap<>();
+        transitions = new TreeMap<>();
 
 
         pdaDisplay.widthProperty().addListener(observable -> repaintDisplay());
@@ -204,4 +204,10 @@ public class MachineDisplayController {
         }
     }
 
+    public void clear() {
+        resetStates();
+        controlStates = new TreeMap<String, VisualControlState>();
+        transitions = new TreeMap<String, ArrayList<VisualTransition>>();
+        repaintDisplay();
+    }
 }

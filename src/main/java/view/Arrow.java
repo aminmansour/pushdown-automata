@@ -5,13 +5,13 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 
-public class Arrow extends Path {
+class Arrow extends Path {
     private static final double defaultArrowHeadSize = 5.0;
 
-    public Arrow(double startX, double startY, double endX, double endY, double arrowHeadSize) {
+    private Arrow(double startX, double startY, double endX, double endY, double arrowHeadSize) {
         super();
         strokeProperty().bind(fillProperty());
-        setFill(Color.valueOf("607D8B"));
+        setFill(Color.web("#607D8B"));
 
         //Line
         getElements().add(new MoveTo(startX, startY));
@@ -33,7 +33,7 @@ public class Arrow extends Path {
         getElements().add(new LineTo(endX, endY));
     }
 
-    public Arrow(double startX, double startY, double endX, double endY) {
+    Arrow(double startX, double startY, double endX, double endY) {
         this(startX, startY, endX, endY, defaultArrowHeadSize);
     }
 }

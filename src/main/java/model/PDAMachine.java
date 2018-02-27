@@ -27,11 +27,11 @@ public class PDAMachine {
         tape.clear();
         stack.clear();
         sortStateToTransitionMapping();
-        getDeterministicTransitions();
+        getNonDeterministicTransitions();
 
     }
 
-    public Set<Transition> getDeterministicTransitions() {
+    public Set<Transition> getNonDeterministicTransitions() {
         Set<Transition> deterministicTransitions = new HashSet<>();
         for (ControlState state : loadedDefinition.getStates()) {
             int indexI = 0;
@@ -176,12 +176,12 @@ public class PDAMachine {
 
     public String getCurrentSequence(boolean isAccepted) {
         ConfigurationNode pointer = history.getRoot();
-        String output = getConfigurationStringFromPreviousState(pointer);
+        StringBuilder output = new StringBuilder(getConfigurationStringFromPreviousState(pointer));
         while ((pointer = pointer.getNextChildInPath()) != null) {
-            output += " > " + getConfigurationStringFromPreviousState(pointer);
+            output.append(" > ").append(getConfigurationStringFromPreviousState(pointer));
         }
-        output += isAccepted ? " - Accepted" : " - Stuck ";
-        return output;
+        output.append(isAccepted ? " - Accepted" : " - Stuck ");
+        return output.toString();
     }
 
     private String getConfigurationStringFromPreviousState(ConfigurationNode pointer) {
@@ -197,5 +197,9 @@ public class PDAMachine {
 
     public void markAsSavedInMemory() {
         isSavedInMemory = true;
+    }
+
+    public boolean isNonDeterministic() {
+        return getNonDeterministicTransitions().size() > 0;
     }
 }
