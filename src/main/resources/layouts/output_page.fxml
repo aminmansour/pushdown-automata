@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <VBox fx:id="vbOutput" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      xmlns:fx="http://javafx.com/fxml/1" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.121">x
+      xmlns:fx="http://javafx.com/fxml/1" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.121">
 
     <FlowPane alignment="BOTTOM_LEFT" prefHeight="30.0" prefWidth="400.0" BorderPane.alignment="CENTER">
         <padding>

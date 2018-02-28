@@ -53,6 +53,8 @@ public class PDARunnerController implements Initializable{
     private VBox currentOutputWindow;
     private boolean inDeterministicMode;
     private boolean machineIsNonDeterministic;
+    private ControlState focusedControlState;
+
 
 
     public PDARunnerController() {
@@ -141,6 +143,7 @@ public class PDARunnerController implements Initializable{
     private void loadPDAWithInput() {
         stop();
         machineIsNonDeterministic = model.isNonDeterministic();
+        machineDisplay.focusState(model.getCurrentState());
         tape.setTapeInput(inputBox.getInput());
         tape.setCurrentConfigurationLabel("( " + model.getCurrentState().getLabel() + " , " + model.getTape().getRemainingInputAsString() + " , " + model.getStack().getStackContentAsString() + " )");
         model.getStack().clear();
@@ -155,6 +158,7 @@ public class PDARunnerController implements Initializable{
             moreSolutionsToBeFound = true;
 
             closeDeterministicModeIfPresent();
+            machineDisplay.clearTransitionFocus();
             transitionTable.clearSelection();
             loadPDAWithInput();
             actionBar.setDisable(false);
@@ -240,6 +244,7 @@ public class PDARunnerController implements Initializable{
     public void previous(){
         closeDeterministicModeIfPresent();
         if (model.getTape().getStep() > 0) {
+            machineDisplay.clearTransitionFocus();
             actionBar.setDisable(false);
             model.getHistory().getCurrent().markInPath(false);
             ConfigurationNode current = model.getHistory().getCurrent().getParent();
@@ -250,10 +255,10 @@ public class PDARunnerController implements Initializable{
 
     public void startAgain() {
         closeDeterministicModeIfPresent();
+        machineDisplay.clearTransitionFocus();
         tape.redo();
         model.setCurrentStateToInitial();
         stack.setUpStackContentAFresh();
-        stack.clean();
         stack.clean();
         updateCurrentStateAndConfigurationField();
         tape.setStackTopLabel("-");
@@ -263,8 +268,10 @@ public class PDARunnerController implements Initializable{
 
     public void stop(){
         closeDeterministicModeIfPresent();
+        machineDisplay.clearTransitionFocus();
         closeOptionDialogIfPresent();
         actionBar.setDisable(true);
+        machineDisplay.clearTransitionFocus();
         model.setCurrentStateToInitial();
         tape.clear();
         tape.setCurrentStateLabel(model.getCurrentState().getLabel());
@@ -318,8 +325,10 @@ public class PDARunnerController implements Initializable{
             currentChoiceWindow = FXMLLoader.load(getClass().getResource("../layouts/transition_selecter_page.fxml"));
             ScrollPane sp = new ScrollPane();
             sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            sp.setFitToWidth(true);
             BorderPane.setAlignment(sp, Pos.CENTER);
             VBox vbOptions = new VBox(5);
+            vbOptions.setPadding(new Insets(5, 5, 5, 5));
             vbOptions.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
             vbOptions.setId("vbOptionContainer");
             sp.setContent(vbOptions);
@@ -555,6 +564,7 @@ public class PDARunnerController implements Initializable{
             }
         }
         transitionTable.select(transition, true);
+        machineDisplay.focusTransition(transition);
         closeOptionDialogIfPresent();
     }
 
@@ -572,6 +582,7 @@ public class PDARunnerController implements Initializable{
     private void loadConfigurationState(ConfigurationNode record) {
         model.getHistory().setCurrent(record);
         model.setCurrentState(record.getState());
+        machineDisplay.focusState(record.getState());
         tape.setHeadPosition(record.getHeadPosition());
         stack.loadState(record.getStackState());
         updateCurrentStateAndConfigurationField();
@@ -657,6 +668,7 @@ public class PDARunnerController implements Initializable{
 
     public void openDeterministicMode() {
         transitionTable.clearSelection();
+        machineDisplay.clearTransitionFocus();
         Set<Transition> transitions = model.getNonDeterministicTransitions();
         machineDisplay.highlightDeterministicTransitions(transitions);
         transitionTable.highlightTransitions(transitions);
@@ -667,6 +679,7 @@ public class PDARunnerController implements Initializable{
         if (inDeterministicMode) {
             inDeterministicMode = false;
             machineDisplay.unhighlightAllTransitions();
+            machineDisplay.focusState(model.getCurrentState());
             transitionTable.clearSelection();
         }
 

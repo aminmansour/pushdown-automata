@@ -1,7 +1,10 @@
 package controller;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 import model.ControlState;
 import model.Transition;
 import view.VisualControlState;
@@ -15,6 +18,9 @@ import java.util.TreeMap;
 
 public class MachineDisplayController {
 
+    private final String NON_DETERMINISTIC_FOCUS_COLOR = "#2ab27b;";
+    private final String NORMAL_RUN_COLOR = "#2ab27b;";
+
     private TreeMap<String, VisualControlState> controlStates;
     private TreeMap<String, ArrayList<VisualTransition>> transitions;
     private BorderPane pdaDisplay;
@@ -22,6 +28,7 @@ public class MachineDisplayController {
     private final Pane pCanvas;
     private double width;
     private double height;
+
 
 
     public MachineDisplayController() {
@@ -45,6 +52,7 @@ public class MachineDisplayController {
 
 
     }
+
 
     private void repaintDisplay() {
         pCanvas.getChildren().clear();
@@ -187,8 +195,8 @@ public class MachineDisplayController {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
             for (VisualTransition vTransitions : transitionBatch) {
                 if (deterministicTransitions.contains(vTransitions.getTransition())) {
-                    vTransitions.setFocus(true);
-                    vTransitions.getSourceState().setFocus(true);
+                    vTransitions.setFocus(true, NON_DETERMINISTIC_FOCUS_COLOR);
+                    vTransitions.getSourceState().setFocus(true, NON_DETERMINISTIC_FOCUS_COLOR);
                 }
             }
         }
@@ -198,8 +206,8 @@ public class MachineDisplayController {
         for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
             for (VisualTransition vTransitions : transitionBatch) {
-                vTransitions.setFocus(false);
-                vTransitions.getSourceState().setFocus(false);
+                vTransitions.setFocus(false, "");
+                vTransitions.getSourceState().setFocus(false, "");
             }
         }
     }
@@ -209,5 +217,40 @@ public class MachineDisplayController {
         controlStates = new TreeMap<String, VisualControlState>();
         transitions = new TreeMap<String, ArrayList<VisualTransition>>();
         repaintDisplay();
+    }
+
+    public void focusTransition(Transition transition) {
+        ArrayList<VisualTransition> visualTransitions = transitions.get(transition.getConfiguration().getState().getLabel());
+        for (VisualTransition vTransition : visualTransitions) {
+            if (transition == vTransition.getTransition()) {
+                vTransition.setFocus(true, NORMAL_RUN_COLOR);
+                vTransition.getSourceState().setFocus(false, "");
+                Timeline timeline = new Timeline(new KeyFrame(
+                        Duration.millis(1000),
+                        ae -> {
+                            vTransition.setFocus(false, "");
+                            vTransition.getResultingState().setFocus(true, NORMAL_RUN_COLOR);
+                        }));
+
+                timeline.play();
+            } else {
+                vTransition.setFocus(false, "");
+            }
+        }
+    }
+
+    public void clearTransitionFocus() {
+        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
+            ArrayList<VisualTransition> transitionBatch = entry.getValue();
+            for (VisualTransition vTransition : transitionBatch) {
+                vTransition.setFocus(false, "");
+                vTransition.getResultingState().setFocus(false, "");
+            }
+        }
+    }
+
+
+    public void focusState(ControlState currentState) {
+        controlStates.get(currentState.getLabel()).setFocus(true, NORMAL_RUN_COLOR);
     }
 }

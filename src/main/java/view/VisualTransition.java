@@ -50,10 +50,28 @@ public class VisualTransition {
             cosineAngle = 2 * Math.PI - cosineAngle;
         }
 
+
         double xEndPoint = centerVector.getKey() + q2.getRadius() * Math.cos(cosineAngle);
         double yEndPoint = centerVector.getValue() + q2.getRadius() * Math.cos(cosineAngle);
+        StackPane view = new StackPane();
 
+
+//        if(transition.getConfiguration().getState() != transition.getAction().getNewState()) {
+        view.setLayoutY(Math.min(q1.getYPos() + q1.getHeight(), yEndPoint));
+        view.setLayoutX(Math.min(q1.getXPos() + q1.getWidth(), xEndPoint));
         Arrow a = new Arrow(q1.getXPos() + q1.getWidth(), q1.getYPos() + q1.getHeight(), xEndPoint, yEndPoint);
+        view.getChildren().add(a);
+//        }else{
+//            view.setLayoutY(Math.min(q1.getYPos() + q1.getHeight(), yEndPoint));
+//            view.setLayoutX(Math.min(q1.getXPos() + q1.getWidth(), xEndPoint));
+//            Polygon polygon = new Polygon();
+//            polygon.getPoints().addAll(new Double[]{
+//                    0.0, 0.0,
+//                    20.0, 10.0,
+//                    10.0, 20.0 });
+//            view.getChildren().add(polygon);
+//        }
+
 
 //        arrow = new Line();
 //        LENGTH_FROM_CORNER = Math.sqrt(Math.pow(26.5, 2) + Math.pow(26.5, 2)) - 30;
@@ -113,11 +131,7 @@ public class VisualTransition {
         flTransitionLabel.getChildren().add(transitionLabel);
         flTransitionLabel.getStyleClass().add("transition-labels");
 
-        StackPane view = new StackPane();
-        view.setLayoutY(Math.min(q1.getYPos() + q1.getHeight(), yEndPoint));
-        view.setLayoutX(Math.min(q1.getXPos() + q1.getWidth(), xEndPoint));
-
-        view.getChildren().addAll(a, flTransitionLabel);
+        view.getChildren().add(flTransitionLabel);
         this.view = view;
 
     }
@@ -139,11 +153,9 @@ public class VisualTransition {
     }
 
 
-
-    public void setFocus(boolean focus) {
+    public void setFocus(boolean focus, String color) {
         isFocused = focus;
-        String background = isFocused ? "#2ab27b;" : "white;";
-        String textFill = isFocused ? "white;" : "black;";
+        String background = isFocused ? color : "white;";
         flTransitionLabel.setStyle("-fx-background-color:" + background);
 
     }

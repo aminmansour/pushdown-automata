@@ -134,9 +134,9 @@ public class VisualControlState {
         view.setLayoutY(yPos);
     }
 
-    public void setFocus(boolean focus) {
+    public void setFocus(boolean focus, String color) {
         isFocused = focus;
-        view.setStyle("-fx-background-color:" + (isFocused ? "#2ab27b" : "transparent"));
+        view.setStyle("-fx-background-color:" + (isFocused ? color : "transparent"));
     }
 
     public boolean isFocused() {
