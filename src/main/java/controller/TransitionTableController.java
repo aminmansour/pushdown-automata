@@ -74,6 +74,7 @@ public class TransitionTableController {
                     Transition transition = data.get(getIndex()).getTransition();
                     switch (columnNumber) {
                         case 1:
+                            ControllerFactory.pdaRunnerController.updateModel(transition.getConfiguration().getState(), newState, transition);
                             transition.getConfiguration().setState(newState);
                             break;
                         case 2:

@@ -23,6 +23,7 @@ public class VisualControlState {
     private boolean isFocused;
     private boolean isInitial;
     private final int RADIUS = 26;
+    private StackPane controlStateView;
 
     public VisualControlState(String label, boolean isInitial, boolean isAccepting) {
         this.label = label;
@@ -32,7 +33,7 @@ public class VisualControlState {
 
     private void generateControlStateView(String label, boolean isInitial, boolean isAccepting) {
         view = new HBox();
-        StackPane controlStateView = new StackPane();
+        controlStateView = new StackPane();
         view.getChildren().add(controlStateView);
 
         Circle state = new Circle();
@@ -136,7 +137,7 @@ public class VisualControlState {
 
     public void setFocus(boolean focus, String color) {
         isFocused = focus;
-        view.setStyle("-fx-background-color:" + (isFocused ? color : "transparent"));
+        controlStateView.setStyle("-fx-background-color:" + (isFocused ? color : "transparent"));
     }
 
     public boolean isFocused() {
@@ -149,9 +150,8 @@ public class VisualControlState {
     }
 
     public double getWidth() {
-        return 26.5;
+        return isInitial ? 11 + 26.5 : 26.5;
     }
-
 
     public double getHeight() {
         return 26.5;

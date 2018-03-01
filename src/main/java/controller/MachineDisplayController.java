@@ -38,7 +38,6 @@ public class MachineDisplayController {
             e.printStackTrace();
         }
 
-
         HBox.setHgrow(pdaDisplay, Priority.ALWAYS);
         VBox.setVgrow(pdaDisplay, Priority.ALWAYS);
         pCanvas = (Pane) pdaDisplay.lookup("#pCanvas");
@@ -46,15 +45,14 @@ public class MachineDisplayController {
         controlStates = new TreeMap<>();
         transitions = new TreeMap<>();
 
-
         pdaDisplay.widthProperty().addListener(observable -> repaintDisplay());
         pdaDisplay.heightProperty().addListener(observable -> repaintDisplay());
-
 
     }
 
 
     private void repaintDisplay() {
+
         pCanvas.getChildren().clear();
         width = pdaDisplay.getWidth();
         height = pdaDisplay.getHeight();
@@ -74,11 +72,6 @@ public class MachineDisplayController {
         pCanvas.getChildren().clear();
     }
 
-    public void drawStates() {
-        for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
-            pCanvas.getChildren().add(entry.getValue().getView());
-        }
-    }
 
 
     public void orderStatesInScreen() {
@@ -93,10 +86,8 @@ public class MachineDisplayController {
         double xIndex = startX;
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             VisualControlState state = entry.getValue();
-
             state.setXPos(state.isInitial() ? xIndex - 10 : xIndex);
             state.setYPos(yIndex);
-            System.out.println(state.getLabel() + " is set to (" + xIndex + "," + yIndex + ")");
             xIndex += toIncreaseXBy;
             if (columnIndex == 1) {
                 columnIndex = 0;
@@ -108,7 +99,6 @@ public class MachineDisplayController {
         }
 
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
-            VisualControlState state = entry.getValue();
             pCanvas.getChildren().add(entry.getValue().getView());
         }
 
@@ -117,11 +107,22 @@ public class MachineDisplayController {
             VisualControlState state = entry.getValue();
             ArrayList<VisualTransition> transitionsBySource = getTransitionsBySource(state.getLabel());
             for (int i = 0; i < transitionsBySource.size(); i++) {
-                transitionsBySource.get(i).align();
+
+                VisualTransition visualTransition = transitionsBySource.get(i);
+                if (visualTransition.getTransition().getConfiguration().getState() ==
+                        visualTransition.getTransition().getAction().getNewState()) {
+                    visualTransition.redrawArrow(i % 2 == 0);
+                } else {
+                    visualTransition.align();
+                }
             }
         }
-
         pCanvas.getChildren().clear();
+
+        for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
+            pCanvas.getChildren().add(entry.getValue().getView());
+        }
+
 
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             VisualControlState state = entry.getValue();
@@ -129,10 +130,6 @@ public class MachineDisplayController {
             for (int i = 0; i < transitionsBySource.size(); i++) {
                 pCanvas.getChildren().add(transitionsBySource.get(i).getView());
             }
-        }
-
-        for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
-            pCanvas.getChildren().add(entry.getValue().getView());
         }
 
 
@@ -162,7 +159,7 @@ public class MachineDisplayController {
     }
 
 
-    public void updateLabel(Transition transition) {
+    public void update(Transition transition) {
 
         outloop:
         for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {

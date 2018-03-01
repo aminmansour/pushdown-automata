@@ -2,6 +2,7 @@ package view;
 
 import javafx.geometry.Orientation;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -29,6 +30,7 @@ public class VisualTransition {
     private MoveTo move;
     private double LENGTH_FROM_CORNER;
     private Text transitionLabel;
+    private boolean initial;
 
 
     public VisualTransition(Transition transition, VisualControlState q1, VisualControlState q2) {
@@ -36,10 +38,10 @@ public class VisualTransition {
         sourceState = q1;
         resultingState = q2;
         isFocused = false;
-        generateArrowView(q1, q2);
+        generateArrowView(q1, q2, false);
     }
 
-    private void generateArrowView(VisualControlState q1, VisualControlState q2) {
+    private void generateArrowView(VisualControlState q1, VisualControlState q2, boolean leftColumnSource) {
         Pair<Double, Double> centerVector = new Pair<>(q2.getXPos() + q2.getWidth(), q2.getYPos() + q2.getHeight());
         Pair<Double, Double> vector1 = new Pair<>(-centerVector.getKey() + q1.getXPos(), -centerVector.getValue() + q1.getYPos());
         Pair<Double, Double> vector2 = new Pair<>(1.0, 0.0);
@@ -53,75 +55,39 @@ public class VisualTransition {
 
         double xEndPoint = centerVector.getKey() + q2.getRadius() * Math.cos(cosineAngle);
         double yEndPoint = centerVector.getValue() + q2.getRadius() * Math.cos(cosineAngle);
+
         StackPane view = new StackPane();
 
 
-//        if(transition.getConfiguration().getState() != transition.getAction().getNewState()) {
-        view.setLayoutY(Math.min(q1.getYPos() + q1.getHeight(), yEndPoint));
-        view.setLayoutX(Math.min(q1.getXPos() + q1.getWidth(), xEndPoint));
-        Arrow a = new Arrow(q1.getXPos() + q1.getWidth(), q1.getYPos() + q1.getHeight(), xEndPoint, yEndPoint);
-        view.getChildren().add(a);
-//        }else{
-//            view.setLayoutY(Math.min(q1.getYPos() + q1.getHeight(), yEndPoint));
-//            view.setLayoutX(Math.min(q1.getXPos() + q1.getWidth(), xEndPoint));
-//            Polygon polygon = new Polygon();
-//            polygon.getPoints().addAll(new Double[]{
-//                    0.0, 0.0,
-//                    20.0, 10.0,
-//                    10.0, 20.0 });
-//            view.getChildren().add(polygon);
-//        }
+        generateLabel();
+        boolean isSame = q1 == q2;
+        Arrow arrow = new Arrow(q1, q2);
+        if (isSame) {
+            double xPos = 0;
+            if (leftColumnSource) {
+                xPos = (q1.isInitial() ? q1.getXPos() - 100 + 16 : q1.getXPos() - 100);
+                view.setAlignment(Pos.CENTER_LEFT);
+            } else {
+                xPos = (q1.isInitial() ? q1.getXPos() + q1.getWidth() + 26.5 : q1.getXPos() + 2 * q1.getWidth() - 10);
+                arrow.setRotate(180);
+                view.setAlignment(Pos.CENTER_RIGHT);
+            }
+            view.setLayoutX(xPos);
+            view.setLayoutY(q1.getYPos() + q1.getHeight() / 2);
+        } else {
+            view.setLayoutY(Math.min(q1.getYPos() + q1.getHeight(), yEndPoint));
+            view.setLayoutX(Math.min(q1.getXPos() + q1.getWidth(), xEndPoint));
+        }
+
+        view.getChildren().add(arrow);
 
 
-//        arrow = new Line();
-//        LENGTH_FROM_CORNER = Math.sqrt(Math.pow(26.5, 2) + Math.pow(26.5, 2)) - 30;
-//        arrow.setStartX(q1.getXPos() + (q1.getWidth() / 2) );
-//        arrow.setStartY(q1.getYPos() + (q1.getHeight() / 2) );
-//        arrow.setEndX(q2.getXPos() - LENGTH_FROM_CORNER);
-//        arrow.setEndY(q2.getYPos() + LENGTH_FROM_CORNER);
-//        arrow.setStroke(Color.valueOf("607D8B"));
-//        arrow.setStrokeWidth(1);
-//
-//        // the transform for the rotation arrow rotation
-//        Rotate rotation = new Rotate(ARROW_ANGLE);
-//
-//        // direction = inwards from the start point
-//        tan = new Point2D(arrow.getEndX(), arrow.getEndY()).normalize().multiply(ARROW_LENGTH);
-//
-//
-//        // transform tangent by rotating with +angle
-//        Point2D p = rotation.transform(tan);
-//
-//        LineTo a1 = new LineTo(p.getX(), p.getY());
-//        // position relative to end point
-//        a1.setAbsolute(false);
-//
-//        // same as above, but in oposite direction
-//        rotation.setAngle(-ARROW_ANGLE);
-//        p = rotation.transform(tan);
-//        LineTo a2 = new LineTo(p.getX(), p.getY());
-//        a2.setAbsolute(false);
-//
-//
-//        // direction = inwards from the end point
-//        tan = new Point2D(
-//                -arrow.getEndX(),
-//                -arrow.getEndY()
-//        ).normalize().multiply(ARROW_LENGTH);
-//        move = new MoveTo(arrow.getEndX(), arrow.getEndY());
-//        p = rotation.transform(tan);
-//        a1 = new LineTo(p.getX(), p.getY());
-//        a1.setAbsolute(false);
-//        rotation.setAngle(ARROW_ANGLE);
-//        p = rotation.transform(tan);
-//        a2 = new LineTo(p.getX(), p.getY());
-//        a2.setAbsolute(false);
-//
-//        Path arrowEnd = new Path();
-//        arrowEnd.getElements().addAll(move, a1, move, a2);
-//        Group g = new Group();
-//        g.getExploredChildren().addAll(arrow, arrowEnd);
+        view.getChildren().add(flTransitionLabel);
+        this.view = view;
 
+    }
+
+    private void generateLabel() {
         transitionLabel = new Text(getLabel());
         transitionLabel.setFill(Color.BLACK);
         transitionLabel.setFont(Font.font(null, FontWeight.NORMAL, 11));
@@ -130,15 +96,11 @@ public class VisualTransition {
         flTransitionLabel = new FlowPane(Orientation.HORIZONTAL);
         flTransitionLabel.getChildren().add(transitionLabel);
         flTransitionLabel.getStyleClass().add("transition-labels");
-
-        view.getChildren().add(flTransitionLabel);
-        this.view = view;
-
     }
 
     public String getLabel() {
-        return transition.getConfiguration().getInputSymbol() + "," +
-                transition.getConfiguration().getTopElement() + " -> " + transition.getAction().getElementToPush();
+        return transition.getConfiguration().getInputSymbol() + " , " +
+                transition.getConfiguration().getTopElement() + "  ->  " + transition.getAction().getElementToPush();
     }
 
     public void updateVisualTransition(VisualControlState newSource, VisualControlState newTarget) {
@@ -165,7 +127,7 @@ public class VisualTransition {
     }
 
     public StackPane getView(double range, double positionInRange) {
-        generateArrowView(sourceState, resultingState);
+        generateArrowView(sourceState, resultingState, true);
         return view;
     }
 
@@ -174,7 +136,7 @@ public class VisualTransition {
     }
 
     public void align() {
-        generateArrowView(sourceState, resultingState);
+        generateArrowView(sourceState, resultingState, false);
     }
 
     public FlowPane getTransitionLabel() {
@@ -191,5 +153,13 @@ public class VisualTransition {
 
     public Transition getTransition() {
         return transition;
+    }
+
+    public void redrawArrow(boolean leftColumn) {
+        generateArrowView(sourceState, resultingState, leftColumn);
+    }
+
+    public boolean isInitial() {
+        return initial;
     }
 }

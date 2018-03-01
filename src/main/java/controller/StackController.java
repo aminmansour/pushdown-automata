@@ -166,8 +166,6 @@ public class StackController {
 
     public void update() {
         setUpStackContentAFresh();
-        System.out.println(pushDownStack.getStackContent().size() + "bye321");
-
         for (Character element : pushDownStack.getStackContent()) {
             push(element);
         }

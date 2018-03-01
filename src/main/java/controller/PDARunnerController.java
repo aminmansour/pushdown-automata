@@ -99,6 +99,7 @@ public class PDARunnerController implements Initializable{
             transitionTable.clearSelection();
             loadPDAWithInput();
             runInstantRunDFS(false);
+            transitionTable.clearSelection();
         }
 
     }
@@ -108,13 +109,19 @@ public class PDARunnerController implements Initializable{
         if (isAlternativeSearch) {
             previous();
         }
+        int loops = 0;
+        boolean stuck = false;
         boolean toBacktrack = false;
         while (true) {
             ArrayList<Transition> transitions = model.getPossibleTransitionsFromCurrent();
             if (model.hasAccepted()) {
                 openInstantRunResultsOutputDialog(true, false);
                 return true;
-            } else if (transitions.size() == 0 || toBacktrack) {
+            } else if (transitions.size() == 0 || toBacktrack || stuck) {
+                if (stuck) {
+                    loops = 0;
+                    stuck = false;
+                }
                 while (true) {
                     previous();
                     ArrayList<ConfigurationNode> exploredChildren = model.getHistory().getCurrent().getExploredChildren();
@@ -131,8 +138,21 @@ public class PDARunnerController implements Initializable{
                 for (Transition transition : transitions) {
                     ConfigurationNode previousState = checkIfPresentInHistory(transition);
                     if (previousState == null) {
+                        ArrayList<Character> stackContentBefore = new ArrayList(model.getStack().getStackContent());
+                        String remaingInputBefore = model.getTape().getRemainingInputAsString();
                         executeTransition(transition, transitions.size());
                         toBacktrack = false;
+                        if (model.getHistory().getCurrent().hasLooped(transition.getConfiguration().getState(), stackContentBefore, remaingInputBefore)) {
+                            loops++;
+                            if (loops == 4) {
+                                stuck = true;
+                                while (loops != 1) {
+                                    previous();
+                                    loops--;
+                                }
+                                break;
+                            }
+                        }
                         break;
                     }
                 }
@@ -232,7 +252,7 @@ public class PDARunnerController implements Initializable{
             openStepRunResultsOutputDialog(false);
         } else if (transitions.size() == 1) {
             executeTransition(transitions.get(0), transitions.size());
-            if (tape.isLastStep()) {
+            if (tape.isLastStep() && ((model.hasAccepted() || model.getPossibleTransitionsFromCurrent().isEmpty()))) {
                 actionBar.restrictToOnlyPlay();
             }
         } else {
@@ -363,7 +383,7 @@ public class PDARunnerController implements Initializable{
                 }
                 option.setOnMouseClicked(event -> {
                     executeTransition(transitions.get(finalI), transitions.size());
-                    if (tape.isLastStep()) {
+                    if (tape.isLastStep() && (model.hasAccepted() || model.getPossibleTransitionsFromCurrent().isEmpty())) {
                         actionBar.restrictToOnlyPlay();
                     }
                 });
@@ -663,7 +683,7 @@ public class PDARunnerController implements Initializable{
     }
 
     public void updateVisualLabel(Transition transition) {
-        machineDisplay.updateLabel(transition);
+        machineDisplay.update(transition);
     }
 
     public void openDeterministicMode() {
@@ -690,4 +710,7 @@ public class PDARunnerController implements Initializable{
     }
 
 
+    public void updateModel(ControlState oldSourceState, ControlState newSourceState, Transition transition) {
+        model.moveTransitionToNewSource(oldSourceState, newSourceState, transition);
+    }
 }

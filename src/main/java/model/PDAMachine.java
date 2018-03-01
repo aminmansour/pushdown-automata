@@ -128,7 +128,7 @@ public class PDAMachine {
 
     private void addConfigurationStateToHistory(Transition transition, int totalChildren) {
         ConfigurationNode child = new ConfigurationNode(transition.getAction().getNewState(),
-                history.getCurrent(), new ArrayList<>(stack.getStackContent()), tape.getStep(), totalChildren);
+                history.getCurrent(), new ArrayList<>(stack.getStackContent()), tape.getStep(), tape.getRemainingInputAsString(), totalChildren);
         history.getCurrent().addChild(child);
         history.setCurrent(child);
         child.markInPath(true);
@@ -164,7 +164,7 @@ public class PDAMachine {
 
 
     public void createComputationHistoryStore(ControlState controlState, ArrayList<Character> stackState, int headPosition, int totalChildren) {
-        ConfigurationNode root = new ConfigurationNode(controlState, null, stackState, headPosition, totalChildren);
+        ConfigurationNode root = new ConfigurationNode(controlState, null, stackState, headPosition, tape.getRemainingInputAsString(), totalChildren);
         root.markInPath(true);
         history = new ComputationalTree(root);
     }
@@ -201,5 +201,10 @@ public class PDAMachine {
 
     public boolean isNonDeterministic() {
         return getNonDeterministicTransitions().size() > 0;
+    }
+
+    public void moveTransitionToNewSource(ControlState oldSourceState, ControlState newSourceState, Transition transition) {
+        stateToTransitionMap.get(oldSourceState.getLabel()).remove(transition);
+        stateToTransitionMap.get(newSourceState.getLabel()).add(transition);
     }
 }

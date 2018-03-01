@@ -9,6 +9,7 @@ import model.Memory;
 import view.ViewFactory;
 
 public class ToolBarPartialController {
+
     @FXML
     private Button bToolbarDeterministic;
     @FXML

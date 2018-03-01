@@ -35,6 +35,7 @@ public class Memory {
             FileWriter writer = new FileWriter(PDA_MEMORY_STORE);
             gson.toJson(instances.toArray(new Definition[0]), writer);
             writer.flush();
+            System.out.println("hello");
         } catch (IOException e) {
             e.printStackTrace();
         }
