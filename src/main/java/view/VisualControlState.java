@@ -24,6 +24,7 @@ public class VisualControlState {
     private boolean isInitial;
     private final int RADIUS = 26;
     private StackPane controlStateView;
+    private int orderShown;
 
     public VisualControlState(String label, boolean isInitial, boolean isAccepting) {
         this.label = label;
@@ -149,11 +150,11 @@ public class VisualControlState {
         return view;
     }
 
-    public double getWidth() {
+    public double getWRadius() {
         return isInitial ? 11 + 26.5 : 26.5;
     }
 
-    public double getHeight() {
+    public double getHRadius() {
         return 26.5;
     }
 
@@ -165,4 +166,11 @@ public class VisualControlState {
         return RADIUS;
     }
 
+    public int getOrderShown() {
+        return orderShown;
+    }
+
+    public void setOrderShown(int orderShown) {
+        this.orderShown = orderShown;
+    }
 }

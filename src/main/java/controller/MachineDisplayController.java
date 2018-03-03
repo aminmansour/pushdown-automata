@@ -89,6 +89,7 @@ public class MachineDisplayController {
             state.setXPos(state.isInitial() ? xIndex - 10 : xIndex);
             state.setYPos(yIndex);
             xIndex += toIncreaseXBy;
+
             if (columnIndex == 1) {
                 columnIndex = 0;
                 xIndex = startX;
@@ -98,8 +99,11 @@ public class MachineDisplayController {
             }
         }
 
+        int counter = 0;
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             pCanvas.getChildren().add(entry.getValue().getView());
+            entry.getValue().setOrderShown(counter);
+            counter++;
         }
 
 
@@ -107,23 +111,15 @@ public class MachineDisplayController {
             VisualControlState state = entry.getValue();
             ArrayList<VisualTransition> transitionsBySource = getTransitionsBySource(state.getLabel());
             for (int i = 0; i < transitionsBySource.size(); i++) {
-
-                VisualTransition visualTransition = transitionsBySource.get(i);
-                if (visualTransition.getTransition().getConfiguration().getState() ==
-                        visualTransition.getTransition().getAction().getNewState()) {
-                    visualTransition.redrawArrow(i % 2 == 0);
-                } else {
-                    visualTransition.align();
-                }
+                transitionsBySource.get(i).align(transitionsBySource);
             }
         }
         pCanvas.getChildren().clear();
 
+
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             pCanvas.getChildren().add(entry.getValue().getView());
         }
-
-
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             VisualControlState state = entry.getValue();
             ArrayList<VisualTransition> transitionsBySource = getTransitionsBySource(state.getLabel());
@@ -170,6 +166,8 @@ public class MachineDisplayController {
                     String oldSourceState = vTransition.getSourceState().getLabel();
                     if (!currentSourceState.equals(oldSourceState)) {
                         vTransition.updateVisualTransition(controlStates.get(currentSourceState), null);
+                        this.transitions.get(oldSourceState).remove(vTransition);
+                        this.transitions.get(currentSourceState).add(vTransition);
                         break outloop;
                     }
                     String currentTargetState = transition.getAction().getNewState().getLabel();
@@ -213,7 +211,6 @@ public class MachineDisplayController {
         resetStates();
         controlStates = new TreeMap<String, VisualControlState>();
         transitions = new TreeMap<String, ArrayList<VisualTransition>>();
-        repaintDisplay();
     }
 
     public void focusTransition(Transition transition) {

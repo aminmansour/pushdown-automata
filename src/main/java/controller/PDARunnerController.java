@@ -320,15 +320,15 @@ public class PDARunnerController implements Initializable{
         tape.setTapeInputModel(model.getTape());
         stack.setStackModel(model.getStack());
         transitionTable.clear();
-        machineDisplay.clear();
         transitionTable.setStates(model.getDefinition().getStates());
         ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
         ControllerFactory.homeController.showContinueButton();
+        machineDisplay.clear();
 
         for (ControlState controlState : model.getDefinition().getStates()) {
             machineDisplay.addVisualControlState(controlState);
-        }
 
+        }
 
         for (Transition transition : model.getDefinition().getTransitions()) {
             machineDisplay.addVisualTransition(transition);
@@ -372,6 +372,7 @@ public class PDARunnerController implements Initializable{
             for (int i = 0; i < transitions.size(); i++) {
                 BorderPane option = FXMLLoader.load(getClass().getResource("../layouts/transition_option.fxml"));
                 ((Label) option.lookup("#lTransitionOption")).setText(Integer.toString(i + 1));
+                ((Label) option.lookup("#lCurrentState")).setText("Current State : " + transitions.get(i).getConfiguration().getState().getLabel());
                 ((Label) option.lookup("#lRead")).setText("Read : " + transitions.get(i).getConfiguration().getInputSymbol());
                 ((Label) option.lookup("#lPush")).setText("Push : " + transitions.get(i).getAction().getElementToPush());
                 ((Label) option.lookup("#lPop")).setText("Pop : " + transitions.get(i).getConfiguration().getTopElement());
