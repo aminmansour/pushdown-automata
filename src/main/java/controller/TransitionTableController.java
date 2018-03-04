@@ -34,6 +34,8 @@ public class TransitionTableController {
                     new TransitionEntry("A", "b", "c", "d", "e")
             );
     private ArrayList<ControlState> states;
+    private int highlightedRow;
+
 
 
     public TransitionTableController(ArrayList<ControlState> states) {
@@ -46,6 +48,7 @@ public class TransitionTableController {
         tvTransitionTable = (TableView) transitionTableView.lookup("#tvTransitionTable");
         tvTransitionTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         columns = tvTransitionTable.getColumns();
+        highlightedRow = -1;
         setUpColumns();
         tvTransitionTable.setItems(data);
     }
@@ -158,6 +161,7 @@ public class TransitionTableController {
     public void highlightRow(int row, boolean single) {
         if (single) {
             tvTransitionTable.getSelectionModel().clearSelection();
+            highlightedRow = -1;
         }
         tvTransitionTable.getSelectionModel().select(row);
     }
@@ -166,14 +170,15 @@ public class TransitionTableController {
         data.clear();
     }
 
-    public void clearSelection() {
+    public void clearSelection(boolean save) {
+        highlightedRow = save ? tvTransitionTable.getSelectionModel().getFocusedIndex() : -1;
         tvTransitionTable.getSelectionModel().clearSelection();
     }
 
-    public void select(Transition transition, boolean isSingle) {
+    public void select(Transition transition, boolean inDeterministicMode) {
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).sameAs(transition)) {
-                highlightRow(i, isSingle);
+                highlightRow(i, inDeterministicMode);
             }
         }
     }
@@ -183,4 +188,9 @@ public class TransitionTableController {
             select(transition, false);
         }
     }
+
+    public int getHighlightedRowSaved() {
+        return highlightedRow;
+    }
+
 }

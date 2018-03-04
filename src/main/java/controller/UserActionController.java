@@ -71,6 +71,7 @@ public class UserActionController {
         lStartAgain.setDisable(toDisable);
         lStop.setDisable(toDisable);
         lNext.setDisable(toDisable);
+        lNext.setText("Next");
         lPrevious.setDisable(toDisable);
         lPreviousBranch.setDisable(toDisable);
         lNextBranch.setDisable(toDisable);
@@ -78,6 +79,7 @@ public class UserActionController {
 
     public void restrictToOnlyPlay() {
         lNext.setDisable(false);
+        lNext.setText("Finalize");
         lPrevious.setDisable(true);
         lPreviousBranch.setDisable(true);
         lNextBranch.setDisable(true);

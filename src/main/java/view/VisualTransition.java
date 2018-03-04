@@ -1,6 +1,7 @@
 package view;
 
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
@@ -24,11 +25,13 @@ public class VisualTransition {
     private VisualControlState sourceState;
     private Text transitionLabel;
     private Pair<Double, Double> labelCoordinate;
-    private ArrayList<VisualTransition> transitionBySource;
+    private ArrayList<VisualTransition> transitionsThatExist;
+    private Arrow arrowPath;
 
 
     public VisualTransition(Transition transition, VisualControlState q1, VisualControlState q2) {
         this.transition = transition;
+        transitionsThatExist = new ArrayList<>();
         sourceState = q1;
         resultingState = q2;
         isFocused = false;
@@ -37,9 +40,9 @@ public class VisualTransition {
 
     private void generateArrowView(VisualControlState q1, VisualControlState q2) {
         Pane view = new Pane();
-        Arrow arrow = new Arrow(q1, q2);
+        arrowPath = new Arrow(q1, q2);
         generateLabel();
-        Pair<Double, Double> midCoordinate = arrow.getMidCoordinate();
+        Pair<Double, Double> midCoordinate = arrowPath.getMidCoordinate();
         double labelX = midCoordinate.getKey();
         double labelY = midCoordinate.getValue();
         if (q1 == q2) {
@@ -53,10 +56,25 @@ public class VisualTransition {
             labelX += 4;
         }
         labelY += 5;
+        while (true) {
+            if (checkOccurrence(labelX, labelY)) {
+                labelY += 19;
+                continue;
+            }
+            break;
+
+        }
+        labelCoordinate = new Pair<>(labelX, labelY);
+
+
+        flTransitionLabel.setLayoutX(labelX);
+        flTransitionLabel.setLayoutY(labelY);
         flTransitionLabel.setLayoutX(labelX);
         flTransitionLabel.setLayoutY(labelY);
         labelCoordinate = new Pair<>(labelX, labelY);
-        view.getChildren().addAll(arrow, flTransitionLabel);
+
+
+        view.getChildren().addAll(arrowPath, flTransitionLabel);
 
         this.view = view;
         AnchorPane.setBottomAnchor(view, 0.0);
@@ -66,15 +84,18 @@ public class VisualTransition {
 
     }
 
-    //    private void checkOccurence(double labelX, double labelY) {
-//        for(VisualTransition visualTransition : transitionBySource){
-//            Pair<Double,Double> labelCoordinate = visualTransition.labelCoordinate;
-//            if(labelCoordinate.getKey()==labelX && labelCoordinate.getValue() == labelY){
-//                return true;
-//            }
-//        }
-//
-//    }
+    private boolean checkOccurrence(double labelX, double labelY) {
+
+        for (VisualTransition visualTransition : transitionsThatExist) {
+            Pair<Double, Double> labelCoordinate = visualTransition.labelCoordinate;
+            if (labelCoordinate.getKey() == labelX && labelCoordinate.getValue() == labelY && transition != visualTransition.getTransition()) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
     private void generateLabel() {
         transitionLabel = new Text(getLabel());
         transitionLabel.setFill(Color.BLACK);
@@ -108,21 +129,24 @@ public class VisualTransition {
     public void setFocus(boolean focus, String color) {
         isFocused = focus;
         String background = isFocused ? color : "white;";
+        arrowPath.setStrokeWidth(isFocused ? 5 : 1);
         flTransitionLabel.setStyle("-fx-background-color:" + background);
-
+        Node label = flTransitionLabel.getChildren().get(0);
+        label.setStyle("-fx-font-weight: " + (isFocused ? "500" : "100"));
+        if (isFocused) {
+            view.toFront();
+            flTransitionLabel.toFront();
+            sourceState.bringToFront();
+            resultingState.bringToFront();
+        }
     }
-
-    public boolean isFocused() {
-        return isFocused;
-    }
-
 
     public Pane getView() {
         return view;
     }
 
     public void align(ArrayList<VisualTransition> transitionsBySource) {
-        this.transitionBySource = transitionsBySource;
+        this.transitionsThatExist = transitionsBySource;
         generateArrowView(sourceState, resultingState);
     }
 

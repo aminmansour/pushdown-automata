@@ -52,7 +52,6 @@ public class MachineDisplayController {
 
 
     private void repaintDisplay() {
-
         pCanvas.getChildren().clear();
         width = pdaDisplay.getWidth();
         height = pdaDisplay.getHeight();
@@ -71,7 +70,6 @@ public class MachineDisplayController {
     public void resetStates() {
         pCanvas.getChildren().clear();
     }
-
 
 
     public void orderStatesInScreen() {
@@ -111,15 +109,13 @@ public class MachineDisplayController {
             VisualControlState state = entry.getValue();
             ArrayList<VisualTransition> transitionsBySource = getTransitionsBySource(state.getLabel());
             for (int i = 0; i < transitionsBySource.size(); i++) {
-                transitionsBySource.get(i).align(transitionsBySource);
+                VisualTransition visualTransition = transitionsBySource.get(i);
+                visualTransition.align(getTransitionBetweenSameStates(visualTransition, transitionsBySource));
             }
         }
         pCanvas.getChildren().clear();
 
 
-        for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
-            pCanvas.getChildren().add(entry.getValue().getView());
-        }
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             VisualControlState state = entry.getValue();
             ArrayList<VisualTransition> transitionsBySource = getTransitionsBySource(state.getLabel());
@@ -128,7 +124,21 @@ public class MachineDisplayController {
             }
         }
 
+        for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
+            pCanvas.getChildren().add(entry.getValue().getView());
+        }
 
+
+    }
+
+    private ArrayList<VisualTransition> getTransitionBetweenSameStates(VisualTransition transition, ArrayList<VisualTransition> transitionsBySource) {
+        ArrayList<VisualTransition> visualTransitions = new ArrayList<>();
+        for (VisualTransition visualTransition : transitionsBySource) {
+            if (transition.getResultingState() == visualTransition.getResultingState()) {
+                visualTransitions.add(visualTransition);
+            }
+        }
+        return visualTransitions;
     }
 
     public void addVisualTransition(Transition transition) {
@@ -157,7 +167,7 @@ public class MachineDisplayController {
 
     public void update(Transition transition) {
 
-        outloop:
+        outer:
         for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
             for (VisualTransition vTransition : transitionBatch) {
@@ -168,17 +178,17 @@ public class MachineDisplayController {
                         vTransition.updateVisualTransition(controlStates.get(currentSourceState), null);
                         this.transitions.get(oldSourceState).remove(vTransition);
                         this.transitions.get(currentSourceState).add(vTransition);
-                        break outloop;
+                        break outer;
                     }
                     String currentTargetState = transition.getAction().getNewState().getLabel();
                     String oldTargetState = vTransition.getResultingState().getLabel();
                     if (!currentTargetState.equals(oldTargetState)) {
                         vTransition.updateVisualTransition(null, controlStates.get(currentTargetState));
-                        break outloop;
+                        break outer;
                     }
 
                     vTransition.updateVisualTransition(null, null);
-                    break outloop;
+                    break outer;
                 }
             }
         }
@@ -203,6 +213,7 @@ public class MachineDisplayController {
             for (VisualTransition vTransitions : transitionBatch) {
                 vTransitions.setFocus(false, "");
                 vTransitions.getSourceState().setFocus(false, "");
+                bringAllStatesToFront();
             }
         }
     }
@@ -222,13 +233,18 @@ public class MachineDisplayController {
                 Timeline timeline = new Timeline(new KeyFrame(
                         Duration.millis(1000),
                         ae -> {
+
                             vTransition.setFocus(false, "");
+                            bringAllStatesToFront();
+                            clearTransitionFocus();
                             vTransition.getResultingState().setFocus(true, NORMAL_RUN_COLOR);
                         }));
 
                 timeline.play();
             } else {
                 vTransition.setFocus(false, "");
+                bringAllStatesToFront();
+
             }
         }
     }
@@ -243,8 +259,16 @@ public class MachineDisplayController {
         }
     }
 
+    public void bringAllStatesToFront() {
+        for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
+            entry.getValue().bringToFront();
+        }
+    }
+
 
     public void focusState(ControlState currentState) {
-        controlStates.get(currentState.getLabel()).setFocus(true, NORMAL_RUN_COLOR);
+        if (currentState != null) {
+            controlStates.get(currentState.getLabel()).setFocus(true, NORMAL_RUN_COLOR);
+        }
     }
 }

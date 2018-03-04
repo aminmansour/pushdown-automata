@@ -173,4 +173,8 @@ public class VisualControlState {
     public void setOrderShown(int orderShown) {
         this.orderShown = orderShown;
     }
+
+    public void bringToFront() {
+        view.toFront();
+    }
 }

@@ -246,7 +246,6 @@ public class CodeDefinitionController implements Initializable{
 
         switchToPDARunner();
 
-
         return true;
     }
 

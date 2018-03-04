@@ -21,7 +21,6 @@ public class PDAMachine {
 
     private void loadDefinition(Definition definition){
         loadedDefinition = definition;
-        currentState = loadedDefinition.getInitialState();
         tape = new InputTape();
         stack = new PushDownStack();
         tape.clear();
