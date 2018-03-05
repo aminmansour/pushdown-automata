@@ -37,8 +37,13 @@ public class Main extends Application {
         ControllerFactory.pdaRunnerController = pdaRunnerLoader.getController();
 
         FXMLLoader libraryLoader = new FXMLLoader(getClass().getResource("layouts/library_page.fxml"));
-        ViewFactory.libraryLoader = libraryLoader.load();
+        ViewFactory.library = libraryLoader.load();
         ControllerFactory.libraryLoaderController = libraryLoader.getController();
+
+
+        FXMLLoader examplesLoader = new FXMLLoader(getClass().getResource("layouts/examples_page.fxml"));
+        ViewFactory.examples = examplesLoader.load();
+        ControllerFactory.examplesLoaderController = examplesLoader.getController();
 
         FXMLLoader quickDefinitionLoader = new FXMLLoader(getClass().getResource("layouts/quick_definition_page.fxml"));
         ViewFactory.quickDefinition = quickDefinitionLoader.load();

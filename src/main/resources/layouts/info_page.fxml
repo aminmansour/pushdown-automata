@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.web.WebView?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="info" xmlns="http://javafx.com/javafx/8.0.121"
+            fx:controller="controller.InfoController">
+
+    <center>
+        <WebView fx:id="pdfViewer">
+
+
+        </WebView>
+    </center>
+
+</BorderPane>

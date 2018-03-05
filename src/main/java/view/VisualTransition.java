@@ -129,7 +129,7 @@ public class VisualTransition {
     public void setFocus(boolean focus, String color) {
         isFocused = focus;
         String background = isFocused ? color : "white;";
-        arrowPath.setStrokeWidth(isFocused ? 5 : 1);
+        arrowPath.setStrokeWidth(isFocused ? 4 : 1);
         flTransitionLabel.setStyle("-fx-background-color:" + background);
         Node label = flTransitionLabel.getChildren().get(0);
         label.setStyle("-fx-font-weight: " + (isFocused ? "500" : "100"));

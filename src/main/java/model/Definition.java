@@ -112,4 +112,8 @@ public class Definition {
     public boolean equals(Object obj) {
         return identifier.equals(((Definition) obj).identifier);
     }
+
+    public void addTransition(Transition newTransition) {
+        transitions.add(newTransition);
+    }
 }

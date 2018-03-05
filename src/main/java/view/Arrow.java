@@ -97,7 +97,6 @@ class Arrow extends Path {
     private void generateRoundTransition(double startXPos, double startYPos, boolean leftColumnSource) {
         double yEndPoint, xEndPoint;
 
-        System.out.println(leftColumnSource + " helo");
         if (leftColumnSource) {
             startY = startYPos - (26.5 / 2);
             startX = startXPos + 4;

@@ -16,6 +16,8 @@ public class ToolBarPartialController {
     private Button bToolbarSave;
     @FXML
     private Button bToolbarStartAgain;
+    @FXML
+    private Button bToolbarNewTransition;
 
     public void switchToHome(ActionEvent actionEvent) {
         ViewFactory.globalPane.setCenter(ViewFactory.homePage);
@@ -24,9 +26,9 @@ public class ToolBarPartialController {
 
 
     public void switchToLibrary(ActionEvent actionEvent) {
-        ViewFactory.globalPane.setCenter(ViewFactory.libraryLoader);
+        ViewFactory.globalPane.setCenter(ViewFactory.library);
         ControllerFactory.libraryLoaderController.retrieveDefinitionStore();
-        BorderPane.setAlignment(ViewFactory.libraryLoader, Pos.CENTER);
+        BorderPane.setAlignment(ViewFactory.library, Pos.CENTER);
         ControllerFactory.toolBarPartialController.disableToolbarButtons(true);
     }
 
@@ -51,6 +53,7 @@ public class ToolBarPartialController {
         bToolbarStartAgain.setDisable(toDisable);
         bToolbarDeterministic.setDisable(toDisable);
         bToolbarSave.setDisable(toDisable);
+        bToolbarNewTransition.setDisable(toDisable);
     }
 
     public void startAgain(ActionEvent actionEvent) {
@@ -68,5 +71,13 @@ public class ToolBarPartialController {
         } else {
             ControllerFactory.pdaRunnerController.openDeterministicMode();
         }
+    }
+
+    public void requestNewTransition(ActionEvent actionEvent) {
+        if (ControllerFactory.pdaRunnerController.isInDeterministicMode()) {
+            ControllerFactory.pdaRunnerController.closeDeterministicModeIfPresent();
+        }
+        ControllerFactory.pdaRunnerController.openNewTransitionDialog();
+
     }
 }

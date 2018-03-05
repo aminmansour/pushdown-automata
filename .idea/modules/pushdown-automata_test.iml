@@ -10,6 +10,15 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="pushdown-automata_main" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../jPDFViewerFX.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Gradle: org.kordamp.ikonli:ikonli-javafx:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: org.kordamp.ikonli:ikonli-fontawesome-pack:2.0.0" level="project" />
     <orderEntry type="library" name="Gradle: org.kordamp.ikonli:ikonli-icomoon-pack:2.0.0" level="project" />

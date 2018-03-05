@@ -141,11 +141,14 @@ public class MachineDisplayController {
         return visualTransitions;
     }
 
-    public void addVisualTransition(Transition transition) {
+    public void addVisualTransition(Transition transition, boolean update) {
         VisualTransition vTransition = new VisualTransition(transition, controlStates.get(transition.getConfiguration().getState().getLabel()),
                 controlStates.get(transition.getAction().getNewState().getLabel()));
         ArrayList<VisualTransition> transitions = getTransitionsBySource(vTransition.getSourceState().getLabel());
         transitions.add(vTransition);
+        if (update) {
+            orderStatesInScreen();
+        }
     }
 
     private ArrayList<VisualTransition> getTransitionsBySource(String sourceLabel) {

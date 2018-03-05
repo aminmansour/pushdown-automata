@@ -2,15 +2,14 @@ package controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -331,8 +330,8 @@ public class PDARunnerController implements Initializable{
         }
 
         for (Transition transition : model.getDefinition().getTransitions()) {
-            machineDisplay.addVisualTransition(transition);
-            transitionTable.addColumn(transition);
+            machineDisplay.addVisualTransition(transition, false);
+            transitionTable.addRow(transition);
         }
 
         machineDisplay.orderStatesInScreen();
@@ -733,5 +732,80 @@ public class PDARunnerController implements Initializable{
 
     public void updateModel(ControlState oldSourceState, ControlState newSourceState, Transition transition) {
         model.moveTransitionToNewSource(oldSourceState, newSourceState, transition);
+    }
+
+    public void openNewTransitionDialog() {
+        try {
+            stop();
+            ControllerFactory.toolBarPartialController.disableToolbarButtons(true);
+
+            VBox currentAddTransitionDialog = FXMLLoader.load(getClass().getResource("../layouts/add_transition_page.fxml"));
+            Button bAddTransition = (Button) currentAddTransitionDialog.lookup("#bAddTransition");
+            Button bCancel = (Button) currentAddTransitionDialog.lookup("#bCancel");
+            ComboBox<String> cbStates = (ComboBox<String>) currentAddTransitionDialog.lookup("#cbStates");
+            TextField tfInputElement = (TextField) currentAddTransitionDialog.lookup("#tfInputElement");
+            TextField tfElementToPop = (TextField) currentAddTransitionDialog.lookup("#tfElementToPop");
+            ComboBox<String> cbResultingStates = (ComboBox<String>) currentAddTransitionDialog.lookup("#cbResultingStates");
+            TextField tfElementToPush = (TextField) currentAddTransitionDialog.lookup("#tfElementToPush");
+            ObservableList<String> controlStatesInStringFormat = getControlStatesInStringFormat();
+            cbStates.setItems(controlStatesInStringFormat);
+            cbResultingStates.setItems(controlStatesInStringFormat);
+            ViewFactory.restrictTextFieldInput(tfInputElement, "[a-zA-Z0-9]");
+            ViewFactory.restrictTextFieldInput(tfElementToPop, "[a-zA-Z0-9]");
+            ViewFactory.restrictTextFieldInput(tfElementToPush, "[a-zA-Z0-9]");
+            bAddTransition.setOnAction(event -> {
+                if (cbStates.getSelectionModel().isEmpty()) {
+                    ViewFactory.showErrorDialog("No initial control state is chosen!", spPDARunnerPage);
+                    return;
+                }
+
+                if (cbResultingStates.getSelectionModel().isEmpty()) {
+                    ViewFactory.showErrorDialog("No Resulting control state is chosen!", spPDARunnerPage);
+                    return;
+                }
+
+                String initialState = cbStates.getSelectionModel().getSelectedItem();
+                String inputElement = tfInputElement.getText().trim().isEmpty() ? "/" : tfInputElement.getText();
+                String elementToPop = tfElementToPop.getText().trim().isEmpty() ? "/" : tfElementToPop.getText();
+                String resultingState = cbResultingStates.getSelectionModel().getSelectedItem();
+                String elementToPush = tfElementToPush.getText().trim().isEmpty() ? "/" : tfElementToPush.getText();
+                TransitionEntry transitionEntry = new TransitionEntry(initialState, inputElement, elementToPop, resultingState, elementToPush);
+                if (transitionTable.getEntries().contains(transitionEntry)) {
+                    ViewFactory.showErrorDialog("No duplicate transitions allowed!", spPDARunnerPage);
+                } else {
+                    Configuration configuration = new Configuration(ModelFactory.checkForStateOccurrence(model.getDefinition().getStates(), initialState), inputElement.charAt(0), elementToPop.charAt(0));
+                    Action action = new Action(ModelFactory.checkForStateOccurrence(model.getDefinition().getStates(), resultingState), elementToPush.charAt(0));
+                    Transition newTransition = new Transition(configuration, action);
+                    transitionEntry.setTransition(newTransition);
+                    model.addTransition(newTransition);
+                    machineDisplay.addVisualTransition(newTransition, true);
+                    transitionTable.addRow(transitionEntry);
+                    spPDARunnerPage.getChildren().remove(currentAddTransitionDialog);
+
+                }
+
+            });
+
+            bCancel.setOnAction(event -> {
+                spPDARunnerPage.getChildren().remove(currentAddTransitionDialog);
+                ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
+            });
+
+
+            spPDARunnerPage.getChildren().add(currentAddTransitionDialog);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private ObservableList<String> getControlStatesInStringFormat() {
+        ObservableList<String> data =
+                FXCollections.observableArrayList();
+        for (ControlState controlState :
+                model.getDefinition().getStates()) {
+            data.add(controlState.getLabel());
+        }
+        return data;
     }
 }

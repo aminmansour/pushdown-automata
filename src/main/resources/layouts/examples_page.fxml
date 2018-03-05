@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="examples" xmlns="http://javafx.com/javafx/8.0.121"
+            fx:controller="controller.ExamplesController">
+    <center>
+        <VBox id="home-grid" spacing="20" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER" maxWidth="Infinity" spacing="30" VBox.vgrow="ALWAYS">
+
+                <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
+                      HBox.hgrow="ALWAYS">
+                    <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
+                          HBox.hgrow="ALWAYS">
+                        <Label styleClass="home-button-title" text="PDA EXAMPLE 1" textFill="#23aa76"/>
+                        <TextArea editable="false" maxHeight="1"/>
+                        <Label text="PDA which recognizes the language of proper opening and closing parenthesis words"
+                               textFill="#23aa76" wrapText="true">
+                            <padding>
+                                <Insets bottom="20.0"/>
+                            </padding>
+                        </Label>
+                        <Label mnemonicParsing="false" styleClass="home-button-icon">
+                            <graphic>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code" iconSize="114"/>
+                            </graphic>
+                            <padding>
+                                <Insets bottom="5.0"/>
+                            </padding>
+                        </Label>
+                        <Button styleClass="green-button-theme" text="Load"/>
+                    </VBox>
+                </HBox>
+
+
+                <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
+                      HBox.hgrow="ALWAYS">
+                    <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
+                          HBox.hgrow="ALWAYS">
+                        <Label styleClass="home-button-title" text="PDA EXAMPLE 2" textFill="#23aa76"/>
+                        <TextArea editable="false" maxHeight="1"/>
+                        <Label text="PDA which recognizes the language of words with equal 1's and 0's"
+                               textFill="#23aa76" wrapText="true">
+                            <padding>
+                                <Insets bottom="20.0"/>
+                            </padding>
+                        </Label>
+                        <Label mnemonicParsing="false" styleClass="home-button-icon">
+                            <graphic>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-codepen" iconSize="114"/>
+                            </graphic>
+                            <padding>
+                                <Insets bottom="5.0"/>
+                            </padding>
+                        </Label>
+                        <Button styleClass="green-button-theme" text="Load"/>
+                    </VBox>
+                </HBox>
+
+
+                <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
+                      HBox.hgrow="ALWAYS">
+                    <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
+                          HBox.hgrow="ALWAYS">
+                        <Label styleClass="home-button-title" text="PDA EXAMPLE 3" textFill="#23aa76"/>
+                        <TextArea editable="false" maxHeight="1"/>
+                        <Label text="PDA which recognizes all palidrones (word that is the same forward and backward)"
+                               textFill="#23aa76" wrapText="true">
+                            <padding>
+                                <Insets bottom="20.0"/>
+                            </padding>
+                        </Label>
+                        <Label mnemonicParsing="false" styleClass="home-button-icon">
+                            <graphic>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-folder-open-o" iconSize="114"/>
+                            </graphic>
+                            <padding>
+                                <Insets bottom="5.0"/>
+                            </padding>
+                        </Label>
+                        <Button styleClass="green-button-theme" text="Load"/>
+                    </VBox>
+                </HBox>
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="Infinity" spacing="30" VBox.vgrow="ALWAYS">
+
+                <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
+                      HBox.hgrow="ALWAYS">
+                    <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
+                          HBox.hgrow="ALWAYS">
+                        <Label styleClass="home-button-title" text="PDA EXAMPLE 4" textFill="#23aa76"/>
+                        <TextArea editable="false" maxHeight="1"/>
+                        <Label text="PDA which recognizes the language of words where 'b' occurs exactly twice as much as 'a'"
+                               textFill="#23aa76" wrapText="true">
+                            <padding>
+                                <Insets bottom="20.0"/>
+                            </padding>
+                        </Label>
+                        <Label mnemonicParsing="false" styleClass="home-button-icon">
+                            <graphic>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
+                            </graphic>
+                            <padding>
+                                <Insets bottom="5.0"/>
+                            </padding>
+                        </Label>
+                        <Button styleClass="green-button-theme" text="Load"/>
+                    </VBox>
+                </HBox>
+
+
+                <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
+                      visible="false" HBox.hgrow="ALWAYS">
+                    <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
+                          HBox.hgrow="ALWAYS">
+                        <Label styleClass="home-button-title" text="PDA EXAMPLE 5" textFill="#23aa76"/>
+                        <TextArea editable="false" maxHeight="1"/>
+                        <Label text="explore what a PDA is and how it works!" textFill="#23aa76">
+                            <padding>
+                                <Insets bottom="20.0"/>
+                            </padding>
+                        </Label>
+                        <Label mnemonicParsing="false" styleClass="home-button-icon">
+                            <graphic>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-book" iconSize="114"/>
+                            </graphic>
+                            <padding>
+                                <Insets bottom="5.0"/>
+                            </padding>
+                        </Label>
+                        <Button styleClass="green-button-theme" text="Enter"/>
+                    </VBox>
+                </HBox>
+
+
+                <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
+                      visible="false" HBox.hgrow="ALWAYS">
+                    <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
+                          HBox.hgrow="ALWAYS">
+                        <Label styleClass="home-button-title" text="PDA EXAMPLE 6" textFill="#23aa76"/>
+                        <TextArea editable="false" maxHeight="1"/>
+                        <Label text="find out how to create your own PDA machines!" textFill="#23aa76">
+                            <padding>
+                                <Insets bottom="20.0"/>
+                            </padding>
+                        </Label>
+                        <Label mnemonicParsing="false" styleClass="home-button-icon">
+                            <graphic>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-question-circle-o" iconSize="114"/>
+                            </graphic>
+                            <padding>
+                                <Insets bottom="5.0"/>
+                            </padding>
+                        </Label>
+                        <Button styleClass="green-button-theme" text="Enter"/>
+                    </VBox>
+                </HBox>
+            </HBox>
+        </VBox>
+
+    </center>
+</BorderPane>

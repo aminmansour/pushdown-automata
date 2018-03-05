@@ -1,0 +1,703 @@
+<html>
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+    <style type="text/css">
+        <!--
+        span.cls_002 {
+            font-family: Arial, serif;
+            font-size: 20.7px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        div.cls_002 {
+            font-family: Arial, serif;
+            font-size: 20.7px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        span.cls_003 {
+            font-family: Arial, serif;
+            font-size: 24.8px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        div.cls_003 {
+            font-family: Arial, serif;
+            font-size: 24.8px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        span.cls_004 {
+            font-family: Arial, serif;
+            font-size: 10.0px;
+            color: rgb(0, 0, 0);
+            font-weight: normal;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        div.cls_004 {
+            font-family: Arial, serif;
+            font-size: 10.0px;
+            color: rgb(0, 0, 0);
+            font-weight: normal;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        span.cls_005 {
+            font-family: Arial, serif;
+            font-size: 14.4px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        div.cls_005 {
+            font-family: Arial, serif;
+            font-size: 14.4px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        span.cls_006 {
+            font-family: Arial, serif;
+            font-size: 7.0px;
+            color: rgb(0, 0, 0);
+            font-weight: normal;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        div.cls_006 {
+            font-family: Arial, serif;
+            font-size: 7.0px;
+            color: rgb(0, 0, 0);
+            font-weight: normal;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        span.cls_007 {
+            font-family: Arial, serif;
+            font-size: 12.0px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        div.cls_007 {
+            font-family: Arial, serif;
+            font-size: 12.0px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        span.cls_008 {
+            font-family: Arial, serif;
+            font-size: 10.0px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        div.cls_008 {
+            font-family: Arial, serif;
+            font-size: 10.0px;
+            color: rgb(0, 0, 0);
+            font-weight: bold;
+            font-style: normal;
+            text-decoration: none
+        }
+
+        -->
+    </style>
+    <script type="text/javascript"
+            src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/wz_jsgraphics.js"></script>
+</head>
+<body>
+<div style="position:absolute;left:50%;margin-left:-306px;top:0px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background01.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:100.80px;top:138.23px" class="cls_002"><span class="cls_002">Chapter 1</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:203.86px" class="cls_003"><span class="cls_003">Introduction</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:298.39px" class="cls_004"><span class="cls_004">Push-down automata, or PDA for short, is one of the core technologies deployed in computa-</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:318.32px" class="cls_004"><span class="cls_004">tional theory and computer science in general. The PDA allows us to theorize about machine</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:338.25px" class="cls_004"><span class="cls_004">computation. A PDA in simple terms is a finite automaton with an auxiliary stack known as</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:358.18px" class="cls_004"><span class="cls_004">a push-down. Anthony Oettinger first introduced PDAs as a model in 1961, and since then it</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:378.11px" class="cls_004"><span class="cls_004">has further been explored. It is widely used in many areas, particularly in compiler design and</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:398.04px" class="cls_004"><span class="cls_004">natural language processing [10, p. 210].</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:674.81px" class="cls_004"><span class="cls_004">Figure 1.1: Graph showing number of students enrolling in each field at University of Wash-</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:686.76px" class="cls_004"><span
+            class="cls_004">ington per year [2]</span></div>
+    <div style="position:absolute;left:303.51px;top:739.93px" class="cls_004"><span class="cls_004">1</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:802px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background02.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:100.80px;top:57.60px" class="cls_004"><span class="cls_004">The number of students who take Computer Science has surged each year Fig 1.1. The need</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:77.53px" class="cls_004"><span class="cls_004">to produce an educational simulation to represent these abstract computational theories has</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:97.46px" class="cls_004"><span class="cls_004">increased.  Such computational tools are an integral foundation to Computer Science.  There</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:117.39px" class="cls_004"><span class="cls_004">is a whole section in Introduction to the Theory of Computation given to PDAs, highlighting</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:137.32px" class="cls_004"><span class="cls_004">their importance [8]. It’s also covered in a wide range of syllabuses across different universities.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:177.18px" class="cls_004"><span class="cls_004">There exists many educational simulations for computational tools such as the Turing ma-</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:197.11px" class="cls_004"><span class="cls_004">chine, or the Finite Automata. However, there doesn’t exist any well-defined applications that</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:217.04px" class="cls_004"><span class="cls_004">can simulate a PDA successfully.  There are several which are able to simulate a PDA, but</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:236.96px" class="cls_004"><span class="cls_004">they all come with their flaws and limitations. The objective of this project is to make the first</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:256.89px" class="cls_004"><span class="cls_004">education tool that can simulate both a non-deterministic PDA and a deterministic PDA with</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:276.82px" class="cls_004"><span class="cls_004">clear defined notations. A successful application that can be both used by lecturers, to teach</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:296.75px" class="cls_004"><span class="cls_004">with, and by students to learn from.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:337.06px" class="cls_005"><span class="cls_005">1.1</span></div>
+    <div style="position:absolute;left:137.56px;top:337.06px" class="cls_005"><span
+            class="cls_005">Background Theory</span></div>
+    <div style="position:absolute;left:100.80px;top:371.24px" class="cls_004"><span class="cls_004">A push-down automaton, or PDA abbreviated, is a finite automaton (FA) with an additional</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:391.17px" class="cls_004"><span class="cls_004">memory device called a push-down. The machine can pop and push symbols to and from the</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:411.10px" class="cls_004"><span class="cls_004">stack. This additional stack gives PDAs unbounded memory; whereas FA’s memory is bounded</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:431.03px" class="cls_004"><span class="cls_004">by the number of finite states it has.  This additional power allows for the PDA to recognize</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:450.96px" class="cls_004"><span class="cls_004">more languages than just the regular class of languages which FA recognizes. PDA also recog-</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:470.89px" class="cls_004"><span class="cls_004">nize the class of context-free languages (CFL). CFL are languages that can be generated with</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:490.81px" class="cls_004"><span class="cls_004">a context-free grammar.</span>
+    </div>
+    <div style="position:absolute;left:212.77px;top:490.19px" class="cls_004"><span class="cls_004">{0</span><span
+            class="cls_006"><sup>k</sup></span><span class="cls_004"> 1</span><span
+            class="cls_006"><sup>k</sup></span><span class="cls_004"> |k ∈ N } is an example of a context-free language that cannot</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:510.74px" class="cls_004"><span class="cls_004">be recognized by an FA but can easily be recognized by a PDA.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:550.60px" class="cls_004"><span class="cls_004">A stack only gives access to its top element at any one time, so the PDA is restricted in</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:570.53px" class="cls_004"><span class="cls_004">how it can access its memory in between transitions. The Turing Machine (TM) is a more pow-</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:590.46px" class="cls_004"><span class="cls_004">erful alternative to the PDA. For a PDA, you cannot traverse down a stack without forgetting</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:610.39px" class="cls_004"><span class="cls_004">the rest of the stack. But with a TM, you can read and write in both directions on the input</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:630.32px" class="cls_004"><span class="cls_004">tape. This kind of functionally allows for the TM to be able to recognize more languages.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:670.18px" class="cls_004"><span class="cls_004">There is no standardized understanding of a PDA; there are many varying explanations, with</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:690.11px" class="cls_004"><span class="cls_004">differences ranging from how the PDA is defined to how the PDA accepts input. We will try and</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:710.04px" class="cls_004"><span class="cls_004">use a more general theory that will offer both functionality and freedom to the user, without</span>
+    </div>
+    <div style="position:absolute;left:303.51px;top:739.93px" class="cls_004"><span class="cls_004">2</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:1604px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background03.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:100.80px;top:57.60px" class="cls_004"><span class="cls_004">accommodating to a particular understanding.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:92.80px" class="cls_007"><span class="cls_007">1.1.1</span></div>
+    <div style="position:absolute;left:141.90px;top:92.80px" class="cls_007"><span class="cls_007">How it works?</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:121.16px" class="cls_004"><span class="cls_004">PDAs works mostly the same way as a FA, taking a string as input and reading the symbol at</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:141.08px" class="cls_004"><span class="cls_004">its head for each iteration. A symbol may also be popped or/and pushed from the stack. For</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:161.01px" class="cls_004"><span class="cls_004">each transition, a new configuration occurs.  On the automation of a given input ω by PDA</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:180.94px" class="cls_004"><span class="cls_004">α, a sequence of configurations is produced. A configuration is a formal snapshot of the PDA</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:200.87px" class="cls_004"><span class="cls_004">machine at any one moment in the computation.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:224.79px" class="cls_008"><span class="cls_008">A PDA’s configuration is defined as: (q,s,a)</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:252.69px" class="cls_004"><span
+            class="cls_004">• q : current state</span></div>
+    <div style="position:absolute;left:115.74px;top:280.59px" class="cls_004"><span class="cls_004">• s : remaining input</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:308.49px" class="cls_004"><span class="cls_004">• a : symbols on the stack</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:343.68px" class="cls_007"><span class="cls_007">1.1.2</span></div>
+    <div style="position:absolute;left:141.90px;top:343.68px" class="cls_007"><span
+            class="cls_007">Transitions in PDA</span></div>
+    <div style="position:absolute;left:100.80px;top:372.04px" class="cls_004"><span class="cls_004">Simply put, a transition represents a move from one configuration to the next; it may involve</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:391.97px" class="cls_004"><span class="cls_004">pushing and popping symbols to and from the stack, reading an input symbol and/or changing</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:411.90px" class="cls_004"><span class="cls_004">the current state. This is determined by the transition function, which maps a configuration,</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:431.83px" class="cls_004"><span class="cls_004">defined by the current state, the head input symbol and the top stack symbol, onto a set of</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:451.76px" class="cls_004"><span class="cls_004">possible actions.  An action represents the current state and the element found on top of the</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:471.69px" class="cls_004"><span class="cls_004">stack after the transition has occurred. For a non-deterministic PDA (NDPA), the resulting set</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:491.62px" class="cls_004"><span class="cls_004">can contain more than one element, therefore it must be the case that a NPDA explores every</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:511.55px" class="cls_004"><span class="cls_004">possible action to determine whether a word is accepted or rejected.  In the case of a deter-</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:531.48px" class="cls_004"><span class="cls_004">ministic PDA, there is only at most one resulting action from the application of the transition</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:551.40px" class="cls_004"><span class="cls_004">function.</span>
+    </div>
+    <div style="position:absolute;left:303.51px;top:739.93px" class="cls_004"><span class="cls_004">3</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:2406px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background04.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:134.21px;top:210.21px" class="cls_004"><span class="cls_004">Figure 1.2: PDA example consisting of the two transitions labeled (1) and (2)</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:244.59px" class="cls_004"><span class="cls_004">More formally, a transition represents the application of the transition function δ on the</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:264.52px" class="cls_004"><span class="cls_004">the current state Q,the current input symbol to be read Σ, and the symbol on the top of the</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:284.45px" class="cls_004"><span class="cls_004">push-down Γ; the resulting configuration depends on these 3 variants.  In a PDA graph, a</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:304.38px" class="cls_004"><span class="cls_004">transition is represented as (s,o → i): where s is the symbol at head, o is the stack symbol to</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:324.30px" class="cls_004"><span class="cls_004">be popped, and i is the stack symbol to be pushed. Take (1,A → B) as an example from 1.2:</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:344.23px" class="cls_004"><span class="cls_004">1 is the symbol read from the tape, A is popped from the top of stack and B is pushed onto</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:364.16px" class="cls_004"><span class="cls_004">stack.</span></div>
+    <div style="position:absolute;left:100.80px;top:398.03px" class="cls_008"><span
+            class="cls_008">Non-determinism</span></div>
+    <div style="position:absolute;left:100.80px;top:424.40px" class="cls_004"><span class="cls_004">Lets take 1.2 as an example to highlight non-determinism. The PDA is non-deterministic since</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:444.33px" class="cls_004"><span class="cls_004">the configuration (q1,1,A) results in a set of possible actions {(q1,C ),(q2,B)} when the tran-</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:464.26px" class="cls_004"><span class="cls_004">sition function δ is applied.  In other words, the PDA machine has a choice between taking</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:484.19px" class="cls_004"><span class="cls_004">transition (1) and (2) from its current configuration (q1,1,A). This property is what makes the</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:504.11px" class="cls_004"><span class="cls_004">PDA non-deterministic.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:557.91px" class="cls_008"><span
+            class="cls_008">Skipping symbols</span></div>
+    <div style="position:absolute;left:100.80px;top:584.28px" class="cls_004"><span class="cls_004">Transitions can also contain skipping symbols ε; ε mean different things depending on where</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:604.21px" class="cls_004"><span class="cls_004">they come up in the transition:</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:632.11px" class="cls_004"><span class="cls_004">•</span><span
+            class="cls_008"> (</span><span class="cls_004">ε</span><span class="cls_008">, o</span><span
+            class="cls_004"> →</span><span class="cls_008"> i)</span><span class="cls_004"> - Machine does not read symbol at head on transition</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:660.01px" class="cls_004"><span class="cls_004">•</span><span
+            class="cls_008"> (s,</span><span class="cls_004"> ε →</span><span class="cls_008"> i)</span><span
+            class="cls_004"> - Machine does not pop the top symbol of stack on transition</span></div>
+    <div style="position:absolute;left:115.74px;top:687.90px" class="cls_004"><span class="cls_004">•</span><span
+            class="cls_008"> (s, o</span><span class="cls_004"> → ε</span><span class="cls_008">)</span><span
+            class="cls_004"> - Machine does not push any symbol onto the stack on transition</span></div>
+    <div style="position:absolute;left:303.51px;top:739.93px" class="cls_004"><span class="cls_004">4</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:3208px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background05.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:100.80px;top:77.53px" class="cls_008"><span class="cls_008">(</span><span
+            class="cls_004">ε</span><span class="cls_008">,</span><span class="cls_004"> ε → ε</span><span
+            class="cls_008">)</span><span class="cls_004"> is a jumping transition that is equivalent to the ε-transition found in non-deterministic</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:97.46px" class="cls_004"><span class="cls_004">FAs. It neither reads input nor pushes and pops any symbols.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:132.66px" class="cls_007"><span class="cls_007">1.1.3</span></div>
+    <div style="position:absolute;left:141.90px;top:132.66px" class="cls_007"><span
+            class="cls_007">Definitions of a PDA</span></div>
+    <div style="position:absolute;left:100.80px;top:161.01px" class="cls_004"><span class="cls_004">As we discussed before, there exist several different formalizations of a PDA. The one we will</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:180.94px" class="cls_004"><span class="cls_004">use will be the one outlined in Introduction To Theory Of Computation [8, p. 111]. A PDA is</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:200.87px" class="cls_004"><span class="cls_004">a 6-tuple (Q,Σ, Γ, δ, q</span><span
+            class="cls_006"><sub>0</sub></span><span class="cls_004">,F), where Q,Σ, Γ, δ,F are all finite sets:</span>
+    </div>
+    <div style="position:absolute;left:112.98px;top:228.77px" class="cls_004"><span class="cls_004">1. Q is the set of states,</span>
+    </div>
+    <div style="position:absolute;left:112.98px;top:256.67px" class="cls_004"><span class="cls_004">2. Σ is the input alphabet,</span>
+    </div>
+    <div style="position:absolute;left:112.98px;top:284.57px" class="cls_004"><span class="cls_004">3. Γ is the stack alphabet,</span>
+    </div>
+    <div style="position:absolute;left:112.98px;top:312.47px" class="cls_004"><span
+            class="cls_004">4. δ : Q × Σ</span><span class="cls_006"><sub>ε</sub></span><span
+            class="cls_004"> × Γ</span><span class="cls_006"><sub>ε</sub></span><span
+            class="cls_004"> → ρ(Q × Γ</span><span class="cls_006"><sub>ε</sub></span><span class="cls_004">) is the transition function,</span>
+    </div>
+    <div style="position:absolute;left:112.98px;top:340.37px" class="cls_004"><span class="cls_004">5. q</span><span
+            class="cls_006"><sub>0</sub></span><span class="cls_004"> ∈ Q is the initial state, and</span></div>
+    <div style="position:absolute;left:112.98px;top:368.27px" class="cls_004"><span class="cls_004">6. F⊆ Q is the set of accepting states.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:396.17px" class="cls_004"><span class="cls_004">For the transition function δ, ρ(Q × Γ</span><span
+            class="cls_006"><sub>ε</sub></span><span class="cls_004">) represents the set of possible (Q ×Γ</span><span
+            class="cls_006"><sub>ε</sub></span><span class="cls_004">) action pairs that</span></div>
+    <div style="position:absolute;left:100.80px;top:416.10px" class="cls_004"><span class="cls_004">can occur, from the application of δ on the domain Q × Σ</span><span
+            class="cls_006"><sub>ε</sub></span><span class="cls_004"> × Γ</span><span
+            class="cls_006"><sub>ε</sub></span><span class="cls_004">  , where Q in the pair is the</span></div>
+    <div style="position:absolute;left:100.80px;top:436.03px" class="cls_004"><span class="cls_004">new state and Γ is the symbol pushed onto the stack. Σ</span><span
+            class="cls_006"><sub>ε</sub></span><span class="cls_004"> equals Σ ∪ {ε}, so it’s not a necessary</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:455.96px" class="cls_004"><span class="cls_004">condition for a input symbol to be read for a transition to occur, as was discussed earlier. The</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:475.89px" class="cls_004"><span class="cls_004">same holds for stack symbols being popped and pushed, with Γ</span><span
+            class="cls_006"><sub>ε</sub></span><span class="cls_004"> equaling Γ ∪ {ε}.</span></div>
+    <div style="position:absolute;left:100.80px;top:511.08px" class="cls_007"><span class="cls_007">1.1.4</span></div>
+    <div style="position:absolute;left:141.90px;top:511.08px" class="cls_007"><span class="cls_007">PDA’s accepting criteria</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:539.44px" class="cls_004"><span class="cls_004">There are two different kinds of accepting conditions for PDAs : acceptance by final state and</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:559.37px" class="cls_004"><span class="cls_004">acceptance by empty stack.  The two have been shown to be semantically similar.  The first</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:579.30px" class="cls_004"><span class="cls_004">of those criteron, accepting by final state, formally put is when a machine terminates on an</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:599.23px" class="cls_004"><span class="cls_004">accepting state and there is no more input to read. In other words, if for a PDA run on word</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:619.16px" class="cls_004"><span class="cls_004">ω, the final terminating configuration contains a control state q, such that q is within the set</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:639.09px" class="cls_004"><span class="cls_004">of accepting states Q, and all symbols from ω have been read, then the ω is accepted by the</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:659.02px" class="cls_004"><span class="cls_004">PDA. If this condition is not met, then it follows, the word is rejected by the PDA.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:698.88px" class="cls_004"><span class="cls_004">The second criterion, accepting by empty stack, is defined as when the stack is empty and</span>
+    </div>
+    <div style="position:absolute;left:303.51px;top:739.93px" class="cls_004"><span class="cls_004">5</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:4010px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background06.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:100.80px;top:57.60px" class="cls_004"><span class="cls_004">there is no more input symbols to be read.  By the time the final input symbol is read, the</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:77.53px" class="cls_004"><span class="cls_004">push-down is checked to see if the stack is empty . If it is then the word is accepted, and if it</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:97.46px" class="cls_004"><span class="cls_004">isn’t the word is rejected. In a accept-by-empty-stack PDA, all states are treated as accepting</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:117.39px" class="cls_004"><span class="cls_004">states; In other words, a PDA can terminate in any state and still accept a word, as long as</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:137.32px" class="cls_004"><span class="cls_004">the stack is empty and all the input have been read.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:171.19px" class="cls_008"><span class="cls_008">Are Both Accepting Conditions The Same?</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:197.55px" class="cls_004"><span class="cls_004">These two offer the same amount of power to a PDA. Its very easy to convert an accept-by-</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:217.48px" class="cls_004"><span class="cls_004">empty-stack PDA to an accept-by-final-state PDA and vice versa. As we will see, diagrams 1.3</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:237.41px" class="cls_004"><span class="cls_004">and 1.4 represent a easy and systematic way of converting between the two.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:271.28px" class="cls_008"><span class="cls_008">Conversion of an Accept-by-empty-stack PDA</span><span
+            class="cls_004"> P</span><span class="cls_006"><sub>e</sub></span><span class="cls_008">  to an equally powerful Accept-</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:291.21px" class="cls_008"><span
+            class="cls_008">by-final-state PDA</span><span class="cls_004"> P</span><span
+            class="cls_006"><sub>f</sub></span></div>
+    <div style="position:absolute;left:100.80px;top:317.57px" class="cls_004"><span class="cls_004">Fig 1.3 represents the process, with the original PDA P</span><span
+            class="cls_006"><sub>e</sub></span><span class="cls_004"> nested within the resulting PDA P</span><span
+            class="cls_006"><sub>f</sub></span><span class="cls_004"> .</span></div>
+    <div style="position:absolute;left:100.80px;top:337.50px" class="cls_004"><span class="cls_004">For the conversion, you must introduce a special stack symbol Z</span><span
+            class="cls_006"><sub>0</sub></span><span class="cls_004">; this symbol is only used in</span></div>
+    <div style="position:absolute;left:100.80px;top:357.43px" class="cls_004"><span class="cls_004">the interest of representing an empty stack. It’s added through the first transition (ϵ,ϵ → Z</span><span
+            class="cls_006"><sub>0</sub></span><span class="cls_004">)</span></div>
+    <div style="position:absolute;left:100.80px;top:377.36px" class="cls_004"><span class="cls_004">(1) from the initial state q1 to the state e1 (the initial state in P</span><span
+            class="cls_006"><sub>e</sub></span><span class="cls_004">). Then from all the states</span></div>
+    <div style="position:absolute;left:100.80px;top:397.29px" class="cls_004"><span
+            class="cls_004">found in P</span><span class="cls_006"><sub>e</sub></span><span class="cls_004">, add the transition (ϵ,Z</span><span
+            class="cls_006"><sub>0</sub></span><span class="cls_004"> →, ϵ) to the new accepting state q2; the transition pops</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:417.22px" class="cls_004"><span class="cls_004">Z</span><span
+            class="cls_006"><sub>0</sub></span><span class="cls_004"> from the stack. The machine can now detect when the push-down is empty. By the time</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:437.15px" class="cls_004"><span class="cls_004">the final input symbol is read, the push-down is checked to see if the symbol exists at the top</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:457.08px" class="cls_004"><span class="cls_004">of the stack. If it does then the word is accepted, and if it doesn’t the word is rejected. There</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:477.01px" class="cls_004"><span class="cls_004">are different formalizations of a PDA; Some accept-by-final-state PDA definitions include the</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:496.94px" class="cls_004"><span class="cls_004">initial stack symbol and some don’t. Sipser’s definition [8, p. 111] does not include defining an</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:516.87px" class="cls_004"><span class="cls_004">initial stack symbol, so the constraint of checking if the stack is empty must be done manually</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:536.80px" class="cls_004"><span class="cls_004">through the PDA’s transitions.  JFLAP has an initial stack symbol but restricts it to always</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:556.72px" class="cls_004"><span class="cls_004">be symbol Z.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:590.59px" class="cls_008"><span class="cls_008">Conversion of an Accept-by-final-state PDA</span><span
+            class="cls_004"> P</span><span class="cls_006"><sub>f</sub></span><span class="cls_008">  to an equally powerful Accept-by-</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:610.52px" class="cls_008"><span
+            class="cls_008">empty-stack PDA</span><span class="cls_004"> P</span><span
+            class="cls_006"><sub>e</sub></span></div>
+    <div style="position:absolute;left:100.80px;top:636.89px" class="cls_004"><span class="cls_004">As seen from 1.4, for each accepting state in P</span><span
+            class="cls_006"><sub>f</sub></span><span
+            class="cls_004"> , you must add a transition to the state q2.</span></div>
+    <div style="position:absolute;left:100.80px;top:656.82px" class="cls_004"><span class="cls_004">From q2, all the content in the stack can be emptied (2) and the PDA can accept the input.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:676.75px" class="cls_004"><span class="cls_004">So in a scenario where P</span><span
+            class="cls_006"><sub>f</sub></span><span class="cls_004">  terminates on an accepting state for a given input, P</span><span
+            class="cls_006"><sub>e</sub></span><span class="cls_004"> terminates on</span></div>
+    <div style="position:absolute;left:100.80px;top:696.68px" class="cls_004"><span class="cls_004">a remote state q2, which empties out the stack before accepting the word. The stack might be</span>
+    </div>
+    <div style="position:absolute;left:303.51px;top:739.93px" class="cls_004"><span class="cls_004">6</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:4812px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background07.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:100.80px;top:229.73px" class="cls_004"><span class="cls_004">Figure 1.3: A illustration representing how a acceptance-by-empty-stack PDA is converted to</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:241.68px" class="cls_004"><span class="cls_004">an acceptance-by-final-state PDA with equivalent power.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:273.51px" class="cls_004"><span class="cls_004">empty in a non-accepting state, which might lead to unintended words being accepted by P</span><span
+            class="cls_006"><sub>e</sub></span><span class="cls_004">.</span></div>
+    <div style="position:absolute;left:100.80px;top:293.44px" class="cls_004"><span class="cls_004">So to prevent this a special symbol Z</span><span
+            class="cls_006"><sub>0</sub></span><span class="cls_004">  can be pushed from the start via a transition from the</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:313.37px" class="cls_004"><span class="cls_004">initial state q1 to the state e1, the initial state in P</span><span
+            class="cls_006"><sub>f</sub></span><span class="cls_004"> .</span></div>
+    <div style="position:absolute;left:100.80px;top:489.30px" class="cls_004"><span class="cls_004">Figure 1.4: A illustration representing how a acceptance-by-final-state PDA is converted to an</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:501.26px" class="cls_004"><span class="cls_004">acceptance-by-empty-stack PDA with equivalent power.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:547.50px" class="cls_007"><span class="cls_007">1.1.5</span></div>
+    <div style="position:absolute;left:141.90px;top:547.50px" class="cls_007"><span class="cls_007">Differences between NPDA and DPDA</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:575.86px" class="cls_004"><span class="cls_004">The definition of PDA varies depending on if it’s deterministic (DPDA) or non-deterministic</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:595.79px" class="cls_004"><span class="cls_004">(NPDA). The definition described above is the one used to describe NPDAs.  The definition</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:615.71px" class="cls_004"><span class="cls_004">of the DPDA below is the same as the one described in Introduction to Automata Theory,</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:635.64px" class="cls_004"><span class="cls_004">Languages, and Computation [5].  With a DPDA, the transition function is described as: δ :</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:655.57px" class="cls_004"><span class="cls_004">Q × Σ</span><span
+            class="cls_006"><sub>ε</sub></span><span class="cls_004"> × Γ → Q × Γ</span><span
+            class="cls_006"><sub>ε</sub></span><span class="cls_004">. So in other words, the application of the transition function on any</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:675.50px" class="cls_004"><span class="cls_004">configuration, will always have at most one possible resulting configuration. For a PDA to be</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:695.43px" class="cls_004"><span class="cls_004">deterministic two conditions must hold:</span>
+    </div>
+    <div style="position:absolute;left:303.51px;top:739.93px" class="cls_004"><span class="cls_004">7</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:5614px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background08.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:115.74px;top:57.60px" class="cls_004"><span class="cls_004">• For any q ∈ Q, a ∈ Σ ∪ {ε}, x ∈ Γ ∪ {ε}, δ(q, a, x), has at most one element.</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:85.50px" class="cls_004"><span class="cls_004">• For any q ∈ Q, x ∈ Γ, if δ(q, ε, x) = ∅, then δ (q, a, x) = ∅ for every a ∈ Σ.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:113.40px" class="cls_004"><span class="cls_004">This is as defined by John E. Hopcroft et al [5, p. 247]</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:143.29px" class="cls_004"><span class="cls_004">These added constraints make DPDA less powerful.  DPDA can only recognize deterministic</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:163.22px" class="cls_004"><span class="cls_004">context-free languages, a proper subset of the class of context-free languages.  A DPDA can</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:183.15px" class="cls_004"><span class="cls_004">easily be converted to a NPDA, since DPDAs are a subset of NDPAs.  However, the reduced</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:203.08px" class="cls_004"><span class="cls_004">power of the DPDA means that a NPDA cannot always be transformed into a DPDA.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:234.96px" class="cls_004"><span class="cls_004">DPDA are still useful because they can be simulated efficiently with today’s hardware, making</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:254.89px" class="cls_004"><span class="cls_004">them a feasible option to be used in parsers. For any computation on a DPDA, a total-order</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:274.82px" class="cls_004"><span class="cls_004">sequence of configurations is always produced.  Unlike with a NDPA, which might produce a</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:294.75px" class="cls_004"><span class="cls_004">computation tree instead. Thus, to determine whether a word is rejected, all the different paths</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:314.68px" class="cls_004"><span class="cls_004">on the computation tree must be explored. So in order for a NDPA to be simulated efficiently</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:334.61px" class="cls_004"><span class="cls_004">(polynomial time), there must be feasible way to examine the different paths; however, this</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:354.54px" class="cls_004"><span class="cls_004">problem does not lie within the objectives of this application, and has more to do with proving</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:374.47px" class="cls_004"><span class="cls_004">NP = P.</span></div>
+    <div style="position:absolute;left:100.80px;top:409.67px" class="cls_007"><span class="cls_007">1.1.6</span></div>
+    <div style="position:absolute;left:141.90px;top:409.67px" class="cls_007"><span
+            class="cls_007">Walkthrough Example</span></div>
+    <div style="position:absolute;left:100.80px;top:437.40px" class="cls_004"><span class="cls_004">The example PDA recognizes L = {0</span><span
+            class="cls_006"><sup>k</sup></span><span class="cls_004"> 1</span><span
+            class="cls_006"><sup>k</sup></span><span class="cls_004"> |k ∈ N }. This PDA accepts input via an empty stack.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:638.62px" class="cls_004"><span class="cls_004">Definition :</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:666.52px" class="cls_004"><span class="cls_004">• Control States Q = {q1,q2}</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:694.42px" class="cls_004"><span class="cls_004">• Input Alphabet Σ = {1,0}</span>
+    </div>
+    <div style="position:absolute;left:303.51px;top:739.93px" class="cls_004"><span class="cls_004">8</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:6416px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background09.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:115.74px;top:57.60px" class="cls_004"><span class="cls_004">• Stack Alphabet Γ = {A}</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:85.50px" class="cls_004"><span class="cls_004">• Transition function:</span>
+    </div>
+    <div style="position:absolute;left:136.91px;top:113.40px" class="cls_008"><span class="cls_008">-</span><span
+            class="cls_004"> δ(q1,1,A) → {(q2,ϵ)} (2)</span></div>
+    <div style="position:absolute;left:136.91px;top:137.31px" class="cls_008"><span class="cls_008">-</span><span
+            class="cls_004"> δ(q1,0,ϵ) → {(q1,A)} (1)</span></div>
+    <div style="position:absolute;left:136.91px;top:161.23px" class="cls_008"><span class="cls_008">-</span><span
+            class="cls_004"> δ(q2,1,A) → {(q2,ϵ)} (3)</span></div>
+    <div style="position:absolute;left:115.74px;top:189.13px" class="cls_004"><span class="cls_004">• Initial Stack Symbol Z</span><span
+            class="cls_006"><sub>0</sub></span><span class="cls_004"> = Z</span></div>
+    <div style="position:absolute;left:115.74px;top:217.03px" class="cls_004"><span
+            class="cls_004">• Initial State q</span><span class="cls_006"><sub>0</sub></span><span
+            class="cls_004"> = q1</span></div>
+    <div style="position:absolute;left:115.74px;top:244.93px" class="cls_004"><span class="cls_004">• Accepting States F = {q1,q2} (accept-by-empty-stack)</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:300.73px" class="cls_008"><span class="cls_008">Input runs :</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:327.09px" class="cls_004"><span class="cls_004">In order for a word to be accepted by this machine there must be a sequence of configurations</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:346.39px" class="cls_004"><span
+            class="cls_004">(q,ω,Z) ⊢</span><span class="cls_006"><sup>∗</sup></span><span class="cls_004"> (q,ϵ,Z), where q is a arbitrary state and ω the input word.</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:374.92px" class="cls_004"><span class="cls_004">• input 0011 - (q1,0011,Z),(q1,011,AZ),(q1,11,AAZ),(q2,1,AZ),(q2,ϵ,Z) : Accept</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:402.82px" class="cls_004"><span class="cls_004">• input 01 - (q1,01,Z),(q1,1,AZ),(q2,ϵ,Z) : Accept</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:430.72px" class="cls_004"><span class="cls_004">• input 010 - (q1,010,Z),(q1,10,AZ).(q2,0,Z), stuck! : Reject</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:458.62px" class="cls_004"><span class="cls_004">Stuck - represents the occurrence where no possible transitions can be made from the current</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:478.55px" class="cls_004"><span class="cls_004">configuration; the word is rejected in this case.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:512.42px" class="cls_008"><span
+            class="cls_008">Deterministic?</span></div>
+    <div style="position:absolute;left:100.80px;top:538.78px" class="cls_004"><span class="cls_004">This PDA is deterministic. The application of the transition function on any configuration only</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:558.71px" class="cls_004"><span class="cls_004">ever results in at most one action. So, the sequence of configurations follow a linear path.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:592.58px" class="cls_008"><span class="cls_008">A non-deterministic alternative</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:618.94px" class="cls_004"><span class="cls_004">A trivial example of a non-deterministic PDA which recognizes the same language is below.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:638.87px" class="cls_004"><span class="cls_004">We will use it to highlight the non-deterministic property.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:708.66px" class="cls_004"><span class="cls_004">The application of the transition function δ on configuration (q1,0,A) results in the action</span>
+    </div>
+    <div style="position:absolute;left:303.51px;top:739.93px" class="cls_004"><span class="cls_004">9</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:7218px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background10.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:122.47px;top:244.55px" class="cls_004"><span class="cls_004">Figure 1.5: A non-deterministic PDA which recognizes the language {0</span><span
+            class="cls_006"><sup>k</sup></span><span class="cls_004"> 1</span><span
+            class="cls_006"><sup>k</sup></span><span class="cls_004"> |k ∈ N }.</span></div>
+    <div style="position:absolute;left:100.80px;top:277.55px" class="cls_004"><span class="cls_004">set {(q3,A),(q2,ϵ)}; this mapping invalidates the deterministic property and makes the PDA</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:297.48px" class="cls_004"><span class="cls_004">non-deterministic. The computation must explore both actions to determine whether the input</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:317.41px" class="cls_004"><span class="cls_004">is accepted or rejected. In the case of accepting, you keep exploring alternative action branches</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:337.34px" class="cls_004"><span class="cls_004">until you reach a accepting configuration. A clear example of this is shown :</span>
+    </div>
+    <div style="position:absolute;left:301.02px;top:739.93px" class="cls_004"><span class="cls_004">10</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:8020px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background11.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:100.80px;top:298.20px" class="cls_004"><span class="cls_004">Figure 1.6: The computation path produced from the running of 0011 on the non-determinstic</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:310.15px" class="cls_004"><span class="cls_004">PDA 1.5.</span>
+    </div>
+    <div style="position:absolute;left:115.74px;top:342.03px" class="cls_004"><span class="cls_004">More definitively, for a word to be accepted there must be at least one path which starts from</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:361.96px" class="cls_004"><span class="cls_004">the root/initial configuration and terminates on a accepting configuration. In the computation</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:381.89px" class="cls_004"><span class="cls_004">tree there can exist several different paths which may be taken.  In order for a word to be</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:401.82px" class="cls_004"><span class="cls_004">rejected all possible paths must be explored to determine that the terminating configuration is</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:421.75px" class="cls_004"><span class="cls_004">not an accepting one. Take the above as an example, there are two paths which can be taken.</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:441.68px" class="cls_004"><span class="cls_004">The path consisting of the right branch sub-tree contains an accepting configuration as it’s final</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:461.61px" class="cls_004"><span class="cls_004">configuration, so the word 0011 is accepted.</span>
+    </div>
+    <div style="position:absolute;left:301.02px;top:739.93px" class="cls_004"><span class="cls_004">11</span></div>
+</div>
+<div style="position:absolute;left:50%;margin-left:-306px;top:8822px;width:612px;height:792px;border-style:outset;overflow:hidden">
+    <div style="position:absolute;left:0px;top:0px">
+        <img src="a28545dc-1ff7-11e8-b174-0cc47a792c0a_id_a28545dc-1ff7-11e8-b174-0cc47a792c0a_files/background12.jpg"
+             width=612 height=792></div>
+    <div style="position:absolute;left:100.80px;top:55.61px" class="cls_007"><span class="cls_007">1.1.7</span></div>
+    <div style="position:absolute;left:141.90px;top:55.61px" class="cls_007"><span class="cls_007">Main Implications of Theory on Implementation</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:83.96px" class="cls_004"><span class="cls_004">As was discussed, there are several textbooks that cover PDAs in-depth, with slight variations</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:103.89px" class="cls_004"><span class="cls_004">between them; they differ across a range of things from how the definition of a PDA should</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:123.82px" class="cls_004"><span class="cls_004">be specified to what are the accepting conditions are. This project has been heavily influenced</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:143.75px" class="cls_004"><span class="cls_004">by ”Introduction to the Theory of Computation” [8], which is the standard book.  There is a</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:163.68px" class="cls_004"><span class="cls_004">great emphasis to keep the mechanism of a PDA,7 There must be a decision on what notation</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:183.61px" class="cls_004"><span class="cls_004">and definition to use, since the user will require this to produce their own PDA. There must be</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:203.54px" class="cls_004"><span class="cls_004">clever ways of simulating a NDPA on a given input. There must be a mechanism to determine</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:223.47px" class="cls_004"><span class="cls_004">what branch to explore for each configuration that results in more than one action. The PDA</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:243.40px" class="cls_004"><span class="cls_004">must also be able backtrack to a point where the previous action choice was made and restore</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:263.33px" class="cls_004"><span class="cls_004">it’s configuration, so it can explore a new branch instead(depth-first search), in cases where</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:283.26px" class="cls_004"><span class="cls_004">the old branch wasn’t successful.  For a word to be rejected each of the branches within the</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:303.19px" class="cls_004"><span class="cls_004">computation tree must be explored. This is a computationally expensive process, so there must</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:323.12px" class="cls_004"><span class="cls_004">be an option for the user to cancel the computation at any time.  Also, the system must be</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:343.05px" class="cls_004"><span class="cls_004">able to detect when the PDA is stuck in a loop from its sequence of configurations and take</span>
+    </div>
+    <div style="position:absolute;left:100.80px;top:362.97px" class="cls_004"><span class="cls_004">the appropriate action i.e. terminate the machine and reject input.</span>
+    </div>
+    <div style="position:absolute;left:301.02px;top:739.93px" class="cls_004"><span class="cls_004">12</span></div>
+</div>
+
+</body>
+</html>

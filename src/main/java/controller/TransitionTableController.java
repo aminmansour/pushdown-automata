@@ -144,7 +144,7 @@ public class TransitionTableController {
     }
 
 
-    public void addColumn(Transition transition) {
+    public void addRow(Transition transition) {
         TransitionEntry t = new TransitionEntry(transition.getConfiguration().getState().getLabel() + "",
                 transition.getConfiguration().getInputSymbol() + "",
                 transition.getConfiguration().getTopElement() + "",
@@ -193,4 +193,11 @@ public class TransitionTableController {
         return highlightedRow;
     }
 
+    public ObservableList<TransitionEntry> getEntries() {
+        return data;
+    }
+
+    public void addRow(TransitionEntry transitionEntry) {
+        data.add(transitionEntry);
+    }
 }

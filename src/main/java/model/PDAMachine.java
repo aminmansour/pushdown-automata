@@ -61,14 +61,12 @@ public class PDAMachine {
         return deterministicTransitions;
     }
 
-
     private void sortStateToTransitionMapping() {
         stateToTransitionMap = MultimapBuilder.hashKeys().arrayListValues().build();
         for (Transition transition : loadedDefinition.getTransitions()) {
             stateToTransitionMap.put(transition.getConfiguration().getState().getLabel(), transition);
         }
     }
-
 
     public List<Transition> retrieveTransitionsByState(ControlState state) {
         return stateToTransitionMap.get(state.getLabel());
@@ -91,9 +89,6 @@ public class PDAMachine {
         }
         return possibleTransitions;
     }
-
-
-
 
     public ArrayList<Transition> getPossibleTransitionsFromCurrent() {
         return getPossibleTransitions(currentState, tape.getSymbolAtHead(), stack.top());
@@ -205,5 +200,10 @@ public class PDAMachine {
     public void moveTransitionToNewSource(ControlState oldSourceState, ControlState newSourceState, Transition transition) {
         stateToTransitionMap.get(oldSourceState.getLabel()).remove(transition);
         stateToTransitionMap.get(newSourceState.getLabel()).add(transition);
+    }
+
+    public void addTransition(Transition newTransition) {
+        loadedDefinition.addTransition(newTransition);
+        stateToTransitionMap.get(newTransition.getConfiguration().getState().getLabel()).add(newTransition);
     }
 }

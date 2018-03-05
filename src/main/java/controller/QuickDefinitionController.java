@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -210,23 +209,23 @@ public class QuickDefinitionController implements Initializable {
         boolean controlStatesCreated = temporaryControlStateStore != null;
 
         if (!controlStatesCreated) {
-            showErrorDialog("No control states generated!");
+            ViewFactory.showErrorDialog("No control states generated!", quickDefinition);
             return;
         }
 
         if (initialSelected) {
-            showErrorDialog("No initial state specified!");
+            ViewFactory.showErrorDialog("No initial state specified!", quickDefinition);
             return;
         }
 
         temporaryInitialState = (String) cbInitialState.getSelectionModel().getSelectedItem();
         if (!temporaryControlStateStore.contains(temporaryInitialState)) {
-            showErrorDialog("Initial state isn't recognized amongst current generated control states!");
+            ViewFactory.showErrorDialog("Initial state isn't recognized amongst current generated control states!", quickDefinition);
             return;
         }
 
         if (rbAcceptingState.isSelected() && acceptingStates.isEmpty()) {
-            showErrorDialog("No accepting states defined! (at least one must be defined)");
+            ViewFactory.showErrorDialog("No accepting states defined! (at least one must be defined)", quickDefinition);
             return;
         }
 
@@ -240,12 +239,12 @@ public class QuickDefinitionController implements Initializable {
     private void addTransition() {
 
         if (cbStates.getSelectionModel().isEmpty()) {
-            showErrorDialog("No initial control state is chosen!");
+            ViewFactory.showErrorDialog("No initial control state is chosen!", quickDefinition);
             return;
         }
 
         if (cbResultingStates.getSelectionModel().isEmpty()) {
-            showErrorDialog("No Resulting control state is chosen!");
+            ViewFactory.showErrorDialog("No Resulting control state is chosen!", quickDefinition);
             return;
         }
 
@@ -256,7 +255,7 @@ public class QuickDefinitionController implements Initializable {
         String elementToPush = tfElementToPush.getText().trim().isEmpty() ? "/" : tfElementToPush.getText();
         TransitionEntry transitionEntry = new TransitionEntry(initialState, inputElement, elementToPop, resultingState, elementToPush);
         if (temporaryTransitionStore.contains(transitionEntry)) {
-            showErrorDialog("No duplicate transitions allowed!");
+            ViewFactory.showErrorDialog("No duplicate transitions allowed!", quickDefinition);
         } else {
             temporaryTransitionStore.add(transitionEntry);
             clearTransitionFields();
@@ -281,9 +280,9 @@ public class QuickDefinitionController implements Initializable {
     private void loadTransitionSection() {
         populateControlStateDropdown(cbStates);
         populateControlStateDropdown(cbResultingStates);
-        restrictTextFieldInput(tfInputElement, "[a-zA-Z0-9]");
-        restrictTextFieldInput(tfElementToPop, "[a-zA-Z0-9]");
-        restrictTextFieldInput(tfElementToPush, "[a-zA-Z0-9]");
+        ViewFactory.restrictTextFieldInput(tfInputElement, "[a-zA-Z0-9]");
+        ViewFactory.restrictTextFieldInput(tfElementToPop, "[a-zA-Z0-9]");
+        ViewFactory.restrictTextFieldInput(tfElementToPush, "[a-zA-Z0-9]");
         temporaryTransitionStore =
                 FXCollections.observableArrayList();
         lvTransitions.setItems(temporaryTransitionStore);
@@ -311,22 +310,7 @@ public class QuickDefinitionController implements Initializable {
         hbTransitionAction.setVisible(false);
     }
 
-    private ChangeListener<String> restrictTextFieldInput(TextField textField, String regex) {
-        ChangeListener<String> changeListener = (observable, oldValue, newValue) -> {
-            if (!newValue.isEmpty() && oldValue.length() == 1) {
-                textField.setText(oldValue);
-            } else {
-                if (newValue.matches(regex)) {
-                    textField.setText(newValue);
-                } else {
-                    textField.clear();
-                }
-            }
-        };
-        textField.textProperty().addListener(changeListener);
-        return changeListener;
 
-    }
 
     private void populateControlStateDropdown(ComboBox<String> dropdown) {
         ObservableList<String> data =
@@ -334,11 +318,6 @@ public class QuickDefinitionController implements Initializable {
         dropdown.setItems(data);
     }
 
-    private void showErrorDialog(String error) {
-        ViewFactory.showStandardDialog(quickDefinition, true, "Error :",
-                error, event -> quickDefinition.getChildren().remove(quickDefinition.getChildren().size() - 1),
-                null, "Ok", null);
-    }
 
     private void generateStateLabels() {
         temporaryControlStateStore = FXCollections.observableArrayList();
