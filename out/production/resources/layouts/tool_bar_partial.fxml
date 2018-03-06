@@ -10,10 +10,8 @@
       fx:controller="controller.ToolBarPartialController">
     <FlowPane alignment="CENTER_LEFT" maxHeight="0.0" minHeight="80.0" orientation="HORIZONTAL">
         <TextFlow fx:id="pdaTitle">
-            <Text styleClass="logo-text" text="PUSHDOWN ">
+            <Text styleClass="logo-text" text="PDA ">
         </Text>
-            <Text styleClass="logo-text" text="AUTOMATA ">
-         </Text>
             <Text styleClass="logo-text" text="SIMULATOR">
          </Text>
             <padding>
@@ -43,6 +41,16 @@
                 text="Non-Deterministic states">
             <graphic>
                 <FontIcon iconColor="#a1a1a1" iconLiteral="fa-circle-thin" iconSize="20" translateX="3.0"/>
+            </graphic>
+            <HBox.margin>
+                <Insets left="3.0"/>
+            </HBox.margin>
+        </Button>
+        <Button fx:id="bToolbarNewTransition" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
+                minHeight="40.0" minWidth="90" onAction="#requestNewTransition" styleClass="tool-buttons"
+                text="Add a transition">
+            <graphic>
+                <FontIcon iconColor="#a1a1a1" iconLiteral="fa-plus-square-o" iconSize="20" translateX="3.0"/>
             </graphic>
             <HBox.margin>
                 <Insets left="3.0"/>

@@ -25,6 +25,7 @@ public class ViewFactory {
     public static StackPane quickDefinition;
     public static Pane examples;
     public static Pane info;
+    public static Pane help;
 
     public static void showStandardDialog(Pane parent, boolean oneButtonDialog, String title, String additonalMessage,
                                           EventHandler<ActionEvent> primaryListener,

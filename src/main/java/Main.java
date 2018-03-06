@@ -49,6 +49,10 @@ public class Main extends Application {
         ViewFactory.quickDefinition = quickDefinitionLoader.load();
         ControllerFactory.quickDefinitionController = quickDefinitionLoader.getController();
 
+        FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("layouts/help_page.fxml"));
+        ViewFactory.help = helpLoader.load();
+        ControllerFactory.helpController = helpLoader.getController();
+
         FXMLLoader toolbarLoader = new FXMLLoader();
         VBox toolbar = toolbarLoader.load(getClass().getResource("layouts/tool_bar_partial.fxml").openStream());
         ControllerFactory.toolBarPartialController = toolbarLoader.getController();

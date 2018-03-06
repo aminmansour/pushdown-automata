@@ -7,22 +7,17 @@
    <children>
        <Button mnemonicParsing="false" text="Home"  styleClass="side-tool-buttons" onAction="#switchToHome">
            <graphic>
-               <FontIcon iconLiteral="icm-home" iconSize="32" iconColor="#ffffff"/>
+               <FontIcon iconLiteral="icm-display" iconSize="32" iconColor="#ffffff"/>
            </graphic>
        </Button>
        <Button mnemonicParsing="false" text="Library" styleClass="side-tool-buttons" onAction="#switchToLibrary">
           <graphic>
-              <FontIcon iconLiteral="icm-upload3" iconSize="30" iconColor="#ffffff"/>
+              <FontIcon iconLiteral="fa-folder-open-o" iconSize="30" iconColor="#ffffff"/>
           </graphic>
       </Button>
-       <Button mnemonicParsing="false" text="Help"  styleClass="side-tool-buttons" >
+       <Button mnemonicParsing="false" text="Help"  onAction="#switchToHelp" styleClass="side-tool-buttons" >
            <graphic>
-               <FontIcon iconLiteral="icm-question" iconSize="32" iconColor="#ffffff"/>
-           </graphic>
-       </Button>
-       <Button mnemonicParsing="false" text="About"  styleClass="side-tool-buttons" >
-           <graphic>
-               <FontIcon iconLiteral="icm-user" iconSize="32" iconColor="#ffffff"/>
+               <FontIcon  iconLiteral="fa-question-circle-o" iconSize="32" iconColor="#ffffff"/>
            </graphic>
        </Button>
 

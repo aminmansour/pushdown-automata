@@ -83,14 +83,15 @@
 #home #home-grid{
     -fx-background-color: #fafafa;
 }
-#home-grid{
+
+#home #home-grid {
     -fx-padding: 40px 30px 10px 30px;
 }
 
 .home-boxes{
     -fx-background-color: white;
-    -fx-border-color: #4CAF50;
-    -fx-border-width: 0px 0px 5px 0px;
+    -fx-border-color: #ececec;
+    -fx-border-width: 0px 0px 3px 0px;
     -fx-max-height: 500px;
     -fx-min-height:300px;
 }
@@ -544,17 +545,17 @@
     -fx-text-fill: #5b5b5b;
 }
 
-#quickDefinition .combo-box-base {
+.combo-box-base {
     -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, white;
     -fx-background-insets: 0 0 -1 0, 0, 1, 2;
     -fx-background-radius: 3px, 3px, 2px, 1px;
 }
 
-#quickDefinition .combo-box .combo-box-popup .list-cell:hover, #quickDefinition .combo-box-popup .list-cell:selected {
+.combo-box .combo-box-popup .list-cell:hover, .combo-box-popup .list-cell:selected {
     -fx-background-color: #2ab27b;
 }
 
-#quickDefinition .combo-box .combo-box-popup .list-cell:hover *, .combo-box-popup .list-cell:selected * {
+.combo-box .combo-box-popup .list-cell:hover *, .combo-box-popup .list-cell:selected * {
     -fx-fill: white;
 }
 
@@ -578,3 +579,30 @@
     -fx-border-width: 1px;
 }
 
+/*--examples*/
+
+#examples #home-grid {
+    -fx-padding: 40px 30px 50px 30px;
+}
+
+/*add transition dialog*/
+
+#vbAddTransitionDialog {
+    -fx-border-color: #dfdfdf;
+    -fx-border-radius: 2px;
+    -fx-background-color: white;
+}
+
+.help-boxes{
+    -fx-background-color: white;
+    -fx-border-color: #ececec;
+    -fx-border-width: 0px 0px 3px 0px;
+
+}
+
+.help-boxes:hover{
+    -fx-background-color: #f8f8f8;
+    -fx-border-color: #ececec;
+    -fx-border-width: 0px 0px 3px 0px;
+
+}

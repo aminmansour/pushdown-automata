@@ -592,3 +592,17 @@
     -fx-border-radius: 2px;
     -fx-background-color: white;
 }
+
+.help-boxes {
+    -fx-background-color: white;
+    -fx-border-color: #ececec;
+    -fx-border-width: 0px 0px 3px 0px;
+
+}
+
+.help-boxes:hover {
+    -fx-background-color: #f8f8f8;
+    -fx-border-color: #ececec;
+    -fx-border-width: 0px 0px 3px 0px;
+
+}

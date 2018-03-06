@@ -41,6 +41,13 @@ public class HomeController {
         BorderPane.setAlignment(ViewFactory.examples, Pos.CENTER);
     }
 
+
+    @FXML
+    private void switchToHelp(ActionEvent actionEvent) {
+        ViewFactory.globalPane.setCenter(ViewFactory.help);
+        BorderPane.setAlignment(ViewFactory.help, Pos.CENTER);
+    }
+
     @FXML
     private void switchToInfo(ActionEvent actionEvent) {
         if (ControllerFactory.infoController == null) {

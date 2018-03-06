@@ -9,4 +9,5 @@ public class ControllerFactory {
     public static QuickDefinitionController quickDefinitionController;
     public static ExamplesController examplesLoaderController;
     public static InfoController infoController;
+    public static HelpController helpController;
 }

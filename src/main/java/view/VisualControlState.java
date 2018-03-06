@@ -41,7 +41,7 @@ public class VisualControlState {
         state.setStroke(Color.web("#388E3C"));
         state.setStrokeWidth(1);
         state.setRadius(RADIUS);
-        state.setFill(Color.web("#455A64"));
+        state.setFill(Color.web("#546E7A"));
         state.setCache(true);
         controlStateView.getChildren().add(state);
 

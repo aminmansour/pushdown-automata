@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class Memory {
 //    private static ObjectMapper mapper = new ObjectMapper();
 
-    private final static String PDA_MEMORY_STORE = "src/main/resources/storage/store.json";
+    private final static String PDA_MEMORY_STORE = "src/main/resources/storage/examples.json";
 
     public static void save(Definition definition) {
 //        try {

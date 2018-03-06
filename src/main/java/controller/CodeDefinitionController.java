@@ -71,7 +71,7 @@ public class CodeDefinitionController implements Initializable{
         currentErrorList = new ArrayList<>();
         tfAddTransition = addSpecialTransitionTextField();
         ToggleGroup tgAcceptingConditions = addAcceptingConditionsToggleGroup();
-        restrictTextFieldInput(tfInitialState,"[a-zA-Z0-9]");
+        restrictTextFieldInput(tfInitialState, ".");
         tgAcceptingConditions.selectedToggleProperty().addListener((observable, oldValue, newValue) -> acceptanceSelectionAction());
         setUpHelpRequestFeatureForEachField();
         taControlStates.setText("a,b,c");
@@ -100,7 +100,7 @@ public class CodeDefinitionController implements Initializable{
         }else{
             lFurtherInfo.setText("Empty Stack Symbol");
             lFurtherInfoHelp.getTooltip().setText("Enter the initial stack symbol i.e. Z");
-            furtherInfoFieldListener = restrictTextFieldInput(tfFurtherInfo, "[a-zA-Z0-9]");
+            furtherInfoFieldListener = restrictTextFieldInput(tfFurtherInfo, ".");
             tfFurtherInfo.clear();
         }
         lFurtherInfoInstruction.setVisible(false);

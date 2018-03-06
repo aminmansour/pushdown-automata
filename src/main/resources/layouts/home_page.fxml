@@ -150,7 +150,7 @@
                                 <Insets bottom="5.0"/>
                             </padding>
                         </Label>
-                        <Button onAction="#switchToLibrary" styleClass="green-button-theme" text="Enter"/>
+                        <Button onAction="#switchToHelp" styleClass="green-button-theme" text="Enter"/>
                     </VBox>
                 </HBox>
             </HBox>

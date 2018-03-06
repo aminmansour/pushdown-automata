@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.web.WebView?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="help" spacing="20" xmlns="http://javafx.com/javafx/8.0.121"
+      fx:controller="controller.HelpController">
+    <children>
+        <HBox prefHeight="50.0" prefWidth="200.0">
+            <HBox alignment="CENTER" maxHeight="50" maxWidth="Infinity" onMouseClicked="#openCreationHelp"
+                  styleClass="help-boxes" HBox.hgrow="ALWAYS">
+                <VBox alignment="CENTER" styleClass="home-boxes-content" HBox.hgrow="ALWAYS">
+                    <Label styleClass="home-button-title" text="PDA creation Help" textFill="#23aa76"/>
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#openRunHelp"
+                  styleClass="help-boxes" HBox.hgrow="ALWAYS">
+                <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
+                      HBox.hgrow="ALWAYS">
+                    <Label styleClass="home-button-title" text="Run modes Help" textFill="#23aa76"/>
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" onMouseClicked="#openMiscHelp"
+                  styleClass="help-boxes" HBox.hgrow="ALWAYS">
+                <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
+                      HBox.hgrow="ALWAYS">
+                    <Label styleClass="home-button-title" text="Misc Help" textFill="#23aa76"/>
+                </VBox>
+            </HBox>
+            <VBox.margin>
+                <Insets left="5.0" right="5.0" top="10.0"/>
+            </VBox.margin>
+        </HBox>
+        <WebView VBox.vgrow="ALWAYS" maxHeight="Infinity " fx:id="pdfViewer">
+
+
+        </WebView>
+    </children>
+</VBox>

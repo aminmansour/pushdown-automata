@@ -750,9 +750,9 @@ public class PDARunnerController implements Initializable{
             ObservableList<String> controlStatesInStringFormat = getControlStatesInStringFormat();
             cbStates.setItems(controlStatesInStringFormat);
             cbResultingStates.setItems(controlStatesInStringFormat);
-            ViewFactory.restrictTextFieldInput(tfInputElement, "[a-zA-Z0-9]");
-            ViewFactory.restrictTextFieldInput(tfElementToPop, "[a-zA-Z0-9]");
-            ViewFactory.restrictTextFieldInput(tfElementToPush, "[a-zA-Z0-9]");
+            ViewFactory.restrictTextFieldInput(tfInputElement, ".");
+            ViewFactory.restrictTextFieldInput(tfElementToPop, ".");
+            ViewFactory.restrictTextFieldInput(tfElementToPush, ".");
             bAddTransition.setOnAction(event -> {
                 if (cbStates.getSelectionModel().isEmpty()) {
                     ViewFactory.showErrorDialog("No initial control state is chosen!", spPDARunnerPage);

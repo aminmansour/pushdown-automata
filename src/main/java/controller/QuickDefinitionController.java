@@ -280,9 +280,9 @@ public class QuickDefinitionController implements Initializable {
     private void loadTransitionSection() {
         populateControlStateDropdown(cbStates);
         populateControlStateDropdown(cbResultingStates);
-        ViewFactory.restrictTextFieldInput(tfInputElement, "[a-zA-Z0-9]");
-        ViewFactory.restrictTextFieldInput(tfElementToPop, "[a-zA-Z0-9]");
-        ViewFactory.restrictTextFieldInput(tfElementToPush, "[a-zA-Z0-9]");
+        ViewFactory.restrictTextFieldInput(tfInputElement, ".");
+        ViewFactory.restrictTextFieldInput(tfElementToPop, ".");
+        ViewFactory.restrictTextFieldInput(tfElementToPush, ".");
         temporaryTransitionStore =
                 FXCollections.observableArrayList();
         lvTransitions.setItems(temporaryTransitionStore);

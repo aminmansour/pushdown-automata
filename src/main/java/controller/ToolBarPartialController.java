@@ -80,4 +80,9 @@ public class ToolBarPartialController {
         ControllerFactory.pdaRunnerController.openNewTransitionDialog();
 
     }
+
+    public void switchToHelp(ActionEvent actionEvent) {
+        ViewFactory.globalPane.setCenter(ViewFactory.help);
+        BorderPane.setAlignment(ViewFactory.help, Pos.CENTER);
+    }
 }
