@@ -59,4 +59,7 @@ public class UserInputBoxController {
     }
 
 
+    public void clear() {
+        taInput.clear();
+    }
 }

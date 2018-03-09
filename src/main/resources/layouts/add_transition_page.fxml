@@ -69,7 +69,7 @@
                     <children>
                         <Label text="Resulting State :"/>
                         <ComboBox fx:id="cbResultingStates" prefWidth="150.0"/>
-                        <Label layoutX="10.0" layoutY="14.0" text="Element to push :"/>
+                        <Label layoutX="10.0" layoutY="14.0" text="Stack symbol to push :"/>
                         <TextField fx:id="tfElementToPush"/>
                     </children>
                     <VBox.margin>

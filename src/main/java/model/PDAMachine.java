@@ -14,6 +14,7 @@ public class PDAMachine {
     private boolean isSavedInMemory;
 
     private ListMultimap<String, Transition> stateToTransitionMap;
+    private boolean modifiable;
 
     public PDAMachine(Definition defToLoad) {
         loadDefinition(defToLoad);
@@ -22,6 +23,7 @@ public class PDAMachine {
     private void loadDefinition(Definition definition){
         loadedDefinition = definition;
         tape = new InputTape();
+        modifiable = true;
         stack = new PushDownStack();
         tape.clear();
         stack.clear();
@@ -109,7 +111,8 @@ public class PDAMachine {
 
     public void executeTransition(Transition transition, int totalChildren) {
         stack.loadState(new ArrayList<>(stack.getStackContent()));
-        tape.readSymbol();
+        tape.readSymbol(transition.getConfiguration().getInputSymbol() == '/');
+
         if (transition.getConfiguration().getTopElement() != '/') {
             stack.pop();
         }
@@ -206,4 +209,5 @@ public class PDAMachine {
         loadedDefinition.addTransition(newTransition);
         stateToTransitionMap.get(newTransition.getConfiguration().getState().getLabel()).add(newTransition);
     }
+
 }

@@ -15,9 +15,14 @@
               <FontIcon iconLiteral="fa-folder-open-o" iconSize="30" iconColor="#ffffff"/>
           </graphic>
       </Button>
-       <Button mnemonicParsing="false" text="Help"  onAction="#switchToHelp" styleClass="side-tool-buttons" >
+       <Button mnemonicParsing="false" text="Examples" onAction="#switchToExamples" styleClass="side-tool-buttons">
            <graphic>
-               <FontIcon  iconLiteral="fa-question-circle-o" iconSize="32" iconColor="#ffffff"/>
+               <FontIcon iconLiteral="fa-code-fork" iconSize="32" iconColor="#ffffff"/>
+           </graphic>
+       </Button>
+       <Button mnemonicParsing="false" text="Help" onAction="#switchToHelp" styleClass="side-tool-buttons">
+           <graphic>
+               <FontIcon iconLiteral="fa-question-circle-o" iconSize="32" iconColor="#ffffff"/>
            </graphic>
        </Button>
 

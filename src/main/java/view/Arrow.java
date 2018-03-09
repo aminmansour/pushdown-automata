@@ -7,7 +7,7 @@ import javafx.scene.shape.Path;
 import javafx.util.Pair;
 
 class Arrow extends Path {
-    private static final double defaultArrowHeadSize = 5.0;
+    private static final double defaultArrowHeadSize = 10.0;
     private boolean isRecursiveArrow;
     private double startY;
     private double startX;

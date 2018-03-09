@@ -44,9 +44,9 @@ public class LibraryController implements Initializable {
 
     public void retrieveDefinitionStore() {
 
-        ModelFactory.definitions = Memory.load();
+        ModelFactory.libraryStore = Memory.load();
         items = FXCollections.observableArrayList();
-        for (Definition definition : ModelFactory.definitions) {
+        for (Definition definition : ModelFactory.libraryStore) {
             items.add(definition.getIdentifier());
         }
         lvLibrary.setItems(items);
@@ -64,7 +64,7 @@ public class LibraryController implements Initializable {
     }
 
     private Definition retrieveDefinitionInstance(String id) {
-        for (Definition definition : ModelFactory.definitions) {
+        for (Definition definition : ModelFactory.libraryStore) {
             if (definition.getIdentifier().equals(id)) {
                 return definition;
             }
@@ -74,7 +74,7 @@ public class LibraryController implements Initializable {
 
     public void delete(ActionEvent actionEvent) {
         int selectedIndex = lvLibrary.getSelectionModel().getSelectedIndex();
-        ModelFactory.definitions.remove(selectedIndex);
+        ModelFactory.libraryStore.remove(selectedIndex);
         items.remove(selectedIndex);
         Memory.saveState();
     }

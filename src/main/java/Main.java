@@ -43,7 +43,7 @@ public class Main extends Application {
 
         FXMLLoader examplesLoader = new FXMLLoader(getClass().getResource("layouts/examples_page.fxml"));
         ViewFactory.examples = examplesLoader.load();
-        ControllerFactory.examplesLoaderController = examplesLoader.getController();
+        ControllerFactory.examplesController = examplesLoader.getController();
 
         FXMLLoader quickDefinitionLoader = new FXMLLoader(getClass().getResource("layouts/quick_definition_page.fxml"));
         ViewFactory.quickDefinition = quickDefinitionLoader.load();

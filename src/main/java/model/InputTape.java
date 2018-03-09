@@ -10,13 +10,15 @@ public class InputTape {
 
     public InputTape() { clear(); }
 
-    public char readSymbol() {
-        if (input.size() > 0 && headIndex < input.size()) {
+    public char readSymbol(boolean skipSymbol) {
+        if (!skipSymbol && input.size() > 0 && headIndex < input.size()) {
             char toReturn = input.get(headIndex);
             headIndex++;
             step++;
             return toReturn;
         }
+
+        step++;
         return 0;
     }
 

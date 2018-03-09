@@ -17,17 +17,9 @@ public class Memory {
 //    private static ObjectMapper mapper = new ObjectMapper();
 
     private final static String PDA_MEMORY_STORE = "src/main/resources/storage/examples.json";
+    private final static String EXAMPLE_MEMORY_STORE = "src/main/resources/storage/examples.json";
 
     public static void save(Definition definition) {
-//        try {
-//                ModelFactory.definitions.add(definition);
-//                File file = new File("definitions.json");
-//                mapper.writeValue(file,ModelFactory.definitions.toArray(new Definition[0]));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-
         try {
             ArrayList<Definition> instances = load();
             Gson gson = new Gson();
@@ -38,17 +30,29 @@ public class Memory {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public static ArrayList<Definition> load() {
 
         ArrayList<Definition> library = new ArrayList<>();
-        ModelFactory.definitions = library;
+        ModelFactory.libraryStore = library;
+        return getDefinitionsFromFile(library, PDA_MEMORY_STORE);
+    }
+
+    public static ArrayList<Definition> loadExamples() {
+
+        if (ModelFactory.exampleStore == null) {
+            ArrayList<Definition> library = new ArrayList<>();
+            ModelFactory.exampleStore = library;
+            return getDefinitionsFromFile(library, EXAMPLE_MEMORY_STORE);
+        }
+        return ModelFactory.exampleStore;
+    }
+
+    private static ArrayList<Definition> getDefinitionsFromFile(ArrayList<Definition> library, String url) {
         try {
             Gson gson = new Gson();
-            FileReader json = new FileReader(PDA_MEMORY_STORE);
+            FileReader json = new FileReader(url);
             library.addAll(Arrays.asList(gson.fromJson(json, Definition[].class)));
             return library;
         } catch (Exception e) {
@@ -79,7 +83,7 @@ public class Memory {
         try {
             Gson gson = new Gson();
             FileWriter writer = new FileWriter(PDA_MEMORY_STORE);
-            gson.toJson(ModelFactory.definitions.toArray(new Definition[0]), writer);
+            gson.toJson(ModelFactory.libraryStore.toArray(new Definition[0]), writer);
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();

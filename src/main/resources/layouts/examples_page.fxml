@@ -24,13 +24,13 @@
                         </Label>
                         <Label mnemonicParsing="false" styleClass="home-button-icon">
                             <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code" iconSize="114"/>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
                             </graphic>
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
                         </Label>
-                        <Button styleClass="green-button-theme" text="Load"/>
+                        <Button styleClass="green-button-theme" fx:id="bExample1" text="Load"/>
                     </VBox>
                 </HBox>
 
@@ -49,13 +49,13 @@
                         </Label>
                         <Label mnemonicParsing="false" styleClass="home-button-icon">
                             <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-codepen" iconSize="114"/>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
                             </graphic>
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
                         </Label>
-                        <Button styleClass="green-button-theme" text="Load"/>
+                        <Button styleClass="green-button-theme" fx:id="bExample2" text="Load"/>
                     </VBox>
                 </HBox>
 
@@ -66,7 +66,7 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 3" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label text="PDA which recognizes all palidrones (word that is the same forward and backward)"
+                        <Label text="PDA which recognizes all palidrones (words that are the same forward and backward)"
                                textFill="#23aa76" wrapText="true">
                             <padding>
                                 <Insets bottom="20.0"/>
@@ -74,13 +74,13 @@
                         </Label>
                         <Label mnemonicParsing="false" styleClass="home-button-icon">
                             <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-folder-open-o" iconSize="114"/>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
                             </graphic>
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
                         </Label>
-                        <Button styleClass="green-button-theme" text="Load"/>
+                        <Button styleClass="green-button-theme" fx:id="bExample3" text="Load"/>
                     </VBox>
                 </HBox>
             </HBox>
@@ -106,7 +106,7 @@
                                 <Insets bottom="5.0"/>
                             </padding>
                         </Label>
-                        <Button styleClass="green-button-theme" text="Load"/>
+                        <Button styleClass="green-button-theme" fx:id="bExample4" text="Load"/>
                     </VBox>
                 </HBox>
 

@@ -37,8 +37,8 @@
             </graphic>
         </Button>
         <Button fx:id="bToolbarDeterministic" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
-                minHeight="40.0" minWidth="90" onAction="#requestDeterministicTransitions" styleClass="tool-buttons"
-                text="Non-Deterministic states">
+                minHeight="40.0" minWidth="90" onAction="#requestNonDeterministicTransitions" styleClass="tool-buttons"
+                text="Open Non-Deterministic Mode">
             <graphic>
                 <FontIcon iconColor="#a1a1a1" iconLiteral="fa-circle-thin" iconSize="20" translateX="3.0"/>
             </graphic>

@@ -57,12 +57,15 @@ public class VisualTransition {
         }
         labelY += 5;
         while (true) {
-            if (checkOccurrence(labelX, labelY)) {
+            int r = checkOccurrence(labelX, labelY);
+            if (r == 1) {
+                labelY += 19;
+                continue;
+            } else if (r == 2) {
                 labelY += 19;
                 continue;
             }
             break;
-
         }
         labelCoordinate = new Pair<>(labelX, labelY);
 
@@ -84,17 +87,41 @@ public class VisualTransition {
 
     }
 
-    private boolean checkOccurrence(double labelX, double labelY) {
+    private int checkOccurrence(double labelX, double labelY) {
 
         for (VisualTransition visualTransition : transitionsThatExist) {
             Pair<Double, Double> labelCoordinate = visualTransition.labelCoordinate;
-            if (labelCoordinate.getKey() == labelX && labelCoordinate.getValue() == labelY && transition != visualTransition.getTransition()) {
-                return true;
+            if (transition != visualTransition.getTransition()) {
+                if (labelCoordinate.getKey() == labelX && labelCoordinate.getValue() == labelY) {
+                    return 1;
+                }
+
+                if (labelCoordinate.getValue() <= labelY && labelY <= labelCoordinate.getValue()) {
+                    if (labelCoordinate.getKey() < labelX + 50 && labelCoordinate.getKey() + 50 > labelY) {
+                        if (visualTransition.sourceState.getLabel().equals(sourceState.getLabel()) || visualTransition.sourceState.equals(resultingState.getLabel())) {
+                            if (labelCoordinate.getKey() <= labelX) {
+                                visualTransition.transitionLabel.setText(visualTransition.transitionLabel.getText() + "   (<)");
+                                transitionLabel.setText(transitionLabel.getText() + "   (>)");
+                            } else {
+                                visualTransition.transitionLabel.setText(visualTransition.transitionLabel.getText() + "   (>)");
+                                transitionLabel.setText(transitionLabel.getText() + "    (<)");
+                            }
+                        }
+
+                        return 2;
+                    }
+                }
             }
         }
-        return false;
+        return 0;
 
     }
+
+    public void bringLabelToFront() {
+        flTransitionLabel.toFront();
+    }
+
+
 
     private void generateLabel() {
         transitionLabel = new Text(getLabel());
@@ -128,7 +155,7 @@ public class VisualTransition {
 
     public void setFocus(boolean focus, String color) {
         isFocused = focus;
-        String background = isFocused ? color : "white;";
+        String background = isFocused ? color : "#f3f3f3;";
         arrowPath.setStrokeWidth(isFocused ? 4 : 1);
         flTransitionLabel.setStyle("-fx-background-color:" + background);
         Node label = flTransitionLabel.getChildren().get(0);
@@ -168,6 +195,6 @@ public class VisualTransition {
 
 
     public Pair<Double, Double> getLabelCoordinate() {
-        return labelCoordinate;
+        return new Pair<>(flTransitionLabel.getLayoutX(), flTransitionLabel.getLayoutY());
     }
 }

@@ -363,7 +363,7 @@
 }
 
 .transition-labels {
-    -fx-background-color: white;
+    -fx-background-color: #f3f3f3;
     -fx-background-radius: 3%;
     -fx-max-height: 1px;
     -fx-max-width: 1px;
@@ -593,14 +593,14 @@
     -fx-background-color: white;
 }
 
-.help-boxes{
+.help-boxes {
     -fx-background-color: white;
     -fx-border-color: #ececec;
     -fx-border-width: 0px 0px 3px 0px;
 
 }
 
-.help-boxes:hover{
+.help-boxes:hover {
     -fx-background-color: #f8f8f8;
     -fx-border-color: #ececec;
     -fx-border-width: 0px 0px 3px 0px;

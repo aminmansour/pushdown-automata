@@ -11,7 +11,8 @@ import java.util.List;
 
 public class ModelFactory {
 
-    public static ArrayList<Definition> definitions;
+    public static ArrayList<Definition> libraryStore;
+    public static ArrayList<Definition> exampleStore;
 
     public static boolean checkForDefinitionOccurrence(Definition definition) {
         for (Definition d : Memory.load()) {

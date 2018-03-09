@@ -363,7 +363,7 @@
 }
 
 .transition-labels {
-    -fx-background-color: white;
+    -fx-background-color: #f3f3f3;
     -fx-background-radius: 3%;
     -fx-max-height: 1px;
     -fx-max-width: 1px;

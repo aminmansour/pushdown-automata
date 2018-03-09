@@ -38,6 +38,7 @@ public class HomeController {
     @FXML
     private void switchToExamples(ActionEvent actionEvent) {
         ViewFactory.globalPane.setCenter(ViewFactory.examples);
+        ControllerFactory.examplesController.alert();
         BorderPane.setAlignment(ViewFactory.examples, Pos.CENTER);
     }
 

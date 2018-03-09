@@ -318,7 +318,7 @@ public class PDARunnerController implements Initializable{
         tape.setTapeInputModel(model.getTape());
         stack.setStackModel(model.getStack());
         transitionTable.clear();
-
+        inputBox.clear();
         transitionTable.setStates(model.getDefinition().getStates());
         ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
         ControllerFactory.homeController.showContinueButton();
@@ -702,7 +702,8 @@ public class PDARunnerController implements Initializable{
 
     public void openDeterministicMode() {
 
-        transitionTable.clearSelection(true);
+        ControllerFactory.toolBarPartialController.setNonDeterministicModeButtonText("Close Non-Deterministic Mode");
+        transitionTable.clearSelection(model.getCurrentState() != null);
         machineDisplay.clearTransitionFocus();
         Set<Transition> transitions = model.getNonDeterministicTransitions();
         machineDisplay.highlightDeterministicTransitions(transitions);
@@ -712,6 +713,7 @@ public class PDARunnerController implements Initializable{
 
     public void closeDeterministicModeIfPresent() {
         if (inDeterministicMode) {
+            ControllerFactory.toolBarPartialController.setNonDeterministicModeButtonText("Open Non-Deterministic Mode");
             inDeterministicMode = false;
             machineDisplay.unhighlightAllTransitions();
             if (transitionTable.getHighlightedRowSaved() != -1) {

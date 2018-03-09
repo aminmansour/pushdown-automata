@@ -22,7 +22,7 @@ public class MachineDisplayController {
     private final String NORMAL_RUN_COLOR = "#2ab27b;";
 
     private TreeMap<String, VisualControlState> controlStates;
-    private TreeMap<String, ArrayList<VisualTransition>> transitions;
+    private TreeMap<String, ArrayList<VisualTransition>> transitionsByStateMap;
     private BorderPane pdaDisplay;
 
     private final Pane pCanvas;
@@ -43,7 +43,7 @@ public class MachineDisplayController {
         pCanvas = (Pane) pdaDisplay.lookup("#pCanvas");
 
         controlStates = new TreeMap<>();
-        transitions = new TreeMap<>();
+        transitionsByStateMap = new TreeMap<>();
 
         pdaDisplay.widthProperty().addListener(observable -> repaintDisplay());
         pdaDisplay.heightProperty().addListener(observable -> repaintDisplay());
@@ -108,9 +108,14 @@ public class MachineDisplayController {
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             VisualControlState state = entry.getValue();
             ArrayList<VisualTransition> transitionsBySource = getTransitionsBySource(state.getLabel());
+
             for (int i = 0; i < transitionsBySource.size(); i++) {
                 VisualTransition visualTransition = transitionsBySource.get(i);
-                visualTransition.align(getTransitionBetweenSameStates(visualTransition, transitionsBySource));
+                ArrayList<VisualTransition> transitionsByTarget = getTransitionsBySource(visualTransition.getResultingState().getLabel());
+                ArrayList<VisualTransition> transitionsInScope = new ArrayList<>(transitionsBySource.size() + transitionsByTarget.size());
+                transitionsInScope.addAll(transitionsBySource);
+                transitionsInScope.addAll(transitionsByTarget);
+                visualTransition.align(getAllTransitions());
             }
         }
         pCanvas.getChildren().clear();
@@ -120,7 +125,8 @@ public class MachineDisplayController {
             VisualControlState state = entry.getValue();
             ArrayList<VisualTransition> transitionsBySource = getTransitionsBySource(state.getLabel());
             for (int i = 0; i < transitionsBySource.size(); i++) {
-                pCanvas.getChildren().add(transitionsBySource.get(i).getView());
+                VisualTransition visualTransition = transitionsBySource.get(i);
+                pCanvas.getChildren().add(visualTransition.getView());
             }
         }
 
@@ -128,13 +134,13 @@ public class MachineDisplayController {
             pCanvas.getChildren().add(entry.getValue().getView());
         }
 
-
     }
 
     private ArrayList<VisualTransition> getTransitionBetweenSameStates(VisualTransition transition, ArrayList<VisualTransition> transitionsBySource) {
         ArrayList<VisualTransition> visualTransitions = new ArrayList<>();
         for (VisualTransition visualTransition : transitionsBySource) {
-            if (transition.getResultingState() == visualTransition.getResultingState()) {
+            if ((transition.getSourceState() == visualTransition.getSourceState() && transition.getResultingState() == visualTransition.getResultingState())
+                    || (transition.getResultingState() == visualTransition.getSourceState() && transition.getSourceState() == visualTransition.getResultingState())) {
                 visualTransitions.add(visualTransition);
             }
         }
@@ -152,13 +158,13 @@ public class MachineDisplayController {
     }
 
     private ArrayList<VisualTransition> getTransitionsBySource(String sourceLabel) {
-        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
+        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
             if (entry.getKey().equals(sourceLabel)) {
                 return entry.getValue();
             }
         }
         ArrayList<VisualTransition> value = new ArrayList<>();
-        transitions.put(sourceLabel, value);
+        transitionsByStateMap.put(sourceLabel, value);
         return value;
     }
 
@@ -171,7 +177,7 @@ public class MachineDisplayController {
     public void update(Transition transition) {
 
         outer:
-        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
+        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
             for (VisualTransition vTransition : transitionBatch) {
                 if (transition == vTransition.getTransition()) {
@@ -179,8 +185,8 @@ public class MachineDisplayController {
                     String oldSourceState = vTransition.getSourceState().getLabel();
                     if (!currentSourceState.equals(oldSourceState)) {
                         vTransition.updateVisualTransition(controlStates.get(currentSourceState), null);
-                        this.transitions.get(oldSourceState).remove(vTransition);
-                        this.transitions.get(currentSourceState).add(vTransition);
+                        this.transitionsByStateMap.get(oldSourceState).remove(vTransition);
+                        this.transitionsByStateMap.get(currentSourceState).add(vTransition);
                         break outer;
                     }
                     String currentTargetState = transition.getAction().getNewState().getLabel();
@@ -199,7 +205,7 @@ public class MachineDisplayController {
     }
 
     public void highlightDeterministicTransitions(Set<Transition> deterministicTransitions) {
-        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
+        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
             for (VisualTransition vTransitions : transitionBatch) {
                 if (deterministicTransitions.contains(vTransitions.getTransition())) {
@@ -211,7 +217,7 @@ public class MachineDisplayController {
     }
 
     public void unhighlightAllTransitions() {
-        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
+        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
             for (VisualTransition vTransitions : transitionBatch) {
                 vTransitions.setFocus(false, "");
@@ -224,11 +230,11 @@ public class MachineDisplayController {
     public void clear() {
         resetStates();
         controlStates = new TreeMap<String, VisualControlState>();
-        transitions = new TreeMap<String, ArrayList<VisualTransition>>();
+        transitionsByStateMap = new TreeMap<String, ArrayList<VisualTransition>>();
     }
 
     public void focusTransition(Transition transition) {
-        ArrayList<VisualTransition> visualTransitions = transitions.get(transition.getConfiguration().getState().getLabel());
+        ArrayList<VisualTransition> visualTransitions = transitionsByStateMap.get(transition.getConfiguration().getState().getLabel());
         for (VisualTransition vTransition : visualTransitions) {
             if (transition == vTransition.getTransition()) {
                 vTransition.setFocus(true, NORMAL_RUN_COLOR);
@@ -253,7 +259,7 @@ public class MachineDisplayController {
     }
 
     public void clearTransitionFocus() {
-        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitions.entrySet()) {
+        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
             for (VisualTransition vTransition : transitionBatch) {
                 vTransition.setFocus(false, "");
@@ -274,4 +280,13 @@ public class MachineDisplayController {
             controlStates.get(currentState.getLabel()).setFocus(true, NORMAL_RUN_COLOR);
         }
     }
+
+    private ArrayList<VisualTransition> getAllTransitions() {
+        ArrayList<VisualTransition> toReturn = new ArrayList<>();
+        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
+            toReturn.addAll(entry.getValue());
+        }
+        return toReturn;
+    }
+
 }

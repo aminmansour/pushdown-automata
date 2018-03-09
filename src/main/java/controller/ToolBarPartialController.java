@@ -65,16 +65,19 @@ public class ToolBarPartialController {
         disableToolbarButtons(true);
     }
 
-    public void requestDeterministicTransitions(ActionEvent actionEvent) {
+    public void requestNonDeterministicTransitions(ActionEvent actionEvent) {
         if (ControllerFactory.pdaRunnerController.isInDeterministicMode()) {
+            bToolbarDeterministic.setText("Open Non-Deterministic Mode");
             ControllerFactory.pdaRunnerController.closeDeterministicModeIfPresent();
         } else {
+            bToolbarDeterministic.setText("Close Non-Deterministic Mode");
             ControllerFactory.pdaRunnerController.openDeterministicMode();
         }
     }
 
     public void requestNewTransition(ActionEvent actionEvent) {
         if (ControllerFactory.pdaRunnerController.isInDeterministicMode()) {
+            bToolbarDeterministic.setText("Close Non-Deterministic Mode");
             ControllerFactory.pdaRunnerController.closeDeterministicModeIfPresent();
         }
         ControllerFactory.pdaRunnerController.openNewTransitionDialog();
@@ -84,5 +87,20 @@ public class ToolBarPartialController {
     public void switchToHelp(ActionEvent actionEvent) {
         ViewFactory.globalPane.setCenter(ViewFactory.help);
         BorderPane.setAlignment(ViewFactory.help, Pos.CENTER);
+    }
+
+    public void setNonDeterministicModeButtonText(String nonDeterministicModeButtonText) {
+        bToolbarDeterministic.setText(nonDeterministicModeButtonText);
+
+    }
+
+    public void disableSaveFeature() {
+        bToolbarSave.setDisable(true);
+    }
+
+    public void switchToExamples(ActionEvent actionEvent) {
+        ViewFactory.globalPane.setCenter(ViewFactory.examples);
+        ControllerFactory.examplesController.alert();
+        BorderPane.setAlignment(ViewFactory.examples, Pos.CENTER);
     }
 }

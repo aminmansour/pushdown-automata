@@ -303,9 +303,9 @@ public class QuickDefinitionController implements Initializable {
         TransitionEntry toDelete = deleteTransitionFromStore();
         cbStates.getSelectionModel().select(toDelete.getCurrentState());
         cbResultingStates.getSelectionModel().select(toDelete.getResultingState());
-        tfInputElement.setText(!toDelete.getElementAtHead().equals("/") ? "" : toDelete.getElementAtHead());
-        tfElementToPop.setText(!toDelete.getTopOfStack().equals("/") ? "" : toDelete.getTopOfStack());
-        tfElementToPush.setText(!toDelete.getResultingTopOfStack().equals("/") ? "" : toDelete.getResultingTopOfStack());
+        tfInputElement.setText(toDelete.getElementAtHead().equals("/") ? "" : toDelete.getElementAtHead());
+        tfElementToPop.setText(toDelete.getTopOfStack().equals("/") ? "" : toDelete.getTopOfStack());
+        tfElementToPush.setText(toDelete.getResultingTopOfStack().equals("/") ? "" : toDelete.getResultingTopOfStack());
         lvTransitions.getSelectionModel().clearSelection();
         hbTransitionAction.setVisible(false);
     }
