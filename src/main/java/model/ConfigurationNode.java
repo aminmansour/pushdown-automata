@@ -7,11 +7,12 @@ public class ConfigurationNode {
 
     //stadard fields
     private ArrayList<Character> stackState;
+
     private int headPosition;
-    private String remaingInput;
 
 
     private ConfigurationNode parent;
+    private int step;
     private ArrayList<ConfigurationNode> exploredChildren;
 
     //flag fields
@@ -20,14 +21,14 @@ public class ConfigurationNode {
     private ControlState controlState;
 
 
-    public ConfigurationNode(ControlState controlState, ConfigurationNode parent, ArrayList<Character> stackState, int headPosition, String remaingInput, int totalSiblings) {
+    public ConfigurationNode(ControlState controlState, ConfigurationNode parent, ArrayList<Character> stackState, int headPosition, int step, String remainingInput, int totalSiblings) {
         this.parent = parent;
+        this.step = step;
         this.exploredChildren = new ArrayList<>();
         this.stackState = stackState;
         this.headPosition = headPosition;
         this.totalSiblings = totalSiblings;
         this.controlState = controlState;
-        this.remaingInput = remaingInput;
     }
 
 
@@ -113,5 +114,13 @@ public class ConfigurationNode {
 
     public int getTotalSiblings() {
         return totalSiblings;
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
     }
 }

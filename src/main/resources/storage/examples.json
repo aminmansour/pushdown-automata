@@ -23,7 +23,7 @@
             "label": "Q1"
           },
           "inputSymbol": "/",
-          "topElement": "/"
+          "topElement": "Z"
         },
         "action": {
           "newState": {
@@ -31,7 +31,7 @@
             "isInitial": true,
             "label": "Q0"
           },
-          "elementToPush": "$"
+          "elementToPush": "/"
         }
       },
       {
@@ -50,7 +50,7 @@
             "isInitial": false,
             "label": "Q1"
           },
-          "elementToPush": "/"
+          "elementToPush": "Z"
         }
       },
       {
@@ -298,6 +298,875 @@
     ],
     "initialState": {
       "isAccepting": true,
+      "isInitial": true,
+      "label": "Q0"
+    }
+  },
+  {
+    "identifier": "Language of even palidromes",
+    "states": [
+      {
+        "isAccepting": true,
+        "isInitial": true,
+        "label": "Q0"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q1"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q2"
+      },
+      {
+        "isAccepting": true,
+        "isInitial": false,
+        "label": "Q3"
+      }
+    ],
+    "isAcceptByFinalState": true,
+    "transitions": [
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": true,
+            "isInitial": true,
+            "label": "Q0"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "$"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "0",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "A"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "1",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "B"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "0",
+          "topElement": "A"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "1",
+          "topElement": "B"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "/",
+          "topElement": "$"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q3"
+          },
+          "elementToPush": "/"
+        }
+      }
+    ],
+    "initialState": {
+      "isAccepting": true,
+      "isInitial": true,
+      "label": "Q0"
+    }
+  },
+  {
+    "identifier": "Language of words with same amount of 0s and 1s",
+    "states": [
+      {
+        "isAccepting": true,
+        "isInitial": true,
+        "label": "Q0"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q1"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q2"
+      },
+      {
+        "isAccepting": true,
+        "isInitial": false,
+        "label": "Q3"
+      }
+    ],
+    "isAcceptByFinalState": true,
+    "transitions": [
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": true,
+            "isInitial": true,
+            "label": "Q0"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "$"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "1",
+          "topElement": "0"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "1",
+          "topElement": "0"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "/",
+          "topElement": "$"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q3"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "0",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "0"
+        }
+      }
+    ],
+    "initialState": {
+      "isAccepting": true,
+      "isInitial": true,
+      "label": "Q0"
+    }
+  },
+  {
+    "identifier": "Language of even palidromes (same forward and backward)",
+    "states": [
+      {
+        "isAccepting": true,
+        "isInitial": true,
+        "label": "Q0"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q1"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q2"
+      },
+      {
+        "isAccepting": true,
+        "isInitial": false,
+        "label": "Q3"
+      }
+    ],
+    "isAcceptByFinalState": true,
+    "transitions": [
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": true,
+            "isInitial": true,
+            "label": "Q0"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "$"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "0",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "0"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "1",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "1"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "0",
+          "topElement": "0"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "1",
+          "topElement": "1"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "/",
+          "topElement": "$"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q3"
+          },
+          "elementToPush": "/"
+        }
+      }
+    ],
+    "initialState": {
+      "isAccepting": true,
+      "isInitial": true,
+      "label": "Q0"
+    }
+  },
+  {
+    "identifier": "Language {a^i b^j c^k | i,j.k \u003e\u003d 0  and i \u003d j  or i \u003d k}",
+    "states": [
+      {
+        "isAccepting": false,
+        "isInitial": true,
+        "label": "Q0"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q1"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q2"
+      },
+      {
+        "isAccepting": true,
+        "isInitial": false,
+        "label": "Q3"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q4"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q5"
+      },
+      {
+        "isAccepting": true,
+        "isInitial": false,
+        "label": "Q6"
+      }
+    ],
+    "isAcceptByFinalState": true,
+    "transitions": [
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": true,
+            "label": "Q0"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "$"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "a",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "A"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "b",
+          "topElement": "A"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "c",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q3"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q4"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q4"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q5"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q4"
+          },
+          "inputSymbol": "b",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q4"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q5"
+          },
+          "inputSymbol": "c",
+          "topElement": "A"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q5"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q5"
+          },
+          "inputSymbol": "/",
+          "topElement": "$"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q6"
+          },
+          "elementToPush": "/"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q3"
+          },
+          "inputSymbol": "c",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q3"
+          },
+          "elementToPush": "/"
+        }
+      }
+    ],
+    "initialState": {
+      "isAccepting": false,
+      "isInitial": true,
+      "label": "Q0"
+    }
+  },
+  {
+    "identifier": "Language { 0^n 1^2n | n \u003e\u003d 0 }",
+    "states": [
+      {
+        "isAccepting": false,
+        "isInitial": true,
+        "label": "Q0"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q1"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q2"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q3"
+      },
+      {
+        "isAccepting": true,
+        "isInitial": false,
+        "label": "Q4"
+      }
+    ],
+    "isAcceptByFinalState": true,
+    "transitions": [
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": true,
+            "label": "Q0"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "Z"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "0",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "0"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "1",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "0"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q3"
+          },
+          "elementToPush": "0"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q3"
+          },
+          "inputSymbol": "1",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "0"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q3"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q4"
+          },
+          "elementToPush": "Z"
+        }
+      }
+    ],
+    "initialState": {
+      "isAccepting": false,
       "isInitial": true,
       "label": "Q0"
     }

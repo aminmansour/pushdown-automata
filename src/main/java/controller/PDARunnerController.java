@@ -132,6 +132,7 @@ public class PDARunnerController implements Initializable{
                 }
             } else {
                 toBacktrack = true;
+                java.util.Collections.shuffle(transitions);
                 for (Transition transition : transitions) {
                     ConfigurationNode previousState = checkIfPresentInHistory(transition);
                     if (previousState == null) {
@@ -166,7 +167,7 @@ public class PDARunnerController implements Initializable{
         tape.setCurrentConfigurationLabel("( " + model.getCurrentState().getLabel() + " , " + model.getTape().getRemainingInputAsString() + " , " + model.getStack().getStackContentAsString() + " )");
         model.getStack().clear();
         stack.setUpStackContentAFresh();
-        model.createComputationHistoryStore(model.getDefinition().getInitialState(), new ArrayList<>(), 0, model.getPossibleTransitionsFromCurrent().size());
+        model.createComputationHistoryStore(model.getDefinition().getInitialState(), new ArrayList<>(), 0, 0, model.getPossibleTransitionsFromCurrent().size());
     }
 
     private void stepRun() {
@@ -280,7 +281,7 @@ public class PDARunnerController implements Initializable{
         stack.clean();
         updateCurrentStateAndConfigurationField();
         tape.setStackTopLabel("-");
-        model.createComputationHistoryStore(model.getDefinition().getInitialState(), new ArrayList<>(), 0, model.getPossibleTransitionsFromCurrent().size());
+        model.createComputationHistoryStore(model.getDefinition().getInitialState(), new ArrayList<>(), 0, 0, model.getPossibleTransitionsFromCurrent().size());
 
     }
 
@@ -604,20 +605,24 @@ public class PDARunnerController implements Initializable{
 
     private ConfigurationNode checkIfPresentInHistory(Transition transition) {
         ArrayList content = new ArrayList(model.getStack().getStackContent());
+        int headPosition = model.getTape().getHeadPosition();
+        if (transition.getConfiguration().getInputSymbol() != '/') {
+            headPosition++;
+        }
         if (transition.getConfiguration().getTopElement() != '/') {
             content.remove(content.size() - 1);
         }
         if (transition.getAction().getElementToPush() != '/') {
             content.add(transition.getAction().getElementToPush());
         }
-        return model.getHistory().getCurrent().getChildIfFound(transition.getAction().getNewState(), content, model.getTape().getStep() + 1);
+        return model.getHistory().getCurrent().getChildIfFound(transition.getAction().getNewState(), content, headPosition);
     }
 
     private void loadConfigurationState(ConfigurationNode record) {
         model.getHistory().setCurrent(record);
         model.setCurrentState(record.getState());
         machineDisplay.focusState(record.getState());
-        tape.setHeadPosition(record.getHeadPosition());
+        tape.setHeadPositionAndStep(record.getHeadPosition(), record.getStep());
         stack.loadState(record.getStackState());
         updateCurrentStateAndConfigurationField();
         tape.setStackTopLabel(model.getStack().isEmpty() ? "-" : model.getStack().top() + "");

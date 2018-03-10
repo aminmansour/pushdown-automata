@@ -14,6 +14,7 @@ public class InputTape {
         if (!skipSymbol && input.size() > 0 && headIndex < input.size()) {
             char toReturn = input.get(headIndex);
             headIndex++;
+            System.out.println(headIndex + " a");
             step++;
             return toReturn;
         }
@@ -70,7 +71,7 @@ public class InputTape {
     }
 
     public ArrayList<Character> getRemainingInput() {
-        ArrayList<Character> remainingInput = new ArrayList<>(input.size() - headIndex);
+        ArrayList<Character> remainingInput = new ArrayList<>();
         for (int i = headIndex; i < input.size(); i++) {
             remainingInput.add(input.get(i));
         }
@@ -99,5 +100,9 @@ public class InputTape {
             originalWord += symbol;
         }
         return originalWord;
+    }
+
+    public int getHeadPosition() {
+        return headIndex;
     }
 }

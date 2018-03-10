@@ -125,7 +125,7 @@ public class PDAMachine {
 
     private void addConfigurationStateToHistory(Transition transition, int totalChildren) {
         ConfigurationNode child = new ConfigurationNode(transition.getAction().getNewState(),
-                history.getCurrent(), new ArrayList<>(stack.getStackContent()), tape.getStep(), tape.getRemainingInputAsString(), totalChildren);
+                history.getCurrent(), new ArrayList<>(stack.getStackContent()), tape.getHeadPosition(), tape.getStep(), tape.getRemainingInputAsString(), totalChildren);
         history.getCurrent().addChild(child);
         history.setCurrent(child);
         child.markInPath(true);
@@ -160,8 +160,8 @@ public class PDAMachine {
     }
 
 
-    public void createComputationHistoryStore(ControlState controlState, ArrayList<Character> stackState, int headPosition, int totalChildren) {
-        ConfigurationNode root = new ConfigurationNode(controlState, null, stackState, headPosition, tape.getRemainingInputAsString(), totalChildren);
+    public void createComputationHistoryStore(ControlState controlState, ArrayList<Character> stackState, int headPosition, int step, int totalChildren) {
+        ConfigurationNode root = new ConfigurationNode(controlState, null, stackState, headPosition, step, tape.getRemainingInputAsString(), totalChildren);
         root.markInPath(true);
         history = new ComputationalTree(root);
     }
@@ -182,7 +182,12 @@ public class PDAMachine {
     }
 
     private String getConfigurationStringFromPreviousState(ConfigurationNode pointer) {
-        String remainingInputString = tape.getOriginalWord().substring(pointer.getHeadPosition());
+        String originalWord = tape.getOriginalWord();
+
+        String remainingInputString = "";
+        if (pointer.getHeadPosition() < originalWord.length()) {
+            remainingInputString = originalWord.substring(pointer.getHeadPosition());
+        }
         return "( " + pointer.getState().getLabel() + " , " + (remainingInputString.isEmpty() ? " - " : remainingInputString) + " , " + pointer.getStackStateInStringFormat() + " ) ";
     }
 

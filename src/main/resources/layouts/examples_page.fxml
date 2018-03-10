@@ -16,7 +16,8 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 1" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label text="PDA which recognizes the language of proper opening and closing parenthesis words"
+                        <Label minWidth="200" maxWidth="400"
+                               text="A push-down automaton machine which recognizes the language of correctly specified opening and closing parenthesis words. i.e (hello)"
                                textFill="#23aa76" wrapText="true">
                             <padding>
                                 <Insets bottom="20.0"/>
@@ -41,7 +42,8 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 2" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label text="PDA which recognizes the language of words with equal 1's and 0's"
+                        <Label minWidth="200" maxWidth="400"
+                               text="A push-down automaton machine which recognizes the language { 0^n 1^n | n >= 0 }."
                                textFill="#23aa76" wrapText="true">
                             <padding>
                                 <Insets bottom="20.0"/>
@@ -66,7 +68,8 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 3" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label text="PDA which recognizes all palidrones (words that are the same forward and backward)"
+                        <Label minWidth="200" maxWidth="400"
+                               text="A push-down automaton which recognizes the language of even-lengthened palidrones (words that are the same forward and backward)."
                                textFill="#23aa76" wrapText="true">
                             <padding>
                                 <Insets bottom="20.0"/>
@@ -92,7 +95,8 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 4" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label text="PDA which recognizes the language of words where 'b' occurs exactly twice as much as 'a'"
+                        <Label minWidth="200" maxWidth="400"
+                               text="A push-down automaton machine which recognizes the language { 0^n 1^2n | n >= 0 }."
                                textFill="#23aa76" wrapText="true">
                             <padding>
                                 <Insets bottom="20.0"/>
@@ -110,27 +114,28 @@
                     </VBox>
                 </HBox>
 
-
                 <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
-                      visible="false" HBox.hgrow="ALWAYS">
+                      HBox.hgrow="ALWAYS">
                     <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 5" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label text="explore what a PDA is and how it works!" textFill="#23aa76">
+                        <Label minWidth="200" maxWidth="400"
+                               text="A push-down automaton machine which recognizes the language  {a^i b^j c^k | i , j , k >= 0  and i = j  or i = k }."
+                               textFill="#23aa76" wrapText="true">
                             <padding>
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
                         <Label mnemonicParsing="false" styleClass="home-button-icon">
                             <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-book" iconSize="114"/>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
                             </graphic>
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
                         </Label>
-                        <Button styleClass="green-button-theme" text="Enter"/>
+                        <Button styleClass="green-button-theme" fx:id="bExample5" text="Enter"/>
                     </VBox>
                 </HBox>
 
@@ -141,7 +146,9 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 6" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label text="find out how to create your own PDA machines!" textFill="#23aa76">
+                        <Label minWidth="200" maxWidth="400" wrapText="true"
+                               text="find out how to  create your own create your own create your own create your  own create your own PDA machines!"
+                               textFill="#23aa76">
                             <padding>
                                 <Insets bottom="20.0"/>
                             </padding>

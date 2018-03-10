@@ -26,6 +26,8 @@ public class ExamplesController implements Initializable {
     private Button bExample3;
     @FXML
     private Button bExample4;
+    @FXML
+    private Button bExample5;
 
 
     @Override
@@ -48,7 +50,6 @@ public class ExamplesController implements Initializable {
     public void load(Definition defToLoad) {
         PDAMachine model = new PDAMachine(defToLoad);
         ControllerFactory.pdaRunnerController.setModel(model);
-        model.markAsSavedInMemory();
 
         ViewFactory.globalPane.setCenter(ViewFactory.pdaRunner);
         ControllerFactory.pdaRunnerController.stop();
@@ -59,8 +60,9 @@ public class ExamplesController implements Initializable {
     public void alert() {
         ArrayList<Definition> definitions = Memory.loadExamples();
         bExample1.setOnAction(event -> load(definitions.get(0)));
-        bExample2.setOnAction(event -> load(definitions.get(1)));
-        bExample3.setOnAction(event -> load(definitions.get(1)));
-        bExample4.setOnAction(event -> load(definitions.get(1)));
+        bExample2.setOnAction(event -> load(definitions.get(3)));
+        bExample3.setOnAction(event -> load(definitions.get(4)));
+        bExample4.setOnAction(event -> load(definitions.get(6)));
+        bExample5.setOnAction(event -> load(definitions.get(5)));
     }
 }

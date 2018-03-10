@@ -114,22 +114,17 @@ public class TapeDisplayController {
         lStep.setText("Step "+step);
     }
 
-    public boolean hasInputLoaded() {
-        return tape.getSize() > 0;
-    }
-
-
     public void setTapeInput(String input) {
         ArrayList<Character> inputSymbols = new ArrayList<>(input.length());
         for (char c : input.toCharArray()) { inputSymbols.add(c); }
         tape.clear();
         tape.setInput(inputSymbols);
-        setHeadPosition(0);
+        setHeadPositionAndStep(0, 0);
     }
 
-    public void setHeadPosition(int position) {
+    public void setHeadPositionAndStep(int position, int step) {
         tape.setHeadIndex(position);
-        setStep(position);
+        setStep(step);
         setTapeCells(tape.getRemainingInput());
         setHeadSymbolLabel(tape.getSymbolAtHead()+"");
     }
