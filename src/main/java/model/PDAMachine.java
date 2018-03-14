@@ -48,9 +48,10 @@ public class PDAMachine {
                         if (currentInput == inputToCompare && currentStackSymbol == stackSymbolToCompare) {
                             deterministicTransitions.add(transition);
                             deterministicTransitions.add(transitionToCompare);
-                        }
-
-                        if (currentInput == null && currentStackSymbol == stackSymbolToCompare) {
+                        } else if (currentInput == '/' && currentStackSymbol == stackSymbolToCompare) {
+                            deterministicTransitions.add(transition);
+                            deterministicTransitions.add(transitionToCompare);
+                        } else if (currentInput == '/' && currentStackSymbol == '/') {
                             deterministicTransitions.add(transition);
                             deterministicTransitions.add(transitionToCompare);
                         }

@@ -17,7 +17,7 @@
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 1" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
                         <Label minWidth="200" maxWidth="400"
-                               text="A push-down automaton machine which recognizes the language of correctly specified opening and closing parenthesis words. i.e (hello)"
+                               text="A push-down automaton machine which recognizes the language of correctly specified opening and closing parenthesis words. i.e (())"
                                textFill="#23aa76" wrapText="true">
                             <padding>
                                 <Insets bottom="20.0"/>

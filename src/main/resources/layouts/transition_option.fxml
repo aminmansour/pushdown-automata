@@ -22,7 +22,7 @@
                 </Label>
 
                 <Label fx:id="lVisited" visible="false" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="3"
-                       maxWidth="Infinity" text="Explored" HBox.hgrow="ALWAYS">
+                       maxWidth="Infinity" text="Visited" HBox.hgrow="ALWAYS">
                     <graphic>
                         <FontIcon iconColor="#12a14f" iconLiteral="fa-check" iconSize="15" translateX="3.0"
                                   translateY="-2.0"/>

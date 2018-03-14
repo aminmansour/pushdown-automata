@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -28,10 +27,7 @@ public class LibraryController implements Initializable {
     private ListView lvLibrary;
     @FXML
     private HBox hbItemAction;
-    @FXML
-    private Button bDelete;
-    @FXML
-    private Button bLoad;
+
     private ObservableList<Object> items;
 
 

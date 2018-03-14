@@ -98,13 +98,13 @@ public class VisualTransition {
 
                 if (labelCoordinate.getValue() <= labelY && labelY <= labelCoordinate.getValue()) {
                     if (labelCoordinate.getKey() < labelX + 50 && labelCoordinate.getKey() + 50 > labelY) {
-                        if (visualTransition.sourceState.getLabel().equals(sourceState.getLabel()) || visualTransition.sourceState.equals(resultingState.getLabel())) {
+                        if (visualTransition.sourceState.getLabel().equals(resultingState.getLabel()) && visualTransition.resultingState.getLabel().equals(sourceState.getLabel())) {
                             if (labelCoordinate.getKey() <= labelX) {
-                                visualTransition.transitionLabel.setText(visualTransition.transitionLabel.getText() + "   (<)");
-                                transitionLabel.setText(transitionLabel.getText() + "   (>)");
-                            } else {
                                 visualTransition.transitionLabel.setText(visualTransition.transitionLabel.getText() + "   (>)");
-                                transitionLabel.setText(transitionLabel.getText() + "    (<)");
+                                transitionLabel.setText(transitionLabel.getText() + "   (<)");
+                            } else {
+                                visualTransition.transitionLabel.setText(visualTransition.transitionLabel.getText() + "   (<)");
+                                transitionLabel.setText(transitionLabel.getText() + "    (>)");
                             }
                         }
 

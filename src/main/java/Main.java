@@ -1,9 +1,11 @@
 import controller.ControllerFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import view.ViewFactory;
 
@@ -15,9 +17,21 @@ public class Main extends Application {
         primaryStage.setTitle("PushDownAutomata");
         primaryStage.setScene(new Scene(root, 1400, 900));
         primaryStage.show();
+        primaryStage.setMaximized(true);
+        makeStageMaximized(primaryStage);
         setGlobalVariables(primaryStage);
         root.setCenter(ViewFactory.homePage);
 
+    }
+
+    private void makeStageMaximized(Stage primaryStage) {
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        primaryStage.setX(bounds.getMinX());
+        primaryStage.setY(bounds.getMinY());
+        primaryStage.setWidth(bounds.getWidth());
+        primaryStage.setHeight(bounds.getHeight());
     }
 
     private void setGlobalVariables(Stage primaryStage) throws java.io.IOException {

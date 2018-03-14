@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class PDARunnerController implements Initializable{
+public class PDARunnerController implements Initializable {
 
     //containers
     @FXML
@@ -52,8 +52,6 @@ public class PDARunnerController implements Initializable{
     private VBox currentOutputWindow;
     private boolean inDeterministicMode;
     private boolean machineIsNonDeterministic;
-
-
 
 
     public PDARunnerController() {
@@ -88,28 +86,46 @@ public class PDARunnerController implements Initializable{
     }
 
     private void instantRun() {
-        if (!inputBox.getInput().isEmpty()) {
-            solutionBuffer = new ArrayList<>();
-            solutionPointer = 0;
-            moreSolutionsToBeFound = true;
-
+//        if (!inputBox.getInput().isEmpty()) {
             closeDeterministicModeIfPresent();
-            loadPDAWithInput();
+        actionBar.setDisable(false);
+        setUpInstantRunEnvironment();
             runInstantRunDFS(false);
             transitionTable.clearSelection(false);
-        }
+//        }
 
     }
 
+    private void setUpInstantRunEnvironment() {
+        solutionBuffer = new ArrayList<>();
+        solutionPointer = 0;
+        moreSolutionsToBeFound = true;
+        model.setCurrentState(null);
+        model.getTape().clear();
+        model.getStack().clear();
+        model.setCurrentState(model.getDefinition().getInitialState());
+        machineIsNonDeterministic = model.isNonDeterministic();
+        model.getTape().setHeadIndex(-1);
+        model.getTape().setStep(0);
+        ArrayList<Character> inputSymbols = new ArrayList<>(inputBox.getInput().length());
+        for (char c : inputBox.getInput().toCharArray()) {
+            inputSymbols.add(c);
+        }
+        model.getTape().setInput(inputSymbols);
+        model.setCurrentState(model.getDefinition().getInitialState());
+        model.createComputationHistoryStore(model.getDefinition().getInitialState(), new ArrayList<>(), 0, 0, model.getPossibleTransitionsFromCurrent().size());
+    }
 
     private boolean runInstantRunDFS(boolean isAlternativeSearch) {
+        ArrayList<MemoryPlaceHolder> memory = new ArrayList<>();
         if (isAlternativeSearch) {
-            previous();
+            prevAlt();
         }
         int loops = 0;
         boolean stuck = false;
         boolean toBacktrack = false;
         while (true) {
+
             ArrayList<Transition> transitions = model.getPossibleTransitionsFromCurrent();
             if (model.hasAccepted()) {
                 openInstantRunResultsOutputDialog(true, false);
@@ -119,8 +135,9 @@ public class PDARunnerController implements Initializable{
                     loops = 0;
                     stuck = false;
                 }
+                toBacktrack = false;
                 while (true) {
-                    previous();
+                    prevAlt();
                     ArrayList<ConfigurationNode> exploredChildren = model.getHistory().getCurrent().getExploredChildren();
                     if (exploredChildren.size() > 0 &&
                             exploredChildren.get(0).getTotalSiblings() > exploredChildren.size()) {
@@ -133,12 +150,69 @@ public class PDARunnerController implements Initializable{
             } else {
                 toBacktrack = true;
                 java.util.Collections.shuffle(transitions);
+                transitionsLoop:
                 for (Transition transition : transitions) {
                     ConfigurationNode previousState = checkIfPresentInHistory(transition);
                     if (previousState == null) {
                         ArrayList<Character> stackContentBefore = new ArrayList(model.getStack().getStackContent());
                         String remaingInputBefore = model.getTape().getRemainingInputAsString();
-                        executeTransition(transition, transitions.size(), false);
+                        if (previousState != null) {
+                            previousState.markInPath(true);
+                            model.setCurrentState(previousState.getState());
+                            model.getTape().setStep(previousState.getStep());
+                            model.getTape().setHeadIndex(previousState.getHeadPosition());
+                            model.getStack().loadState(previousState.getStackState());
+                            stuck = true;
+                        } else {
+//                            ArrayList<Character> stack = new ArrayList<Character>(model.getStack().getStackContent());
+//                            ArrayList<Character> tapeContent = new ArrayList<>(model.getTape().getRemainingInput());
+                            model.executeTransition(transition, transitions.size());
+//                            boolean skipSymbol = transition.getConfiguration().getInputSymbol() == '/';
+//                            int headPosition = model.getTape().getHeadPosition();
+//                            if (!skipSymbol) {
+//                                tapeContent.remove(0);
+//                                headPosition++;
+//                            }
+//
+//                            Character topElement = transition.getConfiguration().getTopElement();
+//                            if (topElement != '/') {
+//                                stack.remove(stack.size()-1);
+//                            }
+//                            Character elementToPush = transition.getAction().getElementToPush();
+//                            if (elementToPush != '/') {
+//                                stack.add(elementToPush);
+//                            }
+//                            ControlState currentState = transition.getAction().getNewState();
+                            MemoryPlaceHolder e = new MemoryPlaceHolder(model.getStack().getStackContent(), model.getCurrentState(), model.getTape().getRemainingInput(), model.getTape().getStep(), model.getTape().getHeadPosition(), model.getHistory().getCurrent());
+                            boolean toAddToMemory = true;
+                            for (int i = 0; i < memory.size(); i++) {
+                                MemoryPlaceHolder m = memory.get(i);
+                                if (e.isSameAs(memory.get(i))) {
+                                    if (m.numberOfVisits == 2) {
+                                        m.numberOfVisits = 1;
+                                        if (m.current.getParent() != null) {
+                                            ConfigurationNode prev = m.current.getParent();
+                                            prev.markInPath(true);
+                                            model.setCurrentState(prev.getState());
+                                            model.getTape().setStep(prev.getStep());
+                                            model.getTape().setHeadIndex(prev.getHeadPosition());
+                                            model.getStack().loadState(prev.getStackState());
+                                        } else {
+                                            openInstantRunResultsOutputDialog(false, false);
+
+                                        }
+
+                                        break transitionsLoop;
+                                    }
+                                    m.increment();
+                                    toAddToMemory = false;
+                                    break;
+                                }
+                            }
+                            if (toAddToMemory) {
+                                memory.add(e);
+                            }
+                        }
                         toBacktrack = false;
                         if (model.getHistory().getCurrent().hasLooped(transition.getConfiguration().getState(), stackContentBefore, remaingInputBefore)) {
                             loops++;
@@ -158,6 +232,41 @@ public class PDARunnerController implements Initializable{
         }
     }
 
+    private void prevAlt() {
+        if (model.getTape().getStep() > 0) {
+
+            model.getHistory().getCurrent().markInPath(false);
+
+            ConfigurationNode current = model.getHistory().getCurrent().getParent();
+
+            model.getHistory().setCurrent(current);
+
+            model.setCurrentState(current.getState());
+
+            model.getTape().setStep(current.getStep());
+
+            model.getTape().setHeadIndex(current.getHeadPosition());
+
+            model.getStack().loadState(current.getStackState());
+
+
+        }
+    }
+
+    private void stepRun() {
+//        if (!inputBox.getInput().isEmpty()) {
+        solutionBuffer = new ArrayList<>();
+        solutionPointer = 0;
+        moreSolutionsToBeFound = true;
+
+        closeDeterministicModeIfPresent();
+        machineDisplay.clearTransitionFocus();
+        transitionTable.clearSelection(false);
+        loadPDAWithInput();
+        actionBar.setDisable(false);
+//        }
+    }
+
     private void loadPDAWithInput() {
         stop();
         model.setCurrentState(model.getDefinition().getInitialState());
@@ -170,17 +279,78 @@ public class PDARunnerController implements Initializable{
         model.createComputationHistoryStore(model.getDefinition().getInitialState(), new ArrayList<>(), 0, 0, model.getPossibleTransitionsFromCurrent().size());
     }
 
-    private void stepRun() {
-        if (!inputBox.getInput().isEmpty()) {
-            solutionBuffer = new ArrayList<>();
-            solutionPointer = 0;
-            moreSolutionsToBeFound = true;
+    public void openTransitionOptionDialog(List<Transition> transitions) {
+        try {
+            removeUserInteractionWithPDA(true);
+            currentChoiceWindow = FXMLLoader.load(getClass().getResource("../layouts/transition_selecter_page.fxml"));
+            ScrollPane sp = new ScrollPane();
+            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            sp.setFitToWidth(true);
+            BorderPane.setAlignment(sp, Pos.CENTER);
+            VBox vbOptions = new VBox(5);
+            vbOptions.setPadding(new Insets(5, 5, 5, 5));
+            vbOptions.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+            vbOptions.setId("vbOptionContainer");
+            sp.setContent(vbOptions);
+            ArrayList<ConfigurationNode> exploredChildren = model.getHistory().getCurrent().getExploredChildren();
+            if (exploredChildren.size() > 0 && exploredChildren.size() == exploredChildren.get(0).getTotalSiblings()) {
+                Button bPreviousBranch = (Button) currentChoiceWindow.lookup("#bPreviousBranch");
+                bPreviousBranch.setManaged(true);
+                bPreviousBranch.setOnAction(event -> {
+                    closeOptionDialogIfPresent();
+                    previousBranching();
+                    if (currentChoiceWindow == null && model.getTape().getStep() == 0) {
+                        removeUserInteractionWithPDA(true);
+                        Timeline timeline = new Timeline(new KeyFrame(
+                                Duration.millis(1300),
+                                ae -> openStepRunNonDeterministicOutputDialog()));
 
-            closeDeterministicModeIfPresent();
-            machineDisplay.clearTransitionFocus();
-            transitionTable.clearSelection(false);
-            loadPDAWithInput();
-            actionBar.setDisable(false);
+                        timeline.play();
+                    }
+                });
+            }
+            for (int i = 0; i < transitions.size(); i++) {
+                BorderPane option = FXMLLoader.load(getClass().getResource("../layouts/transition_option.fxml"));
+                ((Label) option.lookup("#lTransitionOption")).setText(Integer.toString(i + 1));
+                ((Label) option.lookup("#lCurrentState")).setText("Current State : " + transitions.get(i).getConfiguration().getState().getLabel());
+                ((Label) option.lookup("#lRead")).setText("Read : " + transitions.get(i).getConfiguration().getInputSymbol());
+                ((Label) option.lookup("#lPush")).setText("Push : " + transitions.get(i).getAction().getElementToPush());
+                ((Label) option.lookup("#lPop")).setText("Pop : " + transitions.get(i).getConfiguration().getTopElement());
+                ((Label) option.lookup("#lResultingState")).setText("Resulting State : " + transitions.get(i).getAction().getNewState().getLabel());
+                vbOptions.getChildren().add(option);
+                int finalI = i;
+                if (checkIfPresentInHistory(transitions.get(i)) != null) {
+                    option.lookup("#lVisited").setVisible(true);
+                }
+                option.setOnMouseClicked(event -> {
+                    closeOptionDialogIfPresent();
+                    actionBar.setDisable(true);
+                    Timeline timeline = new Timeline(new KeyFrame(
+                            Duration.millis(100),
+                            ae -> {
+                                actionBar.setDisable(false);
+                                executeTransition(transitions.get(finalI), transitions.size(), true);
+                                if (tape.isLastStep() && (model.hasAccepted() || model.getPossibleTransitionsFromCurrent().isEmpty())) {
+                                    actionBar.restrictToOnlyPlay();
+
+                                }
+                            }));
+
+                    timeline.play();
+
+                });
+            }
+            ((Button) currentChoiceWindow.lookup("#bRandomSelect")).setOnAction(event -> {
+                Random randomGenerator = new Random();
+                executeTransition(transitions.get(randomGenerator.nextInt(transitions.size())), transitions.size(), true);
+                closeOptionDialogIfPresent();
+            });
+            ((Button) currentChoiceWindow.lookup("#bTerminate")).setOnAction(event -> stop());
+            currentChoiceWindow.setCenter(sp);
+            spPDARunnerPage.getChildren().add(currentChoiceWindow);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -338,76 +508,50 @@ public class PDARunnerController implements Initializable{
         machineDisplay.orderStatesInScreen();
     }
 
-
-    public void openTransitionOptionDialog(List<Transition> transitions) {
+    public void openStepRunNonDeterministicOutputDialog() {
         try {
             removeUserInteractionWithPDA(true);
-            currentChoiceWindow = FXMLLoader.load(getClass().getResource("../layouts/transition_selecter_page.fxml"));
-            ScrollPane sp = new ScrollPane();
-            sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-            sp.setFitToWidth(true);
-            BorderPane.setAlignment(sp, Pos.CENTER);
-            VBox vbOptions = new VBox(5);
-            vbOptions.setPadding(new Insets(5, 5, 5, 5));
-            vbOptions.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-            vbOptions.setId("vbOptionContainer");
-            sp.setContent(vbOptions);
-            ArrayList<ConfigurationNode> exploredChildren = model.getHistory().getCurrent().getExploredChildren();
-            if (exploredChildren.size() > 0 && exploredChildren.size() == exploredChildren.get(0).getTotalSiblings()) {
-                Button bPreviousBranch = (Button) currentChoiceWindow.lookup("#bPreviousBranch");
-                bPreviousBranch.setManaged(true);
-                bPreviousBranch.setOnAction(event -> {
-                    closeOptionDialogIfPresent();
-                    previousBranching();
-                    if (currentChoiceWindow == null) {
-                        removeUserInteractionWithPDA(true);
-                        Timeline timeline = new Timeline(new KeyFrame(
-                                Duration.millis(1300),
-                                ae -> openStepRunNonDeterministicOutputDialog()));
+            transitionTable.clearSelection(false);
+            currentOutputWindow = FXMLLoader.load(getClass().getResource("../layouts/output_page.fxml"));
+            ((Label) currentOutputWindow.lookup("#lOutput")).setText("Output  : word \"" + model.getTape().getOriginalWord() + "\" is " + (solutionBuffer.size() > 0 ? " accepted!" : " rejected!"));
+            String sequence = "No solutions found from the paths that have been searched";
+            ((Label) currentOutputWindow.lookup("#lConfigurationSequence")).setText(sequence);
 
-                        timeline.play();
-                    }
-                });
-            }
-            for (int i = 0; i < transitions.size(); i++) {
-                BorderPane option = FXMLLoader.load(getClass().getResource("../layouts/transition_option.fxml"));
-                ((Label) option.lookup("#lTransitionOption")).setText(Integer.toString(i + 1));
-                ((Label) option.lookup("#lCurrentState")).setText("Current State : " + transitions.get(i).getConfiguration().getState().getLabel());
-                ((Label) option.lookup("#lRead")).setText("Read : " + transitions.get(i).getConfiguration().getInputSymbol());
-                ((Label) option.lookup("#lPush")).setText("Push : " + transitions.get(i).getAction().getElementToPush());
-                ((Label) option.lookup("#lPop")).setText("Pop : " + transitions.get(i).getConfiguration().getTopElement());
-                ((Label) option.lookup("#lResultingState")).setText("Resulting State : " + transitions.get(i).getAction().getNewState().getLabel());
-                vbOptions.getChildren().add(option);
-                int finalI = i;
-                if (checkIfPresentInHistory(transitions.get(i)) != null) {
-                    option.lookup("#lVisited").setVisible(true);
-                }
-                option.setOnMouseClicked(event -> {
-                    closeOptionDialogIfPresent();
-                    actionBar.setDisable(true);
-                    Timeline timeline = new Timeline(new KeyFrame(
-                            Duration.millis(100),
-                            ae -> {
-                                actionBar.setDisable(false);
-                                executeTransition(transitions.get(finalI), transitions.size(), true);
-                                if (tape.isLastStep() && (model.hasAccepted() || model.getPossibleTransitionsFromCurrent().isEmpty())) {
-                                    actionBar.restrictToOnlyPlay();
-
-                                }
-                            }));
-
-                    timeline.play();
-
-                });
-            }
-            ((Button) currentChoiceWindow.lookup("#bRandomSelect")).setOnAction(event -> {
-                Random randomGenerator = new Random();
-                executeTransition(transitions.get(randomGenerator.nextInt(transitions.size())), transitions.size(), true);
-                closeOptionDialogIfPresent();
+            ((Button) currentOutputWindow.lookup("#bAnotherInput")).setOnAction(event -> {
+                closeOutputDialogIfPresent();
+                stop();
+                inputBox.clearAndFocus();
             });
-            ((Button) currentChoiceWindow.lookup("#bTerminate")).setOnAction(event -> stop());
-            currentChoiceWindow.setCenter(sp);
-            spPDARunnerPage.getChildren().add(currentChoiceWindow);
+
+            currentOutputWindow.lookup("#bPreviousBranch").setManaged(false);
+            currentOutputWindow.lookup("#bContinue").setManaged(false);
+
+            if (solutionBuffer.size() > 0) {
+                solutionBuffer.add(sequence);
+                solutionPointer = solutionBuffer.size() - 1;
+                Button bPreviousSolution = (Button) currentOutputWindow.lookup("#bPreviousSolution");
+                Button bNextSolution = (Button) currentOutputWindow.lookup("#bNextSolution");
+                bNextSolution.setManaged(true);
+                bPreviousSolution.setManaged(true);
+                bNextSolution.setDisable(!(solutionBuffer.size() > 1 && solutionPointer < solutionBuffer.size() - 1));
+                bPreviousSolution.setDisable(!(solutionBuffer.size() > 1 && solutionPointer > 0));
+                bPreviousSolution.setOnAction(event -> {
+                    String solutionToOutput = solutionBuffer.get(--solutionPointer);
+                    ((Label) currentOutputWindow.lookup("#lConfigurationSequence")).setText(solutionToOutput);
+                    bNextSolution.setDisable(false);
+                    bPreviousSolution.setDisable(solutionPointer == 0);
+                });
+
+
+                bNextSolution.setOnAction(event -> {
+                    String solutionToOutput = solutionBuffer.get(++solutionPointer);
+                    ((Label) currentOutputWindow.lookup("#lConfigurationSequence")).setText(solutionToOutput);
+                    bPreviousSolution.setDisable(false);
+                    bNextSolution.setDisable(solutionPointer - 1 < solutionBuffer.size() - 1);
+                });
+            }
+
+            spPDARunnerPage.getChildren().add(currentOutputWindow);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -471,51 +615,68 @@ public class PDARunnerController implements Initializable{
         }
     }
 
-
-    public void openStepRunNonDeterministicOutputDialog() {
+    public void openNewTransitionDialog() {
         try {
-            removeUserInteractionWithPDA(true);
-            transitionTable.clearSelection(false);
-            currentOutputWindow = FXMLLoader.load(getClass().getResource("../layouts/output_page.fxml"));
-            ((Label) currentOutputWindow.lookup("#lOutput")).setText("Output  : word \"" + model.getTape().getOriginalWord() + "\" is " + (solutionBuffer.size() > 0 ? " accepted!" : " rejected!"));
-            String sequence = "All possible paths have been searched";
-            ((Label) currentOutputWindow.lookup("#lConfigurationSequence")).setText(sequence);
+            stop();
+            ControllerFactory.toolBarPartialController.disableToolbarButtons(true);
+            VBox currentAddTransitionDialog = FXMLLoader.load(getClass().getResource("../layouts/add_transition_page.fxml"));
+            Button bAddTransition = (Button) currentAddTransitionDialog.lookup("#bAddTransition");
+            Button bCancel = (Button) currentAddTransitionDialog.lookup("#bCancel");
+            ComboBox<String> cbStates = (ComboBox<String>) currentAddTransitionDialog.lookup("#cbStates");
+            TextField tfInputElement = (TextField) currentAddTransitionDialog.lookup("#tfInputElement");
+            TextField tfElementToPop = (TextField) currentAddTransitionDialog.lookup("#tfElementToPop");
+            ComboBox<String> cbResultingStates = (ComboBox<String>) currentAddTransitionDialog.lookup("#cbResultingStates");
+            TextField tfElementToPush = (TextField) currentAddTransitionDialog.lookup("#tfElementToPush");
+            ObservableList<String> controlStatesInStringFormat = getControlStatesInStringFormat();
+            cbStates.setItems(controlStatesInStringFormat);
+            cbResultingStates.setItems(controlStatesInStringFormat);
+            ViewFactory.restrictTextFieldInput(tfInputElement, ".");
+            ViewFactory.restrictTextFieldInput(tfElementToPop, ".");
+            ViewFactory.restrictTextFieldInput(tfElementToPush, ".");
+            bAddTransition.setOnAction(event -> {
+                if (cbStates.getSelectionModel().isEmpty()) {
+                    ViewFactory.showErrorDialog("No initial control state is chosen!", spPDARunnerPage);
+                    return;
+                }
 
-            ((Button) currentOutputWindow.lookup("#bAnotherInput")).setOnAction(event -> {
-                closeOutputDialogIfPresent();
-                stop();
-                inputBox.clearAndFocus();
+                if (cbResultingStates.getSelectionModel().isEmpty()) {
+                    ViewFactory.showErrorDialog("No Resulting control state is chosen!", spPDARunnerPage);
+                    return;
+                }
+
+                String initialState = cbStates.getSelectionModel().getSelectedItem();
+                String inputElement = tfInputElement.getText().trim().isEmpty() ? "/" : tfInputElement.getText();
+                String elementToPop = tfElementToPop.getText().trim().isEmpty() ? "/" : tfElementToPop.getText();
+                String resultingState = cbResultingStates.getSelectionModel().getSelectedItem();
+                String elementToPush = tfElementToPush.getText().trim().isEmpty() ? "/" : tfElementToPush.getText();
+                TransitionEntry transitionEntry = new TransitionEntry(initialState, inputElement, elementToPop, resultingState, elementToPush);
+                if (transitionTable.getEntries().contains(transitionEntry)) {
+                    ViewFactory.showErrorDialog("No duplicate transitions allowed!", spPDARunnerPage);
+                } else {
+                    Configuration configuration = new Configuration(ModelFactory.checkForStateOccurrence(model.getDefinition().getStates(), initialState), inputElement.charAt(0), elementToPop.charAt(0));
+                    Action action = new Action(ModelFactory.checkForStateOccurrence(model.getDefinition().getStates(), resultingState), elementToPush.charAt(0));
+                    Transition newTransition = new Transition(configuration, action);
+                    transitionEntry.setTransition(newTransition);
+                    model.addTransition(newTransition);
+                    machineDisplay.addVisualTransition(newTransition, true);
+                    transitionTable.addRow(transitionEntry);
+                    spPDARunnerPage.getChildren().remove(currentAddTransitionDialog);
+                    actionBar.setDisable(model.getCurrentState() == null);
+                    ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
+
+                }
+
             });
 
-            currentOutputWindow.lookup("#bPreviousBranch").setManaged(false);
-            currentOutputWindow.lookup("#bContinue").setManaged(false);
+            bCancel.setOnAction(event -> {
+                spPDARunnerPage.getChildren().remove(currentAddTransitionDialog);
+                ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
+                actionBar.setDisable(model.getCurrentState() == null);
 
-            if (solutionBuffer.size() > 0) {
-                solutionBuffer.add(sequence);
-                solutionPointer = solutionBuffer.size() - 1;
-                Button bPreviousSolution = (Button) currentOutputWindow.lookup("#bPreviousSolution");
-                Button bNextSolution = (Button) currentOutputWindow.lookup("#bNextSolution");
-                bNextSolution.setManaged(true);
-                bPreviousSolution.setManaged(true);
-                bNextSolution.setDisable(!(solutionBuffer.size() > 1 && solutionPointer < solutionBuffer.size() - 1));
-                bPreviousSolution.setDisable(!(solutionBuffer.size() > 1 && solutionPointer > 0));
-                bPreviousSolution.setOnAction(event -> {
-                    String solutionToOutput = solutionBuffer.get(--solutionPointer);
-                    ((Label) currentOutputWindow.lookup("#lConfigurationSequence")).setText(solutionToOutput);
-                    bNextSolution.setDisable(false);
-                    bPreviousSolution.setDisable(solutionPointer == 0);
-                });
+            });
 
 
-                bNextSolution.setOnAction(event -> {
-                    String solutionToOutput = solutionBuffer.get(++solutionPointer);
-                    ((Label) currentOutputWindow.lookup("#lConfigurationSequence")).setText(solutionToOutput);
-                    bPreviousSolution.setDisable(false);
-                    bNextSolution.setDisable(solutionPointer - 1 < solutionBuffer.size() - 1);
-                });
-            }
-
-            spPDARunnerPage.getChildren().add(currentOutputWindow);
+            spPDARunnerPage.getChildren().add(currentAddTransitionDialog);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -741,68 +902,47 @@ public class PDARunnerController implements Initializable{
         model.moveTransitionToNewSource(oldSourceState, newSourceState, transition);
     }
 
-    public void openNewTransitionDialog() {
-        try {
-            stop();
-            ControllerFactory.toolBarPartialController.disableToolbarButtons(true);
+    class MemoryPlaceHolder {
+        int step;
+        int tapeHead;
+        private ArrayList<Character> stackContent;
+        private ControlState controlState;
+        private ArrayList<Character> inputState;
+        private ConfigurationNode current;
+        private int numberOfVisits;
 
-            VBox currentAddTransitionDialog = FXMLLoader.load(getClass().getResource("../layouts/add_transition_page.fxml"));
-            Button bAddTransition = (Button) currentAddTransitionDialog.lookup("#bAddTransition");
-            Button bCancel = (Button) currentAddTransitionDialog.lookup("#bCancel");
-            ComboBox<String> cbStates = (ComboBox<String>) currentAddTransitionDialog.lookup("#cbStates");
-            TextField tfInputElement = (TextField) currentAddTransitionDialog.lookup("#tfInputElement");
-            TextField tfElementToPop = (TextField) currentAddTransitionDialog.lookup("#tfElementToPop");
-            ComboBox<String> cbResultingStates = (ComboBox<String>) currentAddTransitionDialog.lookup("#cbResultingStates");
-            TextField tfElementToPush = (TextField) currentAddTransitionDialog.lookup("#tfElementToPush");
-            ObservableList<String> controlStatesInStringFormat = getControlStatesInStringFormat();
-            cbStates.setItems(controlStatesInStringFormat);
-            cbResultingStates.setItems(controlStatesInStringFormat);
-            ViewFactory.restrictTextFieldInput(tfInputElement, ".");
-            ViewFactory.restrictTextFieldInput(tfElementToPop, ".");
-            ViewFactory.restrictTextFieldInput(tfElementToPush, ".");
-            bAddTransition.setOnAction(event -> {
-                if (cbStates.getSelectionModel().isEmpty()) {
-                    ViewFactory.showErrorDialog("No initial control state is chosen!", spPDARunnerPage);
-                    return;
+        public MemoryPlaceHolder(ArrayList<Character> stackContent, ControlState controlState, ArrayList<Character> inputState, int step, int tapeHead, ConfigurationNode current) {
+            this.stackContent = stackContent;
+            this.controlState = controlState;
+            this.inputState = inputState;
+            this.current = current;
+            numberOfVisits = 1;
+        }
+
+        public int increment() {
+            return numberOfVisits++;
+        }
+
+        public boolean isSameAs(MemoryPlaceHolder m) {
+            if (stackContent.size() != m.stackContent.size()) {
+                return false;
+            }
+            for (int i = 0; i < stackContent.size(); i++) {
+                if (stackContent.get(i) != m.stackContent.get(i)) {
+                    return false;
                 }
+            }
 
-                if (cbResultingStates.getSelectionModel().isEmpty()) {
-                    ViewFactory.showErrorDialog("No Resulting control state is chosen!", spPDARunnerPage);
-                    return;
+            if (inputState.size() != m.inputState.size()) {
+                return false;
+            }
+            for (int i = 0; i < inputState.size(); i++) {
+                if (inputState.get(i) != m.inputState.get(i)) {
+                    return false;
                 }
+            }
 
-                String initialState = cbStates.getSelectionModel().getSelectedItem();
-                String inputElement = tfInputElement.getText().trim().isEmpty() ? "/" : tfInputElement.getText();
-                String elementToPop = tfElementToPop.getText().trim().isEmpty() ? "/" : tfElementToPop.getText();
-                String resultingState = cbResultingStates.getSelectionModel().getSelectedItem();
-                String elementToPush = tfElementToPush.getText().trim().isEmpty() ? "/" : tfElementToPush.getText();
-                TransitionEntry transitionEntry = new TransitionEntry(initialState, inputElement, elementToPop, resultingState, elementToPush);
-                if (transitionTable.getEntries().contains(transitionEntry)) {
-                    ViewFactory.showErrorDialog("No duplicate transitions allowed!", spPDARunnerPage);
-                } else {
-                    Configuration configuration = new Configuration(ModelFactory.checkForStateOccurrence(model.getDefinition().getStates(), initialState), inputElement.charAt(0), elementToPop.charAt(0));
-                    Action action = new Action(ModelFactory.checkForStateOccurrence(model.getDefinition().getStates(), resultingState), elementToPush.charAt(0));
-                    Transition newTransition = new Transition(configuration, action);
-                    transitionEntry.setTransition(newTransition);
-                    model.addTransition(newTransition);
-                    machineDisplay.addVisualTransition(newTransition, true);
-                    transitionTable.addRow(transitionEntry);
-                    spPDARunnerPage.getChildren().remove(currentAddTransitionDialog);
-
-                }
-
-            });
-
-            bCancel.setOnAction(event -> {
-                spPDARunnerPage.getChildren().remove(currentAddTransitionDialog);
-                ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
-            });
-
-
-            spPDARunnerPage.getChildren().add(currentAddTransitionDialog);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            return controlState == m.controlState;
         }
     }
 

@@ -59,10 +59,10 @@ public class ExamplesController implements Initializable {
 
     public void alert() {
         ArrayList<Definition> definitions = Memory.loadExamples();
-        bExample1.setOnAction(event -> load(definitions.get(0)));
-        bExample2.setOnAction(event -> load(definitions.get(3)));
-        bExample3.setOnAction(event -> load(definitions.get(4)));
-        bExample4.setOnAction(event -> load(definitions.get(6)));
-        bExample5.setOnAction(event -> load(definitions.get(5)));
+        bExample1.setOnAction(event -> load(definitions.get(4)));
+        bExample2.setOnAction(event -> load(definitions.get(0)));
+        bExample3.setOnAction(event -> load(definitions.get(1)));
+        bExample4.setOnAction(event -> load(definitions.get(3)));
+        bExample5.setOnAction(event -> load(definitions.get(2)));
     }
 }
