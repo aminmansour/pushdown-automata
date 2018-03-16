@@ -9,6 +9,7 @@
     -fx-border-width: 0px 0px 1px 0px;
 }
 
+
 #pdaTitle {
     -fx-text-fill: white;
 }
@@ -314,7 +315,7 @@
 
 }
 
-#transitionBox, #userInputBox, #actionToolBar, #pdaDisplay, #bpTape, #bpStack {
+#transitionBox, #userInputBox, #actionToolBar, #vbDisplay, #bpTape, #bpStack {
     -fx-background-color: white;
     -fx-border-color: #c9c9c9;
     -fx-border-width: 2px 2px 2px 2px;
@@ -351,6 +352,15 @@
 
 #bInstantRun,#bStepRun{
     -fx-font-size: 14px;
+}
+
+#spStack{
+    -fx-border-color: #c9c9c9;
+    -fx-border-width: 2px;
+}
+
+#spStack *{
+    -fx-fill: #3f3f3f;
 }
 
 .stack-cell {
@@ -593,6 +603,7 @@
     -fx-background-color: white;
 }
 
+
 .help-boxes {
     -fx-background-color: white;
     -fx-border-color: #ececec;
@@ -605,4 +616,88 @@
     -fx-border-color: #ececec;
     -fx-border-width: 0px 0px 3px 0px;
 
+}
+
+.slider *{
+    -fx-focus-color: transparent;
+    -fx-background-insets: 0px;
+}
+
+
+.slider{
+    -fx-background-color: white;
+}
+
+
+.slider .track {
+    -fx-padding: 2;
+}
+
+.slider .thumb {
+    -fx-padding: 5;
+    -fx-background-color: #249c6d;
+    -fx-background-radius: 4px;
+
+}
+
+.slider {
+    -fx-background-color: white;
+    -fx-border-color: #c9c9c9;
+    -fx-border-width: 5px 0px 0px 0px;
+    -fx-cursor: e_resize;
+}
+
+.slider *{
+    -fx-background-color: white;
+}
+
+.slider .track{
+    -fx-border-color: #b9b9b9;
+    -fx-border-width: 1px ;
+}
+
+#pdaDisplay{
+    -fx-background-color: white;
+    -fx-border-color: #c9c9c9;
+    -fx-border-width: 0px 0px 5px 0px;
+    -fx-cursor: move;
+}
+
+
+
+.slider .track {
+    -fx-pref-height:13;
+}
+
+.slider:vertical .track {
+    -fx-pref-width:13;
+}
+
+.slider .thumb {
+    -fx-pref-height: 13;
+    -fx-background-radius: 0px;
+    -fx-pref-width: 40;
+}
+
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
 }

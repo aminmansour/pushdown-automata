@@ -4,8 +4,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import model.PushDownStack;
@@ -22,7 +22,7 @@ public class StackController {
 
     private PushDownStack pushDownStack;
     private StackPane spFirstStackCell;
-    private HBox stackView;
+    private ScrollPane stackView;
 
     public StackController() {
         try {
@@ -30,9 +30,9 @@ public class StackController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        lTopPointer = (Label) stackView.lookup("#lTopPointer");
-        gpStack = (GridPane) stackView.lookup("#gpStack");
-        gpTopLocation = (GridPane) stackView.lookup("#gpTopLocation");
+        lTopPointer = (Label) stackView.getContent().lookup("#lTopPointer");
+        gpStack = (GridPane) stackView.getContent().lookup("#gpStack");
+        gpTopLocation = (GridPane) stackView.getContent().lookup("#gpTopLocation");
 
     }
 
@@ -55,7 +55,7 @@ public class StackController {
     }
 
 
-    public HBox getStackGenerated() {
+    public ScrollPane getStackGenerated() {
         return stackView;
     }
 

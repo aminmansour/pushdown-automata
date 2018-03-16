@@ -3,12 +3,16 @@ package controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import model.ControlState;
 import model.Transition;
 import view.VisualControlState;
 import view.VisualTransition;
+import view.ZoomablePane;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,12 +24,13 @@ public class MachineDisplayController {
 
     private final String NON_DETERMINISTIC_FOCUS_COLOR = "#2ab27b;";
     private final String NORMAL_RUN_COLOR = "#2ab27b;";
+    private final Slider slider;
 
     private TreeMap<String, VisualControlState> controlStates;
     private TreeMap<String, ArrayList<VisualTransition>> transitionsByStateMap;
-    private BorderPane pdaDisplay;
+    private ZoomablePane pdaDisplay;
 
-    private final Pane pCanvas;
+    private Pane pCanvas;
     private double width;
     private double height;
 
@@ -33,14 +38,24 @@ public class MachineDisplayController {
 
     public MachineDisplayController() {
         try {
-            pdaDisplay = FXMLLoader.load(getClass().getResource("../layouts/pda_display_partial.fxml"));
+            pCanvas = FXMLLoader.load(getClass().getResource("../layouts/pda_display_partial.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        pdaDisplay = new ZoomablePane(pCanvas);
         HBox.setHgrow(pdaDisplay, Priority.ALWAYS);
         VBox.setVgrow(pdaDisplay, Priority.ALWAYS);
-        pCanvas = (Pane) pdaDisplay.lookup("#pCanvas");
+
+        pdaDisplay.setOnMouseDragged(e -> {
+            pCanvas.setTranslateX(e.getX() - (pCanvas.getWidth() / 2) - 10);
+            pCanvas.setTranslateY(e.getY() - (pCanvas.getHeight() / 2) - 10);
+        });
+
+
+        slider = new Slider(0.5, 2, 1);
+        slider.setPadding(new Insets(10));
+        pdaDisplay.zoomFactorProperty().bind(slider.valueProperty());
 
         controlStates = new TreeMap<>();
         transitionsByStateMap = new TreeMap<>();
@@ -48,6 +63,15 @@ public class MachineDisplayController {
         pdaDisplay.widthProperty().addListener(observable -> repaintDisplay());
         pdaDisplay.heightProperty().addListener(observable -> repaintDisplay());
 
+        Rectangle clipRect = new Rectangle(pCanvas.getWidth(), pCanvas.getHeight());
+
+        // bind properties so height and width of rect
+        // changes according pane's width and height
+        clipRect.heightProperty().bind(pdaDisplay.heightProperty());
+        clipRect.widthProperty().bind(pdaDisplay.widthProperty());
+
+        // set rect as clip rect
+        pdaDisplay.setClip(clipRect);
     }
 
 
@@ -96,6 +120,7 @@ public class MachineDisplayController {
                 columnIndex++;
             }
         }
+
 
         int counter = 0;
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
@@ -171,6 +196,10 @@ public class MachineDisplayController {
 
     public BorderPane getCanvas() {
         return pdaDisplay;
+    }
+
+    public Slider getSlider() {
+        return slider;
     }
 
 

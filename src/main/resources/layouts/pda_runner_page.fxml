@@ -17,6 +17,7 @@
     <center>
         <VBox fx:id="vbPDAInteraction" spacing="5.0" HBox.hgrow="ALWAYS">
             <HBox spacing="5" fx:id="hbCentre" VBox.vgrow="ALWAYS" maxHeight="Infinity">
+                <VBox fx:id="vbDisplay" HBox.hgrow="ALWAYS" maxWidth="Infinity"></VBox>
             </HBox>
             <BorderPane.margin>
                 <Insets bottom="5.0" right="5.0" top="5.0" />

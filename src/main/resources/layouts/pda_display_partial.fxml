@@ -3,17 +3,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.shape.Circle?>
-<BorderPane fx:id="pdaDisplay" maxHeight="Infinity" maxWidth="Infinity" xmlns="http://javafx.com/javafx/8.0.121"
-            xmlns:fx="http://javafx.com/fxml/1">
-
-
-   <center>
-       <AnchorPane fx:id="pCanvas" maxHeight="Infinity" maxWidth="Infinity" BorderPane.alignment="CENTER">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/8.0.121" fx:id="pCanvas" maxHeight="Infinity" maxWidth="Infinity"
+            BorderPane.alignment="CENTER">
          <children>
             <Circle fill="#8c8c8c" layoutX="110.0" layoutY="98.0" radius="30.0" stroke="#1f8f66" strokeType="INSIDE" />
             <Circle fill="#9c9c9c" layoutX="210.0" layoutY="128.0" radius="30.0" stroke="#1f8f66" strokeType="INSIDE" />
          </children>
-       </AnchorPane>
-   </center>
+</AnchorPane>
 
-</BorderPane>

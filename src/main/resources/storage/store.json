@@ -1075,7 +1075,7 @@
             "isInitial": false,
             "label": "Q1"
           },
-          "elementToPush": "a"
+          "elementToPush": "/"
         }
       },
       {
@@ -1120,19 +1120,147 @@
         "configuration": {
           "state": {
             "isAccepting": false,
-            "isInitial": true,
-            "label": "Q0"
+            "isInitial": false,
+            "label": "Q1"
           },
           "inputSymbol": "a",
           "topElement": "/"
         },
         "action": {
           "newState": {
-            "isAccepting": true,
+            "isAccepting": false,
             "isInitial": false,
-            "label": "Q5"
+            "label": "Q3"
           },
           "elementToPush": "/"
+        }
+      }
+    ],
+    "initialState": {
+      "isAccepting": false,
+      "isInitial": true,
+      "label": "Q0"
+    }
+  },
+  {
+    "identifier": "test123",
+    "states": [
+      {
+        "isAccepting": true,
+        "isInitial": true,
+        "label": "Q0"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q1"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q2"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q3"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q4"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q5"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q6"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q7"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q8"
+      }
+    ],
+    "isAcceptByFinalState": true,
+    "transitions": [],
+    "initialState": {
+      "isAccepting": true,
+      "isInitial": true,
+      "label": "Q0"
+    }
+  },
+  {
+    "identifier": "testStack",
+    "states": [
+      {
+        "isAccepting": false,
+        "isInitial": true,
+        "label": "Q0"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q1"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q2"
+      },
+      {
+        "isAccepting": true,
+        "isInitial": false,
+        "label": "Q3"
+      }
+    ],
+    "isAcceptByFinalState": true,
+    "transitions": [
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": true,
+            "label": "Q0"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "a"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "inputSymbol": "/",
+          "topElement": "/"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": false,
+            "isInitial": true,
+            "label": "Q0"
+          },
+          "elementToPush": "a"
         }
       }
     ],

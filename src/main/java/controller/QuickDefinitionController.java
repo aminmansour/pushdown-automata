@@ -229,8 +229,8 @@ public class QuickDefinitionController implements Initializable {
             return;
         }
 
-
         loadTransitionSection();
+        lockPDACreationFunctionality(false);
         tpTransitions.setCollapsible(true);
         tpStates.setExpanded(false);
         tpTransitions.setExpanded(true);
@@ -295,7 +295,6 @@ public class QuickDefinitionController implements Initializable {
 
     private TransitionEntry deleteTransitionFromStore() {
         TransitionEntry toDelete = temporaryTransitionStore.remove(lvTransitions.getSelectionModel().getSelectedIndex());
-        lockPDACreationFunctionality(temporaryTransitionStore.size() == 0);
         return toDelete;
     }
 
@@ -320,23 +319,25 @@ public class QuickDefinitionController implements Initializable {
 
 
     private void generateStateLabels() {
-        temporaryControlStateStore = FXCollections.observableArrayList();
-        cbAcceptingStates.setDisable(false);
-        cbInitialState.setDisable(false);
-        tpTransitions.setCollapsible(false);
-        int limit = Integer.parseInt(cbNumberOfStates.getSelectionModel().getSelectedItem());
-        String toOutput = "";
-        for (int i = 0; i < limit; i++) {
-            String stateLabel = "Q" + i;
-            toOutput += stateLabel + ", ";
-            temporaryControlStateStore.add(stateLabel);
+        if (!cbNumberOfStates.getSelectionModel().isEmpty()) {
+            temporaryControlStateStore = FXCollections.observableArrayList();
+            cbAcceptingStates.setDisable(false);
+            cbInitialState.setDisable(false);
+            tpTransitions.setCollapsible(false);
+            int limit = Integer.parseInt(cbNumberOfStates.getSelectionModel().getSelectedItem());
+            String toOutput = "";
+            for (int i = 0; i < limit; i++) {
+                String stateLabel = "Q" + i;
+                toOutput += stateLabel + ", ";
+                temporaryControlStateStore.add(stateLabel);
+            }
+            taControlStates.setText(toOutput);
+            cbInitialState.setItems(temporaryControlStateStore);
+            cbInitialState.getSelectionModel().clearSelection();
+            cbAcceptingStates.getCheckModel().clearChecks();
+            cbAcceptingStates.getItems().clear();
+            cbAcceptingStates.getItems().addAll(temporaryControlStateStore);
         }
-        taControlStates.setText(toOutput);
-        cbInitialState.setItems(temporaryControlStateStore);
-        cbInitialState.getSelectionModel().clearSelection();
-        cbAcceptingStates.getCheckModel().clearChecks();
-        cbAcceptingStates.getItems().clear();
-        cbAcceptingStates.getItems().addAll(temporaryControlStateStore);
     }
 
     private void populateNumberDropdown(ComboBox<String> cbNumberOfStates) {

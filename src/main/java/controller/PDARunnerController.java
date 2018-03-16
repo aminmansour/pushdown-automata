@@ -33,6 +33,8 @@ public class PDARunnerController implements Initializable {
     private VBox vbLeftBar;
     @FXML
     private HBox hbCentre;
+    @FXML
+    private VBox vbDisplay;
 
     //sub-controllers
     private TapeDisplayController tape;
@@ -73,8 +75,8 @@ public class PDARunnerController implements Initializable {
         inputBox.setButtonInstantRunAction(event -> instantRun());
 
         machineDisplay = new MachineDisplayController();
-        hbCentre.getChildren().add(machineDisplay.getCanvas());
-
+        vbDisplay.getChildren().add(machineDisplay.getCanvas());
+        vbDisplay.getChildren().add(1, machineDisplay.getSlider());
         stack = new StackController();
         hbCentre.getChildren().add(stack.getStackGenerated());
 
@@ -86,14 +88,11 @@ public class PDARunnerController implements Initializable {
     }
 
     private void instantRun() {
-//        if (!inputBox.getInput().isEmpty()) {
-            closeDeterministicModeIfPresent();
-        actionBar.setDisable(false);
+        closeDeterministicModeIfPresent();
+        actionBar.setDisable(true);
         setUpInstantRunEnvironment();
-            runInstantRunDFS(false);
-            transitionTable.clearSelection(false);
-//        }
-
+        runInstantRunDFS(false, 20);
+        transitionTable.clearSelection(false);
     }
 
     private void setUpInstantRunEnvironment() {
@@ -116,15 +115,18 @@ public class PDARunnerController implements Initializable {
         model.createComputationHistoryStore(model.getDefinition().getInitialState(), new ArrayList<>(), 0, 0, model.getPossibleTransitionsFromCurrent().size());
     }
 
-    private boolean runInstantRunDFS(boolean isAlternativeSearch) {
+    private boolean runInstantRunDFS(boolean isAlternativeSearch, int limit) {
         ArrayList<MemoryPlaceHolder> memory = new ArrayList<>();
         if (isAlternativeSearch) {
             prevAlt();
         }
         int loops = 0;
         boolean stuck = false;
+        int totalMoves = 0;
         boolean toBacktrack = false;
+        boolean isDeterministic = !model.isNonDeterministic();
         while (true) {
+
 
             ArrayList<Transition> transitions = model.getPossibleTransitionsFromCurrent();
             if (model.hasAccepted()) {
@@ -164,25 +166,25 @@ public class PDARunnerController implements Initializable {
                             model.getStack().loadState(previousState.getStackState());
                             stuck = true;
                         } else {
-//                            ArrayList<Character> stack = new ArrayList<Character>(model.getStack().getStackContent());
-//                            ArrayList<Character> tapeContent = new ArrayList<>(model.getTape().getRemainingInput());
                             model.executeTransition(transition, transitions.size());
-//                            boolean skipSymbol = transition.getConfiguration().getInputSymbol() == '/';
-//                            int headPosition = model.getTape().getHeadPosition();
-//                            if (!skipSymbol) {
-//                                tapeContent.remove(0);
-//                                headPosition++;
-//                            }
-//
-//                            Character topElement = transition.getConfiguration().getTopElement();
-//                            if (topElement != '/') {
-//                                stack.remove(stack.size()-1);
-//                            }
-//                            Character elementToPush = transition.getAction().getElementToPush();
-//                            if (elementToPush != '/') {
-//                                stack.add(elementToPush);
-//                            }
-//                            ControlState currentState = transition.getAction().getNewState();
+                            totalMoves++;
+                            if (totalMoves % 20 == 0) {
+                                ViewFactory.showStandardDialog(spPDARunnerPage, false, "No solution yet found (" + limit + " steps have been made) ", "Do you want to take control of the computation to make finding a solution easier?", event -> {
+                                    spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
+                                    actionBar.setDisable(false);
+                                    loadConfigurationState(model.getHistory().getCurrent());
+                                }, event -> {
+                                    spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
+                                    Timeline timeline = new Timeline(new KeyFrame(
+                                            Duration.millis(1300),
+                                            ae -> runInstantRunDFS(isAlternativeSearch, limit + 20)));
+
+                                    timeline.play();
+
+
+                                }, "Enter step-mode", "Continue search");
+                                return false;
+                            }
                             MemoryPlaceHolder e = new MemoryPlaceHolder(model.getStack().getStackContent(), model.getCurrentState(), model.getTape().getRemainingInput(), model.getTape().getStep(), model.getTape().getHeadPosition(), model.getHistory().getCurrent());
                             boolean toAddToMemory = true;
                             for (int i = 0; i < memory.size(); i++) {
@@ -199,9 +201,7 @@ public class PDARunnerController implements Initializable {
                                             model.getStack().loadState(prev.getStackState());
                                         } else {
                                             openInstantRunResultsOutputDialog(false, false);
-
                                         }
-
                                         break transitionsLoop;
                                     }
                                     m.increment();
@@ -411,7 +411,7 @@ public class PDARunnerController implements Initializable {
     }
 
 
-    public void next(){
+    public void next() {
         closeDeterministicModeIfPresent();
         List<Transition> transitions = model.getPossibleTransitionsFromCurrent();
 
@@ -430,7 +430,7 @@ public class PDARunnerController implements Initializable {
 
     }
 
-    public void previous(){
+    public void previous() {
         closeDeterministicModeIfPresent();
         if (model.getTape().getStep() > 0) {
             machineDisplay.clearTransitionFocus();
@@ -455,7 +455,7 @@ public class PDARunnerController implements Initializable {
 
     }
 
-    public void stop(){
+    public void stop() {
         closeDeterministicModeIfPresent();
         machineDisplay.clearTransitionFocus();
         closeOptionDialogIfPresent();
@@ -684,7 +684,6 @@ public class PDARunnerController implements Initializable {
     }
 
 
-
     public void openInstantRunResultsOutputDialog(boolean isAccepted, boolean hasSingleSolution) {
         try {
             removeUserInteractionWithPDA(true);
@@ -713,7 +712,7 @@ public class PDARunnerController implements Initializable {
                 bAnotherSolution.setOnAction(event -> {
                     if (moreSolutionsToBeFound) {
                         closeOutputDialogIfPresent();
-                        moreSolutionsToBeFound = runInstantRunDFS(true);
+                        moreSolutionsToBeFound = runInstantRunDFS(true, 20);
                     }
                 });
             }
@@ -804,7 +803,6 @@ public class PDARunnerController implements Initializable {
     public boolean isCurrentSavedInMemory() {
         return model != null && model.isSavedInMemory();
     }
-
 
 
     public void openSaveDialog() {

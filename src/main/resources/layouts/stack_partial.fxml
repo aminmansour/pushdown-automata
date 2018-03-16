@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
-<HBox fx:id="bpStack" maxHeight="Infinity" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:id="spStack" fitToHeight="true" hbarPolicy="NEVER"
+            maxHeight="Infinity" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/8.0.121">
+    <AnchorPane maxHeight="Infinity" style="-fx-background-color: white">
+        <HBox spacing="10" alignment="BOTTOM_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
     <children>
         <VBox alignment="BOTTOM_CENTER">
             <children>
-                <GridPane id="gpTopLocation" alignment="BOTTOM_RIGHT">
+                <GridPane id="gpTopLocation" alignment="BOTTOM_RIGHT" maxWidth="50.0" vgap="-0.7">
 
                 </GridPane>
             </children>
@@ -16,7 +21,7 @@
         </VBox>
         <VBox alignment="BOTTOM_CENTER">
             <children>
-                <GridPane id="gpStack" vgap="-0.7" alignment="BOTTOM_RIGHT" maxWidth="50.0">
+                <GridPane id="gpStack" alignment="BOTTOM_RIGHT" maxWidth="50.0" vgap="-0.7">
 
                 </GridPane>
             </children>
@@ -26,3 +31,5 @@
         </VBox>
     </children>
 </HBox>
+    </AnchorPane>
+</ScrollPane>
