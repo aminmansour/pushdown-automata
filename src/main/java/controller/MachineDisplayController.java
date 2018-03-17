@@ -54,7 +54,7 @@ public class MachineDisplayController {
 
 
         slider = new Slider(0.5, 2, 1);
-        slider.setPadding(new Insets(10));
+        slider.setPadding(new Insets(10, 5, 10, 5));
         pdaDisplay.zoomFactorProperty().bind(slider.valueProperty());
 
         controlStates = new TreeMap<>();
