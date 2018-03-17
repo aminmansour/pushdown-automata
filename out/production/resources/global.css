@@ -354,12 +354,12 @@
     -fx-font-size: 14px;
 }
 
-#spStack{
+#spStack {
     -fx-border-color: #c9c9c9;
     -fx-border-width: 2px;
 }
 
-#spStack *{
+#spStack * {
     -fx-fill: #3f3f3f;
 }
 
@@ -603,7 +603,6 @@
     -fx-background-color: white;
 }
 
-
 .help-boxes {
     -fx-background-color: white;
     -fx-border-color: #ececec;
@@ -618,16 +617,14 @@
 
 }
 
-.slider *{
+.slider * {
     -fx-focus-color: transparent;
     -fx-background-insets: 0px;
 }
 
-
-.slider{
+.slider {
     -fx-background-color: white;
 }
-
 
 .slider .track {
     -fx-padding: 2;
@@ -644,33 +641,30 @@
     -fx-background-color: white;
     -fx-border-color: #c9c9c9;
     -fx-border-width: 5px 0px 0px 0px;
-    -fx-cursor: e_resize;
 }
 
-.slider *{
+.slider * {
     -fx-background-color: white;
 }
 
-.slider .track{
+.slider .track {
     -fx-border-color: #b9b9b9;
-    -fx-border-width: 1px ;
+    -fx-border-width: 1px;
 }
 
-#pdaDisplay{
+#pdaDisplay {
     -fx-background-color: white;
     -fx-border-color: #c9c9c9;
     -fx-border-width: 0px 0px 5px 0px;
     -fx-cursor: move;
 }
 
-
-
 .slider .track {
-    -fx-pref-height:13;
+    -fx-pref-height: 13;
 }
 
 .slider:vertical .track {
-    -fx-pref-width:13;
+    -fx-pref-width: 13;
 }
 
 .slider .thumb {
@@ -679,9 +673,8 @@
     -fx-pref-width: 40;
 }
 
-
-.scroll-bar:horizontal, .scroll-bar:vertical{
-    -fx-background-color:transparent;
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: transparent;
 }
 
 .increment-button, .decrement-button {
@@ -690,7 +683,7 @@
 }
 
 .scroll-bar:horizontal .track,
-.scroll-bar:vertical .track{
+.scroll-bar:vertical .track {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-background-radius: 0em;

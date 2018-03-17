@@ -48,8 +48,8 @@ public class MachineDisplayController {
         VBox.setVgrow(pdaDisplay, Priority.ALWAYS);
 
         pdaDisplay.setOnMouseDragged(e -> {
-            pCanvas.setTranslateX(e.getX() - (pCanvas.getWidth() / 2) - 10);
-            pCanvas.setTranslateY(e.getY() - (pCanvas.getHeight() / 2) - 10);
+            pCanvas.setTranslateX(e.getX() - (pCanvas.getWidth() / 2) - (pCanvas.getWidth() / 4) + 40);
+            pCanvas.setTranslateY(e.getY() - (pCanvas.getHeight() / 2) - 30);
         });
 
 
