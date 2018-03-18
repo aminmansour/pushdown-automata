@@ -5,7 +5,10 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Slider;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import model.ControlState;
@@ -194,7 +197,7 @@ public class MachineDisplayController {
     }
 
 
-    public BorderPane getCanvas() {
+    public ZoomablePane getCanvas() {
         return pdaDisplay;
     }
 
@@ -318,4 +321,9 @@ public class MachineDisplayController {
         return toReturn;
     }
 
+
+    public void resetZoom() {
+        pdaDisplay.setPivot(0, 0);
+        slider.setValue(1);
+    }
 }

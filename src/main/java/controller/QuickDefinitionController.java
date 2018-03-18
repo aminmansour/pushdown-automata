@@ -75,7 +75,7 @@ public class QuickDefinitionController implements Initializable {
 
     private ObservableList<String> temporaryControlStateStore;
     private String temporaryInitialState;
-    private ObservableList<TransitionEntry> temporaryTransitionStore;
+    private ObservableList<TransitionTableEntry> temporaryTransitionStore;
 
 
     @Override
@@ -150,7 +150,7 @@ public class QuickDefinitionController implements Initializable {
         boolean isTerminateByAccepting = rbAcceptingState.isSelected();
         for (int i = 0; i < temporaryControlStateStore.size(); i++) {
             ControlState state = new ControlState(temporaryControlStateStore.get(i));
-            if (ModelFactory.checkIfAcceptingState(state, cbAcceptingStates.getCheckModel().getCheckedItems())) {
+            if (isAcceptingState(state, cbAcceptingStates.getCheckModel().getCheckedItems())) {
                 state.markAsAccepting();
             }
 
@@ -163,15 +163,15 @@ public class QuickDefinitionController implements Initializable {
         }
 
         ArrayList<Transition> transitions = new ArrayList<>();
-        for (TransitionEntry entry : temporaryTransitionStore) {
+        for (TransitionTableEntry entry : temporaryTransitionStore) {
 
             String currentStateLabel = entry.getCurrentState();
             char userInputSym = entry.getElementAtHead().charAt(0);
             char topStackSym = entry.getTopOfStack().charAt(0);
             String resultingStateLabel = entry.getResultingState();
             char resultingTopStackSym = entry.getResultingTopOfStack().charAt(0);
-            Configuration config = new Configuration(ModelFactory.checkForStateOccurrence(states, currentStateLabel), userInputSym, topStackSym);
-            Action action = new Action(ModelFactory.checkForStateOccurrence(states, resultingStateLabel), resultingTopStackSym);
+            Configuration config = new Configuration(ModelFactory.stateLookup(states, currentStateLabel), userInputSym, topStackSym);
+            Action action = new Action(ModelFactory.stateLookup(states, resultingStateLabel), resultingTopStackSym);
             Transition transition = new Transition(config, action);
             entry.setTransition(transition);
             transitions.add(transition);
@@ -181,12 +181,12 @@ public class QuickDefinitionController implements Initializable {
         ControllerFactory.pdaRunnerController.setModel(model);
 
         if (toSave) {
-            Memory.load();
+            MemoryFactory.loadLibrary();
             if (ModelFactory.checkForDefinitionOccurrence(definition)) {
                 return false;
             }
             model.markAsSavedInMemory();
-            Memory.save(definition);
+            MemoryFactory.saveToLibrary(definition);
         }
 
 
@@ -196,6 +196,15 @@ public class QuickDefinitionController implements Initializable {
         return true;
     }
 
+
+    private boolean isAcceptingState(ControlState state, ObservableList<String> acceptingStates) {
+        for (String acceptingState : acceptingStates) {
+            if (acceptingState.equals(state.getLabel())) {
+                return true;
+            }
+        }
+        return false;
+    }
     private void switchToPDARunner() {
         ViewFactory.globalPane.setCenter(ViewFactory.pdaRunner);
         ControllerFactory.pdaRunnerController.stop();
@@ -253,7 +262,7 @@ public class QuickDefinitionController implements Initializable {
         String elementToPop = tfElementToPop.getText().trim().isEmpty() ? "/" : tfElementToPop.getText();
         String resultingState = cbResultingStates.getSelectionModel().getSelectedItem();
         String elementToPush = tfElementToPush.getText().trim().isEmpty() ? "/" : tfElementToPush.getText();
-        TransitionEntry transitionEntry = new TransitionEntry(initialState, inputElement, elementToPop, resultingState, elementToPush);
+        TransitionTableEntry transitionEntry = new TransitionTableEntry(initialState, inputElement, elementToPop, resultingState, elementToPush);
         if (temporaryTransitionStore.contains(transitionEntry)) {
             ViewFactory.showErrorDialog("No duplicate transitions allowed!", quickDefinition);
         } else {
@@ -293,13 +302,13 @@ public class QuickDefinitionController implements Initializable {
 
     }
 
-    private TransitionEntry deleteTransitionFromStore() {
-        TransitionEntry toDelete = temporaryTransitionStore.remove(lvTransitions.getSelectionModel().getSelectedIndex());
+    private TransitionTableEntry deleteTransitionFromStore() {
+        TransitionTableEntry toDelete = temporaryTransitionStore.remove(lvTransitions.getSelectionModel().getSelectedIndex());
         return toDelete;
     }
 
     private void loadTransition() {
-        TransitionEntry toDelete = deleteTransitionFromStore();
+        TransitionTableEntry toDelete = deleteTransitionFromStore();
         cbStates.getSelectionModel().select(toDelete.getCurrentState());
         cbResultingStates.getSelectionModel().select(toDelete.getResultingState());
         tfInputElement.setText(toDelete.getElementAtHead().equals("/") ? "" : toDelete.getElementAtHead());

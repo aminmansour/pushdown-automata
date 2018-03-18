@@ -12,6 +12,7 @@
 
 #pdaTitle {
     -fx-text-fill: white;
+
 }
 
 #button-row * {
@@ -66,11 +67,11 @@
 
 .logo-text {
     -fx-font-size: 50px;
-    -fx-fill: #b2b2b2;
-    -fx-font-weight: 200;
+    -fx-fill: #c4c4c4;
+    -fx-font-weight: 100;
     -fx-font-family: arial;
-    -fx-stroke-width: 1px;
-    -fx-stroke: #229064;
+    -fx-stroke-width: 5px;
+    -fx-stroke: #455A64;
 }
 
 /*--home--*/
@@ -551,7 +552,6 @@
     -fx-text-fill: #5b5b5b;
 }
 
-
 .lTransitionTitle {
     -fx-background-color: #909090;
     -fx-fill: #6a6a6a;
@@ -621,15 +621,14 @@
 
 }
 
-.help-button-title{
+.help-button-title {
     -fx-fill: #229064;
 }
+
 .slider * {
     -fx-focus-color: white;
     -fx-background-insets: 0px;
 }
-
-
 
 .slider .thumb {
     -fx-background-color: #556776;
@@ -642,7 +641,6 @@
     -fx-border-color: #c9c9c9;
     -fx-border-width: 5px 0px 0px 0px;
 }
-
 
 .slider .track {
     -fx-border-color: #b9b9b9;
@@ -660,8 +658,6 @@
     -fx-pref-height: 13;
     -fx-background-color: white;
 }
-
-
 
 .scroll-bar:horizontal, .scroll-bar:vertical {
     -fx-background-color: transparent;
