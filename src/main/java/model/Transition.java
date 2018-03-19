@@ -1,17 +1,28 @@
 package model;
 
+/**
+ * Object class which represents a transition which can be executed in computation
+ */
 public class Transition {
 
     private Configuration configuration;
     private Action action;
 
-    public Transition(Configuration configuration,Action action) {
+    /**
+     * An in-depth constructor of a transition object
+     *
+     * @param configuration the configuration required
+     * @param action        the resulting action
+     */
+    public Transition(Configuration configuration, Action action) {
         this.action = action;
         this.configuration = configuration;
     }
 
-    public Transition() {
-    }
+    /**
+     * An empty constructor of a transition object
+     */
+    public Transition() { }
 
     public Configuration getConfiguration() {
         return configuration;

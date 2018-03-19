@@ -16,6 +16,11 @@ public class ZoomablePane extends BorderPane {
     Node content;
     private DoubleProperty zoomFactor = new SimpleDoubleProperty(1);
 
+    /**
+     * A basic constructor of the view
+     *
+     * @param content the content which this instance encapsulates
+     */
     public ZoomablePane(Node content) {
         Group displayContainer = new Group(content);
         this.content = content;
@@ -36,6 +41,9 @@ public class ZoomablePane extends BorderPane {
 
     }
 
+    /**
+     * defines a layout, overwriting initial values defined in a border pane
+     */
     protected void layoutChildren() {
         Pos pos = Pos.TOP_LEFT;
         double width = getWidth();
@@ -53,12 +61,23 @@ public class ZoomablePane extends BorderPane {
                 pos.getVpos());
     }
 
+    /**
+     * A method which allows to redefine the pan location of zoom. Specifically pertains to the
+     * content that is encapsulated which in this view instance
+     * @param x nex x-position to pan to
+     * @param y new y-position to pan to
+     */
     public void setPivot(double x, double y) {
         setTranslateX(x);
         setTranslateY(y);
     }
 
 
+    /**
+     * A method which returns the zoom factor property. This property defines the current zoom into
+     * the content.
+     * @return The zoom DoubleProperty value
+     */
     public final DoubleProperty zoomFactorProperty() {
         return zoomFactor;
     }

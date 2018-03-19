@@ -11,7 +11,6 @@ import javafx.scene.text.Font;
 import model.PushDownStack;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class StackController {
 
@@ -24,7 +23,7 @@ public class StackController {
     private StackPane spFirstStackCell;
     private ScrollPane stackView;
 
-    public StackController() {
+    StackController() {
         try {
             stackView = FXMLLoader.load(getClass().getResource("../layouts/stack_partial.fxml"));
         } catch (IOException e) {
@@ -36,7 +35,7 @@ public class StackController {
 
     }
 
-    public void setUpStackContentAFresh() {
+    void setUpStackContentAFresh() {
         gpStack.getChildren().clear();
         gpTopLocation.getChildren().clear();
         spFirstStackCell = getStackCell(100, 30, "stack-cell");
@@ -55,15 +54,8 @@ public class StackController {
     }
 
 
-    public ScrollPane getStackGenerated() {
+    ScrollPane getStackGenerated() {
         return stackView;
-    }
-
-    private void pushToBottomOfStack(char element) {
-        Label elementLabel = new Label(element + "");
-        elementLabel.setFont(new Font(15));
-        spFirstStackCell.getChildren().add(elementLabel);
-
     }
 
     private void push(char element) {
@@ -85,58 +77,11 @@ public class StackController {
         }
     }
 
-    public void loadState(ArrayList<Character> stackState) {
-        setUpStackContentAFresh();
-        pushDownStack.loadState(stackState);
-        for (Character element : pushDownStack.getStackContent()) {
-            push(element);
-        }
-    }
-
-    public char pop() {
-        if (pushDownStack.size() == 1) {
-            ((StackPane) gpStack.getChildren().get(0)).getChildren().clear();
-
-        } else if (pushDownStack.size() > 1) {
-            removeNodeFromGridPane(gpStack, 0);
-            removeNodeFromGridPane(gpTopLocation, 0);
-            deleteTopRow(gpStack);
-            deleteTopRow(gpTopLocation);
-            getNewTopCell(gpTopLocation, 0).getChildren().add(lTopPointer);
-        }
-        return pushDownStack.pop();
-    }
-
     private void insertRows(int count, GridPane grid) {
         for (Node child : grid.getChildren()) {
             Integer rowIndex = GridPane.getRowIndex(child);
             GridPane.setRowIndex(child, rowIndex == null ? count : count + rowIndex);
         }
-    }
-
-    private void deleteTopRow(GridPane grid) {
-        for (Node child : grid.getChildren()) {
-            Integer rowIndex = GridPane.getRowIndex(child);
-            GridPane.setRowIndex(child, rowIndex - 1);
-        }
-    }
-
-    private void removeNodeFromGridPane(GridPane gridPane, int row) {
-        for (Node node : gridPane.getChildren()) {
-            if (GridPane.getRowIndex(node) == row) {
-                gridPane.getChildren().remove(node);
-                return;
-            }
-        }
-    }
-
-    private StackPane getNewTopCell(GridPane gridPane, int row) {
-        for (Node node : gridPane.getChildren()) {
-            if (GridPane.getRowIndex(node) == row) {
-                return (StackPane) node;
-            }
-        }
-        return null;
     }
 
     private StackPane getStackCell(int minWidth, int minHeigh, String classDescription) {
@@ -150,21 +95,13 @@ public class StackController {
     }
 
 
-    public void clear() {
-        setUpStackContentAFresh();
-    }
-
     public void setStackModel(PushDownStack stackModel) {
         this.pushDownStack = stackModel;
         setUpStackContentAFresh();
     }
 
-    public void clean() {
-        pushDownStack.clear();
-    }
 
-
-    public void update() {
+    public void requestInterfaceUpdate() {
         setUpStackContentAFresh();
         for (Character element : pushDownStack.getStackContent()) {
             push(element);

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<BorderPane fx:id="library" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="library" xmlns="http://javafx.com/javafx/8.0.121"
             fx:controller="controller.LibraryController">
     <center>
         <VBox alignment="TOP_CENTER" spacing="10">
@@ -26,4 +26,7 @@
             </children>
         </VBox>
     </center>
+    <padding>
+        <Insets left="30.0" right="30.0" top="20.0"/>
+    </padding>
 </BorderPane>

@@ -14,7 +14,7 @@ import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import model.ControlState;
 import model.Transition;
-import model.TransitionEntry;
+import model.TransitionTableEntry;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,14 +25,7 @@ public class TransitionTableController {
     private HBox transitionTableView;
     private TableView tvTransitionTable;
     private ObservableList<TableColumn> columns;
-    private final ObservableList<TransitionEntry> data =
-            FXCollections.observableArrayList(
-                    new TransitionEntry("A", "b", "c", "d", "e"),
-                    new TransitionEntry("A", "b", "c", "d", "e"),
-                    new TransitionEntry("A", "b", "c", "d", "e"),
-                    new TransitionEntry("A", "b", "c", "d", "e"),
-                    new TransitionEntry("A", "b", "c", "d", "e")
-            );
+    private final ObservableList<TransitionTableEntry> data = FXCollections.observableArrayList();
     private ArrayList<ControlState> states;
     private int highlightedRow;
 
@@ -54,21 +47,21 @@ public class TransitionTableController {
     }
 
     private void setUpColumns() {
-        ((TableColumn) columns.get(0).getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<TransitionEntry, String>("currentState"));
+        ((TableColumn) columns.get(0).getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<TransitionTableEntry, String>("currentState"));
         ((TableColumn) columns.get(0).getColumns().get(0)).setCellFactory(getStateColumnModificationCallback(1));
-        ((TableColumn) columns.get(0).getColumns().get(1)).setCellValueFactory(new PropertyValueFactory<TransitionEntry, String>("elementAtHead"));
+        ((TableColumn) columns.get(0).getColumns().get(1)).setCellValueFactory(new PropertyValueFactory<TransitionTableEntry, String>("elementAtHead"));
         ((TableColumn) columns.get(0).getColumns().get(1)).setCellFactory(getCharacterModificationCallback(1));
-        ((TableColumn) columns.get(0).getColumns().get(2)).setCellValueFactory(new PropertyValueFactory<TransitionEntry, String>("topOfStack"));
+        ((TableColumn) columns.get(0).getColumns().get(2)).setCellValueFactory(new PropertyValueFactory<TransitionTableEntry, String>("topOfStack"));
         ((TableColumn) columns.get(0).getColumns().get(2)).setCellFactory(getCharacterModificationCallback(2));
-        ((TableColumn) columns.get(1).getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<TransitionEntry, String>("resultingState"));
+        ((TableColumn) columns.get(1).getColumns().get(0)).setCellValueFactory(new PropertyValueFactory<TransitionTableEntry, String>("resultingState"));
         ((TableColumn) columns.get(1).getColumns().get(0)).setCellFactory(getStateColumnModificationCallback(2));
-        ((TableColumn) columns.get(1).getColumns().get(1)).setCellValueFactory(new PropertyValueFactory<TransitionEntry, String>("resultingTopOfStack"));
+        ((TableColumn) columns.get(1).getColumns().get(1)).setCellValueFactory(new PropertyValueFactory<TransitionTableEntry, String>("resultingTopOfStack"));
         ((TableColumn) columns.get(1).getColumns().get(1)).setCellFactory(getCharacterModificationCallback(3));
     }
 
     private Callback getStateColumnModificationCallback(int columnNumber) {
         StringConverter<String> converter = new DefaultStringConverter();
-        return t -> new TextFieldTableCell<TransitionEntry, String>(converter) {
+        return t -> new TextFieldTableCell<TransitionTableEntry, String>(converter) {
             @Override
             public void commitEdit(String newValue) {
 
@@ -77,7 +70,7 @@ public class TransitionTableController {
                     Transition transition = data.get(getIndex()).getTransition();
                     switch (columnNumber) {
                         case 1:
-                            ControllerFactory.pdaRunnerController.updateModel(transition.getConfiguration().getState(), newState, transition);
+                            ControllerFactory.pdaRunnerController.updateTransition(transition.getConfiguration().getState(), newState, transition);
                             transition.getConfiguration().setState(newState);
                             break;
                         case 2:
@@ -95,12 +88,12 @@ public class TransitionTableController {
         };
     }
 
-    private void updateVisuals(TransitionEntry transitionEntry, Transition transition) {
+    private void updateVisuals(TransitionTableEntry transitionEntry, Transition transition) {
         transitionEntry.update();
         ControllerFactory.pdaRunnerController.updateVisualLabel(transition);
         ControllerFactory.pdaRunnerController.closeDeterministicModeIfPresent();
         ControllerFactory.toolBarPartialController.highlightSaveButton();
-        ControllerFactory.pdaRunnerController.startAgain();
+        ControllerFactory.pdaRunnerController.redo();
     }
     private ControlState retrieveStateByLabel(String label) {
         for (ControlState controlState : states) {
@@ -113,7 +106,7 @@ public class TransitionTableController {
 
     private Callback getCharacterModificationCallback(int columnNumber) {
         StringConverter<String> converter = new DefaultStringConverter();
-        return t -> new TextFieldTableCell<TransitionEntry, String>(converter) {
+        return t -> new TextFieldTableCell<TransitionTableEntry, String>(converter) {
             @Override
             public void commitEdit(String newValue) {
                 if (newValue != null && newValue.length() < 2) {
@@ -145,7 +138,7 @@ public class TransitionTableController {
 
 
     public void addRow(Transition transition) {
-        TransitionEntry t = new TransitionEntry(transition.getConfiguration().getState().getLabel() + "",
+        TransitionTableEntry t = new TransitionTableEntry(transition.getConfiguration().getState().getLabel() + "",
                 transition.getConfiguration().getInputSymbol() + "",
                 transition.getConfiguration().getTopElement() + "",
                 transition.getAction().getNewState().getLabel() + "",
@@ -193,11 +186,11 @@ public class TransitionTableController {
         return highlightedRow;
     }
 
-    public ObservableList<TransitionEntry> getEntries() {
+    public ObservableList<TransitionTableEntry> getEntries() {
         return data;
     }
 
-    public void addRow(TransitionEntry transitionEntry) {
+    public void addRow(TransitionTableEntry transitionEntry) {
         data.add(transitionEntry);
     }
 }

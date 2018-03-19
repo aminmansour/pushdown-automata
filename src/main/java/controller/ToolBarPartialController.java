@@ -2,10 +2,8 @@ package controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import model.Memory;
+import model.MemoryFactory;
 import view.ViewFactory;
 
 public class ToolBarPartialController {
@@ -19,23 +17,21 @@ public class ToolBarPartialController {
     @FXML
     private Button bToolbarNewTransition;
 
-    public void switchToHome(ActionEvent actionEvent) {
-        ViewFactory.globalPane.setCenter(ViewFactory.homePage);
+    public void switchToHome() {
+        ViewFactory.globalPane.setCenter(ViewFactory.home);
         ControllerFactory.toolBarPartialController.disableToolbarButtons(true);
     }
 
 
-    public void switchToLibrary(ActionEvent actionEvent) {
-        ViewFactory.globalPane.setCenter(ViewFactory.library);
-        ControllerFactory.libraryLoaderController.retrieveDefinitionStore();
-        BorderPane.setAlignment(ViewFactory.library, Pos.CENTER);
+    public void switchToLibrary() {
+        ControllerFactory.homeController.switchToLibrary();
         ControllerFactory.toolBarPartialController.disableToolbarButtons(true);
     }
 
-    public void save(ActionEvent actionEvent) {
+    public void save() {
         if (ControllerFactory.pdaRunnerController.isCurrentSavedInMemory()) {
-            Memory.saveState();
-            bToolbarSave.getStyleClass().remove("de-activated-save-button");
+            MemoryFactory.saveState();
+            bToolbarSave.getStyleClass().remove("de-activated-saveToLibrary-button");
         } else {
             disableToolbarButtons(true);
             ControllerFactory.pdaRunnerController.openSaveDialog();
@@ -45,7 +41,7 @@ public class ToolBarPartialController {
 
     public void highlightSaveButton() {
         if (ControllerFactory.pdaRunnerController.isCurrentSavedInMemory()) {
-            bToolbarSave.getStyleClass().add("de-activated-save-button");
+            bToolbarSave.getStyleClass().add("de-activated-saveToLibrary-button");
         }
     }
 
@@ -57,7 +53,7 @@ public class ToolBarPartialController {
     }
 
     public void startAgain(ActionEvent actionEvent) {
-        if (!ControllerFactory.pdaRunnerController.isCurrentSavedInMemory() || bToolbarSave.getStyleClass().contains("de-activated-save-button")) {
+        if (!ControllerFactory.pdaRunnerController.isCurrentSavedInMemory() || bToolbarSave.getStyleClass().contains("de-activated-saveToLibrary-button")) {
             ControllerFactory.pdaRunnerController.showConfirmationDialog();
         } else {
             ControllerFactory.pdaRunnerController.switchToQuickDefinition();
@@ -66,41 +62,37 @@ public class ToolBarPartialController {
     }
 
     public void requestNonDeterministicTransitions(ActionEvent actionEvent) {
-        if (ControllerFactory.pdaRunnerController.isInDeterministicMode()) {
+        if (ControllerFactory.pdaRunnerController.isInNonDeterministicMode()) {
             bToolbarDeterministic.setText("Open Non-Deterministic Mode");
             ControllerFactory.pdaRunnerController.closeDeterministicModeIfPresent();
         } else {
             bToolbarDeterministic.setText("Close Non-Deterministic Mode");
-            ControllerFactory.pdaRunnerController.openDeterministicMode();
+            ControllerFactory.pdaRunnerController.openNonDeterministicMode();
         }
     }
 
     public void requestNewTransition(ActionEvent actionEvent) {
-        if (ControllerFactory.pdaRunnerController.isInDeterministicMode()) {
+        if (ControllerFactory.pdaRunnerController.isInNonDeterministicMode()) {
             bToolbarDeterministic.setText("Close Non-Deterministic Mode");
             ControllerFactory.pdaRunnerController.closeDeterministicModeIfPresent();
         }
         ControllerFactory.pdaRunnerController.openNewTransitionDialog();
-
     }
 
-    public void switchToHelp(ActionEvent actionEvent) {
+    public void switchToHelp() {
         ViewFactory.globalPane.setCenter(ViewFactory.help);
-        BorderPane.setAlignment(ViewFactory.help, Pos.CENTER);
     }
 
     public void setNonDeterministicModeButtonText(String nonDeterministicModeButtonText) {
         bToolbarDeterministic.setText(nonDeterministicModeButtonText);
-
     }
 
-    public void disableSaveFeature() {
-        bToolbarSave.setDisable(true);
+
+    public void switchToExamples() {
+        ControllerFactory.homeController.switchToExamples();
     }
 
-    public void switchToExamples(ActionEvent actionEvent) {
-        ViewFactory.globalPane.setCenter(ViewFactory.examples);
-        ControllerFactory.examplesController.alert();
-        BorderPane.setAlignment(ViewFactory.examples, Pos.CENTER);
+    public void switchToQucikDefinition() {
+        ControllerFactory.homeController.switchToQuickDefinition();
     }
 }

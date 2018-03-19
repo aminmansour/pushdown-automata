@@ -6,7 +6,11 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Pair;
 
-class Arrow extends Path {
+/**
+ * A graphic object which represents the transition arrow on screen
+ */
+class VisualArrow extends Path {
+    //points
     private static final double defaultArrowHeadSize = 10.0;
     private boolean isRecursiveArrow;
     private double startY;
@@ -16,7 +20,7 @@ class Arrow extends Path {
     private double midPointX;
     private double midPointY;
 
-    public Arrow(VisualControlState q1, VisualControlState q2) {
+    public VisualArrow(VisualControlState q1, VisualControlState q2) {
         super();
         strokeProperty().bind(fillProperty());
         setFill(Color.web("#607D8B"));
@@ -135,14 +139,9 @@ class Arrow extends Path {
         getElements().add(new LineTo(xEndPoint, yEndPoint));
     }
 
-    public Pair<Double, Double> getStartCoordinate() {
-        return new Pair<>(startX, startY);
-    }
-
-    public Pair<Double, Double> getEndCoordinate() {
-        return new Pair<>(endX, endY);
-    }
-
+    /**
+     * A method to retrieve the mid point of the arrow
+     */
     public Pair<Double, Double> getMidCoordinate() {
         if (isRecursiveArrow) {
             return new Pair<>(midPointX, midPointY);
@@ -150,8 +149,6 @@ class Arrow extends Path {
         return new Pair<>((endX + startX) / 2, (endY + startY) / 2);
 
     }
-
-
 
 
 }

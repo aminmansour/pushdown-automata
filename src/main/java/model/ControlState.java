@@ -1,13 +1,23 @@
 package model;
 
+/**
+ * ControlState represent the theoretical control states found in a PDA
+ */
 public class ControlState {
     private boolean isAccepting;
     private boolean isInitial;
     private String label;
 
+    /**
+     * An empty constructor of a ControlState instance
+     */
     public ControlState() {
     }
 
+
+    /**
+     * An in-depth constructor of a ControlState instance
+     */
     public ControlState(String label) {
         this.isAccepting = false;
         this.isInitial = false;
@@ -30,20 +40,18 @@ public class ControlState {
         return isInitial;
     }
 
+    /**
+     * A method which marks the control state instance as an accepting one
+     */
     public void markAsAccepting() {
         isAccepting = true;
     }
 
+    /**
+     * A method which marks the control state instance as an initial one
+     */
     public void markAsInitial() {
         isInitial = true;
-    }
-
-    public void setAccepting(boolean accepting) {
-        isAccepting = accepting;
-    }
-
-    public void setInitial(boolean initial) {
-        isInitial = initial;
     }
 
     @Override

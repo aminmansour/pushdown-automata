@@ -67,11 +67,10 @@
 
 .logo-text {
     -fx-font-size: 50px;
-    -fx-fill: #c4c4c4;
+    -fx-fill: #cdcdcd;
     -fx-font-weight: 100;
-    -fx-font-family: arial;
-    -fx-stroke-width: 5px;
-    -fx-stroke: #455A64;
+    -fx-stroke-width: 0px;
+    -fx-stroke: #5b5b5b;
 }
 
 /*--home--*/

@@ -15,7 +15,12 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextBoundsType;
 import javafx.scene.transform.Rotate;
 
+/**
+ * A graphic object which represents the control state on the screen
+ */
 public class VisualControlState {
+
+    //fields
     private String label;
     private double xPos;
     private double yPos;
@@ -26,6 +31,13 @@ public class VisualControlState {
     private StackPane controlStateView;
     private int orderShown;
 
+    /**
+     * A constructor for a VisualControlState instance
+     *
+     * @param label       label of control state
+     * @param isInitial   defines whether control state is the initial state
+     * @param isAccepting defines whether the control state is one of the accepting states
+     */
     public VisualControlState(String label, boolean isInitial, boolean isAccepting) {
         this.label = label;
         isFocused = false;
@@ -45,10 +57,10 @@ public class VisualControlState {
         state.setCache(true);
         controlStateView.getChildren().add(state);
 
-
         if (isAccepting) {
             generateNestedAcceptingCircle(controlStateView);
         }
+
         if (isInitial) {
             generateInitialStateArrow();
         }
@@ -136,13 +148,15 @@ public class VisualControlState {
         view.setLayoutY(yPos);
     }
 
-    public void setFocus(boolean focus, String color) {
-        isFocused = focus;
+    /**
+     * A method which highlights the visual control state instance
+     *
+     * @param toFocus specifies whether to focus or un-focus the control state
+     * @param color   the color to focus the control state
+     */
+    public void setFocus(boolean toFocus, String color) {
+        isFocused = toFocus;
         controlStateView.setStyle("-fx-background-color:" + (isFocused ? color : "transparent"));
-    }
-
-    public boolean isFocused() {
-        return isFocused;
     }
 
 
@@ -160,10 +174,6 @@ public class VisualControlState {
 
     public boolean isInitial() {
         return isInitial;
-    }
-
-    public int getRadius() {
-        return RADIUS;
     }
 
     public int getOrderShown() {

@@ -178,7 +178,7 @@ public class QuickDefinitionController implements Initializable {
         }
         Definition definition = new Definition(id, states, initialState, transitions, isTerminateByAccepting);
         PDAMachine model = new PDAMachine(definition);
-        ControllerFactory.pdaRunnerController.setModel(model);
+        ControllerFactory.pdaRunnerController.loadPDA(model);
 
         if (toSave) {
             MemoryFactory.loadLibrary();

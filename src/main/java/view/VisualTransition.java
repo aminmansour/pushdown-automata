@@ -15,6 +15,10 @@ import model.Transition;
 
 import java.util.ArrayList;
 
+/**
+ * A visual transition represents a transition which can be seen on screen. Each is accompanied with
+ * a label containing the transition itself, and the source and target position
+ */
 public class VisualTransition {
 
     private final Transition transition;
@@ -26,21 +30,29 @@ public class VisualTransition {
     private Text transitionLabel;
     private Pair<Double, Double> labelCoordinate;
     private ArrayList<VisualTransition> transitionsThatExist;
-    private Arrow arrowPath;
+    private VisualArrow arrowPath;
 
 
-    public VisualTransition(Transition transition, VisualControlState q1, VisualControlState q2) {
+    /**
+     * A constructor for a VisualTransition instance
+     *
+     * @param transition the transition itself which the visual will represent
+     * @param source     the visual source state
+     * @param target     the visual target state
+     */
+    public VisualTransition(Transition transition, VisualControlState source, VisualControlState target) {
         this.transition = transition;
         transitionsThatExist = new ArrayList<>();
-        sourceState = q1;
-        resultingState = q2;
+        sourceState = source;
+        resultingState = target;
         isFocused = false;
-        generateArrowView(q1, q2);
+        generateArrowView(source, target);
     }
 
+    //generates the arrow tip visual
     private void generateArrowView(VisualControlState q1, VisualControlState q2) {
         Pane view = new Pane();
-        arrowPath = new Arrow(q1, q2);
+        arrowPath = new VisualArrow(q1, q2);
         generateLabel();
         Pair<Double, Double> midCoordinate = arrowPath.getMidCoordinate();
         double labelX = midCoordinate.getKey();
@@ -57,11 +69,7 @@ public class VisualTransition {
         }
         labelY += 5;
         while (true) {
-            int r = checkOccurrence(labelX, labelY);
-            if (r == 1) {
-                labelY += 19;
-                continue;
-            } else if (r == 2) {
+            if (checkForOccurrence(labelX, labelY)) {
                 labelY += 19;
                 continue;
             }
@@ -70,8 +78,6 @@ public class VisualTransition {
         labelCoordinate = new Pair<>(labelX, labelY);
 
 
-        flTransitionLabel.setLayoutX(labelX);
-        flTransitionLabel.setLayoutY(labelY);
         flTransitionLabel.setLayoutX(labelX);
         flTransitionLabel.setLayoutY(labelY);
         labelCoordinate = new Pair<>(labelX, labelY);
@@ -87,17 +93,22 @@ public class VisualTransition {
 
     }
 
-    private int checkOccurrence(double labelX, double labelY) {
+    //checks if new label position isnt overlapping any ready drawn labels.
+    private boolean checkForOccurrence(double labelX, double labelY) {
 
         for (VisualTransition visualTransition : transitionsThatExist) {
             Pair<Double, Double> labelCoordinate = visualTransition.labelCoordinate;
             if (transition != visualTransition.getTransition()) {
                 if (labelCoordinate.getKey() == labelX && labelCoordinate.getValue() == labelY) {
-                    return 1;
+                    return true;
+                }
+
+                if (labelCoordinate.getKey() == labelX && (labelCoordinate.getValue() < labelY + 16) && (labelCoordinate.getValue() + 16 > labelY)) {
+                    return true;
                 }
 
                 if (labelCoordinate.getValue() <= labelY && labelY <= labelCoordinate.getValue()) {
-                    if (labelCoordinate.getKey() < labelX + 50 && labelCoordinate.getKey() + 50 > labelY) {
+                    if (labelCoordinate.getKey() < labelX + 50 && labelCoordinate.getKey() + 50 > labelX) {
                         if (visualTransition.sourceState.getLabel().equals(resultingState.getLabel()) && visualTransition.resultingState.getLabel().equals(sourceState.getLabel())) {
                             if (labelCoordinate.getKey() <= labelX) {
                                 visualTransition.transitionLabel.setText(visualTransition.transitionLabel.getText() + "   (>)");
@@ -108,21 +119,16 @@ public class VisualTransition {
                             }
                         }
 
-                        return 2;
+                        return true;
                     }
                 }
             }
         }
-        return 0;
+        return false;
 
     }
 
-    public void bringLabelToFront() {
-        flTransitionLabel.toFront();
-    }
-
-
-
+    //creates label view
     private void generateLabel() {
         transitionLabel = new Text(getLabel());
         transitionLabel.setFill(Color.BLACK);
@@ -136,11 +142,19 @@ public class VisualTransition {
 
     }
 
+    //returns label content
     public String getLabel() {
         return transition.getConfiguration().getInputSymbol() + " , " +
                 transition.getConfiguration().getTopElement() + "  ->  " + transition.getAction().getElementToPush();
     }
 
+    /**
+     * A method which updates a VisualTransition's endpoints. Specifically pertains to the case
+     * when the user decides to change either a source state or target state of a pre-existing VisualTransition
+     * instance.
+     * @param newSource the source state to start transition from
+     * @param newTarget the target state to end transition to
+     */
     public void updateVisualTransition(VisualControlState newSource, VisualControlState newTarget) {
         transitionLabel.setText(getLabel());
         if (newSource != null) {
@@ -153,6 +167,12 @@ public class VisualTransition {
     }
 
 
+    /**
+     * A method which highlights the label of the VisualTransition instance. by
+     * changing the container of label to the color specified.
+     * @param focus a boolean value which defines whether to gain or lose focus on the VisualTransition instance
+     * @param color the color to represent the focus.
+     */
     public void setFocus(boolean focus, String color) {
         isFocused = focus;
         String background = isFocused ? color : "#f3f3f3;";
@@ -168,18 +188,23 @@ public class VisualTransition {
         }
     }
 
+    /**
+     * @return the view representation of the VisualTransition
+     */
     public Pane getView() {
         return view;
     }
 
+
+    /**
+     * A method which redraws the VisualTransition onto screen, much like repaint.
+     * @param transitionsBySource the other VisualTransitions which have been drawn up to this point
+     */
     public void align(ArrayList<VisualTransition> transitionsBySource) {
         this.transitionsThatExist = transitionsBySource;
         generateArrowView(sourceState, resultingState);
     }
 
-    public FlowPane getTransitionLabel() {
-        return flTransitionLabel;
-    }
 
     public VisualControlState getSourceState() {
         return sourceState;
@@ -193,8 +218,4 @@ public class VisualTransition {
         return transition;
     }
 
-
-    public Pair<Double, Double> getLabelCoordinate() {
-        return new Pair<>(flTransitionLabel.getLayoutX(), flTransitionLabel.getLayoutY());
-    }
 }

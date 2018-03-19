@@ -14,9 +14,9 @@
                       HBox.hgrow="ALWAYS">
                     <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
                           HBox.hgrow="ALWAYS">
-                        <Label styleClass="home-button-title" text="DEFINE BY CODE" textFill="#23aa76"/>
+                        <Label styleClass="home-button-title" text="DEFINE YOUR OWN PDA BY CODE" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label text="define your own PDA!" textFill="#23aa76">
+                        <Label text="define your PDA using code!" textFill="#23aa76">
                             <padding>
                                 <Insets bottom="20.0"/>
                             </padding>
@@ -33,29 +33,32 @@
                     </VBox>
                 </HBox>
 
-
                 <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
                       HBox.hgrow="ALWAYS">
                     <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
                           HBox.hgrow="ALWAYS">
-                        <Label styleClass="home-button-title" text="CREATE BY DESIGN" textFill="#23aa76"/>
+                        <Label styleClass="home-button-title" text="LOAD PDA EXAMPLES" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label text="define your PDA using design!" textFill="#23aa76">
+                        <Label text="interact and test common pda machine examples!" textFill="#23aa76">
                             <padding>
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
                         <Label mnemonicParsing="false" styleClass="home-button-icon">
                             <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-codepen" iconSize="114"/>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
                             </graphic>
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
                         </Label>
-                        <Button onAction="#switchToCodeDefinition" styleClass="green-button-theme" text="Enter"/>
+                        <Button onAction="#switchToExamples" styleClass="green-button-theme" text="Enter"/>
                     </VBox>
                 </HBox>
+
+
+            </HBox>
+            <HBox alignment="CENTER" maxWidth="Infinity" spacing="30" VBox.vgrow="ALWAYS">
 
 
                 <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
@@ -80,32 +83,6 @@
                         <Button onAction="#switchToLibrary" styleClass="green-button-theme" text="Enter"/>
                     </VBox>
                 </HBox>
-            </HBox>
-            <HBox alignment="CENTER" maxWidth="Infinity" spacing="30" VBox.vgrow="ALWAYS">
-
-                <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
-                      HBox.hgrow="ALWAYS">
-                    <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
-                          HBox.hgrow="ALWAYS">
-                        <Label styleClass="home-button-title" text="LOAD PDA EXAMPLES" textFill="#23aa76"/>
-                        <TextArea editable="false" maxHeight="1"/>
-                        <Label text="load common pda examples/templates!" textFill="#23aa76">
-                            <padding>
-                                <Insets bottom="20.0"/>
-                            </padding>
-                        </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
-                            </graphic>
-                            <padding>
-                                <Insets bottom="5.0"/>
-                            </padding>
-                        </Label>
-                        <Button onAction="#switchToExamples" styleClass="green-button-theme" text="Enter"/>
-                    </VBox>
-                </HBox>
-
 
                 <HBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
                       HBox.hgrow="ALWAYS">
@@ -153,6 +130,30 @@
                         <Button onAction="#switchToHelp" styleClass="green-button-theme" text="Enter"/>
                     </VBox>
                 </HBox>
+
+                <HBox managed="false" alignment="CENTER" visible="false" maxHeight="Infinity" maxWidth="Infinity"
+                      styleClass="home-boxes"
+                      HBox.hgrow="ALWAYS">
+                    <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
+                          HBox.hgrow="ALWAYS">
+                        <Label styleClass="home-button-title" text="CREATE BY DESIGN" textFill="#23aa76"/>
+                        <TextArea editable="false" maxHeight="1"/>
+                        <Label text="define your PDA using design!" textFill="#23aa76">
+                            <padding>
+                                <Insets bottom="20.0"/>
+                            </padding>
+                        </Label>
+                        <Label mnemonicParsing="false" styleClass="home-button-icon">
+                            <graphic>
+                                <FontIcon iconColor="#23aa76" iconLiteral="fa-codepen" iconSize="114"/>
+                            </graphic>
+                            <padding>
+                                <Insets bottom="5.0"/>
+                            </padding>
+                        </Label>
+                    </VBox>
+                </HBox>
+
             </HBox>
             <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
                 <children>

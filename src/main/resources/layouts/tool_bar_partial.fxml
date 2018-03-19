@@ -6,19 +6,19 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<VBox id="tool-bar" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+<HBox xmlns:fx="http://javafx.com/fxml/1" id="tool-bar" xmlns="http://javafx.com/javafx/8.0.121"
       fx:controller="controller.ToolBarPartialController">
     <FlowPane alignment="CENTER_LEFT" maxHeight="0.0" minHeight="80.0" orientation="HORIZONTAL">
         <TextFlow fx:id="pdaTitle">
-            <Text styleClass="logo-text" text="PDA ">
+            <Text styleClass="logo-text" text="pda-">
         </Text>
-            <Text styleClass="logo-text" text="SIMULATOR">
+            <Text styleClass="logo-text" text="simulator">
          </Text>
             <padding>
-                <Insets bottom="5.0" left="40.0" right="10.0" top="5.0"/>
+                <Insets bottom="5.0" left="120.0" right="10.0"/>
             </padding>
             <FlowPane.margin>
-                <Insets/>
+                <Insets top="0.0"/>
             </FlowPane.margin>
     </TextFlow>
         <VBox.margin>
@@ -37,7 +37,7 @@
             </graphic>
         </Button>
         <Button fx:id="bToolbarDeterministic" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
-                minHeight="40.0" minWidth="90" onAction="#requestNonDeterministicTransitions" styleClass="tool-buttons"
+                minHeight="40.0" minWidth="190" onAction="#requestNonDeterministicTransitions" styleClass="tool-buttons"
                 text="Open Non-Deterministic Mode">
             <graphic>
                 <FontIcon iconColor="#a1a1a1" iconLiteral="fa-circle-thin" iconSize="20" translateX="3.0"/>
@@ -69,8 +69,8 @@
             <Insets bottom="5.0"/>
         </VBox.margin>
         <padding>
-            <Insets right="6.0"/>
+            <Insets right="5.0"/>
         </padding>
 
     </HBox>
-</VBox>
+</HBox>

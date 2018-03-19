@@ -16,10 +16,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ViewFactory {
+
+    //views
     public static BorderPane globalPane;
-    public static BorderPane homePage;
+    public static BorderPane home;
     public static BorderPane library;
-    public static StackPane codeDefinition;
     public static StackPane pdaRunner;
     public static Stage stage;
     public static StackPane quickDefinition;
@@ -27,6 +28,18 @@ public class ViewFactory {
     public static Pane info;
     public static Pane help;
 
+    /**
+     * A method which opens up a standard dialog window in the parent view
+     *
+     * @param parent              the parent view
+     * @param oneButtonDialog     defines whether its a single-button dialog or a double
+     * @param title               the title of dialog
+     * @param additonalMessage    the information of dialog
+     * @param primaryListener     the listener to the primary button of dialog
+     * @param secondaryListener   the listener to the secondary button of dialog
+     * @param primaryButtonText   the primary button text
+     * @param secondaryButtonText the secondary button text
+     */
     public static void showStandardDialog(Pane parent, boolean oneButtonDialog, String title, String additonalMessage,
                                           EventHandler<ActionEvent> primaryListener,
                                           EventHandler<ActionEvent> secondaryListener,
@@ -53,6 +66,11 @@ public class ViewFactory {
         }
     }
 
+    /**
+     * A method which opens up a standard error dialog box in parent view
+     * @param error the error message
+     * @param primaryView the parent view which the dialog will be displayed in
+     */
     public static void showErrorDialog(String error, Pane primaryView) {
         ViewFactory.showStandardDialog(primaryView, true, "Error :",
                 error, event -> primaryView.getChildren().remove(primaryView.getChildren().size() - 1),
@@ -60,7 +78,13 @@ public class ViewFactory {
     }
 
 
-    public static ChangeListener<String> restrictTextFieldInput(TextField textField, String regex) {
+    /**
+     * A method which restricts a textfield to the regex constraint provided
+     *
+     * @param textField the textfield to retrict
+     * @param regex     the format of entry which the text field will accept
+     */
+    public static void restrictTextFieldInput(TextField textField, String regex) {
         ChangeListener<String> changeListener = (observable, oldValue, newValue) -> {
             if (!newValue.isEmpty() && oldValue.length() == 1) {
                 textField.setText(oldValue);
@@ -73,8 +97,10 @@ public class ViewFactory {
             }
         };
         textField.textProperty().addListener(changeListener);
-        return changeListener;
+    }
 
+    public static void switchToView(Pane view){
+        globalPane.setCenter(view);
     }
 
 }

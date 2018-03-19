@@ -62,7 +62,6 @@ public class UserActionController {
         lPreviousBranch.setOnMouseClicked(action);
     }
 
-
     public void setButtonStopAction(EventHandler<MouseEvent> action){
         lStop.setOnMouseClicked(action);
     }

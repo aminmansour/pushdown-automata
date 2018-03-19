@@ -1,9 +1,5 @@
 package model;
 
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.sun.org.apache.xpath.internal.operations.String;
-
-
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -13,15 +9,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Memory {
-//    private static ObjectMapper mapper = new ObjectMapper();
+/**
+ * MemoryFactory is a suite which is in charge of all memory operations found in the
+ * application
+ */
+public class MemoryFactory {
 
     private final static String PDA_MEMORY_STORE = "src/main/resources/storage/store.json";
     private final static String EXAMPLE_MEMORY_STORE = "src/main/resources/storage/examples.json";
 
-    public static void save(Definition definition) {
+
+    /**
+     * A method which saves definition instance to memory
+     *
+     * @param definition the definition to save
+     */
+    public static void saveToLibrary(Definition definition) {
         try {
-            ArrayList<Definition> instances = load();
+            ArrayList<Definition> instances = loadLibrary();
             Gson gson = new Gson();
             instances.add(definition);
             FileWriter writer = new FileWriter(PDA_MEMORY_STORE);
@@ -32,8 +37,12 @@ public class Memory {
         }
     }
 
-    public static ArrayList<Definition> load() {
-
+    /**
+     * A method which loads all the definition instances stored in memory as an ArrayList
+     *
+     * @return the array list of definition instances stored in memory
+     */
+    public static ArrayList<Definition> loadLibrary() {
         ArrayList<Definition> library = new ArrayList<>();
         ModelFactory.libraryStore = library;
         return getDefinitionsFromFile(library, PDA_MEMORY_STORE);
@@ -49,6 +58,7 @@ public class Memory {
         return ModelFactory.exampleStore;
     }
 
+    //reads definitions stored on file and convert them into arraylist
     private static ArrayList<Definition> getDefinitionsFromFile(ArrayList<Definition> library, String url) {
         try {
             Gson gson = new Gson();
@@ -66,19 +76,10 @@ public class Memory {
         }
     }
 
-    public static void delete(Definition definition) {
-        try {
-            ArrayList<Definition> library = load();
-            library.remove(definition);
-            Gson gson = new Gson();
-            FileWriter writer = new FileWriter(PDA_MEMORY_STORE);
-            gson.toJson(library.toArray(new Definition[0]), writer);
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
+    /**
+     * A method which saves the most recent changes and updates the loaded PDA
+     */
     public static void saveState() {
         try {
             Gson gson = new Gson();
@@ -88,29 +89,6 @@ public class Memory {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-    public static void main(String[] args) {
-        ArrayList<ControlState> es = new ArrayList<ControlState>();
-        ControlState q1 = new ControlState("q1");
-        ControlState q2 = new ControlState("q2");
-        es.add(q1);
-        es.add(q2);
-        ArrayList<Transition> transitions = new ArrayList<>();
-        Transition transition1 = new Transition(new Configuration(q1, '1', 'A'), new Action(q1, 'A'));
-        transitions.add(transition1);
-        Transition transition2 = new Transition(new Configuration(q1, '1', 'A'), new Action(q2, 'A'));
-        transitions.add(transition2);
-        Transition transition3 = new Transition(new Configuration(q2, '1', 'A'), new Action(q1, 'A'));
-        transitions.add(transition3);
-        Transition transition4 = new Transition(new Configuration(q1, null, 'A'), new Action(q1, 'A'));
-        transitions.add(transition4);
-        Definition definition = new Definition("hig", es, q1, transitions, true);
-        Definition definitions = new Definition("hsdig", es, q1, transitions, true);
-        save(definition);
-        save(definitions);
-        load();
     }
 
 
