@@ -10,9 +10,13 @@ import model.InputTape;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Controller which is in charge of the tape view
+ */
 public class TapeDisplayController {
 
 
+    //components
     private final Label lCurrentState;
     private final GridPane gpTape;
     private final Label lStackTop;
@@ -22,8 +26,12 @@ public class TapeDisplayController {
     private BorderPane tapeView;
 
 
+    //model
     private InputTape tape;
 
+    /**
+     * A constructor for a TapeDisplayController instance
+     */
     public TapeDisplayController() {
 
         try {
@@ -58,27 +66,48 @@ public class TapeDisplayController {
         return tapeView;
     }
 
+    /**
+     * A method which updates the step in the visual view
+     *
+     * @param step the updated step
+     */
     public void setStep(int step){
         lStep.setText("Step "+step);
     }
 
 
+    /**
+     * A method which updates the current control state description in the visual view
+     * @param element the current state
+     */
     public void setCurrentStateLabel(String element) {
         lCurrentState.setText("Current state : "+element);
     }
 
+    /**
+     * A method which updates the current top stack symbol description in the visual view
+     * @param element the current top stack symbol
+     */
     public void setStackTopLabel(String element) {
         lStackTop.setText("Top stack symbol : "+element);
     }
 
+    /**
+     * A method which updates the current configuration description in the visual view
+     * @param config the current configuration
+     */
     public void setCurrentConfigurationLabel(String config) {
         lCurrentConfiguration.setText("Current configuration : "+config);
     }
 
+    //sets the head symbol to current head symbol of tape
     private void setHeadSymbolLabel() {
         lHeadSymbol.setText("Symbol at head : " + (tape.getStringSymbolAtHead()));
     }
 
+    /**
+     * A method which clears the visual descriptions and resets them to initial value
+     */
     public void clear(){
         lStep.setText("Step 0");
         setTapeCells(new ArrayList<>());
@@ -88,6 +117,10 @@ public class TapeDisplayController {
     }
 
 
+    /**
+     * A method which links the tape model to this controller
+     * @param tapeInputModel the tape model instance
+     */
     public void setTapeInputModel(InputTape tapeInputModel) {
         this.tape = tapeInputModel;
         clear();
@@ -97,6 +130,9 @@ public class TapeDisplayController {
         return tape.getStep() == tape.getOriginalWord().length();
     }
 
+    /**
+     * A method which updates the visual tape with the latest tape model changes
+     */
     public void requestUpdate() {
         setTapeCells(tape.getRemainingInput());
         setStep(tape.getStep());

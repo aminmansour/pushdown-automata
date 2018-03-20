@@ -23,6 +23,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+/**
+ * A Controller in charge of the Display's view
+ */
 public class MachineDisplayController {
 
     private final String NON_DETERMINISTIC_FOCUS_COLOR = "#2ab27b;";
@@ -38,6 +41,9 @@ public class MachineDisplayController {
     private double height;
 
 
+    /**
+     * A constructor to create a MachineDisplayController instance
+     */
     public MachineDisplayController() {
         try {
             pCanvas = FXMLLoader.load(getClass().getResource("../layouts/pda_display_partial.fxml"));
@@ -77,6 +83,7 @@ public class MachineDisplayController {
     }
 
 
+    //repaints display of control states and transitions on screen
     private void repaintDisplay() {
         pCanvas.getChildren().clear();
         width = pdaDisplay.getWidth();
@@ -87,17 +94,21 @@ public class MachineDisplayController {
         }
     }
 
+    /**
+     * A method which adds a visual control state for the ControlState instance provided
+     *
+     * @param state the ControlState to represent
+     */
     public void addVisualControlState(ControlState state) {
         VisualControlState stateVisual = new VisualControlState(state.getLabel(), state.isInitial(), state.isAccepting());
         controlStates.put(state.getLabel(), stateVisual);
     }
 
 
-    public void clearBoard() {
-        pCanvas.getChildren().clear();
-    }
-
-
+    /**
+     * A method which re-computes the locations of the VisualControlState instances
+     * and draws them on screen along side the VisualTransitions between them
+     */
     public void redrawStates() {
         pCanvas.getChildren().clear();
         int statePerRow = (int) Math.ceil((double) controlStates.size() / 2);
@@ -164,6 +175,12 @@ public class MachineDisplayController {
     }
 
 
+    /**
+     * A method which adds a new VisualTransition instance based off the the Transition instance provided, so it can be seen
+     * on screen
+     * @param transition the transition the VisualTransition will represent
+     * @param update identify whether view needs to be re-drawn after the VisualTransition is added
+     */
     public void addVisualTransition(Transition transition, boolean update) {
         VisualTransition vTransition = new VisualTransition(transition, controlStates.get(transition.getConfiguration().getState().getLabel()),
                 controlStates.get(transition.getAction().getNewState().getLabel()));
@@ -174,6 +191,7 @@ public class MachineDisplayController {
         }
     }
 
+    // returns a collection of VisualTransition instances by source state
     private ArrayList<VisualTransition> getTransitionsBySource(String sourceLabel) {
         for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
             if (entry.getKey().equals(sourceLabel)) {
@@ -195,8 +213,12 @@ public class MachineDisplayController {
     }
 
 
+    /**
+     * A method which updates the VisualTransition associated with the transition by
+     * re-defining its components.
+     * @param transition the transition that has changed
+     */
     public void update(Transition transition) {
-
         outer:
         for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
@@ -225,11 +247,16 @@ public class MachineDisplayController {
         repaintDisplay();
     }
 
-    public void highlightTransitionBatch(Set<Transition> deterministicTransitions) {
+    /**
+     * A method which highlights a group of VisualTransitions, as specified by the set of transition inputted
+     *
+     * @param transitions set of Transitions to be highlighted
+     */
+    public void highlightTransitionBatch(Set<Transition> transitions) {
         for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
             for (VisualTransition vTransitions : transitionBatch) {
-                if (deterministicTransitions.contains(vTransitions.getTransition())) {
+                if (transitions.contains(vTransitions.getTransition())) {
                     vTransitions.setFocus(true, NON_DETERMINISTIC_FOCUS_COLOR);
                     vTransitions.getSourceState().setFocus(true, NON_DETERMINISTIC_FOCUS_COLOR);
                 }
@@ -237,6 +264,9 @@ public class MachineDisplayController {
         }
     }
 
+    /**
+     * A method which unhighlight all VisualTransition instances
+     */
     public void unhighlightAllTransitions() {
         for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
@@ -248,12 +278,20 @@ public class MachineDisplayController {
         }
     }
 
+    /**
+     * A method which resets the MachineDisplay
+     */
     public void clear() {
-        clearBoard();
+        pCanvas.getChildren().clear();
         controlStates = new TreeMap<>();
         transitionsByStateMap = new TreeMap<>();
     }
 
+
+    /**
+     * A method which focuses on the a particular transition on screen
+     * @param transition the transition to highlight
+     */
     public void focusTransition(Transition transition) {
         ArrayList<VisualTransition> visualTransitions = transitionsByStateMap.get(transition.getConfiguration().getState().getLabel());
         for (VisualTransition vTransition : visualTransitions) {
@@ -265,7 +303,7 @@ public class MachineDisplayController {
                         ae -> {
                             vTransition.setFocus(false, "");
                             bringAllStatesToFront();
-                            clearTransitionFocus();
+                            unhighlightAllTransitions();
                             vTransition.getResultingState().setFocus(true, NORMAL_RUN_COLOR);
                         }));
 
@@ -277,29 +315,28 @@ public class MachineDisplayController {
         }
     }
 
-    public void clearTransitionFocus() {
-        for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
-            ArrayList<VisualTransition> transitionBatch = entry.getValue();
-            for (VisualTransition vTransition : transitionBatch) {
-                vTransition.setFocus(false, "");
-                vTransition.getResultingState().setFocus(false, "");
-            }
-        }
-    }
 
-    public void bringAllStatesToFront() {
+    //brings all VisualControlState to the front
+    private void bringAllStatesToFront() {
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             entry.getValue().bringToFront();
         }
     }
 
 
+    /**
+     * A method which focus onto a VisualControlState
+     * @param currentState the state to focus on
+     * @param toFocus a boolean value determining whether state should be highlighted or un-highlighted
+     */
     public void focusState(ControlState currentState, boolean toFocus) {
         if (currentState != null) {
             controlStates.get(currentState.getLabel()).setFocus(toFocus, NORMAL_RUN_COLOR);
         }
     }
 
+
+    //retrieves all VisualTransition instances found in display
     private ArrayList<VisualTransition> getAllTransitions() {
         ArrayList<VisualTransition> toReturn = new ArrayList<>();
         for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
@@ -309,6 +346,9 @@ public class MachineDisplayController {
     }
 
 
+    /**
+     * A method which resets the zoom to its default value
+     */
     public void resetZoom() {
         pdaDisplay.setPivot(0, 0);
         slider.setValue(1);

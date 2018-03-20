@@ -21,6 +21,7 @@ public class ConfigurationContext {
     private int totalSiblings;
     private boolean isInPath;
     private ControlState controlState;
+    private int numberOfVisits;
 
 
     /**
@@ -31,10 +32,9 @@ public class ConfigurationContext {
      * @param stackState     the stack content
      * @param headPosition   the position of head
      * @param step           the steps made in execution up to ths point
-     * @param remainingInput the remaining input of tape
      * @param totalSiblings  he amount of sibling nodes in the ExecutionTree
      */
-    public ConfigurationContext(ControlState controlState, ConfigurationContext parent, ArrayList<Character> stackState, int headPosition, int step, String remainingInput, int totalSiblings) {
+    public ConfigurationContext(ControlState controlState, ConfigurationContext parent, ArrayList<Character> stackState, int headPosition, int step, int totalSiblings) {
         this.parent = parent;
         this.step = step;
         this.exploredChildren = new ArrayList<>();
@@ -42,6 +42,8 @@ public class ConfigurationContext {
         this.headPosition = headPosition;
         this.totalSiblings = totalSiblings;
         this.controlState = controlState;
+        numberOfVisits = 1;
+
     }
 
 
@@ -193,6 +195,44 @@ public class ConfigurationContext {
         return step;
     }
 
+    /**
+     * Increments the number of made visits
+     *
+     * @return rhw roral number of visits in current execution
+     */
+    public int increment() {
+        return numberOfVisits++;
+    }
+
+    /**
+     * A method which compares two ConfigurationContext instance for equivalence.
+     *
+     * @param other the other ConfigurationContext instance to compare
+     * @return true, if the two are the same in terms of effect, but false otherwise
+     */
+    public boolean sameAs(ConfigurationContext other) {
+        if (stackState.size() != other.stackState.size()) {
+            return false;
+        }
+        for (int i = 0; i < stackState.size(); i++) {
+            if (stackState.get(i) != other.stackState.get(i)) {
+                return false;
+            }
+        }
+
+        if (headPosition != other.getHeadPosition()) {
+            return false;
+        }
+
+        return controlState == other.controlState;
+    }
 
 
+    public int getNumberOfVisits() {
+        return numberOfVisits;
+    }
+
+    public void setNumberOfVisits(int numberOfVisits) {
+        this.numberOfVisits = numberOfVisits;
+    }
 }

@@ -155,7 +155,7 @@ public class PDAMachine {
     //adds the resulting ConfigurationContext to the execution tree
     private void addResultingConfigurationContextToExecutionTree(Transition transition, int totalChildren) {
         ConfigurationContext child = new ConfigurationContext(transition.getAction().getNewState(),
-                executionTree.getCurrent(), new ArrayList<>(stack.getStackContent()), tape.getHeadPosition(), tape.getStep(), tape.getRemainingInputAsString(), totalChildren);
+                executionTree.getCurrent(), new ArrayList<>(stack.getStackContent()), tape.getHeadPosition(), tape.getStep(), totalChildren);
         executionTree.getCurrent().addChild(child);
         executionTree.setCurrent(child);
         child.markInPath(true);
@@ -204,7 +204,7 @@ public class PDAMachine {
 
     public void createNewExecutionTree(ControlState controlState, ArrayList<Character> stackState,
                                        int headPosition, int step, int totalChildren) {
-        ConfigurationContext root = new ConfigurationContext(controlState, null, stackState, headPosition, step, tape.getRemainingInputAsString(), totalChildren);
+        ConfigurationContext root = new ConfigurationContext(controlState, null, stackState, headPosition, step, totalChildren);
         root.markInPath(true);
         executionTree = new ExecutionTree(root);
     }

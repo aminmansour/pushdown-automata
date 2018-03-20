@@ -77,7 +77,7 @@ public class HomeController {
      */
     public void restore() {
         if (ControllerFactory.pdaRunnerController.isLoaded()) {
-            ControllerFactory.pdaRunnerController.closeDeterministicModeIfPresent();
+            ControllerFactory.pdaRunnerController.closeNonDeterministicModeIfPresent();
             ViewFactory.globalPane.setCenter(ViewFactory.pdaRunner);
             ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
         }

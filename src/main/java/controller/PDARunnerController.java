@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Controller which runs a PDAMachine and allows for user interaction with it
+ */
 public class PDARunnerController implements Initializable {
 
     //containers
@@ -49,21 +52,20 @@ public class PDARunnerController implements Initializable {
     private ArrayList<String> solutionBuffer;
     private int solutionPointer;
     private boolean moreSolutionsToBeFound;
-    //fields
+
+    //dialog
     private BorderPane currentChoiceWindow;
     private VBox currentOutputWindow;
     private boolean inDeterministicMode;
     private boolean machineIsNonDeterministic;
 
 
-    public PDARunnerController() {
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buildPDARunnerView();
     }
 
+    //loads the individual components ( views and controllers)
     private void buildPDARunnerView() {
         tape = new TapeDisplayController();
         vbPDAInteraction.getChildren().add(tape.getTapeViewGenerated());
@@ -89,21 +91,24 @@ public class PDARunnerController implements Initializable {
         actionBar.setDisable(true);
     }
 
+    //runs instant run on the current input
     private void instantRun() {
         actionBar.setDisable(true);
         transitionTable.clearSelection(false);
 
-        closeDeterministicModeIfPresent();
+        closeNonDeterministicModeIfPresent();
         setUpRunEnvironment();
         runInstantRunDFS(false, 20);
     }
 
+    //clears solution store, and loads the current input into the PDAMachine instance
     private void setUpRunEnvironment() {
         clearSolutionHistory();
         pda.loadInput(inputBox.getInput());
         machineIsNonDeterministic = pda.isNonDeterministic();
     }
 
+    //clears solution store
     private void clearSolutionHistory() {
         solutionBuffer = new ArrayList<>();
         solutionPointer = 0;
@@ -118,12 +123,15 @@ public class PDARunnerController implements Initializable {
         tape.requestUpdate();
         stack.requestInterfaceUpdate();
         machineDisplay.focusState(pda.getCurrentState(), true);
-        updateCurrentStateAndConfigurationField();
+        ControlState currentState = pda.getCurrentState();
+        tape.setCurrentStateLabel(currentState == null ? pda.getDefinition().getInitialState().getLabel() : currentState.getLabel());
+        tape.setCurrentConfigurationLabel(currentState == null ? "-" : "( " + pda.getCurrentState().getLabel() + " , " + pda.getTape().getRemainingInputAsString() + " , " + pda.getStack().getStackContentAsString() + " )");
         tape.setStackTopLabel(pda.getStack().isEmpty() ? "-" : pda.getStack().top() + "");
     }
 
+    //runs dfs for instant-run on a given input
     private boolean runInstantRunDFS(boolean isAlternativeSearch, int limit) {
-        ArrayList<MemoryPlaceHolder> memory = new ArrayList<>();
+        ArrayList<ConfigurationContext> memory = new ArrayList<>();
         if (isAlternativeSearch) {
             pda.previous();
         }
@@ -181,28 +189,28 @@ public class PDARunnerController implements Initializable {
                             }, "Enter step-mode", "Continue search");
                             return false;
                         }
-                        MemoryPlaceHolder e = new MemoryPlaceHolder(pda.getStack().getStackContent(), pda.getCurrentState(), pda.getTape().getRemainingInput(), pda.getTape().getStep(), pda.getTape().getHeadPosition(), pda.getExecutionTree().getCurrent());
-                            boolean toAddToMemory = true;
-                            for (int i = 0; i < memory.size(); i++) {
-                                MemoryPlaceHolder m = memory.get(i);
-                                if (e.isInContext(memory.get(i))) {
-                                    if (m.numberOfVisits == 2) {
-                                        m.numberOfVisits = 1;
-                                        if (m.current.getParent() != null) {
-                                            pda.loadConfigurationContext(m.current.getParent());
-                                        } else {
-                                            openInstantRunResultsOutputDialog(false, false);
-                                        }
-                                        break transitionsLoop;
+                        ConfigurationContext e = pda.getExecutionTree().getCurrent();
+                        boolean toAddToMemory = true;
+                        for (int i = 0; i < memory.size(); i++) {
+                            ConfigurationContext m = memory.get(i);
+                            if (e.sameAs(memory.get(i))) {
+                                if (m.getNumberOfVisits() == 2) {
+                                    m.setNumberOfVisits(1);
+                                    if (m.getParent() != null) {
+                                        pda.loadConfigurationContext(m.getParent());
+                                    } else {
+                                        openInstantRunResultsOutputDialog(false, false);
                                     }
-                                    m.increment();
-                                    toAddToMemory = false;
-                                    break;
+                                    break transitionsLoop;
                                 }
+                                m.increment();
+                                toAddToMemory = false;
+                                break;
                             }
-                            if (toAddToMemory) {
-                                memory.add(e);
-                            }
+                        }
+                        if (toAddToMemory) {
+                            memory.add(e);
+                        }
 
                         toBacktrack = false;
                         if (pda.getExecutionTree().getCurrent().hasContext(transition.getConfiguration().getState(), stackContentBefore, remaingInputBefore)) {
@@ -224,16 +232,17 @@ public class PDARunnerController implements Initializable {
     }
 
 
-
+    //step run
     private void stepRun() {
         clearSolutionHistory();
-        closeDeterministicModeIfPresent();
-        machineDisplay.clearTransitionFocus();
+        closeNonDeterministicModeIfPresent();
+        machineDisplay.unhighlightAllTransitions();
         transitionTable.clearSelection(false);
         loadPDAWithNewInput();
         actionBar.setDisable(false);
     }
 
+    //load the pda with input and update interface
     private void loadPDAWithNewInput() {
         stop();
         setUpRunEnvironment();
@@ -242,6 +251,7 @@ public class PDARunnerController implements Initializable {
     }
 
 
+    //sets up listeners in the action bar
     private void initializeUserActionBarAndSetUpActionListeners() {
         actionBar = new UserActionController();
         vbLeftBar.getChildren().add(actionBar.getActionBar());
@@ -253,15 +263,16 @@ public class PDARunnerController implements Initializable {
         actionBar.setButtonStopAction(event -> stop());
     }
 
-    public void nextBranching() {
-        closeDeterministicModeIfPresent();
+    //A method which goes to next choice branch
+    private void nextBranching() {
+        closeNonDeterministicModeIfPresent();
         while (true) {
             ArrayList<Transition> transitions = pda.getPossibleTransitionsFromCurrent();
             if (pda.isAccepted()) {
-                openStepRunResultsOutputDialog(true);
+                openStepRunDeterministicOutputDialog(true);
                 break;
             } else if (transitions.size() == 0) {
-                openStepRunResultsOutputDialog(false);
+                openStepRunDeterministicOutputDialog(false);
                 break;
             } else if (transitions.size() == 1) {
                 executeTransition(transitions.get(0), transitions.size());
@@ -276,6 +287,7 @@ public class PDARunnerController implements Initializable {
         }
     }
 
+    //A method which goes to previous choice branch
     public void previousBranching() {
         if (pda.getExecutionTree().getRoot() == pda.getExecutionTree().getCurrent()) {
             return;
@@ -297,14 +309,16 @@ public class PDARunnerController implements Initializable {
     }
 
 
-    public void next() {
-        closeDeterministicModeIfPresent();
+    //A method which geos to the next configuration by applying a transition from
+    //a current configuration
+    private void next() {
+        closeNonDeterministicModeIfPresent();
         List<Transition> transitions = pda.getPossibleTransitionsFromCurrent();
 
         if (pda.isAccepted()) {
-            openStepRunResultsOutputDialog(true);
+            openStepRunDeterministicOutputDialog(true);
         } else if (transitions.size() == 0) {
-            openStepRunResultsOutputDialog(false);
+            openStepRunDeterministicOutputDialog(false);
         } else if (transitions.size() == 1) {
             executeTransition(transitions.get(0), transitions.size());
             if (tape.isLastStep() && ((pda.isAccepted() || pda.getPossibleTransitionsFromCurrent().isEmpty()))) {
@@ -315,34 +329,47 @@ public class PDARunnerController implements Initializable {
         }
     }
 
-    public void previous() {
-        closeDeterministicModeIfPresent();
+    //a method which goes to the previous configuration from the current one
+    private void previous() {
+        closeNonDeterministicModeIfPresent();
         transitionTable.clearSelection(false);
         pda.previous();
-        machineDisplay.clearTransitionFocus();
+        machineDisplay.unhighlightAllTransitions();
         actionBar.setDisable(false);
         requestInterfaceUpdate();
     }
 
-    public void redo() {
-        closeDeterministicModeIfPresent();
-        machineDisplay.clearTransitionFocus();
+    /**
+     * A method which cancels the current computation of the PDA and restarts from
+     * the beginning with the same. It updates the interface as well.
+     */
+    void redo() {
+        closeNonDeterministicModeIfPresent();
+        machineDisplay.unhighlightAllTransitions();
         transitionTable.clearSelection(false);
         pda.redo();
         requestInterfaceUpdate();
     }
 
-    public void stop() {
-        closeDeterministicModeIfPresent();
+    /**
+     * restarts current PDA and cancels computation and removes current input
+     */
+    void stop() {
+        closeNonDeterministicModeIfPresent();
         closeOptionDialogIfPresent();
         actionBar.setDisable(true);
-        machineDisplay.clearTransitionFocus();
+        machineDisplay.unhighlightAllTransitions();
         transitionTable.clearSelection(false);
         pda.stop();
         requestInterfaceUpdate();
     }
 
 
+    /**
+     * A method which load a new PDAMachine into this controller instance
+     *
+     * @param model the PDAMachine to load containing the definition of the machine
+     */
     public void loadPDA(PDAMachine model) {
         this.pda = model;
         machineDisplay.resetZoom();
@@ -365,6 +392,7 @@ public class PDARunnerController implements Initializable {
         machineDisplay.redrawStates();
     }
 
+    //Executes chosen transition and updates interface.
     private void executeTransition(Transition transition, int totalChildren) {
         ConfigurationContext previousState = checkIfPresentInHistory(transition);
         if (previousState != null) {
@@ -378,6 +406,8 @@ public class PDARunnerController implements Initializable {
         transitionTable.select(transition, true);
     }
 
+    //checks if transition has been executed before. If it has return the
+    //ConfigurationContext, else return null.
     private ConfigurationContext checkIfPresentInHistory(Transition transition) {
         ArrayList content = new ArrayList(pda.getStack().getStackContent());
         int headPosition = pda.getTape().getHeadPosition();
@@ -393,18 +423,14 @@ public class PDARunnerController implements Initializable {
         return pda.getExecutionTree().getCurrent().hasChildWithContext(transition.getAction().getNewState(), content, headPosition);
     }
 
+    //loads a ConfigurationContext instance into current PDAMachine and updates interface
     private void loadConfigurationContext(ConfigurationContext context) {
         pda.loadConfigurationContext(context);
         requestInterfaceUpdate();
 
     }
 
-    private void updateCurrentStateAndConfigurationField() {
-        ControlState currentState = pda.getCurrentState();
-        tape.setCurrentStateLabel(currentState == null ? pda.getDefinition().getInitialState().getLabel() : currentState.getLabel());
-        tape.setCurrentConfigurationLabel(currentState == null ? "-" : "( " + pda.getCurrentState().getLabel() + " , " + pda.getTape().getRemainingInputAsString() + " , " + pda.getStack().getStackContentAsString() + " )");
-    }
-
+    //removes user interaction from the PDAMachine and interface
     private void removeUserInteractionWithPDA(boolean toRemove) {
         actionBar.setDisable(toRemove);
         inputBox.setDisable(toRemove);
@@ -432,7 +458,7 @@ public class PDARunnerController implements Initializable {
     public void openNonDeterministicMode() {
         ControllerFactory.toolBarPartialController.setNonDeterministicModeButtonText("Close Non-Deterministic Mode");
         transitionTable.clearSelection(pda.getCurrentState() != null);
-        machineDisplay.clearTransitionFocus();
+        machineDisplay.unhighlightAllTransitions();
         Set<Transition> transitions = pda.getNonDeterministicTransitions();
         machineDisplay.highlightTransitionBatch(transitions);
         transitionTable.highlightTransitions(transitions);
@@ -445,10 +471,18 @@ public class PDARunnerController implements Initializable {
     }
 
 
+    /**
+     * A method which changes the source of the transition's initial state to the new state
+     *
+     * @param oldSourceState old initial state
+     * @param newSourceState new initial state
+     * @param transition     the transition to modify
+     */
     public void updateTransition(ControlState oldSourceState, ControlState newSourceState, Transition transition) {
         pda.moveTransitionSourceState(oldSourceState, newSourceState, transition);
     }
 
+    //gets control states in string format
     private ObservableList<String> getControlStatesInStringFormat() {
         ObservableList<String> data =
                 FXCollections.observableArrayList();
@@ -459,7 +493,10 @@ public class PDARunnerController implements Initializable {
         return data;
     }
 
-    public void openStepRunNonDeterministicOutputDialog() {
+
+    //A method which opens up step-run non-deterministic output dialog, where
+    //there is more than one solution
+    private void openStepRunNonDeterministicOutputDialog() {
         try {
             removeUserInteractionWithPDA(true);
             transitionTable.clearSelection(false);
@@ -511,7 +548,9 @@ public class PDARunnerController implements Initializable {
         }
     }
 
-    public void openStepRunResultsOutputDialog(boolean isAccepted) {
+    //A method which opens up step-run deterministic output dialog, where
+    //there is only at most one solution
+    public void openStepRunDeterministicOutputDialog(boolean isAccepted) {
         try {
             String sequence = "Configuration sequence :  " + pda.getCurrentExecutionSequence(isAccepted);
             if (isAccepted && !solutionBuffer.contains(sequence)) {
@@ -568,6 +607,10 @@ public class PDARunnerController implements Initializable {
         }
     }
 
+    /**
+     * A method which validates a tradition as defined by the user and adds it
+     * the list of transitions, if its a valid one. If not then open error dialog.
+     */
     public void openNewTransitionDialog() {
         try {
             stop();
@@ -636,7 +679,8 @@ public class PDARunnerController implements Initializable {
         }
     }
 
-    public void openInstantRunResultsOutputDialog(boolean isAccepted, boolean hasSingleSolution) {
+    //A method which opens up instant-run output dialog
+    private void openInstantRunResultsOutputDialog(boolean isAccepted, boolean hasSingleSolution) {
         try {
             removeUserInteractionWithPDA(true);
             currentOutputWindow = FXMLLoader.load(getClass().getResource("../layouts/instant_run_output_page.fxml"));
@@ -690,7 +734,8 @@ public class PDARunnerController implements Initializable {
         }
     }
 
-    public void openSaveDialog() {
+    //A method which opens the save dialog when the user accesses the save feature
+    void openSaveDialog() {
         try {
             VBox currentSaveWindow = FXMLLoader.load(getClass().getResource("../layouts/save_confirmation_page.fxml"));
             Button bSave = (Button) currentSaveWindow.lookup("#bSave");
@@ -722,7 +767,9 @@ public class PDARunnerController implements Initializable {
         }
     }
 
-    public void openTransitionOptionDialog(List<Transition> transitions) {
+    //A method which opens the transition options dialog when there is several transitions which the PDA machine can take
+    // in step-run
+    private void openTransitionOptionDialog(List<Transition> transitions) {
         try {
             removeUserInteractionWithPDA(true);
             currentChoiceWindow = FXMLLoader.load(getClass().getResource("../layouts/transition_selecter_page.fxml"));
@@ -797,6 +844,9 @@ public class PDARunnerController implements Initializable {
         }
     }
 
+    /**
+     * A method which open confirmation dialog to confirm user's action
+     * */
     public void showConfirmationDialog() {
         ViewFactory.showStandardDialog(spPDARunnerPage, false, "Alert :",
                 "This action might lose all unsaved changes! Are you sure you want to proceed without saving!", event -> {
@@ -810,7 +860,11 @@ public class PDARunnerController implements Initializable {
                 }, "Proceed", "Close");
     }
 
-    public void closeDeterministicModeIfPresent() {
+    /**
+     * A method which closes non-deterministic mode and restores previouly highlighted states
+     * and transitions
+     */
+    public void closeNonDeterministicModeIfPresent() {
         if (inDeterministicMode) {
             ControllerFactory.toolBarPartialController.setNonDeterministicModeButtonText("Open Non-Deterministic Mode");
             inDeterministicMode = false;
@@ -826,6 +880,7 @@ public class PDARunnerController implements Initializable {
 
     }
 
+    //a method which closes the transition option dialog
     private void closeOptionDialogIfPresent() {
         if (currentChoiceWindow != null) {
             spPDARunnerPage.getChildren().remove(currentChoiceWindow);
@@ -834,55 +889,13 @@ public class PDARunnerController implements Initializable {
         }
     }
 
+    //a method which closes the result dialog
     private void closeOutputDialogIfPresent() {
         if (currentOutputWindow != null) {
             spPDARunnerPage.getChildren().remove(currentOutputWindow);
             removeUserInteractionWithPDA(false);
             currentOutputWindow = null;
         }
-    }
-
-    class MemoryPlaceHolder {
-        public ConfigurationContext current;
-        public int numberOfVisits;
-        private ArrayList<Character> stackContent;
-        private ControlState controlState;
-        private ArrayList<Character> inputState;
-
-        public MemoryPlaceHolder(ArrayList<Character> stackContent, ControlState controlState, ArrayList<Character> inputState, int step, int tapeHead, ConfigurationContext current) {
-            this.stackContent = stackContent;
-            this.controlState = controlState;
-            this.inputState = inputState;
-            this.current = current;
-            numberOfVisits = 1;
-        }
-
-        public int increment() {
-            return numberOfVisits++;
-        }
-
-        public boolean isInContext(MemoryPlaceHolder m) {
-            if (stackContent.size() != m.stackContent.size()) {
-                return false;
-            }
-            for (int i = 0; i < stackContent.size(); i++) {
-                if (stackContent.get(i) != m.stackContent.get(i)) {
-                    return false;
-                }
-            }
-
-            if (inputState.size() != m.inputState.size()) {
-                return false;
-            }
-            for (int i = 0; i < inputState.size(); i++) {
-                if (inputState.get(i) != m.inputState.get(i)) {
-                    return false;
-                }
-            }
-
-            return controlState == m.controlState;
-        }
-
     }
 
 }

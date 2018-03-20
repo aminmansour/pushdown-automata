@@ -20,8 +20,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controller which is in charge of providing access and ability to the user to create
+ * their own PDA.
+ */
 public class QuickDefinitionController implements Initializable {
 
+    //elements
     @FXML
     private StackPane quickDefinition;
     @FXML
@@ -87,7 +92,7 @@ public class QuickDefinitionController implements Initializable {
         bAddTransition.setOnAction(event -> addTransition());
 
         populateNumberDropdown(cbNumberOfStates);
-        bGenerateStates.setOnAction(event -> generateStateLabels());
+        bGenerateStates.setOnAction(event -> generateStates());
         bAdvance.setOnAction(event -> validateControlStates());
         bSave.setOnAction(event -> openSaveDialog());
         bGenerate.setOnAction(event -> {
@@ -96,11 +101,13 @@ public class QuickDefinitionController implements Initializable {
         });
     }
 
+    //opens the control state pane
     private void forceOpenControlStatePane() {
         aDefinition.setExpandedPane(tpStates);
         tpTransitions.setCollapsible(false);
     }
 
+    //clears all the fields found in the form
     private void clearFields() {
         forceOpenControlStatePane();
         taControlStates.clear();
@@ -115,6 +122,9 @@ public class QuickDefinitionController implements Initializable {
         lockPDACreationFunctionality(true);
     }
 
+    /**
+     * A method which opens the save dialog when the user accesses the save feature
+     */
     public void openSaveDialog() {
         try {
             VBox saveDialog = FXMLLoader.load(getClass().getResource("../layouts/save_confirmation_page.fxml"));
@@ -130,6 +140,14 @@ public class QuickDefinitionController implements Initializable {
         }
     }
 
+    /**
+     * A method which examines the definition's saving ID and determines whether its
+     * a valid ID. If it is, then the PDA definition is saved to memory and loaded into a new PDA
+     *
+     * @param saveDialog the save dialog container
+     * @param lError     the error message
+     * @param tfName     the saving ID text field
+     */
     private void validatePDANameAndSave(VBox saveDialog, Label lError, TextField tfName) {
         if (!tfName.getText().trim().isEmpty()) {
             boolean isSuccessful = loadDefinition(tfName.getText().trim(), true);
@@ -144,6 +162,7 @@ public class QuickDefinitionController implements Initializable {
     }
 
 
+    //loads the definition into a new PDA and switches to it
     private boolean loadDefinition(String id, boolean toSave) {
         ArrayList<ControlState> states = new ArrayList<>(temporaryControlStateStore.size());
         ControlState initialState = null;
@@ -158,7 +177,6 @@ public class QuickDefinitionController implements Initializable {
                 state.markAsInitial();
                 initialState = state;
             }
-
             states.add(state);
         }
 
@@ -189,14 +207,11 @@ public class QuickDefinitionController implements Initializable {
             MemoryFactory.saveToLibrary(definition);
         }
 
-
         switchToPDARunner();
-
-
         return true;
     }
 
-
+    //a method which determines if a state should be an accepting one
     private boolean isAcceptingState(ControlState state, ObservableList<String> acceptingStates) {
         for (String acceptingState : acceptingStates) {
             if (acceptingState.equals(state.getLabel())) {
@@ -205,6 +220,8 @@ public class QuickDefinitionController implements Initializable {
         }
         return false;
     }
+
+    //switch to PDARunner
     private void switchToPDARunner() {
         ViewFactory.globalPane.setCenter(ViewFactory.pdaRunner);
         ControllerFactory.pdaRunnerController.stop();
@@ -212,6 +229,7 @@ public class QuickDefinitionController implements Initializable {
     }
 
 
+    //validation for Control states provided
     private void validateControlStates() {
         boolean initialSelected = cbInitialState.getSelectionModel().isEmpty();
         ObservableList acceptingStates = cbAcceptingStates.getCheckModel().getCheckedIndices();
@@ -245,6 +263,8 @@ public class QuickDefinitionController implements Initializable {
         tpTransitions.setExpanded(true);
     }
 
+    //A method which validates a tradition as defined by the user and adds it
+    //the list of transitions, if its a valid one. If not then open error dialog.
     private void addTransition() {
 
         if (cbStates.getSelectionModel().isEmpty()) {
@@ -273,6 +293,7 @@ public class QuickDefinitionController implements Initializable {
 
     }
 
+    //clears the transition fields
     private void clearTransitionFields() {
         cbStates.getSelectionModel().clearSelection();
         cbResultingStates.getSelectionModel().clearSelection();
@@ -281,11 +302,14 @@ public class QuickDefinitionController implements Initializable {
         tfInputElement.clear();
     }
 
+    //locks the save and generate buttons in the form
     private void lockPDACreationFunctionality(boolean toDisable) {
         bSave.setDisable(toDisable);
         bGenerate.setDisable(toDisable);
     }
 
+    //updates the transition section with data provided in the control state
+    //section
     private void loadTransitionSection() {
         populateControlStateDropdown(cbStates);
         populateControlStateDropdown(cbResultingStates);
@@ -297,17 +321,19 @@ public class QuickDefinitionController implements Initializable {
         lvTransitions.setItems(temporaryTransitionStore);
         lvTransitions.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 hbTransitionAction.setVisible(true));
-        bEdit.setOnAction(event -> loadTransition());
+        bEdit.setOnAction(event -> modifyTransition());
         bDelete.setOnAction(event -> deleteTransitionFromStore());
 
     }
 
+    //deletes the transition from the current store of transitions in the terminal
     private TransitionTableEntry deleteTransitionFromStore() {
         TransitionTableEntry toDelete = temporaryTransitionStore.remove(lvTransitions.getSelectionModel().getSelectedIndex());
         return toDelete;
     }
 
-    private void loadTransition() {
+    //allows for re-modification of a transition that has ready been submitted
+    private void modifyTransition() {
         TransitionTableEntry toDelete = deleteTransitionFromStore();
         cbStates.getSelectionModel().select(toDelete.getCurrentState());
         cbResultingStates.getSelectionModel().select(toDelete.getResultingState());
@@ -319,7 +345,7 @@ public class QuickDefinitionController implements Initializable {
     }
 
 
-
+    //a method which populates the dropdown with control states that have been generated
     private void populateControlStateDropdown(ComboBox<String> dropdown) {
         ObservableList<String> data =
                 FXCollections.observableArrayList(temporaryControlStateStore);
@@ -327,7 +353,8 @@ public class QuickDefinitionController implements Initializable {
     }
 
 
-    private void generateStateLabels() {
+    //generate states on terminal and loads them for selection in the control state dropdowns
+    private void generateStates() {
         if (!cbNumberOfStates.getSelectionModel().isEmpty()) {
             temporaryControlStateStore = FXCollections.observableArrayList();
             cbAcceptingStates.setDisable(false);
@@ -349,6 +376,7 @@ public class QuickDefinitionController implements Initializable {
         }
     }
 
+    //populate dropdown with numbers from 2-50
     private void populateNumberDropdown(ComboBox<String> cbNumberOfStates) {
         ObservableList<String> data =
                 FXCollections.observableArrayList(
@@ -359,7 +387,7 @@ public class QuickDefinitionController implements Initializable {
         cbNumberOfStates.setItems(data);
     }
 
-
+    //sets up the button group defining acceptance condition
     private ToggleGroup addAcceptingConditionsToggleGroup() {
         ToggleGroup tgAcceptingConditions = new ToggleGroup();
         rbAcceptingState.setToggleGroup(tgAcceptingConditions);
@@ -368,6 +396,7 @@ public class QuickDefinitionController implements Initializable {
         return tgAcceptingConditions;
     }
 
+    //toggle for accepting states field's visibility
     private void acceptanceSelectionAction() {
         if (rbAcceptingState.isSelected()) {
             vbAcceptingStates.setVisible(true);

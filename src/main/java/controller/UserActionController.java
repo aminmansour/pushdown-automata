@@ -8,20 +8,26 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
+/**
+ * Controller which is in charge of the user action bar view
+ */
 public class UserActionController {
 
+    //components
     private final Label lNext;
     private final Label lPrevious;
     private final Label lStartAgain;
     private final Label lNextBranch;
     private final Label lPreviousBranch;
     private final Label lStop;
-
     private HBox actionBarView;
 
+    /**
+     * A constructor for a UserActionController instance
+     */
     public UserActionController(){
         try {
-          actionBarView = FXMLLoader.load(getClass().getResource("../layouts/user_action_bar_partial.fxml"));
+            actionBarView = FXMLLoader.load(getClass().getResource("../layouts/user_action_bar_partial.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,6 +72,11 @@ public class UserActionController {
         lStop.setOnMouseClicked(action);
     }
 
+    /**
+     * A method which disables user interaction with the action bar
+     *
+     * @param toDisable a boolean value determining whether to disable or enable user interaction
+     */
     public void setDisable(boolean toDisable) {
         lStartAgain.setDisable(toDisable);
         lStop.setDisable(toDisable);
@@ -76,6 +87,9 @@ public class UserActionController {
         lNextBranch.setDisable(toDisable);
     }
 
+    /**
+     * A method which restricts all buttons except for the play button
+     */
     public void restrictToOnlyPlay() {
         lNext.setDisable(false);
         lNext.setText("Finalize");

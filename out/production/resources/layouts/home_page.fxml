@@ -57,10 +57,6 @@
                 </HBox>
 
 
-
-
-
-
             </HBox>
             <HBox alignment="CENTER" maxWidth="Infinity" spacing="30" VBox.vgrow="ALWAYS">
 
@@ -135,7 +131,8 @@
                     </VBox>
                 </HBox>
 
-                <HBox managed="false" alignment="CENTER" visible="false" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes"
+                <HBox managed="false" alignment="CENTER" visible="false" maxHeight="Infinity" maxWidth="Infinity"
+                      styleClass="home-boxes"
                       HBox.hgrow="ALWAYS">
                     <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
                           HBox.hgrow="ALWAYS">

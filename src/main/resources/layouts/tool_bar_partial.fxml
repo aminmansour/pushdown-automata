@@ -37,7 +37,8 @@
             </graphic>
         </Button>
         <Button fx:id="bToolbarDeterministic" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
-                minHeight="40.0" minWidth="190" onAction="#requestNonDeterministicTransitions" styleClass="tool-buttons"
+                minHeight="40.0" minWidth="190" onAction="#requestNonDeterministicTransitionsMode"
+                styleClass="tool-buttons"
                 text="Open Non-Deterministic Mode">
             <graphic>
                 <FontIcon iconColor="#a1a1a1" iconLiteral="fa-circle-thin" iconSize="20" translateX="3.0"/>
@@ -57,7 +58,7 @@
             </HBox.margin>
         </Button>
         <Button fx:id="bToolbarStartAgain" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
-                minWidth="90" onAction="#startAgain" styleClass="tool-buttons" text="New PDA">
+                minWidth="90" onAction="#switchToQuickDefinition" styleClass="tool-buttons" text="New PDA">
             <graphic>
                 <FontIcon iconColor="#a1a1a1" iconLiteral="fa-file-o" iconSize="20" translateX="3.0"/>
             </graphic>
