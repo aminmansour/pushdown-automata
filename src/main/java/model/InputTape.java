@@ -31,7 +31,6 @@ public class InputTape {
         if (!skipSymbol && input.size() > 0 && headIndex < input.size()) {
             char toReturn = input.get(headIndex);
             headIndex++;
-            System.out.println(headIndex + " a");
             step++;
             return toReturn;
         }
