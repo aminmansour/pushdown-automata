@@ -67,7 +67,7 @@ public class ToolBarPartialController {
     }
 
     /**
-     * A method which switches to the quick definition view
+     * A method which switches to the quick definition view from PDA view
      */
     public void switchToQuickDefinition() {
         if (!ControllerFactory.pdaRunnerController.isCurrentSavedInMemory() || bToolbarSave.getStyleClass().contains("de-activated-saveToLibrary-button")) {
@@ -76,6 +76,13 @@ public class ToolBarPartialController {
             ControllerFactory.pdaRunnerController.switchToQuickDefinition();
         }
         disableToolbarButtons(true);
+    }
+
+    /**
+     * A method which switches to the quick definition view for sideview
+     */
+    public void switchToQuickDefinitionAlt() {
+        ControllerFactory.pdaRunnerController.switchToQuickDefinition();
     }
 
     /**

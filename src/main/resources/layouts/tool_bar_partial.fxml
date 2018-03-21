@@ -66,9 +66,9 @@
                 <Insets left="3.0"/>
             </HBox.margin>
         </Button>
-        <VBox.margin>
-            <Insets bottom="5.0"/>
-        </VBox.margin>
+        <HBox.margin>
+            <Insets bottom="2.0"/>
+        </HBox.margin>
         <padding>
             <Insets right="5.0"/>
         </padding>

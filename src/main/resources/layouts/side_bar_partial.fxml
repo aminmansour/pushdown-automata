@@ -12,7 +12,7 @@
                <FontIcon iconColor="#ffffff" iconLiteral="icm-display" iconSize="32"/>
            </graphic>
        </Button>
-       <Button layoutX="12.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchToQuickDefinition"
+       <Button layoutX="12.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchToQuickDefinitionAlt"
                styleClass="side-tool-buttons" text="Create">
            <graphic>
                <FontIcon iconColor="#ffffff" iconLiteral="fa-sticky-note-o" iconSize="30"/>

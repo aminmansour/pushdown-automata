@@ -135,8 +135,6 @@ public class PDARunnerController implements Initializable {
         if (isAlternativeSearch) {
             pda.previous();
         }
-        int loops = 0;
-        boolean stuck = false;
         int totalMoves = 0;
         boolean toBacktrack = false;
         while (true) {
@@ -144,11 +142,7 @@ public class PDARunnerController implements Initializable {
             if (pda.isAccepted()) {
                 openInstantRunResultsOutputDialog(true, false);
                 return true;
-            } else if (transitions.size() == 0 || toBacktrack || stuck) {
-                if (stuck) {
-                    loops = 0;
-                    stuck = false;
-                }
+            } else if (transitions.size() == 0 || toBacktrack) {
                 toBacktrack = false;
                 while (true) {
                     previous();
@@ -168,9 +162,8 @@ public class PDARunnerController implements Initializable {
                 for (Transition transition : transitions) {
                     ConfigurationContext previousState = checkIfPresentInHistory(transition);
                     if (previousState == null) {
-                        ArrayList<Character> stackContentBefore = new ArrayList(pda.getStack().getStackContent());
-                        String remaingInputBefore = pda.getTape().getRemainingInputAsString();
                         pda.executeTransition(transition, transitions.size());
+                        toBacktrack = false;
                         totalMoves++;
                         if (totalMoves % 20 == 0) {
                             ViewFactory.showStandardDialog(spPDARunnerPage, false, "No solution yet found (" + limit + " steps have been made) ", "Do you want to take control of the computation to make finding a solution easier?", event -> {
@@ -184,49 +177,13 @@ public class PDARunnerController implements Initializable {
                                         ae -> runInstantRunDFS(isAlternativeSearch, limit + 20)));
 
                                 timeline.play();
-
-
                             }, "Enter step-mode", "Continue search");
                             return false;
                         }
-                        ConfigurationContext e = pda.getExecutionTree().getCurrent();
-                        boolean toAddToMemory = true;
-                        for (int i = 0; i < memory.size(); i++) {
-                            ConfigurationContext m = memory.get(i);
-                            if (e.sameAs(memory.get(i))) {
-                                if (m.getNumberOfVisits() == 2) {
-                                    m.setNumberOfVisits(1);
-                                    if (m.getParent() != null) {
-                                        pda.loadConfigurationContext(m.getParent());
-                                    } else {
-                                        openInstantRunResultsOutputDialog(false, false);
-                                    }
-                                    break transitionsLoop;
-                                }
-                                m.increment();
-                                toAddToMemory = false;
-                                break;
-                            }
-                        }
-                        if (toAddToMemory) {
-                            memory.add(e);
-                        }
-
-                        toBacktrack = false;
-                        if (pda.getExecutionTree().getCurrent().hasContext(transition.getConfiguration().getState(), stackContentBefore, remaingInputBefore)) {
-                            loops++;
-                            if (loops == 4) {
-                                stuck = true;
-                                while (loops != 1) {
-                                    previous();
-                                    loops--;
-                                }
-                                break;
-                            }
-                        }
-                        break;
+                        break transitionsLoop;
                     }
                 }
+
             }
         }
     }
