@@ -29,9 +29,10 @@ public class MemoryFactory {
             ArrayList<Definition> instances = loadLibrary();
             Gson gson = new Gson();
             instances.add(definition);
-            FileWriter writer = new FileWriter(PDA_MEMORY_STORE);
+            FileWriter writer = new FileWriter(new File(PDA_MEMORY_STORE));
             gson.toJson(instances.toArray(new Definition[0]), writer);
             writer.flush();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +50,6 @@ public class MemoryFactory {
     }
 
     public static ArrayList<Definition> loadExamples() {
-
         if (ModelFactory.exampleStore == null) {
             ArrayList<Definition> library = new ArrayList<>();
             ModelFactory.exampleStore = library;
@@ -62,16 +62,19 @@ public class MemoryFactory {
     private static ArrayList<Definition> getDefinitionsFromFile(ArrayList<Definition> library, String url) {
         try {
             Gson gson = new Gson();
-            FileReader json = new FileReader(url);
+            FileReader json = new FileReader(new File(url));
             library.addAll(Arrays.asList(gson.fromJson(json, Definition[].class)));
             return library;
         } catch (Exception e) {
-            try {
-                File file = new File(PDA_MEMORY_STORE);
-                file.createNewFile();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
+//            try {
+//                File file = new File(PDA_MEMORY_STORE);
+//                file.createNewFile();
+//                System.out.println(file.getPath());
+//                System.out.println(file.getAbsolutePath());
+//            } catch (IOException e1) {
+//                e1.printStackTrace();
+//            }
+            e.printStackTrace();
             return library;
         }
     }
@@ -83,7 +86,7 @@ public class MemoryFactory {
     public static void saveState() {
         try {
             Gson gson = new Gson();
-            FileWriter writer = new FileWriter(PDA_MEMORY_STORE);
+            FileWriter writer = new FileWriter(new File(PDA_MEMORY_STORE));
             gson.toJson(ModelFactory.libraryStore.toArray(new Definition[0]), writer);
             writer.flush();
         } catch (IOException e) {

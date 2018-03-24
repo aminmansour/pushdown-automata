@@ -17,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        BorderPane root = FXMLLoader.load(getClass().getResource("layouts/main.fxml"));
+        BorderPane root = FXMLLoader.load(getClass().getResource("/layouts/main.fxml"));
         primaryStage.setTitle("PDA");
         primaryStage.setScene(new Scene(root, 1400, 900));
         primaryStage.show();
@@ -43,24 +43,24 @@ public class Main extends Application {
         ViewFactory.globalPane = (BorderPane) primaryStage.getScene().getRoot();
 
         FXMLLoader toolbarLoader = new FXMLLoader();
-        HBox toolbar = toolbarLoader.load(getClass().getResource("layouts/tool_bar_partial.fxml").openStream());
+        HBox toolbar = toolbarLoader.load(getClass().getResource("/layouts/tool_bar_partial.fxml").openStream());
         ControllerFactory.toolBarPartialController = toolbarLoader.getController();
         ((BorderPane) primaryStage.getScene().getRoot()).setTop(toolbar);
 
-        FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("layouts/home_page.fxml"));
+        FXMLLoader homeLoader = new FXMLLoader(getClass().getResource("/layouts/home_page.fxml"));
         ViewFactory.home = homeLoader.load();
         ControllerFactory.homeController = homeLoader.getController();
 
-        FXMLLoader pdaRunnerLoader = new FXMLLoader(getClass().getResource("layouts/pda_runner_page.fxml"));
+        FXMLLoader pdaRunnerLoader = new FXMLLoader(getClass().getResource("/layouts/pda_runner_page.fxml"));
         ViewFactory.pdaRunner = pdaRunnerLoader.load();
         ControllerFactory.pdaRunnerController = pdaRunnerLoader.getController();
 
 
-        FXMLLoader quickDefinitionLoader = new FXMLLoader(getClass().getResource("layouts/quick_definition_page.fxml"));
+        FXMLLoader quickDefinitionLoader = new FXMLLoader(getClass().getResource("/layouts/quick_definition_page.fxml"));
         ViewFactory.quickDefinition = quickDefinitionLoader.load();
         ControllerFactory.quickDefinitionController = quickDefinitionLoader.getController();
 
-        FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("layouts/help_page.fxml"));
+        FXMLLoader helpLoader = new FXMLLoader(getClass().getResource("/layouts/help_page.fxml"));
         ViewFactory.help = helpLoader.load();
         ControllerFactory.helpController = helpLoader.getController();
     }

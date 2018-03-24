@@ -22,7 +22,7 @@
             <children>
                 <HBox alignment="CENTER_LEFT" maxWidth="Infinity" spacing="20">
                     <children>
-                        <Label style="-fx-text-fill: white" styleClass="lTransitionTitle" text="Configuration">
+                        <Label styleClass="lTransitionTitle" text="Configuration">
                             <padding>
                                 <Insets left="10.0" right="4.0"/>
                             </padding>
@@ -54,7 +54,7 @@
             <children>
                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" maxWidth="Infinity" spacing="20">
                     <children>
-                        <Label style="-fx-text-fill: white" styleClass="lTransitionTitle" text="Action">
+                        <Label styleClass="lTransitionTitle" text="Action">
                             <HBox.margin>
                                 <Insets/>
                             </HBox.margin>

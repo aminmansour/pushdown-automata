@@ -329,6 +329,8 @@ public class PDARunnerController implements Initializable {
      */
     public void loadPDA(PDAMachine model) {
         this.pda = model;
+        closeOutputDialogIfPresent();
+        closeOptionDialogIfPresent();
         machineDisplay.resetZoom();
         tape.setTapeInputModel(model.getTape());
         stack.setStackModel(model.getStack());
@@ -457,7 +459,7 @@ public class PDARunnerController implements Initializable {
         try {
             removeUserInteractionWithPDA(true);
             transitionTable.clearSelection(false);
-            currentOutputWindow = FXMLLoader.load(getClass().getResource("../layouts/output_page.fxml"));
+            currentOutputWindow = FXMLLoader.load(getClass().getResource("/layouts/output_page.fxml"));
             ((Label) currentOutputWindow.lookup("#lOutput")).setText("Output  : word \"" + pda.getTape().getOriginalWord() + "\" is " + (solutionBuffer.size() > 0 ? " accepted!" : " rejected!"));
             String sequence = "No solutions found from the paths that have been searched";
             ((Label) currentOutputWindow.lookup("#lConfigurationSequence")).setText(sequence);
@@ -516,7 +518,7 @@ public class PDARunnerController implements Initializable {
             }
             removeUserInteractionWithPDA(true);
             transitionTable.clearSelection(false);
-            currentOutputWindow = FXMLLoader.load(getClass().getResource("../layouts/output_page.fxml"));
+            currentOutputWindow = FXMLLoader.load(getClass().getResource("/layouts/output_page.fxml"));
             ((Label) currentOutputWindow.lookup("#lOutput")).setText("Output  : word \"" + pda.getTape().getOriginalWord() + "\" is " + (isAccepted ? " accepted!" : " rejected!"));
             ((Label) currentOutputWindow.lookup("#lConfigurationSequence")).setText(sequence);
 
@@ -572,7 +574,7 @@ public class PDARunnerController implements Initializable {
         try {
             stop();
             ControllerFactory.toolBarPartialController.disableToolbarButtons(true);
-            VBox currentAddTransitionDialog = FXMLLoader.load(getClass().getResource("../layouts/add_transition_page.fxml"));
+            VBox currentAddTransitionDialog = FXMLLoader.load(getClass().getResource("/layouts/add_transition_page.fxml"));
             Button bAddTransition = (Button) currentAddTransitionDialog.lookup("#bAddTransition");
             Button bCancel = (Button) currentAddTransitionDialog.lookup("#bCancel");
             ComboBox<String> cbStates = (ComboBox<String>) currentAddTransitionDialog.lookup("#cbStates");
@@ -640,7 +642,7 @@ public class PDARunnerController implements Initializable {
     private void openInstantRunResultsOutputDialog(boolean isAccepted, boolean hasSingleSolution) {
         try {
             removeUserInteractionWithPDA(true);
-            currentOutputWindow = FXMLLoader.load(getClass().getResource("../layouts/instant_run_output_page.fxml"));
+            currentOutputWindow = FXMLLoader.load(getClass().getResource("/layouts/instant_run_output_page.fxml"));
             ((Label) currentOutputWindow.lookup("#lOutput")).setText("Output  : word \"" + pda.getTape().getOriginalWord() + "\" is " + (isAccepted ? " accepted!" : " rejected! \n(all possible branches searched!)"));
             String output = "Configuration sequence :  " + (isAccepted && hasSingleSolution ? "No further solutions found!" : pda.getCurrentExecutionSequence(isAccepted));
             solutionBuffer.add(output);
@@ -694,7 +696,7 @@ public class PDARunnerController implements Initializable {
     //A method which opens the save dialog when the user accesses the save feature
     void openSaveDialog() {
         try {
-            VBox currentSaveWindow = FXMLLoader.load(getClass().getResource("../layouts/save_confirmation_page.fxml"));
+            VBox currentSaveWindow = FXMLLoader.load(getClass().getResource("/layouts/save_confirmation_page.fxml"));
             Button bSave = (Button) currentSaveWindow.lookup("#bSave");
             Button bClose = (Button) currentSaveWindow.lookup("#bClose");
             TextField tfName = (TextField) currentSaveWindow.lookup("#tfName");
@@ -729,7 +731,7 @@ public class PDARunnerController implements Initializable {
     private void openTransitionOptionDialog(List<Transition> transitions) {
         try {
             removeUserInteractionWithPDA(true);
-            currentChoiceWindow = FXMLLoader.load(getClass().getResource("../layouts/transition_selecter_page.fxml"));
+            currentChoiceWindow = FXMLLoader.load(getClass().getResource("/layouts/transition_selecter_page.fxml"));
             ScrollPane sp = new ScrollPane();
             sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             sp.setFitToWidth(true);
@@ -757,8 +759,9 @@ public class PDARunnerController implements Initializable {
                 });
             }
             for (int i = 0; i < transitions.size(); i++) {
-                BorderPane option = FXMLLoader.load(getClass().getResource("../layouts/transition_option.fxml"));
+                BorderPane option = FXMLLoader.load(getClass().getResource("/layouts/transition_option.fxml"));
                 ((Label) option.lookup("#lTransitionOption")).setText(Integer.toString(i + 1));
+                ViewFactory.setLabelGraphic((Label) option.lookup("#lVisited"), "fa-tick", 10);
                 ((Label) option.lookup("#lCurrentState")).setText("Current State : " + transitions.get(i).getConfiguration().getState().getLabel());
                 ((Label) option.lookup("#lRead")).setText("Read : " + transitions.get(i).getConfiguration().getInputSymbol());
                 ((Label) option.lookup("#lPush")).setText("Push : " + transitions.get(i).getAction().getElementToPush());

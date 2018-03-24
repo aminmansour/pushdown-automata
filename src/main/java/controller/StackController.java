@@ -32,7 +32,7 @@ public class StackController {
      */
     StackController() {
         try {
-            stackView = FXMLLoader.load(getClass().getResource("../layouts/stack_partial.fxml"));
+            stackView = FXMLLoader.load(getClass().getResource("/layouts/stack_partial.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

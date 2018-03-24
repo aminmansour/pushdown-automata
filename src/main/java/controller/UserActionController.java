@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import view.ViewFactory;
 
 import java.io.IOException;
 
@@ -27,7 +28,7 @@ public class UserActionController {
      */
     public UserActionController(){
         try {
-            actionBarView = FXMLLoader.load(getClass().getResource("../layouts/user_action_bar_partial.fxml"));
+            actionBarView = FXMLLoader.load(getClass().getResource("/layouts/user_action_bar_partial.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,6 +39,13 @@ public class UserActionController {
         lNextBranch = (Label) actionBarView.lookup("#lNextBranch");
         lPreviousBranch = (Label) actionBarView.lookup("#lPreviousBranch");
         lStop = (Label) actionBarView.lookup("#lStop");
+
+        ViewFactory.setLabelGraphic(lNext, "fa-next", 14);
+        ViewFactory.setLabelGraphic(lPrevious, "fa-previous", 14);
+        ViewFactory.setLabelGraphic(lNextBranch, "fa-next-branch", 14);
+        ViewFactory.setLabelGraphic(lPreviousBranch, "fa-previous-branch", 14);
+        ViewFactory.setLabelGraphic(lStop, "fa-stop", 14);
+        ViewFactory.setLabelGraphic(lStartAgain, "fa-redo", 14);
     }
 
     public HBox getActionBar(){
@@ -99,4 +107,6 @@ public class UserActionController {
         lStartAgain.setDisable(true);
         lStop.setDisable(true);
     }
+
+
 }

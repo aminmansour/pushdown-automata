@@ -5,14 +5,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
 <HBox xmlns:fx="http://javafx.com/fxml/1" id="tool-bar" xmlns="http://javafx.com/javafx/8.0.121"
       fx:controller="controller.ToolBarPartialController">
     <FlowPane alignment="CENTER_LEFT" maxHeight="0.0" minHeight="80.0" orientation="HORIZONTAL">
         <TextFlow fx:id="pdaTitle">
-            <Text styleClass="logo-text" text="pda-">
-        </Text>
-            <Text styleClass="logo-text" text="simulator">
+            <Text fill="#279f6e" styleClass="logo-text" text="pda"/>
+            <Text fill="#556776" styleClass="logo-text" text="-"/>
+            <Text fill="#a5a5a5" styleClass="logo-text" text="simulator">
          </Text>
             <padding>
                 <Insets bottom="5.0" left="120.0" right="10.0"/>
@@ -21,9 +20,7 @@
                 <Insets top="0.0"/>
             </FlowPane.margin>
     </TextFlow>
-        <VBox.margin>
-            <Insets/>
-        </VBox.margin>
+
    </FlowPane>
 
 
@@ -32,17 +29,12 @@
 
         <Button fx:id="bToolbarSave" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
                 minHeight="40.0" minWidth="0.0" onAction="#save" styleClass="tool-buttons" text="Save">
-            <graphic>
-                <FontIcon iconColor="#a1a1a1" iconLiteral="fa-save" iconSize="20" translateX="3.0"/>
-            </graphic>
+
         </Button>
         <Button fx:id="bToolbarDeterministic" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
                 minHeight="40.0" minWidth="190" onAction="#requestNonDeterministicTransitionsMode"
-                styleClass="tool-buttons"
-                text="Open Non-Deterministic Mode">
-            <graphic>
-                <FontIcon iconColor="#a1a1a1" iconLiteral="fa-circle-thin" iconSize="20" translateX="3.0"/>
-            </graphic>
+                styleClass="tool-buttons" text="Open Non-Deterministic Mode">
+
             <HBox.margin>
                 <Insets left="3.0"/>
             </HBox.margin>
@@ -50,27 +42,23 @@
         <Button fx:id="bToolbarNewTransition" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
                 minHeight="40.0" minWidth="90" onAction="#requestNewTransition" styleClass="tool-buttons"
                 text="Add a transition">
-            <graphic>
-                <FontIcon iconColor="#a1a1a1" iconLiteral="fa-plus-square-o" iconSize="20" translateX="3.0"/>
-            </graphic>
+
             <HBox.margin>
                 <Insets left="3.0"/>
             </HBox.margin>
         </Button>
         <Button fx:id="bToolbarStartAgain" contentDisplay="RIGHT" disable="true" maxHeight="40.0" maxWidth="Infinity"
                 minWidth="90" onAction="#switchToQuickDefinition" styleClass="tool-buttons" text="New PDA">
-            <graphic>
-                <FontIcon iconColor="#a1a1a1" iconLiteral="fa-file-o" iconSize="20" translateX="3.0"/>
-            </graphic>
+
             <HBox.margin>
                 <Insets left="3.0"/>
             </HBox.margin>
         </Button>
         <HBox.margin>
-            <Insets bottom="2.0"/>
+            <Insets bottom="3.0"/>
         </HBox.margin>
         <padding>
-            <Insets right="5.0"/>
+            <Insets right="4.0"/>
         </padding>
 
     </HBox>

@@ -2,36 +2,25 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.FlowPane?>
-<?import org.kordamp.ikonli.javafx.*?>
 <FlowPane xmlns:fx="http://javafx.com/fxml/1" id="side-bar" alignment="TOP_CENTER" columnHalignment="CENTER"
           orientation="VERTICAL" xmlns="http://javafx.com/javafx/8.0.121"
-          fx:controller="controller.ToolBarPartialController">
+          fx:controller="controller.SideBarPartialController">
    <children>
-       <Button mnemonicParsing="false" onAction="#switchToHome" styleClass="side-tool-buttons" text="Home">
-           <graphic>
-               <FontIcon iconColor="#ffffff" iconLiteral="icm-display" iconSize="32"/>
-           </graphic>
+       <Button fx:id="bSideNavHome" mnemonicParsing="false" styleClass="side-tool-buttons" text="Home">
+
        </Button>
-       <Button layoutX="12.0" layoutY="52.0" mnemonicParsing="false" onAction="#switchToQuickDefinitionAlt"
+       <Button fx:id="bSideNavNew" layoutX="12.0" layoutY="52.0" mnemonicParsing="false"
                styleClass="side-tool-buttons" text="Create">
-           <graphic>
-               <FontIcon iconColor="#ffffff" iconLiteral="fa-sticky-note-o" iconSize="30"/>
-           </graphic>
+
       </Button>
-       <Button mnemonicParsing="false" onAction="#switchToLibrary" styleClass="side-tool-buttons" text="Library">
-           <graphic>
-               <FontIcon iconColor="#ffffff" iconLiteral="fa-folder-open-o" iconSize="30"/>
-           </graphic>
+       <Button fx:id="bSideNavLibrary" mnemonicParsing="false" styleClass="side-tool-buttons" text="Library">
+
        </Button>
-       <Button mnemonicParsing="false" onAction="#switchToExamples" styleClass="side-tool-buttons" text="Examples">
-           <graphic>
-               <FontIcon iconColor="#ffffff" iconLiteral="fa-code-fork" iconSize="32"/>
-           </graphic>
+       <Button fx:id="bSideNavExamples" mnemonicParsing="false" styleClass="side-tool-buttons" text="Examples">
+
        </Button>
-       <Button mnemonicParsing="false" onAction="#switchToHelp" styleClass="side-tool-buttons" text="Help">
-           <graphic>
-               <FontIcon iconColor="#ffffff" iconLiteral="fa-question-circle-o" iconSize="32"/>
-           </graphic>
+       <Button fx:id="bSideNavHelp" mnemonicParsing="false" styleClass="side-tool-buttons" text="Help">
+
        </Button>
 
 

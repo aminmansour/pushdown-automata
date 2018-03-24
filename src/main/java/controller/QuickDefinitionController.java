@@ -127,7 +127,7 @@ public class QuickDefinitionController implements Initializable {
      */
     public void openSaveDialog() {
         try {
-            VBox saveDialog = FXMLLoader.load(getClass().getResource("../layouts/save_confirmation_page.fxml"));
+            VBox saveDialog = FXMLLoader.load(getClass().getResource("/layouts/save_confirmation_page.fxml"));
             Button bSave = (Button) saveDialog.lookup("#bSave");
             Button bClose = (Button) saveDialog.lookup("#bClose");
             Label lError = (Label) saveDialog.lookup("#lError");

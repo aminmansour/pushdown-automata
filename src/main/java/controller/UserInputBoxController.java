@@ -25,7 +25,7 @@ public class UserInputBoxController {
      */
     public UserInputBoxController(){
         try {
-            userInputBox = FXMLLoader.load(getClass().getResource("../layouts/user_input_box_partial.fxml"));
+            userInputBox = FXMLLoader.load(getClass().getResource("/layouts/user_input_box_partial.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

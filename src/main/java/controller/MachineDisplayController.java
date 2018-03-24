@@ -46,7 +46,7 @@ public class MachineDisplayController {
      */
     public MachineDisplayController() {
         try {
-            pCanvas = FXMLLoader.load(getClass().getResource("../layouts/pda_display_partial.fxml"));
+            pCanvas = FXMLLoader.load(getClass().getResource("/layouts/pda_display_partial.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -273,6 +273,7 @@ public class MachineDisplayController {
             for (VisualTransition vTransitions : transitionBatch) {
                 vTransitions.setFocus(false, "");
                 vTransitions.getSourceState().setFocus(false, "");
+                vTransitions.getResultingState().setFocus(false, "");
                 bringAllStatesToFront();
             }
         }

@@ -4,7 +4,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="100.0" prefWidth="570.0" styleClass="transition-choice"
             xmlns="http://javafx.com/javafx/8.0.121">
     <top>
@@ -21,12 +20,8 @@
                     </padding>
                 </Label>
 
-                <Label fx:id="lVisited" visible="false" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="3"
+                <Label fx:id="lVisited" visible="false" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="1"
                        maxWidth="Infinity" text="Visited" HBox.hgrow="ALWAYS">
-                    <graphic>
-                        <FontIcon iconColor="#12a14f" iconLiteral="fa-check" iconSize="15" translateX="3.0"
-                                  translateY="-2.0"/>
-                    </graphic>
                     <font>
                         <Font size="13.0"/>
                     </font>

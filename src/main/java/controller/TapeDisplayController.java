@@ -35,7 +35,7 @@ public class TapeDisplayController {
     public TapeDisplayController() {
 
         try {
-            tapeView = FXMLLoader.load(getClass().getResource("../layouts/tape_display_partial.fxml"));
+            tapeView = FXMLLoader.load(getClass().getResource("/layouts/tape_display_partial.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

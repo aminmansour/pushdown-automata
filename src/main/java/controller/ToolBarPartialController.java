@@ -1,14 +1,20 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.MemoryFactory;
 import view.ViewFactory;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Controller which is in charge of the toolbar view
  */
-public class ToolBarPartialController {
+public class ToolBarPartialController implements Initializable {
 
     //components
     @FXML
@@ -19,6 +25,7 @@ public class ToolBarPartialController {
     private Button bToolbarStartAgain;
     @FXML
     private Button bToolbarNewTransition;
+
 
     public void switchToHome() {
         ViewFactory.globalPane.setCenter(ViewFactory.home);
@@ -126,4 +133,22 @@ public class ToolBarPartialController {
         ControllerFactory.homeController.switchToExamples();
     }
 
+
+    //sets png graphic with certain name on button
+    private void setButtonGraphic(Button button, String name) {
+        Image icon = new Image("icons/" + name + ".png");
+        ImageView graphic = new ImageView(icon);
+        graphic.setPreserveRatio(true);
+        graphic.setTranslateX(3);
+        graphic.setFitWidth(20);
+        button.setGraphic(graphic);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        setButtonGraphic(bToolbarSave, "fa-save");
+        setButtonGraphic(bToolbarDeterministic, "fa-circle");
+        setButtonGraphic(bToolbarNewTransition, "fa-add");
+        setButtonGraphic(bToolbarStartAgain, "fa-new");
+    }
 }

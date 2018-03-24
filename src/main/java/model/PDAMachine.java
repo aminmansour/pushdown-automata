@@ -340,10 +340,10 @@ public class PDAMachine {
     public void redo() {
         tape.setStep(0);
         tape.setHeadIndex(0);
-        tape.setStep(0);
-        setCurrentStateToInitial();
+        if (currentState != null) {
+            setCurrentStateToInitial();
+            createNewExecutionTree(loadedDefinition.getInitialState(), new ArrayList<>(), 0, 0, getPossibleTransitionsFromCurrent().size());
+        }
         stack.clear();
-        createNewExecutionTree(loadedDefinition.getInitialState(), new ArrayList<>(), 0, 0, getPossibleTransitionsFromCurrent().size());
-
     }
 }

@@ -40,7 +40,7 @@ public class TransitionTableController {
      */
     public TransitionTableController(ArrayList<ControlState> states) {
         try {
-            transitionTableView = FXMLLoader.load(getClass().getResource("../layouts/transition_table_partial.fxml"));
+            transitionTableView = FXMLLoader.load(getClass().getResource("/layouts/transition_table_partial.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

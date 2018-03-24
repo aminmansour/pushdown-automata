@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -15,6 +17,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Contains misc methods which pertain to view interaction
+ */
 public class ViewFactory {
 
     //views
@@ -45,7 +50,7 @@ public class ViewFactory {
                                           EventHandler<ActionEvent> secondaryListener,
                                           String primaryButtonText, String secondaryButtonText) {
         try {
-            VBox dialog = FXMLLoader.load(ViewFactory.class.getResource("../layouts/standard_dialog.fxml"));
+            VBox dialog = FXMLLoader.load(ViewFactory.class.getResource("/layouts/standard_dialog.fxml"));
             ((Label) dialog.lookup("#lTitle")).setText(title);
             ((Label) dialog.lookup("#lAdditional")).setText(additonalMessage);
             Button primary = (Button) dialog.lookup("#bPrimary");
@@ -101,6 +106,28 @@ public class ViewFactory {
 
     public static void switchToView(Pane view){
         globalPane.setCenter(view);
+    }
+
+    //sets png graphic with certain name on label
+    public static void setLabelGraphic(Label label, String name, int size) {
+        ImageView graphic = loadIcon(name, size);
+        label.setGraphic(graphic);
+    }
+
+
+    //sets png graphic with certain name on button
+    public static void setButtonGraphic(Button button, String name, int size) {
+        ImageView graphic = loadIcon(name, size);
+        button.setGraphic(graphic);
+    }
+
+    //load png icon to ImageView
+    private static ImageView loadIcon(String name, int size) {
+        Image icon = new Image("icons/" + name + ".png");
+        ImageView graphic = new ImageView(icon);
+        graphic.setPreserveRatio(true);
+        graphic.setFitWidth(size);
+        return graphic;
     }
 
 }

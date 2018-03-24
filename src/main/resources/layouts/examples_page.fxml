@@ -3,7 +3,6 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.kordamp.ikonli.javafx.*?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="examples" xmlns="http://javafx.com/javafx/8.0.121"
             fx:controller="controller.ExamplesController">
     <center>
@@ -23,10 +22,8 @@
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
-                            </graphic>
+                        <Label fx:id="lExample1" mnemonicParsing="false" styleClass="home-button-icon">
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
@@ -49,10 +46,8 @@
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
-                            </graphic>
+                        <Label fx:id="lExample2" mnemonicParsing="false" styleClass="home-button-icon">
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
@@ -75,10 +70,8 @@
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
-                            </graphic>
+                        <Label fx:id="lExample3" mnemonicParsing="false" styleClass="home-button-icon">
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
@@ -102,10 +95,8 @@
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
-                            </graphic>
+                        <Label fx:id="lExample4" mnemonicParsing="false" styleClass="home-button-icon">
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
@@ -127,10 +118,8 @@
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
-                            </graphic>
+                        <Label fx:id="lExample5" mnemonicParsing="false" styleClass="home-button-icon">
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
@@ -154,9 +143,7 @@
                             </padding>
                         </Label>
                         <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-question-circle-o" iconSize="114"/>
-                            </graphic>
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>

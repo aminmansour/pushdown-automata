@@ -3,7 +3,6 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.kordamp.ikonli.javafx.*?>
 <BorderPane fx:id="home" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controller.HomeController">
     <center>
@@ -21,10 +20,8 @@
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code" iconSize="114"/>
-                            </graphic>
+                        <Label fx:id="lHomeNew" mnemonicParsing="false" styleClass="home-button-icon">
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
@@ -44,10 +41,8 @@
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-code-fork" iconSize="114"/>
-                            </graphic>
+                        <Label fx:id="lHomeExamples" mnemonicParsing="false" styleClass="home-button-icon">
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
@@ -72,10 +67,8 @@
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-folder-open-o" iconSize="114"/>
-                            </graphic>
+                        <Label fx:id="lHomeLibrary" mnemonicParsing="false" styleClass="home-button-icon">
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
@@ -95,10 +88,8 @@
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-book" iconSize="114"/>
-                            </graphic>
+                        <Label fx:id="lHomeTheory" mnemonicParsing="false" styleClass="home-button-icon">
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
@@ -119,10 +110,8 @@
                                 <Insets bottom="20.0"/>
                             </padding>
                         </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-question-circle-o" iconSize="114"/>
-                            </graphic>
+                        <Label fx:id="lHomeHelp" mnemonicParsing="false" styleClass="home-button-icon">
+
                             <padding>
                                 <Insets bottom="5.0"/>
                             </padding>
@@ -131,28 +120,6 @@
                     </VBox>
                 </HBox>
 
-                <HBox managed="false" alignment="CENTER" visible="false" maxHeight="Infinity" maxWidth="Infinity"
-                      styleClass="home-boxes"
-                      HBox.hgrow="ALWAYS">
-                    <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
-                          HBox.hgrow="ALWAYS">
-                        <Label styleClass="home-button-title" text="CREATE BY DESIGN" textFill="#23aa76"/>
-                        <TextArea editable="false" maxHeight="1"/>
-                        <Label text="define your PDA using design!" textFill="#23aa76">
-                            <padding>
-                                <Insets bottom="20.0"/>
-                            </padding>
-                        </Label>
-                        <Label mnemonicParsing="false" styleClass="home-button-icon">
-                            <graphic>
-                                <FontIcon iconColor="#23aa76" iconLiteral="fa-codepen" iconSize="114"/>
-                            </graphic>
-                            <padding>
-                                <Insets bottom="5.0"/>
-                            </padding>
-                        </Label>
-                    </VBox>
-                </HBox>
 
             </HBox>
             <FlowPane alignment="CENTER" prefHeight="30.0" prefWidth="200.0">

@@ -55,7 +55,7 @@
     -fx-background-color: none;
     -fx-max-width: 90px;
     -fx-text-fill: #ffffff;
-    -fx-border-color: #f6f6f6;
+    -fx-border-color: #b2b2b2;
     -fx-border-width: 0px 0px 1px 0px;
     -fx-border-radius: 0px;
     -fx-padding: 15px 10px 15px 10px;
@@ -67,7 +67,14 @@
 
 .logo-text {
     -fx-font-size: 50px;
-    -fx-fill: #cdcdcd;
+    -fx-font-weight: 100;
+    -fx-stroke-width: 0px;
+    -fx-stroke: #5b5b5b;
+}
+
+.pda-title {
+    -fx-font-size: 50px;
+    -fx-fill: #279f6e;
     -fx-font-weight: 100;
     -fx-stroke-width: 0px;
     -fx-stroke: #5b5b5b;
@@ -160,7 +167,7 @@
 }
 
 .home-button-icon{
-    -fx-padding: 10px 0px 15px 0px;
+    -fx-padding: 20px 0px 45px 0px;
 }
 
 .home-button-title{
@@ -552,7 +559,7 @@
 }
 
 .lTransitionTitle {
-    -fx-background-color: #909090;
+    -fx-background-color: #f6f6f6;
     -fx-fill: #6a6a6a;
     -fx-text-fill: #6a6a6a;
 }
@@ -576,11 +583,7 @@
     -fx-focus-color: transparent;
 }
 
-#quickDefinition .button, .lTransitionTitle {
-    -fx-text-fill: white;
-}
-
-.lTransitionTitle {
+#quickDefinition .button {
     -fx-text-fill: white;
 }
 

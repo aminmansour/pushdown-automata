@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.control.Label?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <HBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_LEFT" spacing="5" fx:id="actionToolBar" maxWidth="Infinity">
     <Label fx:id="lNext" HBox.hgrow="ALWAYS" maxWidth="Infinity" mnemonicParsing="false" styleClass="pda-action-button">
-        <graphic>
-            <FontIcon iconLiteral="fa-play" iconSize="20" iconColor="#25b47e"/>
-        </graphic>
+
 
         <text>
             next
@@ -28,10 +18,7 @@
 
 
     <Label  fx:id="lPrevious" HBox.hgrow="ALWAYS" maxWidth="Infinity" mnemonicParsing="false" styleClass="pda-action-button">
-        <graphic>
-            <FontIcon iconLiteral="fa-backward" iconSize="20" translateX="-1" iconColor="#25b47e"/>
 
-        </graphic>
 
         <text>
             previous
@@ -43,9 +30,6 @@
     </Label>
 
     <Label fx:id="lStartAgain" HBox.hgrow="ALWAYS" maxWidth="Infinity" mnemonicParsing="false" styleClass="pda-action-button">
-        <graphic>
-            <FontIcon iconLiteral="fa-undo" iconSize="20" iconColor="#25b47e"/>
-        </graphic>
 
         <text>
             redo
@@ -58,9 +42,6 @@
 
 
     <Label fx:id="lPreviousBranch" HBox.hgrow="ALWAYS" maxWidth="Infinity" mnemonicParsing="false" styleClass="pda-action-button">
-        <graphic>
-            <FontIcon iconLiteral="fa-step-backward" iconSize="20" iconColor="#25b47e"/>
-        </graphic>
 
         <text>
             previous branch
@@ -72,9 +53,6 @@
     </Label>
 
     <Label fx:id="lNextBranch" HBox.hgrow="ALWAYS" maxWidth="Infinity" mnemonicParsing="false" styleClass="pda-action-button">
-        <graphic>
-            <FontIcon iconLiteral="fa-step-forward" textAlignment="CENTER" iconSize="20" iconColor="#25b47e"/>
-        </graphic>
 
 
         <text>
@@ -87,9 +65,6 @@
     </Label>
 
     <Label fx:id="lStop" HBox.hgrow="ALWAYS" maxWidth="Infinity" mnemonicParsing="false" styleClass="pda-action-button">
-        <graphic>
-            <FontIcon iconLiteral="fa-stop" iconSize="20" iconColor="#25b47e"/>
-        </graphic>
 
         <text>
             stop
