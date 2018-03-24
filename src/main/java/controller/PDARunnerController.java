@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -56,6 +57,7 @@ public class PDARunnerController implements Initializable {
     //dialog
     private BorderPane currentChoiceWindow;
     private VBox currentOutputWindow;
+    private Node currentSaveWindow;
     private boolean inDeterministicMode;
     private boolean machineIsNonDeterministic;
 
@@ -331,6 +333,8 @@ public class PDARunnerController implements Initializable {
         this.pda = model;
         closeOutputDialogIfPresent();
         closeOptionDialogIfPresent();
+        closeNonDeterministicModeIfPresent();
+        closeSaveDialogIfPresent();
         machineDisplay.resetZoom();
         tape.setTapeInputModel(model.getTape());
         stack.setStackModel(model.getStack());
@@ -696,13 +700,12 @@ public class PDARunnerController implements Initializable {
     //A method which opens the save dialog when the user accesses the save feature
     void openSaveDialog() {
         try {
-            VBox currentSaveWindow = FXMLLoader.load(getClass().getResource("/layouts/save_confirmation_page.fxml"));
+            currentSaveWindow = FXMLLoader.load(getClass().getResource("/layouts/save_confirmation_page.fxml"));
             Button bSave = (Button) currentSaveWindow.lookup("#bSave");
             Button bClose = (Button) currentSaveWindow.lookup("#bClose");
             TextField tfName = (TextField) currentSaveWindow.lookup("#tfName");
             bClose.setOnAction(event -> {
-                spPDARunnerPage.getChildren().remove(currentSaveWindow);
-                ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
+                closeSaveDialogIfPresent();
             });
 
             bSave.setOnAction(event -> {
@@ -855,6 +858,15 @@ public class PDARunnerController implements Initializable {
             spPDARunnerPage.getChildren().remove(currentOutputWindow);
             removeUserInteractionWithPDA(false);
             currentOutputWindow = null;
+        }
+    }
+
+    //a method which closes the save dialog
+    private void closeSaveDialogIfPresent() {
+        if (currentSaveWindow != null) {
+            spPDARunnerPage.getChildren().remove(currentSaveWindow);
+            removeUserInteractionWithPDA(false);
+            currentSaveWindow = null;
         }
     }
 

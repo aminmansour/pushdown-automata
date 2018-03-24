@@ -6,7 +6,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import view.WebDocumentListener;
 
-import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,9 +17,9 @@ public class HelpController implements Initializable {
 
     @FXML
     private WebView pdfViewer;
-    private final String CREATION_HELP_PATH = "src/main/resources/storage/creation_help/acccb3ec-20d1-11e8-b174-0cc47a792c0a_id_acccb3ec-20d1-11e8-b174-0cc47a792c0a.html";
-    private String RUN_MODE_HELP_PATH = "src/main/resources/storage/run_mode_help/4b1086d6-20d3-11e8-b174-0cc47a792c0a_id_4b1086d6-20d3-11e8-b174-0cc47a792c0a.html";
-    private String MISC_HELP_PATH = "src/main/resources/storage/misc_help/7a672abe-20d0-11e8-b174-0cc47a792c0a_id_7a672abe-20d0-11e8-b174-0cc47a792c0a.html";
+    private final String CREATION_HELP_PATH = "/storage/creation_help/acccb3ec-20d1-11e8-b174-0cc47a792c0a_id_acccb3ec-20d1-11e8-b174-0cc47a792c0a.html";
+    private String RUN_MODE_HELP_PATH = "/storage/run_mode_help/4b1086d6-20d3-11e8-b174-0cc47a792c0a_id_4b1086d6-20d3-11e8-b174-0cc47a792c0a.html";
+    private String MISC_HELP_PATH = "/storage/misc_help/7a672abe-20d0-11e8-b174-0cc47a792c0a_id_7a672abe-20d0-11e8-b174-0cc47a792c0a.html";
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,9 +54,12 @@ public class HelpController implements Initializable {
 
     //loads document associated with url provided to WebView
     private void loadFileToWebView(String url) {
-        File file = new File(url);
-        pdfViewer.setZoom(2);
-        pdfViewer.setVisible(true);
-        pdfViewer.getEngine().load(file.toURI().toString());
+        try {
+            pdfViewer.setZoom(2);
+            pdfViewer.setVisible(true);
+            pdfViewer.getEngine().load(getClass().getResource(url).toURI().toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }
