@@ -708,6 +708,7 @@ public class PDARunnerController implements Initializable {
             currentSaveWindow = FXMLLoader.load(getClass().getResource("/layouts/save_confirmation_page.fxml"));
             Button bSave = (Button) currentSaveWindow.lookup("#bSave");
             Button bClose = (Button) currentSaveWindow.lookup("#bClose");
+            Label lError = (Label) currentSaveWindow.lookup("#lError");
             TextField tfName = (TextField) currentSaveWindow.lookup("#tfName");
             bClose.setOnAction(event -> {
                 closeSaveDialogIfPresent();
@@ -724,6 +725,8 @@ public class PDARunnerController implements Initializable {
                         MemoryFactory.saveToLibrary(definition);
                         setPDATitle(definition.getIdentifier());
                         spPDARunnerPage.getChildren().remove(currentSaveWindow);
+                    } else {
+                        lError.setVisible(true);
                     }
                 }
             });

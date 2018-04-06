@@ -14,7 +14,7 @@
                         <Insets bottom="10.0"/>
                     </HBox.margin>
                 </Label>
-                <Label id="lError" text="*PDA Definition with name ready exist" textAlignment="JUSTIFY" visible="false"
+                <Label id="lError" text="*PDA Definition name already exist" textAlignment="JUSTIFY" visible="false"
                        wrapText="true"/>
             </children>
             <padding>
