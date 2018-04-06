@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Controller which is in charge of the tape view
  */
-public class TapeDisplayController {
+public class TapeController {
 
 
     //components
@@ -30,9 +30,9 @@ public class TapeDisplayController {
     private InputTape tape;
 
     /**
-     * A constructor for a TapeDisplayController instance
+     * A constructor for a TapeController instance
      */
-    public TapeDisplayController() {
+    public TapeController() {
 
         try {
             tapeView = FXMLLoader.load(getClass().getResource("/layouts/tape_display_partial.fxml"));
@@ -102,7 +102,7 @@ public class TapeDisplayController {
 
     //sets the head symbol to current head symbol of tape
     private void setHeadSymbolLabel() {
-        lHeadSymbol.setText("Symbol at head : " + (tape.getStringSymbolAtHead()));
+        lHeadSymbol.setText("Symbol at head : " + (tape.getSymbolAtHeadString()));
     }
 
     /**

@@ -28,16 +28,19 @@ public class InputTape {
      * @return the symbol character read
      */
     public char readSymbol(boolean skipSymbol) {
-        if (!skipSymbol && input.size() > 0 && headIndex < input.size()) {
-            char toReturn = input.get(headIndex);
-            headIndex++;
+        if (input.size() > 0 && headIndex < input.size()) {
+            if (!skipSymbol) {
+                char toReturn = input.get(headIndex);
+                headIndex++;
+                step++;
+                return toReturn;
+            }
             step++;
-            return toReturn;
         }
-        step++;
         return 0;
     }
 
+    //changed
     /**
      * A method which takes the tape's head one step back
      */
@@ -53,7 +56,7 @@ public class InputTape {
      *
      * @return the symbol at head, or 'none' otherwise when the tape is empty
      */
-    public String getStringSymbolAtHead() {
+    public String getSymbolAtHeadString() {
         return (headIndex >= input.size() || headIndex == -1) ? "-" : input.get(headIndex) + "";
     }
 
@@ -63,7 +66,7 @@ public class InputTape {
      * @return the symbol at head, or '-' otherwise when the tape is empty
      */
     public char getSymbolAtHead() {
-        return (headIndex >= input.size() || headIndex == -1) ? '-' : input.get(headIndex);
+        return (headIndex >= input.size() || headIndex == -1) ? 0 : input.get(headIndex);
     }
 
     public void setInput(ArrayList<Character> input) {
@@ -81,7 +84,7 @@ public class InputTape {
     }
 
 
-    public void setHeadIndex(int headIndex) {
+    public void setHeadPosition(int headIndex) {
         this.headIndex = headIndex;
     }
 
@@ -118,7 +121,7 @@ public class InputTape {
      * @return the remaining input of tape in the form of an String
      */
     public String getRemainingInputAsString() {
-        if ((headIndex >= input.size())) {
+        if ((headIndex >= input.size()) || headIndex == -1) {
             return "-";
         }
         String output = "";
@@ -131,8 +134,8 @@ public class InputTape {
     /**
      * @return the size of the initial string that was inputted
      */
-    public int getSize() {
-        return input == null ? 0 : input.size();
+    public int size() {
+        return input.size();
     }
 
     /**
@@ -150,13 +153,5 @@ public class InputTape {
         return headIndex;
     }
 
-    /**
-     * A method which determines whether step is the last step of computation
-     *
-     * @return true, if last step, else false otherwise
-     */
-    public boolean isLastStep() {
-        return step == getOriginalWord().length();
-    }
 
 }

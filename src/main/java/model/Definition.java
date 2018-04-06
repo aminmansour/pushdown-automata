@@ -13,6 +13,7 @@ public class Definition {
     private boolean isAcceptByFinalState;
     private ArrayList<Transition> transitions;
     private ControlState initialState;
+    private String exampleHint;
 
     /**
      * An in-depth constructor for a Definition object
@@ -92,5 +93,13 @@ public class Definition {
      */
     public void addTransition(Transition newTransition) {
         transitions.add(newTransition);
+    }
+
+    public String getExampleHint() {
+        return exampleHint;
+    }
+
+    public void setExampleHint(String exampleHint) {
+        this.exampleHint = exampleHint;
     }
 }

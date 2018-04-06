@@ -96,7 +96,7 @@ public class QuickDefinitionController implements Initializable {
         bAdvance.setOnAction(event -> validateControlStates());
         bSave.setOnAction(event -> openSaveDialog());
         bGenerate.setOnAction(event -> {
-            loadDefinition(System.currentTimeMillis() + "", false);
+            loadDefinition(null, false);
             clearFields();
         });
     }
@@ -268,12 +268,12 @@ public class QuickDefinitionController implements Initializable {
     private void addTransition() {
 
         if (cbStates.getSelectionModel().isEmpty()) {
-            ViewFactory.showErrorDialog("No initial control state is chosen!", quickDefinition);
+            ViewFactory.showErrorDialog("No initial control state in transition is chosen!", quickDefinition);
             return;
         }
 
         if (cbResultingStates.getSelectionModel().isEmpty()) {
-            ViewFactory.showErrorDialog("No Resulting control state is chosen!", quickDefinition);
+            ViewFactory.showErrorDialog("No resulting control state in transition is chosen!", quickDefinition);
             return;
         }
 

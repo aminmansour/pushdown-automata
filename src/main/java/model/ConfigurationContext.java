@@ -110,30 +110,18 @@ public class ConfigurationContext {
      *
      * @param state        the control state to look for
      * @param stackContent the stack context to look for
-     * @param step         the step to look for
+     * @param headPosition         the headPosition to look for
      * @return if a ConfigurationContext instance is found then return, else return null
      */
-    public ConfigurationContext hasChildWithContext(ControlState state, ArrayList<Character> stackContent, int step) {
+    public ConfigurationContext hasChild(ControlState state, ArrayList<Character> stackContent, int headPosition) {
         for (ConfigurationContext configuration : exploredChildren) {
-            if (state.equals(configuration.controlState) && step == configuration.headPosition && compareStackContent(configuration.stackState, stackContent)) {
+            if (state.equals(configuration.controlState) && headPosition == configuration.headPosition && compareStackContent(configuration.stackState, stackContent)) {
                 return configuration;
             }
         }
         return null;
     }
 
-    /**
-     * A method which checks if the context specification provided via the parameter is the same as
-     * the ConfigurationContext instance
-     *
-     * @param state        the state to look for
-     * @param stackContent the stack content to look for
-     * @param remaingInput the remaining input in the tape to look for
-     * @return if the current instance matches up with the context then return true, else return false
-     */
-    public boolean hasContext(ControlState state, ArrayList<Character> stackContent, String remaingInput) {
-        return state.equals(controlState) && remaingInput.equals(remaingInput) && compareStackContent(stackState, stackContent);
-    }
 
     //compares stack content to see if they are the same
     private boolean compareStackContent(ArrayList<Character> stackState, ArrayList<Character> stackContent) {
@@ -170,12 +158,12 @@ public class ConfigurationContext {
      * @return the string of stack elements
      */
     public String getStackStateInStringFormat() {
-        if (stackState.isEmpty()) {
-            return " - ";
+        if (stackState.size() == 0) {
+            return "-";
         }
         String output = "";
-        for (Character character : stackState) {
-            output += character;
+        for (int i = stackState.size() - 1; i >= 0; i--) {
+            output += stackState.get(i);
         }
         return output;
     }
@@ -195,44 +183,10 @@ public class ConfigurationContext {
         return step;
     }
 
-    /**
-     * Increments the number of made visits
-     *
-     * @return rhw roral number of visits in current execution
-     */
-    public int increment() {
-        return numberOfVisits++;
-    }
-
-    /**
-     * A method which compares two ConfigurationContext instance for equivalence.
-     *
-     * @param other the other ConfigurationContext instance to compare
-     * @return true, if the two are the same in terms of effect, but false otherwise
-     */
-    public boolean sameAs(ConfigurationContext other) {
-        if (stackState.size() != other.stackState.size()) {
-            return false;
-        }
-        for (int i = 0; i < stackState.size(); i++) {
-            if (stackState.get(i) != other.stackState.get(i)) {
-                return false;
-            }
-        }
-
-        if (headPosition != other.getHeadPosition()) {
-            return false;
-        }
-
-        return controlState == other.controlState;
-    }
-
 
     public int getNumberOfVisits() {
         return numberOfVisits;
     }
 
-    public void setNumberOfVisits(int numberOfVisits) {
-        this.numberOfVisits = numberOfVisits;
-    }
+
 }

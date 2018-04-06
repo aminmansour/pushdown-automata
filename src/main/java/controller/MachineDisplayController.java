@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -67,6 +68,7 @@ public class MachineDisplayController {
 
         controlStates = new TreeMap<>();
         transitionsByStateMap = new TreeMap<>();
+
 
         pdaDisplay.widthProperty().addListener(observable -> repaintDisplay());
         pdaDisplay.heightProperty().addListener(observable -> repaintDisplay());
@@ -354,4 +356,6 @@ public class MachineDisplayController {
         pdaDisplay.setPivot(0, 0);
         slider.setValue(1);
     }
+
+
 }

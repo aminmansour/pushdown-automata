@@ -280,6 +280,18 @@
     -fx-background-color: #d1d1d1;
 }
 
+#fpTitle{
+    -fx-background-color: white;
+    -fx-border-color: #c9c9c9;
+    -fx-border-width: 1px;
+
+}
+
+#lPDATitle{
+    -fx-padding: 5px 0px 5px 10px;
+    -fx-font-weight: normal;
+    -fx-font-size: 14px;
+}
 #taInput{
     -fx-focus-color: #249c6d;
     -fx-faint-focus-color: rgba(22, 105, 72, 0.13);
@@ -323,16 +335,24 @@
 
 }
 
-#transitionBox, #userInputBox, #actionToolBar, #vbDisplay, #bpTape, #bpStack {
+#transitionBox, #userInputBox, #actionToolBar, #bpTape, #bpStack {
     -fx-background-color: white;
     -fx-border-color: #c9c9c9;
-    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-width: 1px;
 
 }
 
 .pTapeCell{
     -fx-border-width: 1px;
     -fx-border-color: #ffffff;
+}
+
+.pdaStateLabel{
+    -fx-font-size: 15px;
+    -fx-background-color: #29ac77;
+    -fx-font-weight: 400;
+    -fx-text-fill: white;
+    -fx-padding: 5px;
 }
 
 .pTapeCell Label{
@@ -641,7 +661,7 @@
 .slider {
     -fx-background-color: white;
     -fx-border-color: #c9c9c9;
-    -fx-border-width: 5px 0px 0px 0px;
+    -fx-border-width: 1px;
 }
 
 .slider .track {
@@ -652,7 +672,7 @@
 #pdaDisplay {
     -fx-background-color: white;
     -fx-border-color: #c9c9c9;
-    -fx-border-width: 0px 0px 0px 0px;
+    -fx-border-width: 1px ;
     -fx-cursor: move;
 }
 

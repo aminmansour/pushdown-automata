@@ -15,8 +15,8 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 1" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label minWidth="200" maxWidth="400"
-                               text="A push-down automaton machine which recognizes the language of correctly specified opening and closing parenthesis words. i.e (())"
+                        <Label maxWidth="400"
+                               text="A push-down automaton machine which recognizes the language of matched opening and closing parenthesis . i.e (())"
                                textFill="#23aa76" wrapText="true">
                             <padding>
                                 <Insets bottom="20.0"/>
@@ -39,7 +39,7 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 2" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label minWidth="200" maxWidth="400"
+                        <Label maxWidth="400"
                                text="A push-down automaton machine which recognizes the language { 0^n 1^n | n >= 0 }."
                                textFill="#23aa76" wrapText="true">
                             <padding>
@@ -63,8 +63,8 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 3" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label minWidth="200" maxWidth="400"
-                               text="A push-down automaton which recognizes the language of even-lengthened palidrones (words that are the same forward and backward)."
+                        <Label maxWidth="400"
+                               text="A push-down automaton which recognizes the language of even-lengthened palindromes (words that are the same forward and backward)."
                                textFill="#23aa76" wrapText="true">
                             <padding>
                                 <Insets bottom="20.0"/>
@@ -88,7 +88,7 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 4" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label minWidth="200" maxWidth="400"
+                        <Label maxWidth="400"
                                text="A push-down automaton machine which recognizes the language { 0^n 1^2n | n >= 0 }."
                                textFill="#23aa76" wrapText="true">
                             <padding>
@@ -111,8 +111,8 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 5" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label minWidth="200" maxWidth="400"
-                               text="A push-down automaton machine which recognizes the language  {a^i b^j c^k | i , j , k >= 0  and i = j  or i = k }."
+                        <Label maxWidth="400"
+                               text="A push-down automaton machine which recognizes the language  {a^i b^j c^k | i , j , k >= 0, and i = j  or i = k }."
                                textFill="#23aa76" wrapText="true">
                             <padding>
                                 <Insets bottom="20.0"/>
@@ -135,7 +135,7 @@
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 6" textFill="#23aa76"/>
                         <TextArea editable="false" maxHeight="1"/>
-                        <Label minWidth="200" maxWidth="400" wrapText="true"
+                        <Label maxWidth="400" wrapText="true"
                                text="find out how to  create your own create your own create your own create your  own create your own PDA machines!"
                                textFill="#23aa76">
                             <padding>

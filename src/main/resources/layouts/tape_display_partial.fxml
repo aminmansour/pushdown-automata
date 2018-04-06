@@ -19,31 +19,39 @@
     <bottom>
         <HBox alignment="CENTER" maxWidth="Infinity" spacing="20.0" BorderPane.alignment="CENTER">
             <children>
-                <Label id="lCurrentState" text="Current state : none" textFill="#4a4848" />
-                <Label id="lStackTop" text="Top stack symbol : none" textFill="#4a4848" />
-                <Label id="lHeadSymbol" text="Symbol at head : none" textFill="#4a4848" />
-                <Label id="lCurrentConfiguration" text="Current configuration : none" textFill="#4a4848">
+                <Label id="lCurrentState" styleClass="pdaStateLabel" text="Current state : none" textFill="#4a4848"/>
+                <Label id="lStackTop" styleClass="pdaStateLabel" text="Top stack symbol : none" textFill="#4a4848"/>
+                <Label id="lHeadSymbol" styleClass="pdaStateLabel" text="Symbol at head : none" textFill="#4a4848">
+                    <HBox.margin>
+                        <Insets/>
+                    </HBox.margin>
+                </Label>
+                <Label id="lCurrentConfiguration" styleClass="pdaStateLabel" text="Current configuration : none"
+                       textFill="#4a4848">
                <font>
                   <Font name="Nirmala UI" size="15.0" />
                </font></Label>
             </children>
+            <BorderPane.margin>
+                <Insets bottom="10.0"/>
+            </BorderPane.margin>
         </HBox>
     </bottom>
     <center>
         <VBox maxWidth="Infinity">
             <GridPane id="gpStepLocation" VBox.vgrow="SOMETIMES">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
-                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
-                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
-                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
-                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
-                    <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
-               <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
-               <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
-               <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
-               <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
-               <ColumnConstraints hgrow="SOMETIMES" halignment="CENTER" percentWidth="8.3"  />
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" percentWidth="8.3"/>
                 </columnConstraints>
                 <rowConstraints>
                     <RowConstraints valignment="BOTTOM" vgrow="ALWAYS" />
@@ -62,16 +70,16 @@
             <GridPane id="gpTape" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                 <columnConstraints>
                     <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.3" />
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
-                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
-               <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
-               <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
-               <ColumnConstraints hgrow="ALWAYS"  percentWidth="8.3" />
-               <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
-               <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"  />
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"/>
+                    <ColumnConstraints hgrow="ALWAYS" percentWidth="8.3"/>
                <ColumnConstraints />
                 </columnConstraints>
                 <rowConstraints>
@@ -95,27 +103,28 @@
 
             </children>
             </GridPane>
-            <GridPane id="gpPointerLocation"   maxWidth="Infinity" VBox.vgrow="ALWAYS">
+            <GridPane id="gpPointerLocation" maxWidth="Infinity" VBox.vgrow="ALWAYS">
                 <columnConstraints>
-                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-                    <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
-               <ColumnConstraints hgrow="ALWAYS" halignment="CENTER" percentWidth="8.4"  />
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
+                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="8.4"/>
                 </columnConstraints>
                 <rowConstraints>
                     <RowConstraints minHeight="5.0" prefHeight="5.0" valignment="TOP" vgrow="SOMETIMES" />
 
                 </rowConstraints>
             <children>
-               <StackPane  id="spTapePointer" alignment="TOP_LEFT" maxHeight="5.0" maxWidth="1.7976931348623157E308" prefHeight="5.0">
+                <StackPane id="spTapePointer" alignment="TOP_LEFT" maxHeight="5.0" maxWidth="1.7976931348623157E308"
+                           prefHeight="5.0">
 
                </StackPane>
             </children>

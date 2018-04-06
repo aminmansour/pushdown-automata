@@ -44,9 +44,8 @@ public class ToolBarPartialController implements Initializable {
     public void save() {
         if (ControllerFactory.pdaRunnerController.isCurrentSavedInMemory()) {
             MemoryFactory.saveState();
-            bToolbarSave.getStyleClass().remove("de-activated-saveToLibrary-button");
+            bToolbarSave.getStyleClass().remove("de-activated-save-button");
         } else {
-            disableToolbarButtons(true);
             ControllerFactory.pdaRunnerController.openSaveDialog();
         }
     }
@@ -57,7 +56,7 @@ public class ToolBarPartialController implements Initializable {
      */
     public void highlightSaveButton() {
         if (ControllerFactory.pdaRunnerController.isCurrentSavedInMemory()) {
-            bToolbarSave.getStyleClass().add("de-activated-saveToLibrary-button");
+            bToolbarSave.getStyleClass().add("de-activated-save-button");
         }
     }
 
@@ -78,7 +77,7 @@ public class ToolBarPartialController implements Initializable {
      */
     public void switchToQuickDefinition() {
         if (!ControllerFactory.pdaRunnerController.isCurrentSavedInMemory() || bToolbarSave.getStyleClass().contains("de-activated-saveToLibrary-button")) {
-            ControllerFactory.pdaRunnerController.showConfirmationDialog();
+            ControllerFactory.pdaRunnerController.openConfirmationDialog();
         } else {
             ControllerFactory.pdaRunnerController.switchToQuickDefinition();
         }

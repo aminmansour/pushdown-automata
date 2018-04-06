@@ -1,6 +1,6 @@
 [
   {
-    "identifier": "Language of words with same amount of 0s and 1s",
+    "identifier": "PDA which which recognizes the language { 0^n 1^n | n >= 0 }",
     "states": [
       {
         "isAccepting": true,
@@ -24,6 +24,7 @@
       }
     ],
     "isAcceptByFinalState": true,
+    "exampleHint": "0011",
     "transitions": [
       {
         "configuration": {
@@ -128,7 +129,7 @@
     }
   },
   {
-    "identifier": "Language of even palidromes (same forward and backward)",
+    "identifier": "PDA which recognizes the language of even-lengthened palindromes ( words that are the same forward and backward )",
     "states": [
       {
         "isAccepting": true,
@@ -152,6 +153,7 @@
       }
     ],
     "isAcceptByFinalState": true,
+    "exampleHint": "101101",
     "transitions": [
       {
         "configuration": {
@@ -294,7 +296,7 @@
     }
   },
   {
-    "identifier": "Language {a^i b^j c^k | i,j.k \u003e\u003d 0  and i \u003d j  or i \u003d k}",
+    "identifier": "PDA which recognizes the language  { a^i b^j c^k | i , j , k >= 0, and i = j  or i = k }",
     "states": [
       {
         "isAccepting": false,
@@ -333,6 +335,7 @@
       }
     ],
     "isAcceptByFinalState": true,
+    "exampleHint": "abbc",
     "transitions": [
       {
         "configuration": {
@@ -551,7 +554,7 @@
     }
   },
   {
-    "identifier": "Language { 0^n 1^2n | n \u003e\u003d 0 }",
+    "identifier": "PDA which recognizes the language { 0^n 1^2n | n >= 0 }",
     "states": [
       {
         "isAccepting": false,
@@ -580,6 +583,7 @@
       }
     ],
     "isAcceptByFinalState": true,
+    "exampleHint": "001111",
     "transitions": [
       {
         "configuration": {
@@ -703,7 +707,7 @@
     }
   },
   {
-    "identifier": "Language of opening and closing parenthesises",
+    "identifier": "PDA which recognizes the language of matched opening and closing parenthesis",
     "states": [
       {
         "isAccepting": true,
@@ -722,6 +726,7 @@
       }
     ],
     "isAcceptByFinalState": true,
+    "exampleHint": "(())",
     "transitions": [
       {
         "configuration": {

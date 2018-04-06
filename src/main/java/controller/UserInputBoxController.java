@@ -78,4 +78,15 @@ public class UserInputBoxController {
     public void clear() {
         taInput.clear();
     }
+
+    /**
+     * A method which sets the prompt text of the taInput
+     *
+     * @param hint the text to set the prompt text of the taInput
+     */
+    public void setHintText(String hint) {
+        if (hint != null) {
+            taInput.setPromptText("Example word: " + hint);
+        }
+    }
 }

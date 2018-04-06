@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.*?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PDARunnerController" fx:id="spPDARunnerPage">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="spPDARunnerPage" xmlns="http://javafx.com/javafx/8.0.121"
+           fx:controller="controller.PDARunnerController">
     <BorderPane maxHeight="Infinity" maxWidth="Infinity" xmlns="http://javafx.com/javafx/8.0.121">
 
     <left>
-        <VBox fx:id="vbLeftBar" maxHeight="Infinity" maxWidth="530" minWidth="100"
-              spacing="5.0" >
+        <VBox fx:id="vbLeftBar" maxHeight="Infinity" maxWidth="530" minWidth="100" spacing="5.0">
             <BorderPane.margin>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </BorderPane.margin>
@@ -16,8 +22,16 @@
 
     <center>
         <VBox fx:id="vbPDAInteraction" spacing="5.0" HBox.hgrow="ALWAYS">
-            <HBox spacing="5" fx:id="hbCentre" VBox.vgrow="ALWAYS" maxHeight="Infinity">
-                <VBox fx:id="vbDisplay" HBox.hgrow="ALWAYS" maxWidth="Infinity"></VBox>
+            <HBox fx:id="hbCentre" maxHeight="Infinity" spacing="5" VBox.vgrow="ALWAYS">
+                <VBox fx:id="vbDisplay" alignment="CENTER" maxWidth="Infinity" spacing="2" HBox.hgrow="ALWAYS">
+                    <FlowPane fx:id="fpTitle" maxWidth="Infinity">
+                        <Label fx:id="lPDATitle" text="jfsai"/>
+                    </FlowPane>
+                    <HBox.margin>
+                        <Insets top="1.0"/>
+                    </HBox.margin>
+
+                </VBox>
             </HBox>
             <BorderPane.margin>
                 <Insets bottom="5.0" right="5.0" top="5.0" />

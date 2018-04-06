@@ -19,6 +19,7 @@ import javafx.util.Duration;
 import model.*;
 import view.ViewFactory;
 
+import javax.swing.text.JTextComponent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -39,9 +40,11 @@ public class PDARunnerController implements Initializable {
     private HBox hbCentre;
     @FXML
     private VBox vbDisplay;
+    @FXML
+    private Label lPDATitle;
 
     //sub-controllers
-    private TapeDisplayController tape;
+    private TapeController tape;
     private UserActionController actionBar;
     private UserInputBoxController inputBox;
     private StackController stack;
@@ -69,7 +72,7 @@ public class PDARunnerController implements Initializable {
 
     //loads the individual components ( views and controllers)
     private void buildPDARunnerView() {
-        tape = new TapeDisplayController();
+        tape = new TapeController();
         vbPDAInteraction.getChildren().add(tape.getTapeViewGenerated());
 
         initializeUserActionBarAndSetUpActionListeners();
@@ -81,8 +84,8 @@ public class PDARunnerController implements Initializable {
         inputBox.setButtonInstantRunAction(event -> instantRun());
 
         machineDisplay = new MachineDisplayController();
-        vbDisplay.getChildren().add(machineDisplay.getCanvas());
-        vbDisplay.getChildren().add(1, machineDisplay.getSlider());
+        vbDisplay.getChildren().add(1, machineDisplay.getCanvas());
+        vbDisplay.getChildren().add(2, machineDisplay.getSlider());
 
         stack = new StackController();
         hbCentre.getChildren().add(stack.getStackGenerated());
@@ -121,7 +124,7 @@ public class PDARunnerController implements Initializable {
     /**
      * A method which updates all the individual interface components with the updated information
      */
-    public void requestInterfaceUpdate() {
+    private void requestInterfaceUpdate() {
         tape.requestUpdate();
         stack.requestInterfaceUpdate();
         machineDisplay.focusState(pda.getCurrentState(), true);
@@ -340,6 +343,8 @@ public class PDARunnerController implements Initializable {
         stack.setStackModel(model.getStack());
         transitionTable.clear();
         inputBox.clear();
+        inputBox.setHintText(pda.getDefinition().getExampleHint());
+        setPDATitle(model.getDefinition().getIdentifier());
         transitionTable.setStates(model.getDefinition().getStates());
         machineDisplay.clear();
         ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
@@ -383,7 +388,7 @@ public class PDARunnerController implements Initializable {
         if (transition.getAction().getElementToPush() != '/') {
             content.add(transition.getAction().getElementToPush());
         }
-        return pda.getExecutionTree().getCurrent().hasChildWithContext(transition.getAction().getNewState(), content, headPosition);
+        return pda.getExecutionTree().getCurrent().hasChild(transition.getAction().getNewState(), content, headPosition);
     }
 
     //loads a ConfigurationContext instance into current PDAMachine and updates interface
@@ -465,7 +470,7 @@ public class PDARunnerController implements Initializable {
             transitionTable.clearSelection(false);
             currentOutputWindow = FXMLLoader.load(getClass().getResource("/layouts/output_page.fxml"));
             ((Label) currentOutputWindow.lookup("#lOutput")).setText("Output  : word \"" + pda.getTape().getOriginalWord() + "\" is " + (solutionBuffer.size() > 0 ? " accepted!" : " rejected!"));
-            String sequence = "No solutions found from the paths that have been searched";
+            String sequence = "No" + (solutionBuffer.isEmpty() ? "" : " more") + " solutions found from the paths that have been searched";
             ((Label) currentOutputWindow.lookup("#lConfigurationSequence")).setText(sequence);
 
             ((Button) currentOutputWindow.lookup("#bAnotherInput")).setOnAction(event -> {
@@ -717,6 +722,7 @@ public class PDARunnerController implements Initializable {
                     if (!ModelFactory.checkForDefinitionOccurrence(definition)) {
                         pda.markAsSavedInMemory();
                         MemoryFactory.saveToLibrary(definition);
+                        setPDATitle(definition.getIdentifier());
                         spPDARunnerPage.getChildren().remove(currentSaveWindow);
                     }
                 }
@@ -810,7 +816,7 @@ public class PDARunnerController implements Initializable {
     /**
      * A method which open confirmation dialog to confirm user's action
      * */
-    public void showConfirmationDialog() {
+    public void openConfirmationDialog() {
         ViewFactory.showStandardDialog(spPDARunnerPage, false, "Alert :",
                 "This action might lose all unsaved changes! Are you sure you want to proceed without saving!", event -> {
                     spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
@@ -867,6 +873,16 @@ public class PDARunnerController implements Initializable {
             spPDARunnerPage.getChildren().remove(currentSaveWindow);
             removeUserInteractionWithPDA(false);
             currentSaveWindow = null;
+        }
+    }
+
+    // A method which sets the PDA title if the currently loaded PDA has a title and displays it
+    private void setPDATitle(String PDATitle) {
+        if (PDATitle != null) {
+            lPDATitle.getParent().setManaged(true);
+            lPDATitle.setText(PDATitle);
+        } else {
+            lPDATitle.getParent().setManaged(false);
         }
     }
 

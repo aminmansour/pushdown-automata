@@ -3,13 +3,13 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox fx:id="vbPdaName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="vbPdaName"
+      maxHeight="-Infinity" maxWidth="500.0" xmlns="http://javafx.com/javafx/8.0.121">
     <children>
 
-        <HBox fx:id="hbError" alignment="BOTTOM_LEFT" prefWidth="400.0" spacing="2">
+        <HBox fx:id="hbError" alignment="BOTTOM_LEFT" maxWidth="Infinity" spacing="2">
             <children>
-                <Label id="lName" text="Saving Name :" textAlignment="JUSTIFY" wrapText="true">
+                <Label id="lName" text="PDA Name (something descriptive) :" maxWidth="Infinity" HBox.hgrow="ALWAYS">
                     <HBox.margin>
                         <Insets bottom="10.0"/>
                     </HBox.margin>

@@ -36,7 +36,6 @@ public class PDAMachine {
         tape.clear();
         stack.clear();
         sortStateToTransitionMapping();
-        getNonDeterministicTransitions();
     }
 
     /**
@@ -94,7 +93,7 @@ public class PDAMachine {
      * @param stackSymbol the stack symbol to pop
      * @return A list of transitions which match the parameters provided
      */
-    public ArrayList<Transition> getPossibleTransitions(ControlState state, Character input, Character stackSymbol) {
+    private ArrayList<Transition> getPossibleTransitions(ControlState state, Character input, Character stackSymbol) {
         ArrayList<Transition> possibleTransitions = new ArrayList<>();
 
         for (Transition transition : retrieveTransitionsFromSourceState(state)) {
@@ -169,7 +168,7 @@ public class PDAMachine {
     /**
      * A method which sets the current state to the initial state
      */
-    public void setCurrentStateToInitial() {
+    private void setCurrentStateToInitial() {
         currentState = loadedDefinition.getInitialState();
     }
 
@@ -197,13 +196,13 @@ public class PDAMachine {
      * A method which sets the current state
      * @param current the state to set to current
      */
-    public void setCurrentState(ControlState current) {
+    private void setCurrentState(ControlState current) {
         this.currentState = current;
     }
 
 
-    public void createNewExecutionTree(ControlState controlState, ArrayList<Character> stackState,
-                                       int headPosition, int step, int totalChildren) {
+    private void createNewExecutionTree(ControlState controlState, ArrayList<Character> stackState,
+                                        int headPosition, int step, int totalChildren) {
         ConfigurationContext root = new ConfigurationContext(controlState, null, stackState, headPosition, step, totalChildren);
         root.markInPath(true);
         executionTree = new ExecutionTree(root);
@@ -287,14 +286,11 @@ public class PDAMachine {
         tape.clear();
         stack.clear();
         setCurrentState(getDefinition().getInitialState());
-        tape.setHeadIndex(-1);
-        tape.setStep(0);
         ArrayList<Character> inputSymbols = new ArrayList<>(input.length());
         for (char c : input.toCharArray()) {
             inputSymbols.add(c);
         }
         tape.setInput(inputSymbols);
-        setCurrentState(getDefinition().getInitialState());
         createNewExecutionTree(loadedDefinition.getInitialState(), new ArrayList<>(), 0, 0, getPossibleTransitionsFromCurrent().size());
     }
 
@@ -319,7 +315,7 @@ public class PDAMachine {
     public void loadConfigurationContext(ConfigurationContext context) {
         executionTree.setCurrent(context);
         currentState = context.getState();
-        tape.setHeadIndex(context.getHeadPosition());
+        tape.setHeadPosition(context.getHeadPosition());
         tape.setStep(context.getStep());
         stack.loadState(context.getStackState());
     }
@@ -339,7 +335,7 @@ public class PDAMachine {
      */
     public void redo() {
         tape.setStep(0);
-        tape.setHeadIndex(0);
+        tape.setHeadPosition(0);
         if (currentState != null) {
             setCurrentStateToInitial();
             createNewExecutionTree(loadedDefinition.getInitialState(), new ArrayList<>(), 0, 0, getPossibleTransitionsFromCurrent().size());
