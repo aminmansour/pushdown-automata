@@ -92,7 +92,7 @@ public class HomeController implements Initializable {
      */
     public void restore() {
         if (ControllerFactory.pdaRunnerController.isLoaded()) {
-            ControllerFactory.pdaRunnerController.closeNonDeterministicModeIfPresent();
+            ControllerFactory.pdaRunnerController.closeDialogues();
             ViewFactory.globalPane.setCenter(ViewFactory.pdaRunner);
             ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
         }

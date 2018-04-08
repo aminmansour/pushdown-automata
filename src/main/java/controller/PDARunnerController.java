@@ -4,6 +4,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -63,6 +65,9 @@ public class PDARunnerController implements Initializable {
     private Node currentSaveWindow;
     private boolean inDeterministicMode;
     private boolean machineIsNonDeterministic;
+    private Node deterministicDialogue;
+    private Node currentAddTransitionDialog;
+    private Node confirmationDialog;
 
 
     @Override
@@ -334,10 +339,7 @@ public class PDARunnerController implements Initializable {
      */
     public void loadPDA(PDAMachine model) {
         this.pda = model;
-        closeOutputDialogIfPresent();
-        closeOptionDialogIfPresent();
-        closeNonDeterministicModeIfPresent();
-        closeSaveDialogIfPresent();
+        closeDialogues();
         machineDisplay.resetZoom();
         tape.setTapeInputModel(model.getTape());
         stack.setStackModel(model.getStack());
@@ -428,6 +430,17 @@ public class PDARunnerController implements Initializable {
         transitionTable.clearSelection(pda.getCurrentState() != null);
         machineDisplay.unhighlightAllTransitions();
         Set<Transition> transitions = pda.getNonDeterministicTransitions();
+        if (transitions.size() == 0) {
+            ViewFactory.showStandardDialog(spPDARunnerPage, true, "No non-deterministic transitions!", "This is a deterministic PDA!", new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
+                    closeNonDeterministicModeIfPresent();
+                }
+            }, null, "ok", "");
+            deterministicDialogue = spPDARunnerPage.getChildren().get(spPDARunnerPage.getChildren().size() - 1);
+
+        }
         machineDisplay.highlightTransitionBatch(transitions);
         transitionTable.highlightTransitions(transitions);
         inDeterministicMode = true;
@@ -583,7 +596,7 @@ public class PDARunnerController implements Initializable {
         try {
             stop();
             ControllerFactory.toolBarPartialController.disableToolbarButtons(true);
-            VBox currentAddTransitionDialog = FXMLLoader.load(getClass().getResource("/layouts/add_transition_page.fxml"));
+            currentAddTransitionDialog = FXMLLoader.load(getClass().getResource("/layouts/add_transition_page.fxml"));
             Button bAddTransition = (Button) currentAddTransitionDialog.lookup("#bAddTransition");
             Button bCancel = (Button) currentAddTransitionDialog.lookup("#bCancel");
             ComboBox<String> cbStates = (ComboBox<String>) currentAddTransitionDialog.lookup("#cbStates");
@@ -830,6 +843,8 @@ public class PDARunnerController implements Initializable {
                     spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
                     ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
                 }, "Proceed", "Close");
+        confirmationDialog = spPDARunnerPage.getChildren().get(spPDARunnerPage.getChildren().size() - 1);
+
     }
 
     /**
@@ -861,6 +876,33 @@ public class PDARunnerController implements Initializable {
         }
     }
 
+    private void closeAddTraansitionDialogueIfPresent() {
+        if (currentAddTransitionDialog != null) {
+            spPDARunnerPage.getChildren().remove(currentAddTransitionDialog);
+            currentAddTransitionDialog = null;
+        }
+    }
+
+    //a method which closes the deterministic dialogue dialog
+    private void closeDeterministicDialogueIfPresent() {
+        if (deterministicDialogue != null) {
+            spPDARunnerPage.getChildren().remove(deterministicDialogue);
+            deterministicDialogue = null;
+        }
+    }
+
+    /**
+     * A method which closes all dialogues
+     */
+    void closeDialogues() {
+        closeSaveDialogIfPresent();
+        closeDeterministicDialogueIfPresent();
+        closeOutputDialogIfPresent();
+        closeAddTraansitionDialogueIfPresent();
+        closeConfirmationDialog();
+        closeNonDeterministicModeIfPresent();
+    }
+
     //a method which closes the result dialog
     private void closeOutputDialogIfPresent() {
         if (currentOutputWindow != null) {
@@ -876,6 +918,13 @@ public class PDARunnerController implements Initializable {
             spPDARunnerPage.getChildren().remove(currentSaveWindow);
             removeUserInteractionWithPDA(false);
             currentSaveWindow = null;
+        }
+    }
+
+    private void closeConfirmationDialog() {
+        if (confirmationDialog != null) {
+            spPDARunnerPage.getChildren().remove(confirmationDialog);
+            confirmationDialog = null;
         }
     }
 
