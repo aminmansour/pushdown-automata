@@ -1,6 +1,7 @@
 package controller;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -82,5 +83,8 @@ public class LibraryController implements Initializable {
         ModelFactory.libraryStore.remove(selectedIndex);
         items.remove(selectedIndex);
         MemoryFactory.saveState();
+        if (ModelFactory.libraryStore.size() == 0) {
+            hbItemAction.setVisible(false);
+        }
     }
 }

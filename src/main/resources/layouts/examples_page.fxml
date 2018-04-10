@@ -14,14 +14,9 @@
                     <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 1" textFill="#23aa76"/>
-                        <TextArea editable="false" maxHeight="1"/>
-                        <Label maxWidth="400"
-                               text="A push-down automaton machine which recognizes the language of matched opening and closing parenthesis . i.e (())"
-                               textFill="#23aa76" wrapText="true">
-                            <padding>
-                                <Insets bottom="20.0"/>
-                            </padding>
-                        </Label>
+                        <TextArea style="-fx-text-fill: #279f6e" VBox.vgrow="ALWAYS" maxHeight="Infinity"
+                                  text=" A push-down automaton machine which recognizes the language of matched opening and closing parenthesis . i.e (())"
+                                  editable="false" wrapText="true"/>
                         <Label fx:id="lExample1" mnemonicParsing="false" styleClass="home-button-icon">
 
                             <padding>
@@ -38,14 +33,9 @@
                     <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 2" textFill="#23aa76"/>
-                        <TextArea editable="false" maxHeight="1"/>
-                        <Label maxWidth="400"
-                               text="A push-down automaton machine which recognizes the language { 0^n 1^n | n >= 0 }."
-                               textFill="#23aa76" wrapText="true">
-                            <padding>
-                                <Insets bottom="20.0"/>
-                            </padding>
-                        </Label>
+                        <TextArea style="-fx-text-fill: #279f6e" VBox.vgrow="ALWAYS" maxHeight="Infinity"
+                                  text="A push-down automaton machine which recognizes the language { 0^n 1^n | n >= 0 }."
+                                  editable="false" wrapText="true"/>
                         <Label fx:id="lExample2" mnemonicParsing="false" styleClass="home-button-icon">
 
                             <padding>
@@ -62,14 +52,9 @@
                     <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 3" textFill="#23aa76"/>
-                        <TextArea editable="false" maxHeight="1"/>
-                        <Label maxWidth="400"
-                               text="A push-down automaton which recognizes the language of even-lengthened palindromes (words that are the same forward and backward)."
-                               textFill="#23aa76" wrapText="true">
-                            <padding>
-                                <Insets bottom="20.0"/>
-                            </padding>
-                        </Label>
+                        <TextArea style="-fx-text-fill: #279f6e" VBox.vgrow="ALWAYS" maxHeight="Infinity"
+                                  text="A push-down automaton which recognizes the language of even-lengthened palindromes (words that are the same forward and backward)."
+                                  editable="false" wrapText="true"/>
                         <Label fx:id="lExample3" mnemonicParsing="false" styleClass="home-button-icon">
 
                             <padding>
@@ -87,14 +72,9 @@
                     <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 4" textFill="#23aa76"/>
-                        <TextArea editable="false" maxHeight="1"/>
-                        <Label maxWidth="400"
-                               text="A push-down automaton machine which recognizes the language { 0^n 1^2n | n >= 0 }."
-                               textFill="#23aa76" wrapText="true">
-                            <padding>
-                                <Insets bottom="20.0"/>
-                            </padding>
-                        </Label>
+                        <TextArea style="-fx-text-fill: #279f6e" VBox.vgrow="ALWAYS" maxHeight="Infinity"
+                                  text="A push-down automaton machine which recognizes the language { 0^n 1^2n | n >= 0 }."
+                                  editable="false" wrapText="true"/>
                         <Label fx:id="lExample4" mnemonicParsing="false" styleClass="home-button-icon">
 
                             <padding>
@@ -110,14 +90,9 @@
                     <VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" styleClass="home-boxes-content"
                           HBox.hgrow="ALWAYS">
                         <Label styleClass="home-button-title" text="PDA EXAMPLE 5" textFill="#23aa76"/>
-                        <TextArea editable="false" maxHeight="1"/>
-                        <Label maxWidth="400"
-                               text="A push-down automaton machine which recognizes the language  {a^i b^j c^k | i , j , k >= 0, and i = j  or i = k }."
-                               textFill="#23aa76" wrapText="true">
-                            <padding>
-                                <Insets bottom="20.0"/>
-                            </padding>
-                        </Label>
+                        <TextArea style="-fx-text-fill: #279f6e" VBox.vgrow="ALWAYS" maxHeight="Infinity"
+                                  text="A push-down automaton machine which recognizes the language  {a^i b^j c^k | i , j , k >= 0, and i = j  or i = k }."
+                                  editable="false" wrapText="true"/>
                         <Label fx:id="lExample5" mnemonicParsing="false" styleClass="home-button-icon">
 
                             <padding>

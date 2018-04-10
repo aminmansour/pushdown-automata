@@ -12,27 +12,6 @@ import java.util.ArrayList;
 public class ConfigurationContextTest extends TestCase {
 
 
-//    private Definition loadStandardDefinition(){
-//        ArrayList<Transition> transitions = new ArrayList<>();
-//        ArrayList<ControlState> states = new ArrayList<>();
-//        ControlState q1 = new ControlState("q1");
-//        states.add(q1);
-//        ControlState q2 = new ControlState("q2");
-//        states.add(q2);
-//        ControlState q3 = new ControlState("q3");
-//        states.add(q3);
-//        Transition transition1 = new Transition(new Configuration(q1, 'g', '/'), new Action(q2, 't'));
-//        transitions.add(transition1);
-//        Transition transition2 = new Transition(new Configuration(q1, 'g', '/'), new Action(q3, 't'));
-//        transitions.add(transition2);
-//        Transition transition3 = new Transition(new Configuration(q2, 'g', '/'), new Action(q2, 't'));
-//        transitions.add(transition3);
-//        Transition transition4 = new Transition(new Configuration(q1, 'd', '/'), new Action(q1, 't'));
-//        transitions.add(transition4);
-//        return new Definition("pda-test",states,states.get(0),transitions,true);
-//
-//    }
-
 
     // method create a test suite - Note 7
     public static Test suite() {
@@ -189,12 +168,12 @@ public class ConfigurationContextTest extends TestCase {
         ConfigurationContext contextRoot = new ConfigurationContext(q1, null, stackState, 0, 0, 0);
 
         //when empty
-        assertEquals(" - ", contextRoot.getStackStateInStringFormat());
+        assertEquals("-", contextRoot.getStackStateInStringFormat());
 
         //when not empty
         stackState.add('a');
         stackState.add('b');
         stackState.add('c');
-        assertEquals("abc", contextRoot.getStackStateInStringFormat());
+        assertEquals("cba", contextRoot.getStackStateInStringFormat());
     }
 }

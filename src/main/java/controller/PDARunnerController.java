@@ -21,7 +21,6 @@ import javafx.util.Duration;
 import model.*;
 import view.ViewFactory;
 
-import javax.swing.text.JTextComponent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -105,16 +104,16 @@ public class PDARunnerController implements Initializable {
     private void instantRun() {
         actionBar.setDisable(true);
         transitionTable.clearSelection(false);
-
-        closeNonDeterministicModeIfPresent();
+        closeDialogues();
         setUpRunEnvironment();
-        runInstantRunDFS(false, 20);
+        lookForASolution(false, 20);
     }
 
     //clears solution store, and loads the current input into the PDAMachine instance
     private void setUpRunEnvironment() {
         clearSolutionHistory();
         pda.loadInput(inputBox.getInput());
+        closeNonDeterministicModeIfPresent();
         machineIsNonDeterministic = pda.isNonDeterministic();
     }
 
@@ -140,70 +139,43 @@ public class PDARunnerController implements Initializable {
     }
 
     //runs dfs for instant-run on a given input
-    private boolean runInstantRunDFS(boolean isAlternativeSearch, int limit) {
-        ArrayList<ConfigurationContext> memory = new ArrayList<>();
-        if (isAlternativeSearch) {
-            pda.previous();
+    private boolean lookForASolution(boolean isAlternativeSearch, int limit) {
+        int result = pda.runInstantRunDFS(isAlternativeSearch);
+        if (result == 1) { //accepts
+            openInstantRunResultsOutputDialog(true, false);
+            return true;
+        } else if (result == 2) { //no moe solutions
+            openInstantRunResultsOutputDialog(isAlternativeSearch, isAlternativeSearch);
+            return false;
+        } else { //rejects
+            openNoSolutionDialog(isAlternativeSearch, limit);
+            return false;
         }
-        int totalMoves = 0;
-        boolean toBacktrack = false;
-        while (true) {
-            ArrayList<Transition> transitions = pda.getPossibleTransitionsFromCurrent();
-            if (pda.isAccepted()) {
-                openInstantRunResultsOutputDialog(true, false);
-                return true;
-            } else if (transitions.size() == 0 || toBacktrack) {
-                toBacktrack = false;
-                while (true) {
-                    previous();
-                    ArrayList<ConfigurationContext> exploredChildren = pda.getExecutionTree().getCurrent().getExploredChildren();
-                    if (exploredChildren.size() > 0 &&
-                            exploredChildren.get(0).getTotalSiblings() > exploredChildren.size()) {
-                        break;
-                    } else if (pda.getTape().getStep() == 0) {
-                        openInstantRunResultsOutputDialog(isAlternativeSearch, isAlternativeSearch);
-                        return false;
-                    }
-                }
-            } else {
-                toBacktrack = true;
-                java.util.Collections.shuffle(transitions);
-                transitionsLoop:
-                for (Transition transition : transitions) {
-                    ConfigurationContext previousState = checkIfPresentInHistory(transition);
-                    if (previousState == null) {
-                        pda.executeTransition(transition, transitions.size());
-                        toBacktrack = false;
-                        totalMoves++;
-                        if (totalMoves % 20 == 0) {
-                            ViewFactory.showStandardDialog(spPDARunnerPage, false, "No solution yet found (" + limit + " steps have been made) ", "Do you want to take control of the computation to make finding a solution easier?", event -> {
-                                spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
-                                actionBar.setDisable(false);
-                                loadConfigurationContext(pda.getExecutionTree().getCurrent());
-                            }, event -> {
-                                spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
-                                Timeline timeline = new Timeline(new KeyFrame(
-                                        Duration.millis(1300),
-                                        ae -> runInstantRunDFS(isAlternativeSearch, limit + 20)));
 
-                                timeline.play();
-                            }, "Enter step-mode", "Continue search");
-                            return false;
-                        }
-                        break transitionsLoop;
-                    }
-                }
+    }
 
-            }
-        }
+    private void openNoSolutionDialog(boolean isAlternativeSearch, int limit) {
+        ViewFactory.showStandardDialog(spPDARunnerPage, false, "No solution yet found (" + limit + " steps have been made) ", "Do you want to take control of the computation to make finding a solution easier?", event -> {
+            spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
+            actionBar.setDisable(false);
+            loadConfigurationContext(pda.getExecutionTree().getCurrent());
+        }, event -> {
+            spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
+            Timeline timeline = new Timeline(new KeyFrame(
+                    Duration.millis(1300),
+                    ae -> lookForASolution(isAlternativeSearch, limit + 20)));
+
+            timeline.play();
+        }, "Enter step-mode", "Continue search");
+
     }
 
 
     //step run
     private void stepRun() {
         clearSolutionHistory();
-        closeNonDeterministicModeIfPresent();
-        machineDisplay.unhighlightAllTransitions();
+        closeDialogues();
+        machineDisplay.removeFocusFromAllTransitions();
         transitionTable.clearSelection(false);
         loadPDAWithNewInput();
         actionBar.setDisable(false);
@@ -301,7 +273,7 @@ public class PDARunnerController implements Initializable {
         closeNonDeterministicModeIfPresent();
         transitionTable.clearSelection(false);
         pda.previous();
-        machineDisplay.unhighlightAllTransitions();
+        machineDisplay.removeFocusFromAllTransitions();
         actionBar.setDisable(false);
         requestInterfaceUpdate();
     }
@@ -312,7 +284,7 @@ public class PDARunnerController implements Initializable {
      */
     void redo() {
         closeNonDeterministicModeIfPresent();
-        machineDisplay.unhighlightAllTransitions();
+        machineDisplay.removeFocusFromAllTransitions();
         transitionTable.clearSelection(false);
         pda.redo();
         requestInterfaceUpdate();
@@ -325,7 +297,7 @@ public class PDARunnerController implements Initializable {
         closeNonDeterministicModeIfPresent();
         closeOptionDialogIfPresent();
         actionBar.setDisable(true);
-        machineDisplay.unhighlightAllTransitions();
+        machineDisplay.removeFocusFromAllTransitions();
         transitionTable.clearSelection(false);
         pda.stop();
         requestInterfaceUpdate();
@@ -345,6 +317,7 @@ public class PDARunnerController implements Initializable {
         stack.setStackModel(model.getStack());
         transitionTable.clear();
         inputBox.clear();
+        ControllerFactory.toolBarPartialController.highlightSaveButton(false);
         inputBox.setHintText(pda.getDefinition().getExampleHint());
         setPDATitle(model.getDefinition().getIdentifier());
         transitionTable.setStates(model.getDefinition().getStates());
@@ -364,7 +337,7 @@ public class PDARunnerController implements Initializable {
 
     //Executes chosen transition and updates interface.
     private void executeTransition(Transition transition, int totalChildren) {
-        ConfigurationContext previousState = checkIfPresentInHistory(transition);
+        ConfigurationContext previousState = pda.checkIfPresentInHistory(transition);
         if (previousState != null) {
             previousState.markInPath(true);
             loadConfigurationContext(previousState);
@@ -374,23 +347,6 @@ public class PDARunnerController implements Initializable {
         requestInterfaceUpdate();
         machineDisplay.focusTransition(transition);
         transitionTable.select(transition, true);
-    }
-
-    //checks if transition has been executed before. If it has return the
-    //ConfigurationContext, else return null.
-    private ConfigurationContext checkIfPresentInHistory(Transition transition) {
-        ArrayList content = new ArrayList(pda.getStack().getStackContent());
-        int headPosition = pda.getTape().getHeadPosition();
-        if (transition.getConfiguration().getInputSymbol() != '/') {
-            headPosition++;
-        }
-        if (transition.getConfiguration().getTopElement() != '/') {
-            content.remove(content.size() - 1);
-        }
-        if (transition.getAction().getElementToPush() != '/') {
-            content.add(transition.getAction().getElementToPush());
-        }
-        return pda.getExecutionTree().getCurrent().hasChild(transition.getAction().getNewState(), content, headPosition);
     }
 
     //loads a ConfigurationContext instance into current PDAMachine and updates interface
@@ -428,7 +384,7 @@ public class PDARunnerController implements Initializable {
     public void openNonDeterministicMode() {
         ControllerFactory.toolBarPartialController.setNonDeterministicModeButtonText("Close Non-Deterministic Mode");
         transitionTable.clearSelection(pda.getCurrentState() != null);
-        machineDisplay.unhighlightAllTransitions();
+        machineDisplay.removeFocusFromAllTransitions();
         Set<Transition> transitions = pda.getNonDeterministicTransitions();
         if (transitions.size() == 0) {
             ViewFactory.showStandardDialog(spPDARunnerPage, true, "No non-deterministic transitions!", "This is a deterministic PDA!", new EventHandler<ActionEvent>() {
@@ -594,7 +550,6 @@ public class PDARunnerController implements Initializable {
      */
     public void openNewTransitionDialog() {
         try {
-            stop();
             ControllerFactory.toolBarPartialController.disableToolbarButtons(true);
             currentAddTransitionDialog = FXMLLoader.load(getClass().getResource("/layouts/add_transition_page.fxml"));
             Button bAddTransition = (Button) currentAddTransitionDialog.lookup("#bAddTransition");
@@ -640,6 +595,8 @@ public class PDARunnerController implements Initializable {
                     spPDARunnerPage.getChildren().remove(currentAddTransitionDialog);
                     actionBar.setDisable(pda.getCurrentState() == null);
                     ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
+                    ControllerFactory.toolBarPartialController.highlightSaveButton(true);
+                    redo();
 
                 }
 
@@ -689,7 +646,7 @@ public class PDARunnerController implements Initializable {
                 bAnotherSolution.setOnAction(event -> {
                     if (moreSolutionsToBeFound) {
                         closeOutputDialogIfPresent();
-                        moreSolutionsToBeFound = runInstantRunDFS(true, 20);
+                        moreSolutionsToBeFound = lookForASolution(true, 20);
                     }
                 });
             }
@@ -794,7 +751,7 @@ public class PDARunnerController implements Initializable {
                 ((Label) option.lookup("#lResultingState")).setText("Resulting State : " + transitions.get(i).getAction().getNewState().getLabel());
                 vbOptions.getChildren().add(option);
                 int finalI = i;
-                if (checkIfPresentInHistory(transitions.get(i)) != null) {
+                if (pda.checkIfPresentInHistory(transitions.get(i)) != null) {
                     option.lookup("#lVisited").setVisible(true);
                 }
                 option.setOnMouseClicked(event -> {
@@ -836,6 +793,7 @@ public class PDARunnerController implements Initializable {
         ViewFactory.showStandardDialog(spPDARunnerPage, false, "Alert :",
                 "This action might lose all unsaved changes! Are you sure you want to proceed without saving!", event -> {
                     spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
+                    ControllerFactory.toolBarPartialController.highlightSaveButton(false);
                     ControllerFactory.toolBarPartialController.disableToolbarButtons(false);
                     switchToQuickDefinition();
                 },
@@ -855,7 +813,7 @@ public class PDARunnerController implements Initializable {
         if (inDeterministicMode) {
             ControllerFactory.toolBarPartialController.setNonDeterministicModeButtonText("Open Non-Deterministic Mode");
             inDeterministicMode = false;
-            machineDisplay.unhighlightAllTransitions();
+            machineDisplay.removeFocusFromAllTransitions();
             if (transitionTable.getHighlightedRowSaved() != -1) {
                 transitionTable.highlightRow(transitionTable.getHighlightedRowSaved(), true);
             } else {
@@ -879,6 +837,7 @@ public class PDARunnerController implements Initializable {
     private void closeAddTraansitionDialogueIfPresent() {
         if (currentAddTransitionDialog != null) {
             spPDARunnerPage.getChildren().remove(currentAddTransitionDialog);
+            removeUserInteractionWithPDA(false);
             currentAddTransitionDialog = null;
         }
     }
@@ -924,6 +883,7 @@ public class PDARunnerController implements Initializable {
     private void closeConfirmationDialog() {
         if (confirmationDialog != null) {
             spPDARunnerPage.getChildren().remove(confirmationDialog);
+            removeUserInteractionWithPDA(false);
             confirmationDialog = null;
         }
     }

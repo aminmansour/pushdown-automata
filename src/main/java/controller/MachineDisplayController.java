@@ -4,7 +4,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -269,15 +268,15 @@ public class MachineDisplayController {
     /**
      * A method which unhighlight all VisualTransition instances
      */
-    public void unhighlightAllTransitions() {
+    public void removeFocusFromAllTransitions() {
         for (Map.Entry<String, ArrayList<VisualTransition>> entry : transitionsByStateMap.entrySet()) {
             ArrayList<VisualTransition> transitionBatch = entry.getValue();
             for (VisualTransition vTransitions : transitionBatch) {
                 vTransitions.setFocus(false, "");
-                vTransitions.getSourceState().setFocus(false, "");
-                vTransitions.getResultingState().setFocus(false, "");
                 bringAllStatesToFront();
             }
+
+            removeFocusFromAllStates();
         }
     }
 
@@ -306,7 +305,7 @@ public class MachineDisplayController {
                         ae -> {
                             vTransition.setFocus(false, "");
                             bringAllStatesToFront();
-                            unhighlightAllTransitions();
+                            removeFocusFromAllTransitions();
                             vTransition.getResultingState().setFocus(true, NORMAL_RUN_COLOR);
                         }));
 
@@ -323,6 +322,15 @@ public class MachineDisplayController {
     private void bringAllStatesToFront() {
         for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
             entry.getValue().bringToFront();
+        }
+    }
+
+    /**
+     * Removes focus from all visual states
+     */
+    public void removeFocusFromAllStates() {
+        for (Map.Entry<String, VisualControlState> entry : controlStates.entrySet()) {
+            entry.getValue().setFocus(false, "");
         }
     }
 

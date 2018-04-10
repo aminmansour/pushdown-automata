@@ -342,4 +342,67 @@ public class PDAMachine {
         }
         stack.clear();
     }
+
+    //runs dfs for instant-run on a given input
+    public int runInstantRunDFS(boolean isAlternativeSearch) {
+        if (isAlternativeSearch) {
+            previous();
+        }
+        int totalMoves = 0;
+        boolean toBacktrack = false;
+        while (true) {
+            ArrayList<Transition> transitions = getPossibleTransitionsFromCurrent();
+            if (isAccepted()) {
+                return 1;
+            } else if (transitions.size() == 0 || toBacktrack) {
+                toBacktrack = false;
+                while (true) {
+                    previous();
+                    ArrayList<ConfigurationContext> exploredChildren = getExecutionTree().getCurrent().getExploredChildren();
+                    if (exploredChildren.size() > 0 &&
+                            exploredChildren.get(0).getTotalSiblings() > exploredChildren.size()) {
+                        break;
+                    } else if (getTape().getStep() == 0) {
+                        return 2;
+                    }
+                }
+            } else {
+                toBacktrack = true;
+                java.util.Collections.shuffle(transitions);
+                transitionsLoop:
+                for (Transition transition : transitions) {
+                    ConfigurationContext previousState = checkIfPresentInHistory(transition);
+                    if (previousState == null) {
+                        executeTransition(transition, transitions.size());
+                        toBacktrack = false;
+                        totalMoves++;
+                        if (totalMoves % 20 == 0) {
+                            return 3;
+                        }
+                        break transitionsLoop;
+                    }
+                }
+
+            }
+        }
+    }
+
+
+    //checks if transition has been executed before. If it has return the
+    //ConfigurationContext, else return null.
+    public ConfigurationContext checkIfPresentInHistory(Transition transition) {
+        ArrayList content = new ArrayList(getStack().getStackContent());
+        int headPosition = getTape().getHeadPosition();
+        if (transition.getConfiguration().getInputSymbol() != '/') {
+            headPosition++;
+        }
+        if (transition.getConfiguration().getTopElement() != '/') {
+            content.remove(content.size() - 1);
+        }
+        if (transition.getAction().getElementToPush() != '/') {
+            content.add(transition.getAction().getElementToPush());
+        }
+        return getExecutionTree().getCurrent().hasChild(transition.getAction().getNewState(), content, headPosition);
+    }
+
 }

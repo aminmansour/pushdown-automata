@@ -54,9 +54,14 @@ public class ToolBarPartialController implements Initializable {
     /**
      * A method which highlights the save button
      */
-    public void highlightSaveButton() {
+    public void highlightSaveButton(boolean toHighlight) {
         if (ControllerFactory.pdaRunnerController.isCurrentSavedInMemory()) {
-            bToolbarSave.getStyleClass().add("de-activated-save-button");
+            if (toHighlight) {
+                bToolbarSave.getStyleClass().add("de-activated-save-button");
+            }
+        }
+        if (!toHighlight) {
+            bToolbarSave.getStyleClass().remove("de-activated-save-button");
         }
     }
 
@@ -76,7 +81,7 @@ public class ToolBarPartialController implements Initializable {
      * A method which switches to the quick definition view from PDA view
      */
     public void switchToQuickDefinition() {
-        if (!ControllerFactory.pdaRunnerController.isCurrentSavedInMemory() || bToolbarSave.getStyleClass().contains("de-activated-saveToLibrary-button")) {
+        if (bToolbarSave.getStyleClass().contains("de-activated-save-button")) {
             ControllerFactory.pdaRunnerController.openConfirmationDialog();
         } else {
             ControllerFactory.pdaRunnerController.switchToQuickDefinition();

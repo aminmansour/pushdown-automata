@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import model.Definition;
 import model.MemoryFactory;
+import model.ModelFactory;
 import model.PDAMachine;
 import view.ViewFactory;
 
@@ -58,17 +59,17 @@ public class ExamplesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList<Definition> definitions = MemoryFactory.loadExamples();
-        bExample1.setOnAction(event -> load(definitions.get(4)));
-        bExample2.setOnAction(event -> load(definitions.get(0)));
-        bExample3.setOnAction(event -> load(definitions.get(1)));
-        bExample4.setOnAction(event -> load(definitions.get(3)));
-        bExample5.setOnAction(event -> load(definitions.get(2)));
+        bExample1.setOnAction(event -> load(ModelFactory.duplicate(definitions.get(4))));
+        bExample2.setOnAction(event -> load(ModelFactory.duplicate(definitions.get(0))));
+        bExample3.setOnAction(event -> load(ModelFactory.duplicate(definitions.get(1))));
+        bExample4.setOnAction(event -> load(ModelFactory.duplicate(definitions.get(3))));
+        bExample5.setOnAction(event -> load(ModelFactory.duplicate(definitions.get(2))));
 
-        ViewFactory.setLabelGraphic(lExample1, "fa-examples-alt", 114);
-        ViewFactory.setLabelGraphic(lExample2, "fa-examples-alt", 114);
-        ViewFactory.setLabelGraphic(lExample3, "fa-examples-alt", 114);
-        ViewFactory.setLabelGraphic(lExample4, "fa-examples-alt", 114);
-        ViewFactory.setLabelGraphic(lExample5, "fa-examples-alt", 114);
+        ViewFactory.setLabelGraphic(lExample1, "fa-examples-alt", 100);
+        ViewFactory.setLabelGraphic(lExample2, "fa-examples-alt", 100);
+        ViewFactory.setLabelGraphic(lExample3, "fa-examples-alt", 100);
+        ViewFactory.setLabelGraphic(lExample4, "fa-examples-alt", 100);
+        ViewFactory.setLabelGraphic(lExample5, "fa-examples-alt", 100);
     }
 
 

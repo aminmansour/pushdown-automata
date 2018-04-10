@@ -6,6 +6,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * ModelFactory is a suite which is in charge of common model manipulation operations found in the
@@ -50,4 +52,40 @@ public class ModelFactory {
     }
 
 
+    /**
+     * A method which duplicates a definition instance
+     *
+     * @param definition the definition instance to duplication
+     * @return the definition copy
+     */
+    public static Definition duplicate(Definition definition) {
+        ArrayList<ControlState> statesCopy = new ArrayList<>();
+        ArrayList<Transition> transitionsCopy = new ArrayList<>();
+        ControlState initialStateCopy = null;
+        Map<String, ControlState> stateIndex = new TreeMap<>();
+        for (ControlState state : definition.getStates()) {
+            ControlState controlState = new ControlState(state.getLabel());
+            stateIndex.put(controlState.getLabel(), controlState);
+            if (state.isInitial()) {
+                initialStateCopy = controlState;
+                controlState.markAsInitial();
+            }
+
+            if (state.isAccepting()) {
+                controlState.markAsAccepting();
+            }
+            statesCopy.add(controlState);
+
+        }
+        for (Transition transition : definition.getTransitions()) {
+            Configuration configurationCopy = new Configuration(stateIndex.get(transition.getConfiguration().getState().getLabel()),
+                    transition.getConfiguration().getInputSymbol(), transition.getConfiguration().getTopElement());
+            Action actionCopy = new Action(stateIndex.get(transition.getAction().getNewState().getLabel()), transition.getAction().getElementToPush());
+            Transition transitionCopy = new Transition(configurationCopy, actionCopy);
+            transitionsCopy.add(transitionCopy);
+        }
+        Definition definitionCopy = new Definition(new String(definition.getIdentifier()), statesCopy, initialStateCopy, transitionsCopy, definition.isAcceptByFinalState());
+        definitionCopy.setExampleHint(definition.getExampleHint());
+        return definitionCopy;
+    }
 }

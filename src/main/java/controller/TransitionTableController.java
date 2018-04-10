@@ -102,7 +102,7 @@ public class TransitionTableController {
         transitionEntry.update();
         ControllerFactory.pdaRunnerController.updateVisualLabel(transition);
         ControllerFactory.pdaRunnerController.closeNonDeterministicModeIfPresent();
-        ControllerFactory.toolBarPartialController.highlightSaveButton();
+        ControllerFactory.toolBarPartialController.highlightSaveButton(true);
         ControllerFactory.pdaRunnerController.redo();
     }
 
