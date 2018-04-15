@@ -549,6 +549,7 @@ public class PDARunnerController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -854,6 +855,7 @@ public class PDARunnerController implements Initializable {
         closeSaveDialogIfPresent();
         closeDeterministicDialogueIfPresent();
         closeAddTraansitionDialogueIfPresent();
+        closeOutputDialogIfPresent();
         closeConfirmationDialog();
         closeNonDeterministicModeIfPresent();
     }

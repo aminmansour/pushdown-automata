@@ -14,7 +14,6 @@
     <list default="true" id="70f5351c-4f55-452c-8381-47a411c0932b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/controller/PDARunnerController.java" afterPath="$PROJECT_DIR$/src/main/java/controller/PDARunnerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/view/ViewFactory.java" afterPath="$PROJECT_DIR$/src/main/java/view/ViewFactory.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -194,8 +193,8 @@
       <file leaf-file-name="PDARunnerController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/PDARunnerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="183" column="43" lean-forward="true" selection-start-line="183" selection-start-column="43" selection-end-line="183" selection-end-column="43" />
+            <state relative-caret-position="332">
+              <caret line="858" column="8" lean-forward="false" selection-start-line="858" selection-start-column="8" selection-end-line="858" selection-end-column="8" />
               <folding />
             </state>
           </provider>
@@ -234,7 +233,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>step-</find>
       <find>step</find>
       <find>stepR</find>
       <find>OPEnTr</find>
@@ -246,7 +244,6 @@
       <find>java</find>
       <find>fxml</find>
       <find>setPda</find>
-      <find>loadPDA</find>
       <find>addTr</find>
       <find>TRANSITIONOP</find>
       <find>instant-run</find>
@@ -264,6 +261,8 @@
       <find>closeIn</find>
       <find>instant-ru</find>
       <find>instantrun(</find>
+      <find>loadPDA</find>
+      <find>accept</find>
     </findStrings>
     <replaceStrings>
       <replace>iconColor=&quot;#455A64&quot;</replace>
@@ -1204,7 +1203,7 @@
       <workItem from="1523160124809" duration="4819000" />
       <workItem from="1523276400810" duration="25332000" />
       <workItem from="1523455003859" duration="9471000" />
-      <workItem from="1523631271620" duration="9928000" />
+      <workItem from="1523631271620" duration="10631000" />
     </task>
     <task id="LOCAL-00001" summary="complete initial production of views">
       <created>1516593565159</created>
@@ -1507,7 +1506,14 @@
       <option name="project" value="LOCAL" />
       <updated>1523750721812</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="close instant-run dialog">
+      <created>1523789886171</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1523789886171</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1543,7 +1549,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1339692000" />
+    <option name="totallyTimeSpent" value="1340395000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1670,7 +1676,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="focus on states and transitions" />
     <MESSAGE value="add visual transitions which have one state" />
     <MESSAGE value="add visual transitions with labels" />
     <MESSAGE value="finish prototype of application" />
@@ -1695,7 +1700,8 @@
     <MESSAGE value="close dialogues of view switch" />
     <MESSAGE value="improve user manuals and information help" />
     <MESSAGE value="finalize application" />
-    <option name="LAST_COMMIT_MESSAGE" value="finalize application" />
+    <MESSAGE value="close instant-run dialog" />
+    <option name="LAST_COMMIT_MESSAGE" value="close instant-run dialog" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -2277,8 +2283,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/PDARunnerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="183" column="43" lean-forward="true" selection-start-line="183" selection-start-column="43" selection-end-line="183" selection-end-column="43" />
+        <state relative-caret-position="332">
+          <caret line="858" column="8" lean-forward="false" selection-start-line="858" selection-start-column="8" selection-end-line="858" selection-end-column="8" />
           <folding />
         </state>
       </provider>
