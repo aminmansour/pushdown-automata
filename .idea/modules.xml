@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/pushdown-automata.iml" filepath="$PROJECT_DIR$/.idea/modules/pushdown-automata.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/pushdown-automata_main.iml" filepath="$PROJECT_DIR$/.idea/modules/pushdown-automata_main.iml" group="pushdown-automata" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pushdown-automata_package.iml" filepath="$PROJECT_DIR$/.idea/modules/pushdown-automata_package.iml" group="pushdown-automata" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/pushdown-automata_test.iml" filepath="$PROJECT_DIR$/.idea/modules/pushdown-automata_test.iml" group="pushdown-automata" />
     </modules>
   </component>

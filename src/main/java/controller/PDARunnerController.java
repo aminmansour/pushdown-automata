@@ -103,6 +103,9 @@ public class PDARunnerController implements Initializable {
     //runs instant run on the current input
     private void instantRun() {
         actionBar.setDisable(true);
+        stop();
+        closeDialogues();
+        machineDisplay.removeFocusFromAllStates();
         transitionTable.clearSelection(false);
         closeDialogues();
         setUpRunEnvironment();
@@ -724,22 +727,12 @@ public class PDARunnerController implements Initializable {
             vbOptions.setId("vbOptionContainer");
             sp.setContent(vbOptions);
             ArrayList<ConfigurationContext> exploredChildren = pda.getExecutionTree().getCurrent().getExploredChildren();
-            if (exploredChildren.size() > 0 && exploredChildren.size() == exploredChildren.get(0).getTotalSiblings()) {
                 Button bPreviousBranch = (Button) currentChoiceWindow.lookup("#bPreviousBranch");
                 bPreviousBranch.setManaged(true);
                 bPreviousBranch.setOnAction(event -> {
                     closeOptionDialogIfPresent();
                     previousBranching();
-                    if (currentChoiceWindow == null && pda.getTape().getStep() == 0) {
-                        removeUserInteractionWithPDA(true);
-                        Timeline timeline = new Timeline(new KeyFrame(
-                                Duration.millis(1300),
-                                ae -> openStepRunNonDeterministicOutputDialog()));
-
-                        timeline.play();
-                    }
                 });
-            }
             for (int i = 0; i < transitions.size(); i++) {
                 BorderPane option = FXMLLoader.load(getClass().getResource("/layouts/transition_option.fxml"));
                 ((Label) option.lookup("#lTransitionOption")).setText(Integer.toString(i + 1));

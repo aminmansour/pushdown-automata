@@ -11,7 +11,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="pushdown-automata_main" />
     <orderEntry type="library" name="Gradle: com.google.guava:guava:23.5-jre" level="project" />
-    <orderEntry type="library" name="Gradle: com.jfoenix:jfoenix:8.0.1" level="project" />
     <orderEntry type="library" name="Gradle: org.controlsfx:controlsfx:8.40.11" level="project" />
     <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.8.2" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />

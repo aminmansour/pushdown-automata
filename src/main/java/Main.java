@@ -57,6 +57,7 @@ public class Main extends Application {
 
 
         FXMLLoader quickDefinitionLoader = new FXMLLoader(getClass().getResource("/layouts/quick_definition_page.fxml"));
+
         ViewFactory.quickDefinition = quickDefinitionLoader.load();
         ControllerFactory.quickDefinitionController = quickDefinitionLoader.getController();
 
