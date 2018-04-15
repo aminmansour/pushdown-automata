@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -45,7 +46,7 @@ public class ViewFactory {
      * @param primaryButtonText   the primary button text
      * @param secondaryButtonText the secondary button text
      */
-    public static void showStandardDialog(Pane parent, boolean oneButtonDialog, String title, String additonalMessage,
+    public static Node showStandardDialog(Pane parent, boolean oneButtonDialog, String title, String additonalMessage,
                                           EventHandler<ActionEvent> primaryListener,
                                           EventHandler<ActionEvent> secondaryListener,
                                           String primaryButtonText, String secondaryButtonText) {
@@ -65,10 +66,11 @@ public class ViewFactory {
                 secondary.setText(secondaryButtonText);
             }
             parent.getChildren().add(dialog);
-
+            return dialog;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**

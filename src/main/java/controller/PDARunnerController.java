@@ -67,6 +67,7 @@ public class PDARunnerController implements Initializable {
     private Node deterministicDialogue;
     private Node currentAddTransitionDialog;
     private Node confirmationDialog;
+    private Node instantRunDialog;
 
 
     @Override
@@ -104,10 +105,10 @@ public class PDARunnerController implements Initializable {
     private void instantRun() {
         actionBar.setDisable(true);
         stop();
-        closeDialogues();
         machineDisplay.removeFocusFromAllStates();
         transitionTable.clearSelection(false);
         closeDialogues();
+        closeInstantRunDialogueIfPresent();
         setUpRunEnvironment();
         lookForASolution(false, 20);
     }
@@ -158,7 +159,7 @@ public class PDARunnerController implements Initializable {
     }
 
     private void openNoSolutionDialog(boolean isAlternativeSearch, int limit) {
-        ViewFactory.showStandardDialog(spPDARunnerPage, false, "No solution yet found (" + limit + " steps have been made) ", "Do you want to take control of the computation to make finding a solution easier?", event -> {
+        instantRunDialog = ViewFactory.showStandardDialog(spPDARunnerPage, false, "No solution yet found (" + limit + " steps have been made) ", "Do you want to take control of the computation to make finding a solution easier?", event -> {
             spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
             actionBar.setDisable(false);
             loadConfigurationContext(pda.getExecutionTree().getCurrent());
@@ -166,7 +167,9 @@ public class PDARunnerController implements Initializable {
             spPDARunnerPage.getChildren().remove(spPDARunnerPage.getChildren().size() - 1);
             Timeline timeline = new Timeline(new KeyFrame(
                     Duration.millis(1300),
-                    ae -> lookForASolution(isAlternativeSearch, limit + 20)));
+                    ae -> {
+                        lookForASolution(isAlternativeSearch, limit + 20);
+                    }));
 
             timeline.play();
         }, "Enter step-mode", "Continue search");
@@ -178,6 +181,7 @@ public class PDARunnerController implements Initializable {
     private void stepRun() {
         clearSolutionHistory();
         closeDialogues();
+        closeInstantRunDialogueIfPresent();
         machineDisplay.removeFocusFromAllTransitions();
         transitionTable.clearSelection(false);
         loadPDAWithNewInput();
@@ -849,10 +853,16 @@ public class PDARunnerController implements Initializable {
     void closeDialogues() {
         closeSaveDialogIfPresent();
         closeDeterministicDialogueIfPresent();
-        closeOutputDialogIfPresent();
         closeAddTraansitionDialogueIfPresent();
         closeConfirmationDialog();
         closeNonDeterministicModeIfPresent();
+    }
+
+    private void closeInstantRunDialogueIfPresent() {
+        if (instantRunDialog != null) {
+            spPDARunnerPage.getChildren().remove(instantRunDialog);
+            instantRunDialog = null;
+        }
     }
 
     //a method which closes the result dialog
