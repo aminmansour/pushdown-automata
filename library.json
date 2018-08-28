@@ -1,0 +1,73 @@
+[
+  {
+    "identifier": "PDA1",
+    "states": [
+      {
+        "isAccepting": false,
+        "isInitial": true,
+        "label": "Q0"
+      },
+      {
+        "isAccepting": true,
+        "isInitial": false,
+        "label": "Q1"
+      },
+      {
+        "isAccepting": true,
+        "isInitial": false,
+        "label": "Q2"
+      },
+      {
+        "isAccepting": false,
+        "isInitial": false,
+        "label": "Q3"
+      }
+    ],
+    "isAcceptByFinalState": true,
+    "transitions": [
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "inputSymbol": "B",
+          "topElement": "A"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q1"
+          },
+          "elementToPush": "B"
+        }
+      },
+      {
+        "configuration": {
+          "state": {
+            "isAccepting": false,
+            "isInitial": true,
+            "label": "Q0"
+          },
+          "inputSymbol": "c",
+          "topElement": "B"
+        },
+        "action": {
+          "newState": {
+            "isAccepting": true,
+            "isInitial": false,
+            "label": "Q2"
+          },
+          "elementToPush": "X"
+        }
+      }
+    ],
+    "initialState": {
+      "isAccepting": false,
+      "isInitial": true,
+      "label": "Q0"
+    }
+  }
+]
